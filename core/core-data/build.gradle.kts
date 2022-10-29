@@ -23,6 +23,7 @@ android.namespace = "com.maximillianleonov.musicmax.core.data"
 dependencies {
     implementation(project(":core:core-database"))
     implementation(project(":core:core-mediastore"))
+    implementation(project(":core:core-domain"))
 
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.javax.inject)

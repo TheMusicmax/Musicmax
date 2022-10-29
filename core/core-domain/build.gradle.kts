@@ -15,13 +15,10 @@
  */
 
 plugins {
-    id("musicmax.android.library")
-    id("musicmax.android.library.compose")
+    alias(libs.plugins.kotlin.jvm)
 }
 
-android.namespace = "com.maximillianleonov.musicmax.core.ui"
-
 dependencies {
-    api(project(":core:core-designsystem"))
-    api(project(":core:core-domain"))
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.javax.inject)
 }
