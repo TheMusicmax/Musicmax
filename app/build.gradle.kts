@@ -39,9 +39,10 @@ dependencies {
     implementation(project(":core:core-database"))
     implementation(project(":core:core-mediastore"))
     implementation(project(":core:core-domain"))
-    implementation(project(":core:core-model"))
-    implementation(project(":core:core-designsystem"))
     implementation(project(":core:core-ui"))
+    implementation(project(":core:core-designsystem"))
+    implementation(project(":core:core-model"))
+    implementation(project(":core:core-media"))
 
     implementation(project(":features:feature-home"))
     implementation(project(":features:feature-search"))
