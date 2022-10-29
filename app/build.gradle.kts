@@ -35,6 +35,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:core-data"))
     implementation(project(":core:core-database"))
     implementation(project(":core:core-mediastore"))
     implementation(project(":core:core-designsystem"))
