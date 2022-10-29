@@ -35,6 +35,7 @@ rootProject.name = "Musicmax"
 
 include(":app")
 include(":benchmark")
+include(":core:core-mediastore")
 include(":core:core-designsystem")
 include(":core:core-ui")
 include(":features:feature-home")
