@@ -14,13 +14,20 @@
  * limitations under the License.
  */
 
-plugins {
-    id("musicmax.android.library")
-}
+package com.maximillianleonov.musicmax.di
 
-android.namespace = "com.maximillianleonov.musicmax.core.mediastore"
+import android.content.ContentResolver
+import android.content.Context
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 
-dependencies {
-    implementation(project(":core:core-model"))
-    implementation(libs.javax.inject)
+@Module
+@InstallIn(SingletonComponent::class)
+object MediaStoreModule {
+    @Provides
+    fun provideContentResolver(@ApplicationContext context: Context): ContentResolver =
+        context.contentResolver
 }
