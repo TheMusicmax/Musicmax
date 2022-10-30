@@ -24,8 +24,8 @@ import android.provider.MediaStore
 import com.maximillianleonov.musicmax.core.model.Song
 import javax.inject.Inject
 
-class MediaStoreDataSource @Inject constructor(private val contentResolver: ContentResolver) {
-    fun getSongs(): List<Song> {
+class SongMediaStoreDataSource @Inject constructor(private val contentResolver: ContentResolver) {
+    fun getAll(): List<Song> {
         val songs = mutableListOf<Song>()
 
         val collection = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
