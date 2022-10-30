@@ -16,10 +16,12 @@
 
 package com.maximillianleonov.musicmax.core.model
 
+import android.net.Uri
+
 data class Song(
     val mediaId: String,
-    val mediaUri: String,
-    val artworkUri: String,
+    val mediaUri: Uri,
+    val artworkUri: Uri,
     val title: String,
     val artist: String
 )
