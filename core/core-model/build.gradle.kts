@@ -15,5 +15,7 @@
  */
 
 plugins {
-    alias(libs.plugins.kotlin.jvm)
+    id("musicmax.android.library")
 }
+
+android.namespace = "com.maximillianleonov.musicmax.core.model"
