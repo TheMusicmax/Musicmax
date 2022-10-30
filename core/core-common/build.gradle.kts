@@ -19,8 +19,6 @@ plugins {
 }
 
 dependencies {
-    api(project(":core:core-common"))
-
     implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.javax.inject)
+    implementation(libs.dagger.hilt.core)
 }
