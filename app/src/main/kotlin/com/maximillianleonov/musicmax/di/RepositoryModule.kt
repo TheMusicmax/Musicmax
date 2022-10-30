@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-plugins {
-    id("musicmax.android.library")
-}
+package com.maximillianleonov.musicmax.di
 
-android.namespace = "com.maximillianleonov.musicmax.core.data"
+import com.maximillianleonov.musicmax.core.data.repository.SongRepositoryImpl
+import com.maximillianleonov.musicmax.core.domain.repository.SongRepository
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
 
-dependencies {
-    implementation(project(":core:core-database"))
-    implementation(project(":core:core-mediastore"))
-    implementation(project(":core:core-domain"))
-    implementation(project(":core:core-model"))
-
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.javax.inject)
+@Module
+@InstallIn(ViewModelComponent::class)
+interface RepositoryModule {
+    @Binds
+    fun bindSongRepository(songRepositoryImpl: SongRepositoryImpl): SongRepository
 }

@@ -14,18 +14,15 @@
  * limitations under the License.
  */
 
-plugins {
-    id("musicmax.android.library")
-}
+package com.maximillianleonov.musicmax.core.data.mapper
 
-android.namespace = "com.maximillianleonov.musicmax.core.data"
+import com.maximillianleonov.musicmax.core.domain.model.SongModel
+import com.maximillianleonov.musicmax.core.model.Song
 
-dependencies {
-    implementation(project(":core:core-database"))
-    implementation(project(":core:core-mediastore"))
-    implementation(project(":core:core-domain"))
-    implementation(project(":core:core-model"))
-
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.javax.inject)
-}
+internal fun Song.asSongModel() = SongModel(
+    mediaId = mediaId,
+    mediaUri = mediaUri.toString(),
+    artworkUri = artworkUri.toString(),
+    title = title,
+    artist = artist
+)
