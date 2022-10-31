@@ -16,6 +16,7 @@
 
 plugins {
     id("musicmax.android.library")
+    id("musicmax.android.hilt")
 }
 
 android.namespace = "com.maximillianleonov.musicmax.core.mediastore"

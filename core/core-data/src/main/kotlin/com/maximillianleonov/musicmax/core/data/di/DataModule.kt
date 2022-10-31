@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.di
+package com.maximillianleonov.musicmax.core.data.di
 
 import com.maximillianleonov.musicmax.core.data.repository.SongRepositoryImpl
 import com.maximillianleonov.musicmax.core.domain.repository.SongRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.components.SingletonComponent
 
 @Module
-@InstallIn(ViewModelComponent::class)
-interface RepositoryModule {
+@InstallIn(SingletonComponent::class)
+interface DataModule {
     @Binds
     fun bindSongRepository(songRepositoryImpl: SongRepositoryImpl): SongRepository
 }

@@ -21,7 +21,7 @@ import com.maximillianleonov.musicmax.core.common.dispatcher.MusicmaxDispatchers
 import com.maximillianleonov.musicmax.core.data.mapper.asSongModel
 import com.maximillianleonov.musicmax.core.domain.model.SongModel
 import com.maximillianleonov.musicmax.core.domain.repository.SongRepository
-import com.maximillianleonov.musicmax.core.mediastore.SongMediaStoreDataSource
+import com.maximillianleonov.musicmax.core.mediastore.source.SongMediaStoreDataSource
 import com.maximillianleonov.musicmax.core.model.Song
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext

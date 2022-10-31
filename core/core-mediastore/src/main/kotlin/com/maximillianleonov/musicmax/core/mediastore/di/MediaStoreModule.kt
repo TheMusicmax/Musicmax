@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.di
+package com.maximillianleonov.musicmax.core.mediastore.di
 
 import android.content.ContentResolver
 import android.content.Context
