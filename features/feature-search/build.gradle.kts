@@ -15,8 +15,6 @@
  */
 
 plugins {
-    id("musicmax.android.library")
-    id("musicmax.android.library.compose")
     id("musicmax.android.feature")
 }
 

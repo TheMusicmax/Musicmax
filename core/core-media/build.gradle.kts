@@ -16,9 +16,7 @@
 
 plugins {
     id("musicmax.android.library")
-
-    alias(libs.plugins.kotlin.kapt)
-    alias(libs.plugins.dagger.hilt.android)
+    id("musicmax.android.hilt")
 }
 
 android.namespace = "com.maximillianleonov.musicmax.core.media"
@@ -27,8 +25,6 @@ dependencies {
     implementation(libs.bundles.androidx.media3)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.coroutines.guava)
-    implementation(libs.dagger.hilt.android)
-    kapt(libs.dagger.hilt.compiler)
 
     @Suppress("ForbiddenComment")
     // [androidx-media3] uses version 1.2.0 of [androidx-annotation-experimental], which causes the

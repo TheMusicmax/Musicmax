@@ -56,6 +56,14 @@ gradlePlugin {
             id = "musicmax.android.feature"
             implementationClass = "AndroidFeatureConventionPlugin"
         }
+        register("hilt") {
+            id = "musicmax.hilt"
+            implementationClass = "HiltConventionPlugin"
+        }
+        register("androidHilt") {
+            id = "musicmax.android.hilt"
+            implementationClass = "AndroidHiltConventionPlugin"
+        }
         register("androidBenchmark") {
             id = "musicmax.android.benchmark"
             implementationClass = "AndroidBenchmarkConventionPlugin"

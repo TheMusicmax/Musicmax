@@ -17,11 +17,9 @@
 plugins {
     id("musicmax.android.application")
     id("musicmax.android.application.compose")
+    id("musicmax.android.hilt")
     id("musicmax.android.lint")
     id("musicmax.android.signingconfig")
-
-    alias(libs.plugins.kotlin.kapt)
-    alias(libs.plugins.dagger.hilt.android)
 }
 
 android {
@@ -55,6 +53,4 @@ dependencies {
     implementation(libs.androidx.profileinstaller)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.accompanist.permissions)
-    implementation(libs.dagger.hilt.android)
-    kapt(libs.dagger.hilt.compiler)
 }
