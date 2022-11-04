@@ -16,21 +16,27 @@
 
 package com.maximillianleonov.musicmax.core.data.repository
 
-import com.maximillianleonov.musicmax.core.common.dispatcher.Dispatcher
-import com.maximillianleonov.musicmax.core.common.dispatcher.MusicmaxDispatchers.IO
+import com.maximillianleonov.musicmax.core.data.mapper.asSongEntity
 import com.maximillianleonov.musicmax.core.data.mapper.asSongModel
+import com.maximillianleonov.musicmax.core.data.mapper.listMap
+import com.maximillianleonov.musicmax.core.database.model.SongEntity
+import com.maximillianleonov.musicmax.core.database.source.SongDatabaseDataSource
 import com.maximillianleonov.musicmax.core.domain.model.SongModel
 import com.maximillianleonov.musicmax.core.domain.repository.SongRepository
 import com.maximillianleonov.musicmax.core.mediastore.source.SongMediaStoreDataSource
 import com.maximillianleonov.musicmax.core.model.Song
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class SongRepositoryImpl @Inject constructor(
-    private val songMediaStoreDataSource: SongMediaStoreDataSource,
-    @Dispatcher(IO) private val ioDispatcher: CoroutineDispatcher
+    private val songDatabaseDataSource: SongDatabaseDataSource,
+    private val songMediaStoreDataSource: SongMediaStoreDataSource
 ) : SongRepository {
-    override suspend fun getAll(): List<SongModel> =
-        withContext(ioDispatcher) { songMediaStoreDataSource.getAll().map(Song::asSongModel) }
+    override fun getAll(): Flow<List<SongModel>> =
+        songDatabaseDataSource.getAll().listMap(SongEntity::asSongModel)
+
+    override suspend fun synchronize() {
+        val songs = songMediaStoreDataSource.getAll().map(Song::asSongEntity)
+        songDatabaseDataSource.deleteAndInsertAll(songs)
+    }
 }

@@ -14,12 +14,9 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.core.domain.repository
+package com.maximillianleonov.musicmax.core.data.mapper
 
-import com.maximillianleonov.musicmax.core.domain.model.SongModel
-import com.maximillianleonov.musicmax.core.domain.sync.Syncable
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
-interface SongRepository : Syncable {
-    fun getAll(): Flow<List<SongModel>>
-}
+internal fun <T, R> Flow<List<T>>.listMap(transform: (T) -> R) = map { it.map(transform) }

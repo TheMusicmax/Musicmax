@@ -20,5 +20,5 @@ import com.maximillianleonov.musicmax.core.domain.repository.SongRepository
 import javax.inject.Inject
 
 class GetSongsUseCase @Inject constructor(private val songRepository: SongRepository) {
-    suspend operator fun invoke() = songRepository.getAll()
+    operator fun invoke() = songRepository.getAll()
 }

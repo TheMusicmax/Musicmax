@@ -49,6 +49,8 @@ dependencies {
     implementation(project(":features:feature-favorite"))
     implementation(project(":features:feature-settings"))
 
+    implementation(project(":sync:work"))
+
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.profileinstaller)

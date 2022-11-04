@@ -14,12 +14,22 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.core.domain.repository
+plugins {
+    id("musicmax.android.library")
+    id("musicmax.android.hilt")
+}
 
-import com.maximillianleonov.musicmax.core.domain.model.SongModel
-import com.maximillianleonov.musicmax.core.domain.sync.Syncable
-import kotlinx.coroutines.flow.Flow
+android.namespace = "com.maximillianleonov.musicmax.sync.work"
 
-interface SongRepository : Syncable {
-    fun getAll(): Flow<List<SongModel>>
+dependencies {
+    implementation(project(":core:core-common"))
+    implementation(project(":core:core-domain"))
+    implementation(project(":core:core-permission"))
+
+    implementation(libs.androidx.startup.runtime)
+    implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.androidx.hilt.work)
+    kapt(libs.androidx.hilt.compiler)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.kotlinx.coroutines.android)
 }

@@ -17,7 +17,13 @@
 package com.maximillianleonov.musicmax
 
 import android.app.Application
+import com.maximillianleonov.musicmax.sync.work.initializers.Sync
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class MusicmaxApplication : Application()
+class MusicmaxApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        Sync.initialize(context = this)
+    }
+}

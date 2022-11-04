@@ -14,12 +14,18 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.core.domain.repository
+package com.maximillianleonov.musicmax.sync.work.di
 
-import com.maximillianleonov.musicmax.core.domain.model.SongModel
-import com.maximillianleonov.musicmax.core.domain.sync.Syncable
-import kotlinx.coroutines.flow.Flow
+import com.maximillianleonov.musicmax.core.domain.sync.SyncStatusMonitor
+import com.maximillianleonov.musicmax.sync.work.status.WorkManagerSyncStatusMonitor
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
-interface SongRepository : Syncable {
-    fun getAll(): Flow<List<SongModel>>
+@Module
+@InstallIn(SingletonComponent::class)
+interface SyncModule {
+    @Binds
+    fun bindSyncStatusMonitor(syncStatusMonitor: WorkManagerSyncStatusMonitor): SyncStatusMonitor
 }

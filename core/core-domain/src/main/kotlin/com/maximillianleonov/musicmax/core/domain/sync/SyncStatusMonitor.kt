@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.core.domain.repository
+package com.maximillianleonov.musicmax.core.domain.sync
 
-import com.maximillianleonov.musicmax.core.domain.model.SongModel
-import com.maximillianleonov.musicmax.core.domain.sync.Syncable
 import kotlinx.coroutines.flow.Flow
 
-interface SongRepository : Syncable {
-    fun getAll(): Flow<List<SongModel>>
+/**
+ * Reports on if synchronization is in progress.
+ */
+interface SyncStatusMonitor {
+    val isSyncing: Flow<Boolean>
 }
