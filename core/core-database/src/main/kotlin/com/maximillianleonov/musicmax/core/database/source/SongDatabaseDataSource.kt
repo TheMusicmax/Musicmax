@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-plugins {
-    id("musicmax.android.library")
-    id("musicmax.android.hilt")
-    alias(libs.plugins.ksp)
-}
+package com.maximillianleonov.musicmax.core.database.source
 
-android.namespace = "com.maximillianleonov.musicmax.core.database"
+import com.maximillianleonov.musicmax.core.database.dao.SongDao
+import com.maximillianleonov.musicmax.core.database.model.SongEntity
+import javax.inject.Inject
 
-dependencies {
-    implementation(libs.bundles.androidx.room)
-    ksp(libs.androidx.room.compiler)
-    implementation(libs.javax.inject)
+class SongDatabaseDataSource @Inject constructor(private val songDao: SongDao) {
+    fun getAll() = songDao.getAll()
+    suspend fun insertAll(songs: List<SongEntity>) = songDao.insertAll(songs)
+    suspend fun deleteAll() = songDao.deleteAll()
+    suspend fun deleteAndInsertAll(songs: List<SongEntity>) = songDao.deleteAndInsertAll(songs)
 }

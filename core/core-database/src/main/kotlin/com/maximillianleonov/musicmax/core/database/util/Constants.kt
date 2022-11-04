@@ -14,16 +14,19 @@
  * limitations under the License.
  */
 
-plugins {
-    id("musicmax.android.library")
-    id("musicmax.android.hilt")
-    alias(libs.plugins.ksp)
-}
+package com.maximillianleonov.musicmax.core.database.util
 
-android.namespace = "com.maximillianleonov.musicmax.core.database"
+internal object Constants {
+    internal object Tables {
+        internal const val SONGS = "songs"
+    }
 
-dependencies {
-    implementation(libs.bundles.androidx.room)
-    ksp(libs.androidx.room.compiler)
-    implementation(libs.javax.inject)
+    internal object Fields {
+        internal const val ID = "id"
+        internal const val MEDIA_ID = "media_id"
+        internal const val MEDIA_URI = "media_uri"
+        internal const val ARTWORK_URI = "artwork_uri"
+        internal const val TITLE = "title"
+        internal const val ARTIST = "artist"
+    }
 }

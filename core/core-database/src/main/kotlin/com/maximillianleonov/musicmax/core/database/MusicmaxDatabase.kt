@@ -14,16 +14,18 @@
  * limitations under the License.
  */
 
-plugins {
-    id("musicmax.android.library")
-    id("musicmax.android.hilt")
-    alias(libs.plugins.ksp)
-}
+package com.maximillianleonov.musicmax.core.database
 
-android.namespace = "com.maximillianleonov.musicmax.core.database"
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import com.maximillianleonov.musicmax.core.database.dao.SongDao
+import com.maximillianleonov.musicmax.core.database.model.SongEntity
 
-dependencies {
-    implementation(libs.bundles.androidx.room)
-    ksp(libs.androidx.room.compiler)
-    implementation(libs.javax.inject)
+@Database(
+    entities = [SongEntity::class],
+    version = 1,
+    exportSchema = false
+)
+abstract class MusicmaxDatabase : RoomDatabase() {
+    abstract val songDao: SongDao
 }
