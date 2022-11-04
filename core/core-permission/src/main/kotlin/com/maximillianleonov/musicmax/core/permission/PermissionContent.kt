@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.ui.component
+package com.maximillianleonov.musicmax.core.permission
 
 import android.content.Context
 import android.content.Intent
@@ -44,7 +44,6 @@ import androidx.compose.ui.res.stringResource
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.shouldShowRationale
-import com.maximillianleonov.musicmax.R
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 
 @OptIn(

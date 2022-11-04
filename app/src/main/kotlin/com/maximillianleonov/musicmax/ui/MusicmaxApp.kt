@@ -38,9 +38,9 @@ import androidx.compose.ui.res.stringResource
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
 import com.maximillianleonov.musicmax.core.designsystem.theme.MusicmaxTheme
+import com.maximillianleonov.musicmax.core.permission.PermissionContent
 import com.maximillianleonov.musicmax.navigation.MusicmaxNavHost
 import com.maximillianleonov.musicmax.ui.component.MusicmaxBottomBar
-import com.maximillianleonov.musicmax.ui.component.PermissionContent
 
 @OptIn(ExperimentalPermissionsApi::class, ExperimentalMaterial3Api::class)
 @Composable

@@ -42,6 +42,7 @@ dependencies {
     implementation(project(":core:core-designsystem"))
     implementation(project(":core:core-model"))
     implementation(project(":core:core-media"))
+    implementation(project(":core:core-permission"))
 
     implementation(project(":features:feature-home"))
     implementation(project(":features:feature-search"))
@@ -52,5 +53,4 @@ dependencies {
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.profileinstaller)
     implementation(libs.androidx.navigation.compose)
-    implementation(libs.accompanist.permissions)
 }

@@ -16,8 +16,6 @@
 
 package com.maximillianleonov.musicmax.ui
 
-import android.Manifest
-import android.os.Build
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
@@ -31,7 +29,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
-import com.google.accompanist.permissions.rememberPermissionState
+import com.maximillianleonov.musicmax.core.permission.rememberMusicmaxPermissionState
 import com.maximillianleonov.musicmax.navigation.TopLevelDestination
 
 @Composable
@@ -66,13 +64,7 @@ class MusicmaxAppState(
     private var _currentTopLevelDestination by mutableStateOf(startDestination)
 
     val permissionState: PermissionState
-        @Composable get() = rememberPermissionState(
-            permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                Manifest.permission.READ_MEDIA_AUDIO
-            } else {
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            }
-        ) { isPermissionRequested = true }
+        @Composable get() = rememberMusicmaxPermissionState { isPermissionRequested = true }
 
     var isPermissionRequested by mutableStateOf(false)
         private set
