@@ -22,7 +22,6 @@ plugins {
 android.namespace = "com.maximillianleonov.musicmax.sync.work"
 
 dependencies {
-    implementation(project(":core:core-common"))
     implementation(project(":core:core-domain"))
     implementation(project(":core:core-permission"))
 
