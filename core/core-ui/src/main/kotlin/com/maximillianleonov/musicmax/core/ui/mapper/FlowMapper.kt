@@ -14,13 +14,9 @@
  * limitations under the License.
  */
 
-plugins {
-    id("musicmax.android.feature")
-}
+package com.maximillianleonov.musicmax.core.ui.mapper
 
-android.namespace = "com.maximillianleonov.musicmax.feature.home"
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
-dependencies {
-    implementation(project(":core:core-media"))
-    implementation(project(":core:core-domain"))
-}
+fun <T, R> Flow<List<T>>.listMap(transform: (T) -> R) = map { it.map(transform) }

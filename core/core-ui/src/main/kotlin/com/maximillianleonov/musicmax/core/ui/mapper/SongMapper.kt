@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 
-plugins {
-    id("musicmax.android.feature")
-}
+package com.maximillianleonov.musicmax.core.ui.mapper
 
-android.namespace = "com.maximillianleonov.musicmax.feature.home"
+import androidx.core.net.toUri
+import com.maximillianleonov.musicmax.core.domain.model.SongModel
+import com.maximillianleonov.musicmax.core.model.Song
 
-dependencies {
-    implementation(project(":core:core-media"))
-    implementation(project(":core:core-domain"))
-}
+fun SongModel.asSong() = Song(
+    mediaId = mediaId,
+    mediaUri = mediaUri.toUri(),
+    artworkUri = artworkUri.toUri(),
+    title = title,
+    artist = artist
+)

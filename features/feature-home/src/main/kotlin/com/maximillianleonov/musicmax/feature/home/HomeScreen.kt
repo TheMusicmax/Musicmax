@@ -16,26 +16,43 @@
 
 package com.maximillianleonov.musicmax.feature.home
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.maximillianleonov.musicmax.core.model.Song
+import com.maximillianleonov.musicmax.core.ui.component.MediaPager
+import com.maximillianleonov.musicmax.core.ui.component.SongItem
 
 @Composable
-internal fun HomeRoute(modifier: Modifier = Modifier) {
-    HomeScreen(modifier = modifier)
+internal fun HomeRoute(
+    modifier: Modifier = Modifier,
+    viewModel: HomeViewModel = hiltViewModel()
+) {
+    val songs by viewModel.songs.collectAsState()
+
+    HomeScreen(
+        modifier = modifier,
+        songs = songs
+    )
 }
 
 @Composable
-private fun HomeScreen(modifier: Modifier = Modifier) {
-    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(
-            text = stringResource(id = R.string.home),
-            style = MaterialTheme.typography.displaySmall
-        )
-    }
+private fun HomeScreen(
+    songs: List<Song>,
+    modifier: Modifier = Modifier
+) {
+    MediaPager(
+        modifier = modifier,
+        songsTabContent = {
+            LazyColumn {
+                items(songs) { song ->
+                    SongItem(song = song, onClick = { /* TODO */ })
+                }
+            }
+        }
+    )
 }
