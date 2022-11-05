@@ -17,7 +17,7 @@
 package com.maximillianleonov.musicmax.feature.home
 
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -36,6 +36,7 @@ internal fun HomeRoute(
 
     HomeScreen(
         modifier = modifier,
+        onSongClick = viewModel::play,
         songs = songs
     )
 }
@@ -43,14 +44,15 @@ internal fun HomeRoute(
 @Composable
 private fun HomeScreen(
     songs: List<Song>,
+    onSongClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     MediaPager(
         modifier = modifier,
         songsTabContent = {
             LazyColumn {
-                items(songs) { song ->
-                    SongItem(song = song, onClick = { /* TODO */ })
+                itemsIndexed(songs) { index, song ->
+                    SongItem(song = song, onClick = { onSongClick(index) })
                 }
             }
         }

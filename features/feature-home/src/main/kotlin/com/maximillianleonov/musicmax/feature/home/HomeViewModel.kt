@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maximillianleonov.musicmax.core.domain.model.SongModel
 import com.maximillianleonov.musicmax.core.domain.usecase.GetSongsUseCase
+import com.maximillianleonov.musicmax.core.media.MusicServiceConnection
 import com.maximillianleonov.musicmax.core.ui.mapper.asSong
 import com.maximillianleonov.musicmax.core.ui.mapper.listMap
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,6 +30,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
+    private val musicServiceConnection: MusicServiceConnection,
     getSongsUseCase: GetSongsUseCase
 ) : ViewModel() {
     val songs = getSongsUseCase()
@@ -38,4 +40,8 @@ class HomeViewModel @Inject constructor(
             started = SharingStarted.Eagerly,
             initialValue = emptyList()
         )
+
+    fun play(startIndex: Int) {
+        musicServiceConnection.playSongs(songs = songs.value, startIndex = startIndex)
+    }
 }

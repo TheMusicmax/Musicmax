@@ -22,6 +22,9 @@ plugins {
 android.namespace = "com.maximillianleonov.musicmax.core.media"
 
 dependencies {
+    implementation(project(":core:core-model"))
+    implementation(project(":core:core-domain"))
+
     implementation(libs.bundles.androidx.media3)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.coroutines.guava)
