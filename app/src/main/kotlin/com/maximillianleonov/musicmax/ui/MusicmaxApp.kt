@@ -26,15 +26,17 @@ import androidx.compose.foundation.layout.consumedWindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.TopAppBarScrollBehavior
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
 import com.maximillianleonov.musicmax.core.designsystem.theme.MusicmaxTheme
@@ -65,10 +67,12 @@ fun MusicmaxApp(appState: MusicmaxAppState = rememberMusicmaxAppState()) {
 private fun MusicmaxAppContent(
     appState: MusicmaxAppState,
     modifier: Modifier = Modifier,
-    scrollBehavior: TopAppBarScrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+    topAppBarColors: TopAppBarColors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+        containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(TopAppBarElevation)
+    )
 ) {
     Scaffold(
-        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = modifier,
         topBar = {
             AnimatedVisibility(
                 visible = appState.isTopLevelDestination,
@@ -83,7 +87,7 @@ private fun MusicmaxAppContent(
                             )
                         )
                     },
-                    scrollBehavior = scrollBehavior
+                    colors = topAppBarColors
                 )
             }
         },
@@ -111,6 +115,7 @@ private fun MusicmaxAppContent(
     }
 }
 
+private val TopAppBarElevation = 3.dp
 private val TopAppBarEnterTransition = fadeIn() + expandVertically(expandFrom = Alignment.Bottom)
 private val TopAppBarExitTransition = shrinkVertically(shrinkTowards = Alignment.Bottom) + fadeOut()
 
