@@ -25,4 +25,8 @@ dependencies {
     api(project(":core:core-designsystem"))
     api(project(":core:core-model"))
     api(project(":core:core-domain"))
+
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.accompanist.pager)
+    implementation(libs.accompanist.pager.indicators)
 }

@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-plugins {
-    id("musicmax.android.library")
-}
+package com.maximillianleonov.musicmax.core.ui.common
 
-android.namespace = "com.maximillianleonov.musicmax.core.model"
+import androidx.annotation.StringRes
+import com.maximillianleonov.musicmax.core.model.MediaType
+import com.maximillianleonov.musicmax.core.ui.R
 
-dependencies {
-    implementation(libs.androidx.media3.common)
+internal enum class MediaTab(val mediaType: MediaType, @StringRes val titleResource: Int) {
+    Songs(mediaType = MediaType.Song, titleResource = R.string.songs),
+    Artists(mediaType = MediaType.Artist, titleResource = R.string.artists),
+    Albums(mediaType = MediaType.Album, titleResource = R.string.albums)
 }
