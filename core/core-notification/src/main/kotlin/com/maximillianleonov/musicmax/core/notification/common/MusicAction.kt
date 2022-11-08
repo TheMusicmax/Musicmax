@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-plugins {
-    id("musicmax.android.library")
-    id("musicmax.android.hilt")
-}
+package com.maximillianleonov.musicmax.core.notification.common
 
-android.namespace = "com.maximillianleonov.musicmax.core.notification"
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
+import androidx.media3.common.Player
 
-dependencies {
-    implementation(project(":core:core-common"))
-    implementation(libs.androidx.media3.session)
-    implementation(libs.coil)
-}
+internal data class MusicAction(
+    @DrawableRes val iconResource: Int,
+    @StringRes val titleResource: Int,
+    @Player.Command val command: Int
+)

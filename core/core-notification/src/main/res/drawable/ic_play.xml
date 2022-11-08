@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2022 Maximillian Leonov
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="28dp"
+    android:height="28dp"
+    android:viewportWidth="226"
+    android:viewportHeight="226">
+    <path
+        android:fillColor="#000000"
+        android:fillType="nonZero"
+        android:pathData="M45.2,22.6c-4.16,0 -7.53,3.37 -7.53,7.53c-0,0.01 -0,0.02 0,0.03v82.84v82.84c-0,0.01 -0,0.02 0,0.03c0,4.16 3.37,7.53 7.53,7.53c1.57,-0 3.1,-0.5 4.37,-1.41l0.01,0.01l149.42,-82.16c2.68,-1.22 4.4,-3.9 4.4,-6.84c0,-3.03 -1.81,-5.77 -4.61,-6.94l-149.21,-82.06h-0.01c-1.28,-0.91 -2.8,-1.4 -4.37,-1.4z"
+        android:strokeWidth="1"
+        android:strokeColor="#00000000"
+        android:strokeLineCap="butt"
+        android:strokeLineJoin="miter"
+        tools:targetApi="n" />
+</vector>

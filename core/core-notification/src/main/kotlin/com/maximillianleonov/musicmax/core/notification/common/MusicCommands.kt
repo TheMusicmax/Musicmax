@@ -14,15 +14,11 @@
  * limitations under the License.
  */
 
-plugins {
-    id("musicmax.android.library")
-    id("musicmax.android.hilt")
-}
+package com.maximillianleonov.musicmax.core.notification.common
 
-android.namespace = "com.maximillianleonov.musicmax.core.notification"
-
-dependencies {
-    implementation(project(":core:core-common"))
-    implementation(libs.androidx.media3.session)
-    implementation(libs.coil)
+object MusicCommands {
+    const val REPEAT_SHUFFLE = "repeat_shuffle"
+    const val REPEAT = "repeat"
+    const val REPEAT_ONE = "repeat_one"
+    const val SHUFFLE = "shuffle"
 }

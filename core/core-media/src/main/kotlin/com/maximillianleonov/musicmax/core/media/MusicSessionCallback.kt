@@ -16,12 +16,15 @@
 
 package com.maximillianleonov.musicmax.core.media
 
+import android.os.Bundle
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata.FOLDER_TYPE_MIXED
 import androidx.media3.session.LibraryResult
 import androidx.media3.session.MediaLibraryService
 import androidx.media3.session.MediaLibraryService.MediaLibrarySession
 import androidx.media3.session.MediaSession
+import androidx.media3.session.SessionCommand
+import androidx.media3.session.SessionResult
 import com.google.common.collect.ImmutableList
 import com.google.common.util.concurrent.ListenableFuture
 import com.maximillianleonov.musicmax.core.common.dispatcher.Dispatcher
@@ -45,6 +48,7 @@ import javax.inject.Inject
 
 class MusicSessionCallback @Inject constructor(
     @Dispatcher(MAIN) mainDispatcher: CoroutineDispatcher,
+    private val musicActionHandler: MusicActionHandler,
     private val getSongsUseCase: GetSongsUseCase
 ) : MediaLibrarySession.Callback {
     private val coroutineScope = CoroutineScope(mainDispatcher + SupervisorJob())
@@ -73,7 +77,7 @@ class MusicSessionCallback @Inject constructor(
             Song.mediaId -> getSongsUseCase().first().map(SongModel::asMediaItem)
             Artist.mediaId -> TODO()
             Album.mediaId -> TODO()
-            else -> error("$INVALID_MEDIA_ID_ERROR_MESSAGE $parentId")
+            else -> error("$InvalidMediaIdErrorMessage $parentId")
         }
         LibraryResult.ofItemList(mediaItems, null)
     }
@@ -90,7 +94,41 @@ class MusicSessionCallback @Inject constructor(
         }
     }
 
-    fun cancelCoroutineScope() = coroutineScope.cancel()
+    override fun onConnect(
+        session: MediaSession,
+        controller: MediaSession.ControllerInfo
+    ): MediaSession.ConnectionResult {
+        val connectionResult = super.onConnect(session, controller)
+        val availableSessionCommands = connectionResult.availableSessionCommands.buildUpon()
+        musicActionHandler.customCommands.values.forEach { commandButton ->
+            commandButton.sessionCommand?.let(availableSessionCommands::add)
+        }
+
+        return MediaSession.ConnectionResult.accept(
+            availableSessionCommands.build(),
+            connectionResult.availablePlayerCommands
+        )
+    }
+
+    override fun onPostConnect(session: MediaSession, controller: MediaSession.ControllerInfo) {
+        session.setCustomLayout(controller, musicActionHandler.customLayout)
+    }
+
+    override fun onCustomCommand(
+        session: MediaSession,
+        controller: MediaSession.ControllerInfo,
+        customCommand: SessionCommand,
+        args: Bundle
+    ): ListenableFuture<SessionResult> = coroutineScope.future {
+        musicActionHandler.onCustomCommand(mediaSession = session, customCommand = customCommand)
+        session.setCustomLayout(musicActionHandler.customLayout)
+        SessionResult(SessionResult.RESULT_SUCCESS)
+    }
+
+    fun cancelCoroutineScope() {
+        coroutineScope.cancel()
+        musicActionHandler.cancelCoroutineScope()
+    }
 }
 
-private const val INVALID_MEDIA_ID_ERROR_MESSAGE = "Invalid media id."
+private const val InvalidMediaIdErrorMessage = "Invalid media id."

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2022 Maximillian Leonov
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="226"
+    android:viewportHeight="226">
+    <path
+        android:fillColor="#000000"
+        android:fillType="nonZero"
+        android:pathData="M150.67,30.13v22.6h-90.4c-24.87,0 -45.2,20.33 -45.2,45.2c-0.04,2.72 1.39,5.24 3.74,6.61c2.35,1.37 5.25,1.37 7.6,0c2.35,-1.37 3.77,-3.9 3.74,-6.61c0,-16.73 13.41,-30.13 30.13,-30.13h90.4v22.6l52.73,-30.13zM203.28,120.43c-4.15,0.06 -7.47,3.48 -7.42,7.64c0,16.73 -13.41,30.13 -30.13,30.13h-90.4v-22.6l-52.73,30.13l52.73,30.13v-22.6h90.4c24.87,0 45.2,-20.33 45.2,-45.2c0.03,-2.04 -0.77,-4 -2.21,-5.44c-1.44,-1.44 -3.4,-2.23 -5.44,-2.2z"
+        android:strokeWidth="1"
+        android:strokeColor="#00000000"
+        android:strokeLineCap="butt"
+        android:strokeLineJoin="miter"
+        tools:targetApi="n" />
+</vector>

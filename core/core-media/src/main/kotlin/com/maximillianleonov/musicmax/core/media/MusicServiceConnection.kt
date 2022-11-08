@@ -39,13 +39,12 @@ class MusicServiceConnection @Inject constructor(
     @ApplicationContext context: Context,
     @Dispatcher(MAIN) mainDispatcher: CoroutineDispatcher
 ) {
-    private var _mediaBrowser: MediaBrowser? = null
-    private val mediaBrowser get() = _mediaBrowser!!
+    private var mediaBrowser: MediaBrowser? = null
     private val coroutineScope = CoroutineScope(mainDispatcher + SupervisorJob())
 
     init {
         coroutineScope.launch {
-            _mediaBrowser = MediaBrowser.Builder(
+            mediaBrowser = MediaBrowser.Builder(
                 context,
                 SessionToken(context, ComponentName(context, MusicService::class.java))
             ).buildAsync().await()
@@ -56,7 +55,7 @@ class MusicServiceConnection @Inject constructor(
         songs: List<Song>,
         startIndex: Int = C.INDEX_UNSET,
         startPositionMs: Long = C.TIME_UNSET
-    ) = with(mediaBrowser) {
+    ) = mediaBrowser?.run {
         setMediaItems(songs.map(Song::asMediaItem), startIndex, startPositionMs)
         prepare()
         play()
