@@ -66,7 +66,7 @@ class MusicNotificationProvider @Inject constructor(
         val builder = NotificationCompat.Builder(context, MusicNotificationChannelId)
             .setContentTitle(metadata.title)
             .setContentText(metadata.artist)
-            .setSmallIcon(R.drawable.ic_play)
+            .setSmallIcon(R.drawable.ic_music)
             .setStyle(MediaStyle(session))
 
         getNotificationActions(
