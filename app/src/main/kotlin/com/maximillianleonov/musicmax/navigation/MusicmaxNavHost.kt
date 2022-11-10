@@ -22,6 +22,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.maximillianleonov.musicmax.feature.favorite.navigation.favoriteScreen
 import com.maximillianleonov.musicmax.feature.home.navigation.homeScreen
+import com.maximillianleonov.musicmax.feature.player.navigation.playerScreen
 import com.maximillianleonov.musicmax.feature.search.navigation.searchScreen
 import com.maximillianleonov.musicmax.feature.settings.navigation.settingsScreen
 
@@ -40,5 +41,6 @@ fun MusicmaxNavHost(
         searchScreen()
         favoriteScreen()
         settingsScreen()
+        playerScreen()
     }
 }
