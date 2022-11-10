@@ -49,6 +49,7 @@ dependencies {
     implementation(project(":features:feature-search"))
     implementation(project(":features:feature-favorite"))
     implementation(project(":features:feature-settings"))
+    implementation(project(":features:feature-player"))
 
     implementation(project(":sync:work"))
 
