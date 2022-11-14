@@ -33,7 +33,7 @@ junit = "4.13.2"
 mockk = "1.13.2"
 
 kotlinx-coroutines = "1.6.4"
-dagger = "2.44.1"
+dagger = "2.44.2"
 javax-inject = "1"
 
 accompanist = "0.27.0"
