@@ -43,7 +43,7 @@ dependencies {
     implementation(project(":core:core-model"))
     implementation(project(":core:core-media"))
     implementation(project(":core:core-media-common"))
-    implementation(project(":core:core-notification"))
+    implementation(project(":core:core-media-notification"))
     implementation(project(":core:core-permission"))
 
     implementation(project(":features:feature-home"))

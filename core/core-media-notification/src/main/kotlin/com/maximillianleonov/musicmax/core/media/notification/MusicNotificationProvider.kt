@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.core.notification
+package com.maximillianleonov.musicmax.core.media.notification
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -33,8 +33,8 @@ import com.google.common.collect.ImmutableList
 import com.maximillianleonov.musicmax.core.common.dispatcher.Dispatcher
 import com.maximillianleonov.musicmax.core.common.dispatcher.MusicmaxDispatchers.IO
 import com.maximillianleonov.musicmax.core.common.dispatcher.MusicmaxDispatchers.MAIN
-import com.maximillianleonov.musicmax.core.notification.common.MusicActions
-import com.maximillianleonov.musicmax.core.notification.util.asArtworkBitmap
+import com.maximillianleonov.musicmax.core.media.notification.common.MusicActions
+import com.maximillianleonov.musicmax.core.media.notification.util.asArtworkBitmap
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope

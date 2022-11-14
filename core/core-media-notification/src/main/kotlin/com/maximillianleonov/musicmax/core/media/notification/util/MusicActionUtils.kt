@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.core.notification.util
+package com.maximillianleonov.musicmax.core.media.notification.util
 
 import android.content.Context
 import androidx.core.graphics.drawable.IconCompat
 import androidx.media3.session.MediaNotification
 import androidx.media3.session.MediaSession
-import com.maximillianleonov.musicmax.core.notification.common.MusicAction
+import com.maximillianleonov.musicmax.core.media.notification.common.MusicAction
 
 internal fun MusicAction.asNotificationAction(
     context: Context,

@@ -25,10 +25,10 @@ import androidx.media3.session.MediaSession
 import androidx.media3.session.SessionCommand
 import com.maximillianleonov.musicmax.core.common.dispatcher.Dispatcher
 import com.maximillianleonov.musicmax.core.common.dispatcher.MusicmaxDispatchers.MAIN
-import com.maximillianleonov.musicmax.core.notification.common.MusicCommands.REPEAT
-import com.maximillianleonov.musicmax.core.notification.common.MusicCommands.REPEAT_ONE
-import com.maximillianleonov.musicmax.core.notification.common.MusicCommands.REPEAT_SHUFFLE
-import com.maximillianleonov.musicmax.core.notification.common.MusicCommands.SHUFFLE
+import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.REPEAT
+import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.REPEAT_ONE
+import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.REPEAT_SHUFFLE
+import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.SHUFFLE
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.core.notification.common
+package com.maximillianleonov.musicmax.core.media.notification.common
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

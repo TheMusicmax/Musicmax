@@ -22,7 +22,7 @@ import androidx.media3.common.C.USAGE_MEDIA
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.session.MediaLibraryService
 import androidx.media3.session.MediaSession
-import com.maximillianleonov.musicmax.core.notification.MusicNotificationProvider
+import com.maximillianleonov.musicmax.core.media.notification.MusicNotificationProvider
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

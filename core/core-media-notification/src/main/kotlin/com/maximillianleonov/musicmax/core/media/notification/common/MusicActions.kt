@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.core.notification.common
+package com.maximillianleonov.musicmax.core.media.notification.common
 
 import android.content.Context
 import androidx.media3.common.Player
@@ -22,7 +22,7 @@ import androidx.media3.session.CommandButton
 import androidx.media3.session.MediaNotification
 import androidx.media3.session.MediaSession
 import com.google.common.collect.ImmutableList
-import com.maximillianleonov.musicmax.core.notification.util.asNotificationAction
+import com.maximillianleonov.musicmax.core.media.notification.util.asNotificationAction
 import com.maximillianleonov.musicmax.core.media.common.R as mediaCommonR
 
 internal object MusicActions {

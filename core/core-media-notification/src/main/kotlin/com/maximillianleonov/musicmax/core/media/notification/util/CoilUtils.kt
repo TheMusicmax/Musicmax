@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.core.notification.util
+package com.maximillianleonov.musicmax.core.media.notification.util
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -22,7 +22,7 @@ import android.net.Uri
 import androidx.core.graphics.drawable.toBitmap
 import coil.ImageLoader
 import coil.request.ImageRequest
-import com.maximillianleonov.musicmax.core.notification.R
+import com.maximillianleonov.musicmax.core.media.notification.R
 
 internal suspend fun Uri.asArtworkBitmap(context: Context): Bitmap? {
     val loader = ImageLoader(context)
