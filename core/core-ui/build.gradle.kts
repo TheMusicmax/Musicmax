@@ -25,6 +25,7 @@ dependencies {
     api(project(":core:core-designsystem"))
     api(project(":core:core-model"))
     api(project(":core:core-domain"))
+    implementation(project(":core:core-media-common"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.accompanist.pager)

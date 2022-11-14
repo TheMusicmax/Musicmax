@@ -25,7 +25,6 @@ import androidx.media3.session.MediaSession
 import androidx.media3.session.SessionCommand
 import com.maximillianleonov.musicmax.core.common.dispatcher.Dispatcher
 import com.maximillianleonov.musicmax.core.common.dispatcher.MusicmaxDispatchers.MAIN
-import com.maximillianleonov.musicmax.core.notification.R
 import com.maximillianleonov.musicmax.core.notification.common.MusicCommands.REPEAT
 import com.maximillianleonov.musicmax.core.notification.common.MusicCommands.REPEAT_ONE
 import com.maximillianleonov.musicmax.core.notification.common.MusicCommands.REPEAT_SHUFFLE
@@ -36,6 +35,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import javax.inject.Inject
+import com.maximillianleonov.musicmax.core.media.common.R as mediaCommonR
 
 class MusicActionHandler @Inject constructor(
     @Dispatcher(MAIN) mainDispatcher: CoroutineDispatcher,
@@ -92,18 +92,18 @@ class MusicActionHandler @Inject constructor(
     private fun getAvailableCustomCommands() = mapOf(
         REPEAT to buildCustomCommand(
             action = REPEAT,
-            displayName = context.getString(R.string.repeat),
-            iconResource = R.drawable.ic_repeat
+            displayName = context.getString(mediaCommonR.string.repeat),
+            iconResource = mediaCommonR.drawable.ic_repeat
         ),
         REPEAT_ONE to buildCustomCommand(
             action = REPEAT_ONE,
-            displayName = context.getString(R.string.repeat_one),
-            iconResource = R.drawable.ic_repeat_one
+            displayName = context.getString(mediaCommonR.string.repeat_one),
+            iconResource = mediaCommonR.drawable.ic_repeat_one
         ),
         SHUFFLE to buildCustomCommand(
             action = SHUFFLE,
-            displayName = context.getString(R.string.shuffle),
-            iconResource = R.drawable.ic_shuffle
+            displayName = context.getString(mediaCommonR.string.shuffle),
+            iconResource = mediaCommonR.drawable.ic_shuffle
         )
     )
 }

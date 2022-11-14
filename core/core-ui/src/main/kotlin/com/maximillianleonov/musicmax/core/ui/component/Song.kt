@@ -36,7 +36,7 @@ import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxImage
 import com.maximillianleonov.musicmax.core.designsystem.component.SingleLineText
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 import com.maximillianleonov.musicmax.core.model.Song
-import com.maximillianleonov.musicmax.core.ui.R
+import com.maximillianleonov.musicmax.core.media.common.R as mediaCommonR
 
 @Composable
 fun SongItem(
@@ -46,7 +46,7 @@ fun SongItem(
     colors: CardColors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
     placeholder: @Composable () -> Unit = {
         Icon(
-            painter = painterResource(id = R.drawable.ic_music),
+            painter = painterResource(id = mediaCommonR.drawable.ic_music),
             contentDescription = song.title,
             tint = MaterialTheme.colorScheme.primary
         )

@@ -22,8 +22,8 @@ import androidx.media3.session.CommandButton
 import androidx.media3.session.MediaNotification
 import androidx.media3.session.MediaSession
 import com.google.common.collect.ImmutableList
-import com.maximillianleonov.musicmax.core.notification.R
 import com.maximillianleonov.musicmax.core.notification.util.asNotificationAction
+import com.maximillianleonov.musicmax.core.media.common.R as mediaCommonR
 
 internal object MusicActions {
     internal fun getRepeatShuffleAction(
@@ -37,8 +37,8 @@ internal object MusicActions {
         mediaSession: MediaSession,
         actionFactory: MediaNotification.ActionFactory
     ) = MusicAction(
-        iconResource = R.drawable.ic_skip_previous,
-        titleResource = R.string.skip_previous,
+        iconResource = mediaCommonR.drawable.ic_skip_previous,
+        titleResource = mediaCommonR.string.skip_previous,
         command = Player.COMMAND_SEEK_TO_PREVIOUS
     ).asNotificationAction(context, mediaSession, actionFactory)
 
@@ -48,8 +48,8 @@ internal object MusicActions {
         actionFactory: MediaNotification.ActionFactory,
         playWhenReady: Boolean
     ) = MusicAction(
-        iconResource = if (playWhenReady) R.drawable.ic_pause else R.drawable.ic_play,
-        titleResource = if (playWhenReady) R.string.pause else R.string.play,
+        iconResource = if (playWhenReady) mediaCommonR.drawable.ic_pause else mediaCommonR.drawable.ic_play,
+        titleResource = if (playWhenReady) mediaCommonR.string.pause else mediaCommonR.string.play,
         command = Player.COMMAND_PLAY_PAUSE
     ).asNotificationAction(context, mediaSession, actionFactory)
 
@@ -58,8 +58,8 @@ internal object MusicActions {
         mediaSession: MediaSession,
         actionFactory: MediaNotification.ActionFactory
     ) = MusicAction(
-        iconResource = R.drawable.ic_skip_next,
-        titleResource = R.string.skip_next,
+        iconResource = mediaCommonR.drawable.ic_skip_next,
+        titleResource = mediaCommonR.string.skip_next,
         command = Player.COMMAND_SEEK_TO_NEXT
     ).asNotificationAction(context, mediaSession, actionFactory)
 }

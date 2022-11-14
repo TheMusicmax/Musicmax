@@ -43,6 +43,7 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import com.maximillianleonov.musicmax.core.media.common.R as mediaCommonR
 
 class MusicNotificationProvider @Inject constructor(
     @Dispatcher(MAIN) mainDispatcher: CoroutineDispatcher,
@@ -66,7 +67,7 @@ class MusicNotificationProvider @Inject constructor(
         val builder = NotificationCompat.Builder(context, MusicNotificationChannelId)
             .setContentTitle(metadata.title)
             .setContentText(metadata.artist)
-            .setSmallIcon(R.drawable.ic_music)
+            .setSmallIcon(mediaCommonR.drawable.ic_music)
             .setStyle(MediaStyle(session))
 
         getNotificationActions(
