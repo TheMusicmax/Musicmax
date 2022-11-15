@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.core.media.mapper
+package com.maximillianleonov.musicmax.core.media.service.mapper
 
-import com.maximillianleonov.musicmax.core.media.util.buildBrowsableMediaItem
+import com.maximillianleonov.musicmax.core.media.service.util.buildBrowsableMediaItem
 import com.maximillianleonov.musicmax.core.model.MediaType
 
 internal fun MediaType.asMediaItem() = buildBrowsableMediaItem(

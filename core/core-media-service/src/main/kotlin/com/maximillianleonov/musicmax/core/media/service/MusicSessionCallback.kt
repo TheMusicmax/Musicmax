@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.core.media
+package com.maximillianleonov.musicmax.core.media.service
 
 import android.os.Bundle
 import androidx.media3.common.MediaItem
@@ -31,8 +31,8 @@ import com.maximillianleonov.musicmax.core.common.dispatcher.Dispatcher
 import com.maximillianleonov.musicmax.core.common.dispatcher.MusicmaxDispatchers.MAIN
 import com.maximillianleonov.musicmax.core.domain.model.SongModel
 import com.maximillianleonov.musicmax.core.domain.usecase.GetSongsUseCase
-import com.maximillianleonov.musicmax.core.media.mapper.asMediaItem
-import com.maximillianleonov.musicmax.core.media.util.buildBrowsableMediaItem
+import com.maximillianleonov.musicmax.core.media.service.mapper.asMediaItem
+import com.maximillianleonov.musicmax.core.media.service.util.buildBrowsableMediaItem
 import com.maximillianleonov.musicmax.core.model.MediaType
 import com.maximillianleonov.musicmax.core.model.MediaType.Album
 import com.maximillianleonov.musicmax.core.model.MediaType.Artist

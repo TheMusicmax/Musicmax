@@ -19,7 +19,7 @@ plugins {
     id("musicmax.android.hilt")
 }
 
-android.namespace = "com.maximillianleonov.musicmax.core.media"
+android.namespace = "com.maximillianleonov.musicmax.core.media.service"
 
 dependencies {
     implementation(project(":core:core-media-common"))

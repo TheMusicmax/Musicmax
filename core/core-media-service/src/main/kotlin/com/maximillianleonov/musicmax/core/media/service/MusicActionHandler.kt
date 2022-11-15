@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.core.media
+package com.maximillianleonov.musicmax.core.media.service
 
 import android.content.Context
 import android.os.Bundle

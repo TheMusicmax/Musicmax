@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.core.media
+package com.maximillianleonov.musicmax.core.media.service
 
 import android.content.ComponentName
 import android.content.Context
@@ -23,7 +23,7 @@ import androidx.media3.session.MediaBrowser
 import androidx.media3.session.SessionToken
 import com.maximillianleonov.musicmax.core.common.dispatcher.Dispatcher
 import com.maximillianleonov.musicmax.core.common.dispatcher.MusicmaxDispatchers.MAIN
-import com.maximillianleonov.musicmax.core.media.mapper.asMediaItem
+import com.maximillianleonov.musicmax.core.media.service.mapper.asMediaItem
 import com.maximillianleonov.musicmax.core.model.Song
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.core.media.util
+package com.maximillianleonov.musicmax.core.media.service.util
 
 import android.net.Uri
 import androidx.media3.common.MediaItem

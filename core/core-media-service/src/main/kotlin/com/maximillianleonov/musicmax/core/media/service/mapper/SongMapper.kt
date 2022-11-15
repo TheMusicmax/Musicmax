@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.core.media.mapper
+package com.maximillianleonov.musicmax.core.media.service.mapper
 
 import androidx.core.net.toUri
 import com.maximillianleonov.musicmax.core.domain.model.SongModel
-import com.maximillianleonov.musicmax.core.media.util.buildPlayableMediaItem
+import com.maximillianleonov.musicmax.core.media.service.util.buildPlayableMediaItem
 import com.maximillianleonov.musicmax.core.model.Song
 
 internal fun SongModel.asMediaItem() = buildPlayableMediaItem(

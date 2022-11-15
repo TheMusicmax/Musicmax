@@ -21,6 +21,6 @@ plugins {
 android.namespace = "com.maximillianleonov.musicmax.feature.home"
 
 dependencies {
-    implementation(project(":core:core-media"))
+    implementation(project(":core:core-media-service"))
     implementation(project(":core:core-domain"))
 }

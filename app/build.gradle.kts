@@ -41,8 +41,8 @@ dependencies {
     implementation(project(":core:core-ui"))
     implementation(project(":core:core-designsystem"))
     implementation(project(":core:core-model"))
-    implementation(project(":core:core-media"))
     implementation(project(":core:core-media-common"))
+    implementation(project(":core:core-media-service"))
     implementation(project(":core:core-media-notification"))
     implementation(project(":core:core-permission"))
 
