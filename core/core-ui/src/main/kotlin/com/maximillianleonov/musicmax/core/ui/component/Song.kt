@@ -24,33 +24,22 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxCard
-import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxImage
 import com.maximillianleonov.musicmax.core.designsystem.component.SingleLineText
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 import com.maximillianleonov.musicmax.core.model.Song
-import com.maximillianleonov.musicmax.core.media.common.R as mediaCommonR
 
 @Composable
 fun SongItem(
     song: Song,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    colors: CardColors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-    placeholder: @Composable () -> Unit = {
-        Icon(
-            painter = painterResource(id = mediaCommonR.drawable.ic_music),
-            contentDescription = song.title,
-            tint = MaterialTheme.colorScheme.primary
-        )
-    }
+    colors: CardColors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
 ) {
     MusicmaxCard(modifier = modifier, onClick = onClick, colors = colors) {
         Row(
@@ -60,13 +49,10 @@ fun SongItem(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.smallMedium)
         ) {
-            MusicmaxImage(
+            MusicmaxArtworkImage(
                 modifier = Modifier.size(SongCoverSize),
-                model = song.artworkUri,
-                contentDescription = song.title,
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
-                loading = { placeholder() },
-                error = { placeholder() }
+                artworkUri = song.artworkUri,
+                contentDescription = song.title
             )
 
             Column {
