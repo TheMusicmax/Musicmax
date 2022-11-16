@@ -14,16 +14,20 @@
  * limitations under the License.
  */
 
-plugins {
-    id("musicmax.android.feature")
-}
+package com.maximillianleonov.musicmax.feature.player.util
 
-android.namespace = "com.maximillianleonov.musicmax.feature.player"
+import android.graphics.Bitmap
+import coil.size.Size
+import coil.transform.Transformation
+import com.google.android.renderscript.Toolkit
 
-dependencies {
-    implementation(project(":core:core-media-common"))
-    implementation(project(":core:core-media-service"))
+class BlurTransformation(private val radius: Int = DefaultRadius) : Transformation {
+    override val cacheKey = "${BlurTransformation::class.java.name}-$radius"
 
-    implementation(libs.coil.compose)
-    implementation(libs.renderscript.intrinsics.replacement.toolkit)
+    override suspend fun transform(input: Bitmap, size: Size) =
+        Toolkit.blur(inputBitmap = input, radius = radius)
+
+    private companion object {
+        private const val DefaultRadius = 25
+    }
 }
