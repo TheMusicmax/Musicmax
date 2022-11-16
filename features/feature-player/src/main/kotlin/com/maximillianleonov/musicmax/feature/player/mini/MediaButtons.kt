@@ -19,7 +19,6 @@ package com.maximillianleonov.musicmax.feature.player.mini
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.animation.Crossfade
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
@@ -41,7 +40,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.maximillianleonov.musicmax.core.media.common.R as mediaCommonR
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 internal fun MiniPlayerMediaButtons(
     playWhenReady: Boolean,

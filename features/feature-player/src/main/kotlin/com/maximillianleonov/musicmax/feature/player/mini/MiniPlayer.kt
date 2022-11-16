@@ -42,12 +42,12 @@ fun MiniPlayer(
     viewModel: PlayerViewModel = hiltViewModel()
 ) {
     val musicState by viewModel.musicState.collectAsStateWithLifecycle()
-    val timePassed by viewModel.timePassed.collectAsStateWithLifecycle()
+    val currentPosition by viewModel.currentPosition.collectAsStateWithLifecycle()
 
     MiniPlayer(
         modifier = modifier,
         musicState = musicState,
-        timePassed = timePassed,
+        currentPosition = currentPosition,
         onMediaButtonSkipPreviousClick = viewModel::skipPrevious,
         onMediaButtonPlayClick = viewModel::play,
         onMediaButtonPauseClick = viewModel::pause,
@@ -59,7 +59,7 @@ fun MiniPlayer(
 @Composable
 private fun MiniPlayer(
     musicState: MusicState,
-    timePassed: Long,
+    currentPosition: Long,
     onMediaButtonSkipPreviousClick: () -> Unit,
     onMediaButtonPlayClick: () -> Unit,
     onMediaButtonPauseClick: () -> Unit,
@@ -99,7 +99,7 @@ private fun MiniPlayer(
         }
         MiniPlayerTimeProgress(
             playbackState = musicState.playbackState,
-            timePassed = timePassed,
+            currentPosition = currentPosition,
             duration = musicState.duration
         )
     }

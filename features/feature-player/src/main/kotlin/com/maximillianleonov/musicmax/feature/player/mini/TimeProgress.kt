@@ -39,12 +39,12 @@ import com.maximillianleonov.musicmax.feature.player.util.convertToProgress
 @Composable
 internal fun MiniPlayerTimeProgress(
     playbackState: PlaybackState,
-    timePassed: Long,
+    currentPosition: Long,
     duration: Long,
     modifier: Modifier = Modifier
 ) {
     val progress by animateFloatAsState(
-        targetValue = convertToProgress(count = timePassed, total = duration)
+        targetValue = convertToProgress(count = currentPosition, total = duration)
     )
 
     AnimatedContent(
@@ -62,7 +62,7 @@ internal fun MiniPlayerTimeProgress(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = timePassed.asFormattedString(),
+                        text = currentPosition.asFormattedString(),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )

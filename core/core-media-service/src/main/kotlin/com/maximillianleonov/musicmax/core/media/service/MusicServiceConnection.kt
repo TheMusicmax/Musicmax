@@ -63,7 +63,7 @@ class MusicServiceConnection @Inject constructor(
     private val _musicState = MutableStateFlow(MusicState())
     val musicState = _musicState.asStateFlow()
 
-    val timePassed = flow {
+    val currentPosition = flow {
         while (currentCoroutineContext().isActive) {
             val currentPosition = mediaBrowser?.currentPosition ?: DEFAULT_POSITION_MS
             emit(currentPosition)
@@ -80,10 +80,23 @@ class MusicServiceConnection @Inject constructor(
         }
     }
 
-    fun skipPrevious() = mediaBrowser?.seekToPrevious()
+    fun skipPrevious() = mediaBrowser?.run {
+        seekToPrevious()
+        play()
+    }
+
     fun play() = mediaBrowser?.play()
     fun pause() = mediaBrowser?.pause()
-    fun skipNext() = mediaBrowser?.seekToNext()
+
+    fun skipNext() = mediaBrowser?.run {
+        seekToNext()
+        play()
+    }
+
+    fun skipTo(position: Long) = mediaBrowser?.run {
+        seekTo(position)
+        play()
+    }
 
     fun playSongs(
         songs: List<Song>,

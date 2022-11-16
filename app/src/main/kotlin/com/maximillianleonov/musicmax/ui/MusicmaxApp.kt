@@ -23,6 +23,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.consumedWindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -105,7 +106,8 @@ private fun MusicmaxAppContent(
                     onNavigateToDestination = appState::navigateToTopLevelDestination
                 )
             }
-        }
+        },
+        contentWindowInsets = ScaffoldWindowInsets
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -127,6 +129,8 @@ private fun MusicmaxAppContent(
         }
     }
 }
+
+private val ScaffoldWindowInsets = WindowInsets(left = 0, top = 0, right = 0, bottom = 0)
 
 private val TopAppBarElevation = 3.dp
 private val TopAppBarEnterTransition = fadeIn() + expandVertically(expandFrom = Alignment.Bottom)

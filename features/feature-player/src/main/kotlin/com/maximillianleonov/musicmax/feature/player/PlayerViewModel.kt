@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_POSITION_MS
 import com.maximillianleonov.musicmax.core.media.service.MusicServiceConnection
+import com.maximillianleonov.musicmax.feature.player.util.convertToPosition
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
@@ -30,7 +31,7 @@ class PlayerViewModel @Inject constructor(
     private val musicServiceConnection: MusicServiceConnection
 ) : ViewModel() {
     val musicState = musicServiceConnection.musicState
-    val timePassed = musicServiceConnection.timePassed.stateIn(
+    val currentPosition = musicServiceConnection.currentPosition.stateIn(
         scope = viewModelScope,
         started = SharingStarted.Lazily,
         initialValue = DEFAULT_POSITION_MS
@@ -40,4 +41,6 @@ class PlayerViewModel @Inject constructor(
     fun play() = musicServiceConnection.play()
     fun pause() = musicServiceConnection.pause()
     fun skipNext() = musicServiceConnection.skipNext()
+    fun skipTo(position: Float) =
+        musicServiceConnection.skipTo(convertToPosition(position, musicState.value.duration))
 }

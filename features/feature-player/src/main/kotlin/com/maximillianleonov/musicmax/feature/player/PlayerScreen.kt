@@ -17,14 +17,71 @@
 package com.maximillianleonov.musicmax.feature.player
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.maximillianleonov.musicmax.core.media.service.common.MusicState
+import com.maximillianleonov.musicmax.feature.player.component.PlayerBackdropArtworkOverlay
+import com.maximillianleonov.musicmax.feature.player.component.PlayerMediaButtons
+import com.maximillianleonov.musicmax.feature.player.component.PlayerTimeSlider
+import com.maximillianleonov.musicmax.feature.player.component.PlayerTitleArtist
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
-internal fun PlayerRoute(modifier: Modifier = Modifier) {
-    PlayerScreen(modifier = modifier)
+internal fun PlayerRoute(
+    modifier: Modifier = Modifier,
+    viewModel: PlayerViewModel = hiltViewModel()
+) {
+    val musicState by viewModel.musicState.collectAsStateWithLifecycle()
+    val currentPosition by viewModel.currentPosition.collectAsStateWithLifecycle()
+
+    PlayerScreen(
+        modifier = modifier,
+        musicState = musicState,
+        currentPosition = currentPosition,
+        onSkipTo = viewModel::skipTo,
+        onMediaButtonSkipPreviousClick = viewModel::skipPrevious,
+        onMediaButtonPlayClick = viewModel::play,
+        onMediaButtonPauseClick = viewModel::pause,
+        onMediaButtonSkipNextClick = viewModel::skipNext
+    )
 }
 
-@Suppress("UnusedPrivateMember", "EmptyFunctionBlock")
 @Composable
-private fun PlayerScreen(modifier: Modifier = Modifier) {
+private fun PlayerScreen(
+    musicState: MusicState,
+    currentPosition: Long,
+    onSkipTo: (Float) -> Unit,
+    onMediaButtonSkipPreviousClick: () -> Unit,
+    onMediaButtonPlayClick: () -> Unit,
+    onMediaButtonPauseClick: () -> Unit,
+    onMediaButtonSkipNextClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    PlayerBackdropArtworkOverlay(
+        modifier = modifier,
+        artworkUri = musicState.currentSong.artworkUri,
+        contentDescription = musicState.currentSong.title
+    ) {
+        PlayerTitleArtist(
+            title = musicState.currentSong.title,
+            artist = musicState.currentSong.artist
+        )
+
+        PlayerTimeSlider(
+            currentPosition = currentPosition,
+            duration = musicState.duration,
+            onSkipTo = onSkipTo
+        )
+
+        PlayerMediaButtons(
+            playWhenReady = musicState.playWhenReady,
+            onSkipPreviousClick = onMediaButtonSkipPreviousClick,
+            onPlayClick = onMediaButtonPlayClick,
+            onPauseClick = onMediaButtonPauseClick,
+            onSkipNextClick = onMediaButtonSkipNextClick
+        )
+    }
 }
