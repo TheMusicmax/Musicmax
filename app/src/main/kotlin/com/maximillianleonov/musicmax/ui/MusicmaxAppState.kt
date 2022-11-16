@@ -30,6 +30,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import com.maximillianleonov.musicmax.core.permission.rememberMusicmaxPermissionState
+import com.maximillianleonov.musicmax.feature.player.navigation.PlayerRoute
 import com.maximillianleonov.musicmax.navigation.TopLevelDestination
 
 @Composable
@@ -83,4 +84,6 @@ class MusicmaxAppState(
             // Restore state when reselecting a previously selected item
             restoreState = true
         }
+
+    fun navigateToPlayerScreen() = navController.navigate(route = PlayerRoute)
 }

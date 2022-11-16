@@ -117,7 +117,13 @@ private fun MusicmaxAppContent(
                 navController = appState.navController,
                 startDestination = appState.startDestination.route
             )
-            MiniPlayer()
+            AnimatedVisibility(
+                visible = appState.isTopLevelDestination,
+                enter = MiniPlayerEnterTransition,
+                exit = MiniPlayerExitTransition
+            ) {
+                MiniPlayer(onNavigateToPlayer = appState::navigateToPlayerScreen)
+            }
         }
     }
 }
@@ -128,3 +134,6 @@ private val TopAppBarExitTransition = shrinkVertically(shrinkTowards = Alignment
 
 private val BottomBarEnterTransition = fadeIn() + expandVertically(expandFrom = Alignment.Top)
 private val BottomBarExitTransition = shrinkVertically(shrinkTowards = Alignment.Top) + fadeOut()
+
+private val MiniPlayerEnterTransition get() = BottomBarEnterTransition
+private val MiniPlayerExitTransition get() = BottomBarExitTransition

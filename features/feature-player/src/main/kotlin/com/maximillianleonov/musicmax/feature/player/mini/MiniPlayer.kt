@@ -16,6 +16,7 @@
 
 package com.maximillianleonov.musicmax.feature.player.mini
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,6 +37,7 @@ import com.maximillianleonov.musicmax.feature.player.PlayerViewModel
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun MiniPlayer(
+    onNavigateToPlayer: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: PlayerViewModel = hiltViewModel()
 ) {
@@ -50,6 +52,7 @@ fun MiniPlayer(
         onMediaButtonPlayClick = viewModel::play,
         onMediaButtonPauseClick = viewModel::pause,
         onMediaButtonSkipNextClick = viewModel::skipNext,
+        onNavigateToPlayer = onNavigateToPlayer
     )
 }
 
@@ -61,9 +64,10 @@ private fun MiniPlayer(
     onMediaButtonPlayClick: () -> Unit,
     onMediaButtonPauseClick: () -> Unit,
     onMediaButtonSkipNextClick: () -> Unit,
+    onNavigateToPlayer: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier) {
+    Column(modifier = modifier.clickable(onClick = onNavigateToPlayer)) {
         Row(
             modifier = Modifier
                 .padding(MaterialTheme.spacing.extraSmall)
