@@ -14,13 +14,6 @@
  * limitations under the License.
  */
 
-plugins {
-    id("musicmax.android.feature")
-}
+package com.maximillianleonov.musicmax.core.media.service.common
 
-android.namespace = "com.maximillianleonov.musicmax.feature.player"
-
-dependencies {
-    implementation(project(":core:core-media-common"))
-    implementation(project(":core:core-media-service"))
-}
+enum class PlaybackState { IDLE, BUFFERING, READY, ENDED }

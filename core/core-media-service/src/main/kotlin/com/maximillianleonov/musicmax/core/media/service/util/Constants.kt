@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-plugins {
-    id("musicmax.android.feature")
-}
+package com.maximillianleonov.musicmax.core.media.service.util
 
-android.namespace = "com.maximillianleonov.musicmax.feature.player"
+internal object Constants {
+    internal const val POSITION_UPDATE_INTERVAL_MS = 1L
 
-dependencies {
-    implementation(project(":core:core-media-common"))
-    implementation(project(":core:core-media-service"))
+    internal const val INVALID_MEDIA_ID_ERROR_MESSAGE = "Invalid media id."
+    internal const val UNKNOWN_CUSTOM_ACTION_ERROR_MESSAGE = "Unknown custom action."
+    internal const val UNHANDLED_STATE_ERROR_MESSAGE = "Unhandled state."
+    internal const val INVALID_PLAYBACK_STATE_ERROR_MESSAGE = "Invalid playback state."
 }

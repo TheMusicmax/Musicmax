@@ -14,13 +14,11 @@
  * limitations under the License.
  */
 
-plugins {
-    id("musicmax.android.feature")
-}
+package com.maximillianleonov.musicmax.core.media.common
 
-android.namespace = "com.maximillianleonov.musicmax.feature.player"
-
-dependencies {
-    implementation(project(":core:core-media-common"))
-    implementation(project(":core:core-media-service"))
+object MediaConstants {
+    const val DEFAULT_MEDIA_ID = ""
+    const val DEFAULT_INDEX = 0
+    const val DEFAULT_POSITION_MS = 0L
+    const val DEFAULT_DURATION_MS = 0L
 }

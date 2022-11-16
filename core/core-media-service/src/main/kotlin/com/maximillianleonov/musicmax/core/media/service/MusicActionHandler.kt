@@ -29,6 +29,8 @@ import com.maximillianleonov.musicmax.core.media.notification.common.MusicComman
 import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.REPEAT_ONE
 import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.REPEAT_SHUFFLE
 import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.SHUFFLE
+import com.maximillianleonov.musicmax.core.media.service.util.Constants.UNHANDLED_STATE_ERROR_MESSAGE
+import com.maximillianleonov.musicmax.core.media.service.util.Constants.UNKNOWN_CUSTOM_ACTION_ERROR_MESSAGE
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -59,7 +61,7 @@ class MusicActionHandler @Inject constructor(
                     player = mediaSession.player
                 )
             }
-            else -> error("$UnknownCustomActionErrorMessage ${customCommand.customAction}")
+            else -> error("$UNKNOWN_CUSTOM_ACTION_ERROR_MESSAGE ${customCommand.customAction}")
         }
 
     fun cancelCoroutineScope() = coroutineScope.cancel()
@@ -79,7 +81,7 @@ class MusicActionHandler @Inject constructor(
             player.repeatMode = Player.REPEAT_MODE_ALL
             setRepeatShuffleCommand(REPEAT)
         }
-        else -> error(UnhandledStateErrorMessage)
+        else -> error(UNHANDLED_STATE_ERROR_MESSAGE)
     }
 
     private fun setRepeatShuffleCommand(action: String) =
@@ -117,6 +119,3 @@ private fun buildCustomCommand(
     .setDisplayName(displayName)
     .setIconResId(iconResource)
     .build()
-
-private const val UnknownCustomActionErrorMessage = "Unknown custom action."
-private const val UnhandledStateErrorMessage = "Unhandled state."

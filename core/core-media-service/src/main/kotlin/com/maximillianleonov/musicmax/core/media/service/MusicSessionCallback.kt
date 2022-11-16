@@ -32,6 +32,7 @@ import com.maximillianleonov.musicmax.core.common.dispatcher.MusicmaxDispatchers
 import com.maximillianleonov.musicmax.core.domain.model.SongModel
 import com.maximillianleonov.musicmax.core.domain.usecase.GetSongsUseCase
 import com.maximillianleonov.musicmax.core.media.service.mapper.asMediaItem
+import com.maximillianleonov.musicmax.core.media.service.util.Constants.INVALID_MEDIA_ID_ERROR_MESSAGE
 import com.maximillianleonov.musicmax.core.media.service.util.buildBrowsableMediaItem
 import com.maximillianleonov.musicmax.core.model.MediaType
 import com.maximillianleonov.musicmax.core.model.MediaType.Album
@@ -77,7 +78,7 @@ class MusicSessionCallback @Inject constructor(
             Song.mediaId -> getSongsUseCase().first().map(SongModel::asMediaItem)
             Artist.mediaId -> TODO()
             Album.mediaId -> TODO()
-            else -> error("$InvalidMediaIdErrorMessage $parentId")
+            else -> error("$INVALID_MEDIA_ID_ERROR_MESSAGE $parentId")
         }
         LibraryResult.ofItemList(mediaItems, null)
     }
@@ -130,5 +131,3 @@ class MusicSessionCallback @Inject constructor(
         musicActionHandler.cancelCoroutineScope()
     }
 }
-
-private const val InvalidMediaIdErrorMessage = "Invalid media id."

@@ -16,8 +16,11 @@
 
 package com.maximillianleonov.musicmax.core.media.service.mapper
 
+import android.net.Uri
 import androidx.core.net.toUri
+import androidx.media3.common.MediaItem
 import com.maximillianleonov.musicmax.core.domain.model.SongModel
+import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_MEDIA_ID
 import com.maximillianleonov.musicmax.core.media.service.util.buildPlayableMediaItem
 import com.maximillianleonov.musicmax.core.model.Song
 
@@ -36,3 +39,14 @@ internal fun Song.asMediaItem() = buildPlayableMediaItem(
     title = title,
     artist = artist
 )
+
+internal fun MediaItem?.asSong() = Song(
+    mediaId = this?.mediaId ?: DEFAULT_MEDIA_ID,
+    mediaUri = this?.requestMetadata?.mediaUri.orEmpty(),
+    artworkUri = this?.mediaMetadata?.artworkUri.orEmpty(),
+    title = this?.mediaMetadata?.title.orEmpty(),
+    artist = this?.mediaMetadata?.artist.orEmpty()
+)
+
+private fun Uri?.orEmpty() = this ?: Uri.EMPTY
+private fun CharSequence?.orEmpty() = (this ?: "").toString()

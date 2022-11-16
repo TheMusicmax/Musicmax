@@ -21,6 +21,7 @@ import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.consumedWindowInsets
 import androidx.compose.foundation.layout.padding
@@ -41,6 +42,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
 import com.maximillianleonov.musicmax.core.designsystem.theme.MusicmaxTheme
 import com.maximillianleonov.musicmax.core.permission.PermissionContent
+import com.maximillianleonov.musicmax.feature.player.mini.MiniPlayer
 import com.maximillianleonov.musicmax.navigation.MusicmaxNavHost
 import com.maximillianleonov.musicmax.ui.component.MusicmaxBottomBar
 
@@ -105,13 +107,18 @@ private fun MusicmaxAppContent(
             }
         }
     ) { innerPadding ->
-        MusicmaxNavHost(
+        Column(
             modifier = Modifier
                 .padding(innerPadding)
-                .consumedWindowInsets(innerPadding),
-            navController = appState.navController,
-            startDestination = appState.startDestination.route
-        )
+                .consumedWindowInsets(innerPadding)
+        ) {
+            MusicmaxNavHost(
+                modifier = Modifier.weight(1f),
+                navController = appState.navController,
+                startDestination = appState.startDestination.route
+            )
+            MiniPlayer()
+        }
     }
 }
 
