@@ -17,16 +17,20 @@
 package com.maximillianleonov.musicmax.core.ui.component
 
 import android.net.Uri
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxImage
-import com.maximillianleonov.musicmax.core.media.common.R
+import com.maximillianleonov.musicmax.core.media.common.R as mediaCommonR
 
 @Composable
 fun MusicmaxArtworkImage(
@@ -34,14 +38,22 @@ fun MusicmaxArtworkImage(
     contentDescription: String?,
     modifier: Modifier = Modifier,
     shape: Shape = CardDefaults.shape,
-    colors: CardColors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
+    colors: CardColors = CardDefaults.cardColors(containerColor = Color.Transparent),
     placeholder: @Composable () -> Unit = {
-        Icon(
-            painter = painterResource(id = R.drawable.ic_music),
-            contentDescription = contentDescription,
-            tint = MaterialTheme.colorScheme.primary
-        )
-    }
+        Card(
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.primary
+            )
+        ) {
+            Icon(
+                modifier = Modifier.fillMaxSize(),
+                painter = painterResource(id = mediaCommonR.drawable.ic_music),
+                contentDescription = contentDescription
+            )
+        }
+    },
+    contentScale: ContentScale = ContentScale.Fit
 ) {
     MusicmaxImage(
         modifier = modifier,
@@ -50,6 +62,7 @@ fun MusicmaxArtworkImage(
         shape = shape,
         colors = colors,
         loading = { placeholder() },
-        error = { placeholder() }
+        error = { placeholder() },
+        contentScale = contentScale
     )
 }

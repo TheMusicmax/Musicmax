@@ -23,6 +23,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.layout.ContentScale
 import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageScope
@@ -35,7 +36,8 @@ fun MusicmaxImage(
     shape: Shape = CardDefaults.shape,
     colors: CardColors = CardDefaults.cardColors(),
     loading: @Composable (SubcomposeAsyncImageScope.(AsyncImagePainter.State.Loading) -> Unit)? = null,
-    error: @Composable (SubcomposeAsyncImageScope.(AsyncImagePainter.State.Error) -> Unit)? = null
+    error: @Composable (SubcomposeAsyncImageScope.(AsyncImagePainter.State.Error) -> Unit)? = null,
+    contentScale: ContentScale = ContentScale.Fit
 ) {
     Card(modifier = modifier, shape = shape, colors = colors) {
         SubcomposeAsyncImage(
@@ -43,7 +45,8 @@ fun MusicmaxImage(
             model = model,
             contentDescription = contentDescription,
             loading = loading,
-            error = error
+            error = error,
+            contentScale = contentScale
         )
     }
 }
