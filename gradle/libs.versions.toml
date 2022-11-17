@@ -36,7 +36,7 @@ kotlinx-coroutines = "1.6.4"
 dagger = "2.44.2"
 javax-inject = "1"
 
-accompanist = "0.27.0"
+accompanist = "0.27.1"
 coil = "2.2.2"
 renderscript-intrinsics-replacement-toolkit = "v0.8-beta"
 
