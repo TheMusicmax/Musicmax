@@ -29,6 +29,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
+import com.google.accompanist.systemuicontroller.SystemUiController
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.maximillianleonov.musicmax.core.permission.rememberMusicmaxPermissionState
 import com.maximillianleonov.musicmax.feature.player.navigation.PlayerRoute
 import com.maximillianleonov.musicmax.navigation.TopLevelDestination
@@ -36,15 +38,17 @@ import com.maximillianleonov.musicmax.navigation.TopLevelDestination
 @Composable
 fun rememberMusicmaxAppState(
     navController: NavHostController = rememberNavController(),
+    systemUiController: SystemUiController = rememberSystemUiController(),
     startDestination: TopLevelDestination = TopLevelDestination.Home
 ) = remember(navController, startDestination) {
-    MusicmaxAppState(navController, startDestination)
+    MusicmaxAppState(navController, systemUiController, startDestination)
 }
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Stable
 class MusicmaxAppState(
     val navController: NavHostController,
+    private val systemUiController: SystemUiController,
     val startDestination: TopLevelDestination
 ) {
     val currentDestination: NavDestination?
@@ -86,4 +90,12 @@ class MusicmaxAppState(
         }
 
     fun navigateToPlayerScreen() = navController.navigate(route = PlayerRoute)
+
+    fun setSystemBarsLightIcons() {
+        systemUiController.systemBarsDarkContentEnabled = false
+    }
+
+    fun setSystemBarsDarkIcons() {
+        systemUiController.systemBarsDarkContentEnabled = true
+    }
 }

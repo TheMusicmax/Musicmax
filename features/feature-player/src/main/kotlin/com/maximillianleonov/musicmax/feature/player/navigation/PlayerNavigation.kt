@@ -22,4 +22,12 @@ import com.maximillianleonov.musicmax.feature.player.PlayerRoute
 
 const val PlayerRoute = "player_route"
 
-fun NavGraphBuilder.playerScreen() = composable(route = PlayerRoute) { PlayerRoute() }
+fun NavGraphBuilder.playerScreen(
+    onSetSystemBarsLightIcons: () -> Unit,
+    onSetSystemBarsDarkIcons: () -> Unit
+) = composable(route = PlayerRoute) {
+    PlayerRoute(
+        onSetSystemBarsLightIcons = onSetSystemBarsLightIcons,
+        onSetSystemBarsDarkIcons = onSetSystemBarsDarkIcons
+    )
+}

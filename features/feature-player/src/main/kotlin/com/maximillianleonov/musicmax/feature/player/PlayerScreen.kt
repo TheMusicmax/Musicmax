@@ -17,6 +17,7 @@
 package com.maximillianleonov.musicmax.feature.player
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -31,6 +32,8 @@ import com.maximillianleonov.musicmax.feature.player.component.PlayerTitleArtist
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 internal fun PlayerRoute(
+    onSetSystemBarsLightIcons: () -> Unit,
+    onSetSystemBarsDarkIcons: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: PlayerViewModel = hiltViewModel()
 ) {
@@ -47,6 +50,11 @@ internal fun PlayerRoute(
         onMediaButtonPauseClick = viewModel::pause,
         onMediaButtonSkipNextClick = viewModel::skipNext
     )
+
+    DisposableEffect(onSetSystemBarsLightIcons, onSetSystemBarsDarkIcons) {
+        onSetSystemBarsLightIcons()
+        onDispose(onSetSystemBarsDarkIcons)
+    }
 }
 
 @Composable

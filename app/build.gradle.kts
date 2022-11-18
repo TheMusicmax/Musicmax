@@ -58,4 +58,5 @@ dependencies {
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.profileinstaller)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.accompanist.systemuicontroller)
 }
