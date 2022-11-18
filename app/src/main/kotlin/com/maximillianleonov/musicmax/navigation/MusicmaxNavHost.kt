@@ -30,6 +30,7 @@ import com.maximillianleonov.musicmax.feature.settings.navigation.settingsScreen
 fun MusicmaxNavHost(
     navController: NavHostController,
     startDestination: String,
+    onNavigateToPlayer: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     NavHost(
@@ -37,7 +38,7 @@ fun MusicmaxNavHost(
         navController = navController,
         startDestination = startDestination
     ) {
-        homeScreen()
+        homeScreen(onNavigateToPlayer = onNavigateToPlayer)
         searchScreen()
         favoriteScreen()
         settingsScreen()

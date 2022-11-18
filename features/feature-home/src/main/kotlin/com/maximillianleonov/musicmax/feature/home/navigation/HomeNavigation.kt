@@ -22,4 +22,6 @@ import com.maximillianleonov.musicmax.feature.home.HomeRoute
 
 const val HomeRoute = "home_route"
 
-fun NavGraphBuilder.homeScreen() = composable(route = HomeRoute) { HomeRoute() }
+fun NavGraphBuilder.homeScreen(onNavigateToPlayer: () -> Unit) = composable(route = HomeRoute) {
+    HomeRoute(onNavigateToPlayer = onNavigateToPlayer)
+}

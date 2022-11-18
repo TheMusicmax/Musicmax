@@ -117,7 +117,8 @@ private fun MusicmaxAppContent(
             MusicmaxNavHost(
                 modifier = Modifier.weight(1f),
                 navController = appState.navController,
-                startDestination = appState.startDestination.route
+                startDestination = appState.startDestination.route,
+                onNavigateToPlayer = appState::navigateToPlayerScreen
             )
             AnimatedVisibility(
                 visible = appState.isTopLevelDestination,

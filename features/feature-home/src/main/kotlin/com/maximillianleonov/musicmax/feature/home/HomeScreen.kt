@@ -31,6 +31,7 @@ import com.maximillianleonov.musicmax.core.ui.component.SongItem
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 internal fun HomeRoute(
+    onNavigateToPlayer: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
@@ -38,7 +39,10 @@ internal fun HomeRoute(
 
     HomeScreen(
         modifier = modifier,
-        onSongClick = viewModel::play,
+        onSongClick = { startIndex ->
+            viewModel.play(startIndex)
+            onNavigateToPlayer()
+        },
         songs = songs
     )
 }
