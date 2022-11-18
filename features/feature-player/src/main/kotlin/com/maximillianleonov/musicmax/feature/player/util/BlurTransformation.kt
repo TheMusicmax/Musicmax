@@ -22,12 +22,19 @@ import coil.transform.Transformation
 import com.google.android.renderscript.Toolkit
 
 class BlurTransformation(private val radius: Int = DefaultRadius) : Transformation {
-    override val cacheKey = "${BlurTransformation::class.java.name}-$radius"
+    override val cacheKey = "${javaClass.name}-$radius"
 
     override suspend fun transform(input: Bitmap, size: Size) =
         Toolkit.blur(inputBitmap = input, radius = radius)
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        return other is BlurTransformation && radius == other.radius
+    }
+
+    override fun hashCode() = radius.hashCode()
+
     private companion object {
-        private const val DefaultRadius = 25
+        private const val DefaultRadius = 20
     }
 }
