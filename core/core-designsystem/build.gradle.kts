@@ -24,7 +24,6 @@ android.namespace = "com.maximillianleonov.musicmax.core.designsystem"
 dependencies {
     api(libs.bundles.androidx.compose)
 
-    implementation(libs.accompanist.placeholder.material)
     implementation(libs.coil.compose)
 
     debugApi(libs.androidx.compose.ui.tooling)
