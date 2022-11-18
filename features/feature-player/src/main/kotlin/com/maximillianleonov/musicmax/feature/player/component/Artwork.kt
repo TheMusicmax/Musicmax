@@ -100,7 +100,7 @@ private fun PlayerBackdropArtworkImage(
     contentDescription: String?,
     modifier: Modifier = Modifier,
     shape: Shape = CardDefaults.shape,
-    colors: CardColors = CardDefaults.cardColors(containerColor = Color.Transparent),
+    colors: CardColors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary),
     contentScale: ContentScale = ContentScale.Crop
 ) {
     MusicmaxImage(
