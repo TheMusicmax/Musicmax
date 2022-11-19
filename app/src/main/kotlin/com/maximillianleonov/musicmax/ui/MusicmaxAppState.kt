@@ -89,7 +89,9 @@ class MusicmaxAppState(
             restoreState = true
         }
 
-    fun navigateToPlayerScreen() = navController.navigate(route = PlayerRoute)
+    fun navigateToPlayerScreen() = navController.navigate(route = PlayerRoute) {
+        launchSingleTop = true
+    }
 
     fun setSystemBarsLightIcons() {
         systemUiController.systemBarsDarkContentEnabled = false
