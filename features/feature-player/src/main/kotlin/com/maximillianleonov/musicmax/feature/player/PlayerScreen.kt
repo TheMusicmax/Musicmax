@@ -33,7 +33,7 @@ import com.maximillianleonov.musicmax.feature.player.component.PlayerTitleArtist
 @Composable
 internal fun PlayerRoute(
     onSetSystemBarsLightIcons: () -> Unit,
-    onSetSystemBarsDarkIcons: () -> Unit,
+    onResetSystemBarsIcons: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: PlayerViewModel = hiltViewModel()
 ) {
@@ -51,9 +51,9 @@ internal fun PlayerRoute(
         onMediaButtonSkipNextClick = viewModel::skipNext
     )
 
-    DisposableEffect(onSetSystemBarsLightIcons, onSetSystemBarsDarkIcons) {
+    DisposableEffect(onSetSystemBarsLightIcons, onResetSystemBarsIcons) {
         onSetSystemBarsLightIcons()
-        onDispose(onSetSystemBarsDarkIcons)
+        onDispose(onResetSystemBarsIcons)
     }
 }
 

@@ -24,10 +24,10 @@ const val PlayerRoute = "player_route"
 
 fun NavGraphBuilder.playerScreen(
     onSetSystemBarsLightIcons: () -> Unit,
-    onSetSystemBarsDarkIcons: () -> Unit
+    onResetSystemBarsIcons: () -> Unit
 ) = composable(route = PlayerRoute) {
     PlayerRoute(
         onSetSystemBarsLightIcons = onSetSystemBarsLightIcons,
-        onSetSystemBarsDarkIcons = onSetSystemBarsDarkIcons
+        onResetSystemBarsIcons = onResetSystemBarsIcons
     )
 }

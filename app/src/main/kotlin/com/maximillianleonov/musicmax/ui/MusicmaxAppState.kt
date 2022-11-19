@@ -97,7 +97,7 @@ class MusicmaxAppState(
         systemUiController.systemBarsDarkContentEnabled = false
     }
 
-    fun setSystemBarsDarkIcons() {
+    fun resetSystemBarsIcons() {
         systemUiController.systemBarsDarkContentEnabled = true
     }
 }

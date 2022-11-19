@@ -120,7 +120,7 @@ private fun MusicmaxAppContent(
                 startDestination = appState.startDestination.route,
                 onNavigateToPlayer = appState::navigateToPlayerScreen,
                 onSetSystemBarsLightIcons = appState::setSystemBarsLightIcons,
-                onSetSystemBarsDarkIcons = appState::setSystemBarsDarkIcons
+                onResetSystemBarsIcons = appState::resetSystemBarsIcons
             )
             AnimatedVisibility(
                 visible = appState.isTopLevelDestination,
