@@ -30,6 +30,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -99,7 +100,7 @@ private fun PlayerBackdropArtworkImage(
     artworkUri: Uri,
     contentDescription: String?,
     modifier: Modifier = Modifier,
-    shape: Shape = CardDefaults.shape,
+    shape: Shape = RectangleShape,
     colors: CardColors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary),
     contentScale: ContentScale = ContentScale.Crop
 ) {
