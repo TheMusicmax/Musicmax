@@ -103,7 +103,7 @@ class MusicNotificationProvider @Inject constructor(
         val notificationChannel = NotificationChannel(
             MusicNotificationChannelId,
             context.getString(R.string.music_notification_channel_name),
-            NotificationManager.IMPORTANCE_DEFAULT
+            NotificationManager.IMPORTANCE_LOW
         )
         notificationManager.createNotificationChannel(notificationChannel)
     }
