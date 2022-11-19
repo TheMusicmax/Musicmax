@@ -18,9 +18,9 @@ package com.maximillianleonov.musicmax.core.mediastore.source
 
 import android.content.ContentResolver
 import android.content.ContentUris
-import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
+import com.maximillianleonov.musicmax.core.mediastore.util.asArtworkUri
 import com.maximillianleonov.musicmax.core.model.Song
 import javax.inject.Inject
 
@@ -77,6 +77,3 @@ class SongMediaStoreDataSource @Inject constructor(private val contentResolver: 
         return songs
     }
 }
-
-private fun Long.asArtworkUri() = ContentUris.withAppendedId(Uri.parse(ALBUM_ART_URI), this)
-private const val ALBUM_ART_URI = "content://media/external/audio/albumart"
