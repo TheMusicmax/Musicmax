@@ -19,8 +19,7 @@ package com.maximillianleonov.musicmax.core.model
 import android.net.Uri
 
 data class Album(
-    val mediaId: String,
-    val albumId: Long,
+    val id: Long,
     val artworkUri: Uri,
     val album: String,
     val artist: String
