@@ -22,6 +22,7 @@ import androidx.media3.session.CommandButton
 import androidx.media3.session.MediaNotification
 import androidx.media3.session.MediaSession
 import com.google.common.collect.ImmutableList
+import com.maximillianleonov.musicmax.core.designsystem.icon.MusicmaxIcons
 import com.maximillianleonov.musicmax.core.media.notification.util.asNotificationAction
 import com.maximillianleonov.musicmax.core.media.common.R as mediaCommonR
 
@@ -37,7 +38,7 @@ internal object MusicActions {
         mediaSession: MediaSession,
         actionFactory: MediaNotification.ActionFactory
     ) = MusicAction(
-        iconResource = mediaCommonR.drawable.ic_skip_previous,
+        iconResource = MusicmaxIcons.SkipPrevious.resourceId,
         titleResource = mediaCommonR.string.skip_previous,
         command = Player.COMMAND_SEEK_TO_PREVIOUS
     ).asNotificationAction(context, mediaSession, actionFactory)
@@ -48,7 +49,7 @@ internal object MusicActions {
         actionFactory: MediaNotification.ActionFactory,
         playWhenReady: Boolean
     ) = MusicAction(
-        iconResource = if (playWhenReady) mediaCommonR.drawable.ic_pause else mediaCommonR.drawable.ic_play,
+        iconResource = if (playWhenReady) MusicmaxIcons.Pause.resourceId else MusicmaxIcons.Play.resourceId,
         titleResource = if (playWhenReady) mediaCommonR.string.pause else mediaCommonR.string.play,
         command = Player.COMMAND_PLAY_PAUSE
     ).asNotificationAction(context, mediaSession, actionFactory)
@@ -58,7 +59,7 @@ internal object MusicActions {
         mediaSession: MediaSession,
         actionFactory: MediaNotification.ActionFactory
     ) = MusicAction(
-        iconResource = mediaCommonR.drawable.ic_skip_next,
+        iconResource = MusicmaxIcons.SkipNext.resourceId,
         titleResource = mediaCommonR.string.skip_next,
         command = Player.COMMAND_SEEK_TO_NEXT
     ).asNotificationAction(context, mediaSession, actionFactory)

@@ -23,6 +23,8 @@ import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.maximillianleonov.musicmax.core.designsystem.R
+import com.maximillianleonov.musicmax.core.designsystem.icon.Icon.DrawableResourceIcon
 import com.maximillianleonov.musicmax.core.designsystem.icon.Icon.ImageVectorIcon
 
 object MusicmaxIcons {
@@ -30,6 +32,14 @@ object MusicmaxIcons {
     val Search = ImageVectorIcon(Icons.Rounded.Search)
     val Favorite = ImageVectorIcon(Icons.Rounded.Favorite)
     val Settings = ImageVectorIcon(Icons.Rounded.Settings)
+    val Music = DrawableResourceIcon(R.drawable.ic_music)
+    val Repeat = DrawableResourceIcon(R.drawable.ic_repeat)
+    val RepeatOne = DrawableResourceIcon(R.drawable.ic_repeat_one)
+    val Shuffle = DrawableResourceIcon(R.drawable.ic_shuffle)
+    val SkipPrevious = DrawableResourceIcon(R.drawable.ic_skip_previous)
+    val Play = DrawableResourceIcon(R.drawable.ic_play)
+    val Pause = DrawableResourceIcon(R.drawable.ic_pause)
+    val SkipNext = DrawableResourceIcon(R.drawable.ic_skip_next)
 }
 
 sealed interface Icon {

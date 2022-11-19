@@ -25,6 +25,7 @@ import androidx.media3.session.MediaSession
 import androidx.media3.session.SessionCommand
 import com.maximillianleonov.musicmax.core.common.dispatcher.Dispatcher
 import com.maximillianleonov.musicmax.core.common.dispatcher.MusicmaxDispatchers.MAIN
+import com.maximillianleonov.musicmax.core.designsystem.icon.MusicmaxIcons
 import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.REPEAT
 import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.REPEAT_ONE
 import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.REPEAT_SHUFFLE
@@ -95,17 +96,17 @@ class MusicActionHandler @Inject constructor(
         REPEAT to buildCustomCommand(
             action = REPEAT,
             displayName = context.getString(mediaCommonR.string.repeat),
-            iconResource = mediaCommonR.drawable.ic_repeat
+            iconResource = MusicmaxIcons.Repeat.resourceId
         ),
         REPEAT_ONE to buildCustomCommand(
             action = REPEAT_ONE,
             displayName = context.getString(mediaCommonR.string.repeat_one),
-            iconResource = mediaCommonR.drawable.ic_repeat_one
+            iconResource = MusicmaxIcons.RepeatOne.resourceId
         ),
         SHUFFLE to buildCustomCommand(
             action = SHUFFLE,
             displayName = context.getString(mediaCommonR.string.shuffle),
-            iconResource = mediaCommonR.drawable.ic_shuffle
+            iconResource = MusicmaxIcons.Shuffle.resourceId
         )
     )
 }

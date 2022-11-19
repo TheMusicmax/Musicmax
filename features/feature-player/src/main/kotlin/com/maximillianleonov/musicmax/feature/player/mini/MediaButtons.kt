@@ -38,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import com.maximillianleonov.musicmax.core.designsystem.icon.MusicmaxIcons
 import com.maximillianleonov.musicmax.core.media.common.R as mediaCommonR
 
 @Composable
@@ -54,7 +55,7 @@ internal fun MiniPlayerMediaButtons(
         verticalAlignment = Alignment.CenterVertically
     ) {
         MediaButton(
-            iconResource = mediaCommonR.drawable.ic_skip_previous,
+            iconResource = MusicmaxIcons.SkipPrevious.resourceId,
             contentDescriptionResource = mediaCommonR.string.skip_previous,
             onClick = onSkipPreviousClick
         )
@@ -62,13 +63,13 @@ internal fun MiniPlayerMediaButtons(
         Crossfade(targetState = playWhenReady, animationSpec = spring()) { targetPlayWhenReady ->
             if (targetPlayWhenReady) {
                 MediaButton(
-                    iconResource = mediaCommonR.drawable.ic_pause,
+                    iconResource = MusicmaxIcons.Pause.resourceId,
                     contentDescriptionResource = mediaCommonR.string.pause,
                     onClick = onPauseClick
                 )
             } else {
                 MediaButton(
-                    iconResource = mediaCommonR.drawable.ic_play,
+                    iconResource = MusicmaxIcons.Play.resourceId,
                     contentDescriptionResource = mediaCommonR.string.play,
                     onClick = onPlayClick
                 )
@@ -76,7 +77,7 @@ internal fun MiniPlayerMediaButtons(
         }
 
         MediaButton(
-            iconResource = mediaCommonR.drawable.ic_skip_next,
+            iconResource = MusicmaxIcons.SkipNext.resourceId,
             contentDescriptionResource = mediaCommonR.string.skip_next,
             onClick = onSkipNextClick
         )

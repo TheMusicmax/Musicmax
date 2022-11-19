@@ -33,6 +33,7 @@ import com.google.common.collect.ImmutableList
 import com.maximillianleonov.musicmax.core.common.dispatcher.Dispatcher
 import com.maximillianleonov.musicmax.core.common.dispatcher.MusicmaxDispatchers.IO
 import com.maximillianleonov.musicmax.core.common.dispatcher.MusicmaxDispatchers.MAIN
+import com.maximillianleonov.musicmax.core.designsystem.icon.MusicmaxIcons
 import com.maximillianleonov.musicmax.core.media.notification.common.MusicActions
 import com.maximillianleonov.musicmax.core.media.notification.util.asArtworkBitmap
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -43,7 +44,6 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
-import com.maximillianleonov.musicmax.core.media.common.R as mediaCommonR
 
 class MusicNotificationProvider @Inject constructor(
     @Dispatcher(MAIN) mainDispatcher: CoroutineDispatcher,
@@ -67,7 +67,7 @@ class MusicNotificationProvider @Inject constructor(
         val builder = NotificationCompat.Builder(context, MusicNotificationChannelId)
             .setContentTitle(metadata.title)
             .setContentText(metadata.artist)
-            .setSmallIcon(mediaCommonR.drawable.ic_music)
+            .setSmallIcon(MusicmaxIcons.Music.resourceId)
             .setStyle(MediaStyle(session))
 
         getNotificationActions(

@@ -30,7 +30,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxImage
-import com.maximillianleonov.musicmax.core.media.common.R as mediaCommonR
+import com.maximillianleonov.musicmax.core.designsystem.icon.MusicmaxIcons
 
 @Composable
 fun MusicmaxArtworkImage(
@@ -48,7 +48,7 @@ fun MusicmaxArtworkImage(
         ) {
             Icon(
                 modifier = Modifier.fillMaxSize(),
-                painter = painterResource(id = mediaCommonR.drawable.ic_music),
+                painter = painterResource(id = MusicmaxIcons.Music.resourceId),
                 contentDescription = contentDescription
             )
         }

@@ -24,6 +24,8 @@ android.namespace = "com.maximillianleonov.musicmax.core.media.notification"
 dependencies {
     implementation(project(":core:core-common"))
     implementation(project(":core:core-media-common"))
+    implementation(project(":core:core-designsystem"))
+
     implementation(libs.androidx.media3.session)
     implementation(libs.coil)
 }
