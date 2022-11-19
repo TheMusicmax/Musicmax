@@ -19,14 +19,17 @@ package com.maximillianleonov.musicmax.core.database.util
 internal object Constants {
     internal object Tables {
         internal const val SONGS = "songs"
+        internal const val ALBUMS = "albums"
     }
 
     internal object Fields {
         internal const val ID = "id"
         internal const val MEDIA_ID = "media_id"
+        internal const val ALBUM_ID = "album_id"
         internal const val MEDIA_URI = "media_uri"
         internal const val ARTWORK_URI = "artwork_uri"
         internal const val TITLE = "title"
+        internal const val ALBUM = "album"
         internal const val ARTIST = "artist"
     }
 }
