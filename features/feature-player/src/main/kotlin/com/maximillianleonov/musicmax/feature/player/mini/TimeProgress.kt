@@ -16,8 +16,6 @@
 
 package com.maximillianleonov.musicmax.feature.player.mini
 
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -35,7 +33,6 @@ import com.maximillianleonov.musicmax.core.media.service.common.PlaybackState
 import com.maximillianleonov.musicmax.feature.player.util.asFormattedString
 import com.maximillianleonov.musicmax.feature.player.util.convertToProgress
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 internal fun MiniPlayerTimeProgress(
     playbackState: PlaybackState,
@@ -47,33 +44,29 @@ internal fun MiniPlayerTimeProgress(
         targetValue = convertToProgress(count = currentPosition, total = duration)
     )
 
-    AnimatedContent(
-        modifier = modifier,
-        targetState = playbackState == PlaybackState.BUFFERING
-    ) { targetIsBuffering ->
-        Column {
-            if (targetIsBuffering) {
-                LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
-            } else {
-                Row(
-                    modifier = Modifier
-                        .padding(horizontal = MaterialTheme.spacing.small)
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(
-                        text = currentPosition.asFormattedString(),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    Text(
-                        text = duration.asFormattedString(),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-                LinearProgressIndicator(modifier = Modifier.fillMaxWidth(), progress = progress)
-            }
+    Column(modifier = modifier) {
+        Row(
+            modifier = Modifier
+                .padding(horizontal = MaterialTheme.spacing.small)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = currentPosition.asFormattedString(),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            Text(
+                text = duration.asFormattedString(),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+
+        if (playbackState == PlaybackState.BUFFERING) {
+            LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+        } else {
+            LinearProgressIndicator(modifier = Modifier.fillMaxWidth(), progress = progress)
         }
     }
 }
