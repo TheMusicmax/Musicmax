@@ -22,7 +22,5 @@ import javax.inject.Inject
 
 class SongDatabaseDataSource @Inject constructor(private val songDao: SongDao) {
     fun getAll() = songDao.getAll()
-    suspend fun insertAll(songs: List<SongEntity>) = songDao.insertAll(songs)
-    suspend fun deleteAll() = songDao.deleteAll()
     suspend fun deleteAndInsertAll(songs: List<SongEntity>) = songDao.deleteAndInsertAll(songs)
 }
