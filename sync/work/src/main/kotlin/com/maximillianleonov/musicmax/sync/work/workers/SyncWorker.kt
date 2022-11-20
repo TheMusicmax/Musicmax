@@ -25,6 +25,8 @@ import androidx.work.OutOfQuotaPolicy
 import androidx.work.WorkerParameters
 import com.maximillianleonov.musicmax.core.common.dispatcher.Dispatcher
 import com.maximillianleonov.musicmax.core.common.dispatcher.MusicmaxDispatchers.IO
+import com.maximillianleonov.musicmax.core.domain.repository.AlbumRepository
+import com.maximillianleonov.musicmax.core.domain.repository.ArtistRepository
 import com.maximillianleonov.musicmax.core.domain.repository.SongRepository
 import com.maximillianleonov.musicmax.core.permission.checkMusicmaxPermission
 import com.maximillianleonov.musicmax.sync.work.initializers.syncForegroundInfo
@@ -44,7 +46,9 @@ internal class SyncWorker @AssistedInject constructor(
     @Assisted private val appContext: Context,
     @Assisted workerParams: WorkerParameters,
     @Dispatcher(IO) private val ioDispatcher: CoroutineDispatcher,
-    private val songRepository: SongRepository
+    private val songRepository: SongRepository,
+    private val artistRepository: ArtistRepository,
+    private val albumRepository: AlbumRepository
 ) : CoroutineWorker(appContext, workerParams) {
 
     override suspend fun getForegroundInfo(): ForegroundInfo = appContext.syncForegroundInfo()
@@ -53,7 +57,9 @@ internal class SyncWorker @AssistedInject constructor(
         appContext.awaitMusicmaxPermission()
 
         awaitAll(
-            async { songRepository.synchronize() }
+            async { songRepository.synchronize() },
+            async { artistRepository.synchronize() },
+            async { albumRepository.synchronize() }
         )
 
         Result.success()
