@@ -20,7 +20,7 @@ import androidx.annotation.StringRes
 import com.maximillianleonov.musicmax.core.designsystem.icon.Icon.ImageVectorIcon
 import com.maximillianleonov.musicmax.core.designsystem.icon.MusicmaxIcons
 import com.maximillianleonov.musicmax.feature.favorite.navigation.FavoriteRoute
-import com.maximillianleonov.musicmax.feature.home.navigation.HomeRoute
+import com.maximillianleonov.musicmax.feature.home.navigation.HomeGraphRoute
 import com.maximillianleonov.musicmax.feature.search.navigation.SearchRoute
 import com.maximillianleonov.musicmax.feature.settings.navigation.SettingsRoute
 import com.maximillianleonov.musicmax.feature.favorite.R as favoriteR
@@ -34,7 +34,7 @@ enum class TopLevelDestination(
     @StringRes val titleResource: Int
 ) {
     Home(
-        route = HomeRoute,
+        route = HomeGraphRoute,
         icon = MusicmaxIcons.Home,
         titleResource = homeR.string.home
     ),

@@ -78,7 +78,7 @@ private fun MusicmaxAppContent(
         modifier = modifier,
         topBar = {
             AnimatedVisibility(
-                visible = appState.isTopLevelDestination,
+                visible = appState.shouldShowTopAppBar,
                 enter = TopAppBarEnterTransition,
                 exit = TopAppBarExitTransition
             ) {

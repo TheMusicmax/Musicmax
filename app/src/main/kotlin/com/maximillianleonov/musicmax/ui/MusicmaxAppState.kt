@@ -32,8 +32,13 @@ import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.systemuicontroller.SystemUiController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.maximillianleonov.musicmax.core.permission.rememberMusicmaxPermissionState
+import com.maximillianleonov.musicmax.feature.favorite.navigation.FavoriteRoute
+import com.maximillianleonov.musicmax.feature.home.navigation.HomeRoute
 import com.maximillianleonov.musicmax.feature.player.navigation.navigateToPlayer
+import com.maximillianleonov.musicmax.feature.search.navigation.SearchRoute
+import com.maximillianleonov.musicmax.feature.settings.navigation.SettingsRoute
 import com.maximillianleonov.musicmax.navigation.TopLevelDestination
+import com.maximillianleonov.musicmax.navigation.util.contains
 
 @Composable
 fun rememberMusicmaxAppState(
@@ -56,17 +61,22 @@ class MusicmaxAppState(
 
     val currentTopLevelDestination: TopLevelDestination
         @Composable get() {
-            topLevelDestinations.firstOrNull { it.route == currentDestination?.route }
+            topLevelDestinations.firstOrNull { it.route in currentDestination }
                 ?.let { _currentTopLevelDestination = it }
             return _currentTopLevelDestination
         }
 
     val isTopLevelDestination: Boolean
-        @Composable get() = currentDestination?.route == currentTopLevelDestination.route
+        @Composable get() = currentTopLevelDestination.route in currentDestination
+
+    val shouldShowTopAppBar: Boolean
+        @Composable get() = currentDestination?.route in shouldShowTopAppBarDestinations
 
     val topLevelDestinations = TopLevelDestination.values()
 
     private var _currentTopLevelDestination by mutableStateOf(startDestination)
+    private val shouldShowTopAppBarDestinations =
+        listOf(HomeRoute, SearchRoute, FavoriteRoute, SettingsRoute)
 
     val permissionState: PermissionState
         @Composable get() = rememberMusicmaxPermissionState { isPermissionRequested = true }

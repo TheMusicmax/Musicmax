@@ -18,10 +18,18 @@ package com.maximillianleonov.musicmax.feature.home.navigation
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import androidx.navigation.navigation
 import com.maximillianleonov.musicmax.feature.home.HomeRoute
 
+const val HomeGraphRoute = "home_graph"
 const val HomeRoute = "home_route"
 
-fun NavGraphBuilder.homeScreen(onNavigateToPlayer: () -> Unit) = composable(route = HomeRoute) {
-    HomeRoute(onNavigateToPlayer = onNavigateToPlayer)
+fun NavGraphBuilder.homeScreen(
+    onNavigateToPlayer: () -> Unit,
+    nestedGraphs: NavGraphBuilder.() -> Unit
+) = navigation(route = HomeGraphRoute, startDestination = HomeRoute) {
+    composable(route = HomeRoute) {
+        HomeRoute(onNavigateToPlayer = onNavigateToPlayer)
+    }
+    nestedGraphs()
 }
