@@ -39,6 +39,12 @@ object DatabaseModule {
 
     @Provides
     fun provideSongDao(musicmaxDatabase: MusicmaxDatabase) = musicmaxDatabase.songDao
+
+    @Provides
+    fun provideArtistDao(musicmaxDatabase: MusicmaxDatabase) = musicmaxDatabase.artistDao
+
+    @Provides
+    fun provideAlbumDao(musicmaxDatabase: MusicmaxDatabase) = musicmaxDatabase.albumDao
 }
 
 private const val MUSICMAX_DATABASE = "musicmax.db"
