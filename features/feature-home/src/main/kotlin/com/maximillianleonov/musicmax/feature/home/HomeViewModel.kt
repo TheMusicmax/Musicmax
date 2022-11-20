@@ -18,11 +18,14 @@ package com.maximillianleonov.musicmax.feature.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.maximillianleonov.musicmax.core.domain.model.AlbumModel
 import com.maximillianleonov.musicmax.core.domain.model.ArtistModel
 import com.maximillianleonov.musicmax.core.domain.model.SongModel
+import com.maximillianleonov.musicmax.core.domain.usecase.GetAlbumsUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.GetArtistsUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.GetSongsUseCase
 import com.maximillianleonov.musicmax.core.media.service.MusicServiceConnection
+import com.maximillianleonov.musicmax.core.ui.mapper.asAlbum
 import com.maximillianleonov.musicmax.core.ui.mapper.asArtist
 import com.maximillianleonov.musicmax.core.ui.mapper.asSong
 import com.maximillianleonov.musicmax.core.ui.mapper.listMap
@@ -35,7 +38,8 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val musicServiceConnection: MusicServiceConnection,
     getSongsUseCase: GetSongsUseCase,
-    artistsUseCase: GetArtistsUseCase
+    getArtistsUseCase: GetArtistsUseCase,
+    getAlbumsUseCase: GetAlbumsUseCase
 ) : ViewModel() {
     val songs = getSongsUseCase()
         .listMap(SongModel::asSong)
@@ -45,8 +49,16 @@ class HomeViewModel @Inject constructor(
             initialValue = emptyList()
         )
 
-    val artists = artistsUseCase()
+    val artists = getArtistsUseCase()
         .listMap(ArtistModel::asArtist)
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.Eagerly,
+            initialValue = emptyList()
+        )
+
+    val albums = getAlbumsUseCase()
+        .listMap(AlbumModel::asAlbum)
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.Eagerly,
