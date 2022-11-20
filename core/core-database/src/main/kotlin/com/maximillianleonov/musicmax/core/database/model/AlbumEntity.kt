@@ -28,7 +28,7 @@ data class AlbumEntity(
     val id: Int = 0,
 
     @ColumnInfo(name = Constants.Fields.ALBUM_ID)
-    val albumId: String,
+    val albumId: Long,
 
     @ColumnInfo(name = Constants.Fields.ARTWORK_URI)
     val artworkUri: String,
