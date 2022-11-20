@@ -17,10 +17,13 @@
 package com.maximillianleonov.musicmax.feature.player.navigation
 
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.maximillianleonov.musicmax.feature.player.PlayerRoute
 
-const val PlayerRoute = "player_route"
+private const val PlayerRoute = "player_route"
+
+fun NavHostController.navigateToPlayer() = navigate(route = PlayerRoute) { launchSingleTop = true }
 
 fun NavGraphBuilder.playerScreen(
     onSetSystemBarsLightIcons: () -> Unit,

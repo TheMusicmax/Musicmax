@@ -118,7 +118,7 @@ private fun MusicmaxAppContent(
                 modifier = Modifier.weight(1f),
                 navController = appState.navController,
                 startDestination = appState.startDestination.route,
-                onNavigateToPlayer = appState::navigateToPlayerScreen,
+                onNavigateToPlayer = appState::navigateToPlayer,
                 onSetSystemBarsLightIcons = appState::setSystemBarsLightIcons,
                 onResetSystemBarsIcons = appState::resetSystemBarsIcons
             )
@@ -127,7 +127,7 @@ private fun MusicmaxAppContent(
                 enter = MiniPlayerEnterTransition,
                 exit = MiniPlayerExitTransition
             ) {
-                MiniPlayer(onNavigateToPlayer = appState::navigateToPlayerScreen)
+                MiniPlayer(onNavigateToPlayer = appState::navigateToPlayer)
             }
         }
     }
