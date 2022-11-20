@@ -16,12 +16,6 @@
 
 package com.maximillianleonov.musicmax.feature.home
 
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -31,10 +25,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.maximillianleonov.musicmax.core.model.Album
 import com.maximillianleonov.musicmax.core.model.Artist
 import com.maximillianleonov.musicmax.core.model.Song
-import com.maximillianleonov.musicmax.core.ui.component.AlbumItem
-import com.maximillianleonov.musicmax.core.ui.component.ArtistItem
 import com.maximillianleonov.musicmax.core.ui.component.MediaPager
-import com.maximillianleonov.musicmax.core.ui.component.SongItem
+import com.maximillianleonov.musicmax.feature.home.component.AlbumsTabContent
+import com.maximillianleonov.musicmax.feature.home.component.ArtistsTabContent
+import com.maximillianleonov.musicmax.feature.home.component.SongsTabContent
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
@@ -69,26 +63,8 @@ private fun HomeScreen(
 ) {
     MediaPager(
         modifier = modifier,
-        songsTabContent = {
-            LazyColumn {
-                itemsIndexed(songs) { index, song ->
-                    SongItem(song = song, onClick = { onSongClick(index) })
-                }
-            }
-        },
-        artistsTabContent = {
-            LazyColumn {
-                items(artists) { artist ->
-                    ArtistItem(artist = artist, onClick = { /* TODO */ })
-                }
-            }
-        },
-        albumsTabContent = {
-            LazyVerticalGrid(columns = GridCells.Fixed(count = 2)) {
-                items(albums) { album ->
-                    AlbumItem(album = album, onClick = { /* TODO */ })
-                }
-            }
-        }
+        songsTabContent = { SongsTabContent(songs = songs, onClick = onSongClick) },
+        artistsTabContent = { ArtistsTabContent(artists = artists, onClick = { /* TODO */ }) },
+        albumsTabContent = { AlbumsTabContent(albums = albums, onClick = { /* TODO */ }) }
     )
 }
