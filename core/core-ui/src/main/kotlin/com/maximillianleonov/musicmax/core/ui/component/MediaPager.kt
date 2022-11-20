@@ -47,17 +47,9 @@ import kotlinx.coroutines.launch
 @Composable
 fun MediaPager(
     songsTabContent: @Composable () -> Unit,
+    artistsTabContent: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
-    artistsTabContent: @Composable () -> Unit = {
-        // TODO
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Text(
-                text = stringResource(id = R.string.artists),
-                style = MaterialTheme.typography.displaySmall
-            )
-        }
-    },
     albumsTabContent: @Composable () -> Unit = {
         // TODO
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {

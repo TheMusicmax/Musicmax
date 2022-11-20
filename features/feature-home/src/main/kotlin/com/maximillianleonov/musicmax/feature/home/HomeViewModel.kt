@@ -18,9 +18,12 @@ package com.maximillianleonov.musicmax.feature.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.maximillianleonov.musicmax.core.domain.model.ArtistModel
 import com.maximillianleonov.musicmax.core.domain.model.SongModel
+import com.maximillianleonov.musicmax.core.domain.usecase.GetArtistsUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.GetSongsUseCase
 import com.maximillianleonov.musicmax.core.media.service.MusicServiceConnection
+import com.maximillianleonov.musicmax.core.ui.mapper.asArtist
 import com.maximillianleonov.musicmax.core.ui.mapper.asSong
 import com.maximillianleonov.musicmax.core.ui.mapper.listMap
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,10 +34,19 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val musicServiceConnection: MusicServiceConnection,
-    getSongsUseCase: GetSongsUseCase
+    getSongsUseCase: GetSongsUseCase,
+    artistsUseCase: GetArtistsUseCase
 ) : ViewModel() {
     val songs = getSongsUseCase()
         .listMap(SongModel::asSong)
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.Eagerly,
+            initialValue = emptyList()
+        )
+
+    val artists = artistsUseCase()
+        .listMap(ArtistModel::asArtist)
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.Eagerly,
