@@ -27,7 +27,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface AlbumDao {
-    @Query("SELECT * FROM $ALBUMS LIMIT 50")
+    @Query("SELECT * FROM $ALBUMS")
     fun getAll(): Flow<List<AlbumEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
