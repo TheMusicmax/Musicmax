@@ -19,6 +19,7 @@ package com.maximillianleonov.musicmax.core.database.util
 internal object Constants {
     internal object Tables {
         internal const val SONGS = "songs"
+        internal const val ARTISTS = "artists"
         internal const val ALBUMS = "albums"
     }
 
@@ -32,5 +33,6 @@ internal object Constants {
         internal const val TITLE = "title"
         internal const val ALBUM = "album"
         internal const val ARTIST = "artist"
+        internal const val NUMBER_OF_SONGS = "number_of_songs"
     }
 }

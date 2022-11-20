@@ -14,24 +14,14 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.core.database
+package com.maximillianleonov.musicmax.core.database.source
 
-import androidx.room.Database
-import androidx.room.RoomDatabase
-import com.maximillianleonov.musicmax.core.database.dao.AlbumDao
 import com.maximillianleonov.musicmax.core.database.dao.ArtistDao
-import com.maximillianleonov.musicmax.core.database.dao.SongDao
-import com.maximillianleonov.musicmax.core.database.model.AlbumEntity
 import com.maximillianleonov.musicmax.core.database.model.ArtistEntity
-import com.maximillianleonov.musicmax.core.database.model.SongEntity
+import javax.inject.Inject
 
-@Database(
-    entities = [SongEntity::class, ArtistEntity::class, AlbumEntity::class],
-    version = 1,
-    exportSchema = false
-)
-abstract class MusicmaxDatabase : RoomDatabase() {
-    abstract val songDao: SongDao
-    abstract val artistDao: ArtistDao
-    abstract val albumDao: AlbumDao
+class ArtistDatabaseDataSource @Inject constructor(private val artistDao: ArtistDao) {
+    fun getAll() = artistDao.getAll()
+    suspend fun deleteAndInsertAll(artists: List<ArtistEntity>) =
+        artistDao.deleteAndInsertAll(artists)
 }
