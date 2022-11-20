@@ -51,12 +51,12 @@ fun AlbumItem(
             MusicmaxArtworkImage(
                 modifier = Modifier.aspectRatio(1f),
                 artworkUri = album.artworkUri,
-                contentDescription = album.album
+                contentDescription = album.name
             )
 
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 SingleLineText(
-                    text = album.album,
+                    text = album.name,
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onSurface
                 )

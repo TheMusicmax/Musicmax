@@ -18,6 +18,6 @@ package com.maximillianleonov.musicmax.core.model
 
 data class Artist(
     val id: Long,
-    val artist: String,
+    val name: String,
     val numberOfSongs: Int
 )

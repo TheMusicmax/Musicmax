@@ -23,6 +23,6 @@ import com.maximillianleonov.musicmax.core.model.Album
 fun AlbumModel.asAlbum() = Album(
     id = id,
     artworkUri = artworkUri.toUri(),
-    album = album,
+    name = name,
     artist = artist
 )

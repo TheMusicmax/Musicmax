@@ -33,8 +33,8 @@ data class AlbumEntity(
     @ColumnInfo(name = Constants.Fields.ARTWORK_URI)
     val artworkUri: String,
 
-    @ColumnInfo(name = Constants.Fields.ALBUM)
-    val album: String,
+    @ColumnInfo(name = Constants.Fields.NAME)
+    val name: String,
 
     @ColumnInfo(name = Constants.Fields.ARTIST)
     val artist: String

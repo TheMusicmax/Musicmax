@@ -30,8 +30,8 @@ data class ArtistEntity(
     @ColumnInfo(name = Constants.Fields.ARTIST_ID)
     val artistId: Long,
 
-    @ColumnInfo(name = Constants.Fields.ARTIST)
-    val artist: String,
+    @ColumnInfo(name = Constants.Fields.NAME)
+    val name: String,
 
     @ColumnInfo(name = Constants.Fields.NUMBER_OF_SONGS)
     val numberOfSongs: Int

@@ -31,8 +31,8 @@ internal object Constants {
         internal const val MEDIA_URI = "media_uri"
         internal const val ARTWORK_URI = "artwork_uri"
         internal const val TITLE = "title"
-        internal const val ALBUM = "album"
         internal const val ARTIST = "artist"
+        internal const val NAME = "name"
         internal const val NUMBER_OF_SONGS = "number_of_songs"
     }
 }

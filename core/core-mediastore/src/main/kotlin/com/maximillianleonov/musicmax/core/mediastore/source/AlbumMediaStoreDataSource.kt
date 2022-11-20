@@ -58,7 +58,7 @@ class AlbumMediaStoreDataSource @Inject constructor(private val contentResolver:
                 albums += Album(
                     id = id,
                     artworkUri = id.asArtworkUri(),
-                    album = album,
+                    name = album,
                     artist = artist
                 )
             }

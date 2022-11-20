@@ -21,6 +21,6 @@ import android.net.Uri
 data class Album(
     val id: Long,
     val artworkUri: Uri,
-    val album: String,
+    val name: String,
     val artist: String
 )

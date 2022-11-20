@@ -23,13 +23,13 @@ import com.maximillianleonov.musicmax.core.model.Album
 internal fun Album.asAlbumEntity() = AlbumEntity(
     albumId = id,
     artworkUri = artworkUri.toString(),
-    album = album,
+    name = name,
     artist = artist
 )
 
 internal fun AlbumEntity.asAlbumModel() = AlbumModel(
     id = albumId,
     artworkUri = artworkUri,
-    album = album,
+    name = name,
     artist = artist
 )

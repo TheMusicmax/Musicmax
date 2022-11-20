@@ -22,12 +22,12 @@ import com.maximillianleonov.musicmax.core.model.Artist
 
 internal fun Artist.asArtistEntity() = ArtistEntity(
     artistId = id,
-    artist = artist,
+    name = name,
     numberOfSongs = numberOfSongs
 )
 
 internal fun ArtistEntity.asArtistModel() = ArtistModel(
     id = artistId,
-    artist = artist,
+    name = name,
     numberOfSongs = numberOfSongs
 )

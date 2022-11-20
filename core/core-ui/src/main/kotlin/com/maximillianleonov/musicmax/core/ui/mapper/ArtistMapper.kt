@@ -21,6 +21,6 @@ import com.maximillianleonov.musicmax.core.model.Artist
 
 fun ArtistModel.asArtist() = Artist(
     id = id,
-    artist = artist,
+    name = name,
     numberOfSongs = numberOfSongs
 )

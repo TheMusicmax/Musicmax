@@ -57,7 +57,7 @@ class ArtistMediaStoreDataSource @Inject constructor(private val contentResolver
 
                 artists += Artist(
                     id = id,
-                    artist = artist,
+                    name = artist,
                     numberOfSongs = numberOfTracks
                 )
             }

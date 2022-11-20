@@ -19,6 +19,6 @@ package com.maximillianleonov.musicmax.core.domain.model
 data class AlbumModel(
     val id: Long,
     val artworkUri: String,
-    val album: String,
+    val name: String,
     val artist: String
 )

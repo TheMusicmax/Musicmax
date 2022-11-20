@@ -47,7 +47,7 @@ fun ArtistItem(
                 .fillMaxWidth()
         ) {
             SingleLineText(
-                text = artist.artist,
+                text = artist.name,
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurface
             )
