@@ -26,10 +26,14 @@ const val HomeRoute = "home_route"
 
 fun NavGraphBuilder.homeScreen(
     onNavigateToPlayer: () -> Unit,
+    onNavigateToArtist: (Long) -> Unit,
     nestedGraphs: NavGraphBuilder.() -> Unit
 ) = navigation(route = HomeGraphRoute, startDestination = HomeRoute) {
     composable(route = HomeRoute) {
-        HomeRoute(onNavigateToPlayer = onNavigateToPlayer)
+        HomeRoute(
+            onNavigateToPlayer = onNavigateToPlayer,
+            onNavigateToArtist = onNavigateToArtist
+        )
     }
     nestedGraphs()
 }

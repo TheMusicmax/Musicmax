@@ -17,7 +17,7 @@
 package com.maximillianleonov.musicmax.feature.home.component
 
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.maximillianleonov.musicmax.core.model.Artist
@@ -26,12 +26,12 @@ import com.maximillianleonov.musicmax.core.ui.component.ArtistItem
 @Composable
 internal fun ArtistsTabContent(
     artists: List<Artist>,
-    onClick: (Int) -> Unit,
+    onClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(modifier = modifier) {
-        itemsIndexed(artists) { index, artist ->
-            ArtistItem(artist = artist, onClick = { onClick(index) })
+        items(artists) { artist ->
+            ArtistItem(artist = artist, onClick = { onClick(artist.id) })
         }
     }
 }

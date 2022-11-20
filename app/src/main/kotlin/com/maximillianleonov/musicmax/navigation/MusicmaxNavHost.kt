@@ -32,6 +32,7 @@ fun MusicmaxNavHost(
     navController: NavHostController,
     startDestination: String,
     onNavigateToPlayer: () -> Unit,
+    onNavigateToArtist: (Long) -> Unit,
     onSetSystemBarsLightIcons: () -> Unit,
     onResetSystemBarsIcons: () -> Unit,
     modifier: Modifier = Modifier
@@ -41,7 +42,10 @@ fun MusicmaxNavHost(
         navController = navController,
         startDestination = startDestination
     ) {
-        homeScreen(onNavigateToPlayer = onNavigateToPlayer) {
+        homeScreen(
+            onNavigateToPlayer = onNavigateToPlayer,
+            onNavigateToArtist = onNavigateToArtist
+        ) {
             artistScreen()
         }
         searchScreen()

@@ -119,6 +119,7 @@ private fun MusicmaxAppContent(
                 navController = appState.navController,
                 startDestination = appState.startDestination.route,
                 onNavigateToPlayer = appState::navigateToPlayer,
+                onNavigateToArtist = appState::navigateToArtist,
                 onSetSystemBarsLightIcons = appState::setSystemBarsLightIcons,
                 onResetSystemBarsIcons = appState::resetSystemBarsIcons
             )
