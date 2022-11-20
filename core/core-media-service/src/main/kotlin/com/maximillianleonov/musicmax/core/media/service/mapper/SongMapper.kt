@@ -20,12 +20,18 @@ import android.net.Uri
 import androidx.core.net.toUri
 import androidx.media3.common.MediaItem
 import com.maximillianleonov.musicmax.core.domain.model.SongModel
+import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_ALBUM_ID
+import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_ARTIST_ID
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_MEDIA_ID
+import com.maximillianleonov.musicmax.core.media.service.util.ALBUM_ID
+import com.maximillianleonov.musicmax.core.media.service.util.ARTIST_ID
 import com.maximillianleonov.musicmax.core.media.service.util.buildPlayableMediaItem
 import com.maximillianleonov.musicmax.core.model.Song
 
 internal fun SongModel.asMediaItem() = buildPlayableMediaItem(
     mediaId = mediaId,
+    artistId = artistId,
+    albumId = albumId,
     mediaUri = mediaUri.toUri(),
     artworkUri = artworkUri.toUri(),
     title = title,
@@ -34,6 +40,8 @@ internal fun SongModel.asMediaItem() = buildPlayableMediaItem(
 
 internal fun Song.asMediaItem() = buildPlayableMediaItem(
     mediaId = mediaId,
+    artistId = artistId,
+    albumId = albumId,
     mediaUri = mediaUri,
     artworkUri = artworkUri,
     title = title,
@@ -42,6 +50,8 @@ internal fun Song.asMediaItem() = buildPlayableMediaItem(
 
 internal fun MediaItem?.asSong() = Song(
     mediaId = this?.mediaId ?: DEFAULT_MEDIA_ID,
+    artistId = this?.mediaMetadata?.extras?.getLong(ARTIST_ID) ?: DEFAULT_ARTIST_ID,
+    albumId = this?.mediaMetadata?.extras?.getLong(ALBUM_ID) ?: DEFAULT_ALBUM_ID,
     mediaUri = this?.requestMetadata?.mediaUri.orEmpty(),
     artworkUri = this?.mediaMetadata?.artworkUri.orEmpty(),
     title = this?.mediaMetadata?.title.orEmpty(),

@@ -30,6 +30,12 @@ data class SongEntity(
     @ColumnInfo(name = Constants.Fields.MEDIA_ID)
     val mediaId: String,
 
+    @ColumnInfo(name = Constants.Fields.ARTIST_ID)
+    val artistId: Long,
+
+    @ColumnInfo(name = Constants.Fields.ALBUM_ID)
+    val albumId: Long,
+
     @ColumnInfo(name = Constants.Fields.MEDIA_URI)
     val mediaUri: String,
 

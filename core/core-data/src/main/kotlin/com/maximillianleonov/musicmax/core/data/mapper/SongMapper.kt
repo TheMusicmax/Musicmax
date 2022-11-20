@@ -22,6 +22,8 @@ import com.maximillianleonov.musicmax.core.model.Song
 
 internal fun Song.asSongEntity() = SongEntity(
     mediaId = mediaId,
+    artistId = artistId,
+    albumId = albumId,
     mediaUri = mediaUri.toString(),
     artworkUri = artworkUri.toString(),
     title = title,
@@ -30,6 +32,8 @@ internal fun Song.asSongEntity() = SongEntity(
 
 internal fun SongEntity.asSongModel() = SongModel(
     mediaId = mediaId,
+    artistId = artistId,
+    albumId = albumId,
     mediaUri = mediaUri,
     artworkUri = artworkUri,
     title = title,

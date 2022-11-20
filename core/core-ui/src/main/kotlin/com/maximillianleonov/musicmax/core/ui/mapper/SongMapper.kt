@@ -22,6 +22,8 @@ import com.maximillianleonov.musicmax.core.model.Song
 
 fun SongModel.asSong() = Song(
     mediaId = mediaId,
+    artistId = artistId,
+    albumId = albumId,
     mediaUri = mediaUri.toUri(),
     artworkUri = artworkUri.toUri(),
     title = title,

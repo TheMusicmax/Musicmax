@@ -25,6 +25,7 @@ internal object Constants {
     internal object Fields {
         internal const val ID = "id"
         internal const val MEDIA_ID = "media_id"
+        internal const val ARTIST_ID = "artist_id"
         internal const val ALBUM_ID = "album_id"
         internal const val MEDIA_URI = "media_uri"
         internal const val ARTWORK_URI = "artwork_uri"

@@ -17,6 +17,8 @@
 package com.maximillianleonov.musicmax.core.media.service.common
 
 import android.net.Uri
+import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_ALBUM_ID
+import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_ARTIST_ID
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_DURATION_MS
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_MEDIA_ID
 import com.maximillianleonov.musicmax.core.model.Song
@@ -24,6 +26,8 @@ import com.maximillianleonov.musicmax.core.model.Song
 data class MusicState(
     val currentSong: Song = Song(
         mediaId = DEFAULT_MEDIA_ID,
+        artistId = DEFAULT_ARTIST_ID,
+        albumId = DEFAULT_ALBUM_ID,
         mediaUri = Uri.EMPTY,
         artworkUri = Uri.EMPTY,
         title = "",

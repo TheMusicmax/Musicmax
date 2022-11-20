@@ -18,6 +18,8 @@ package com.maximillianleonov.musicmax.core.domain.model
 
 data class SongModel(
     val mediaId: String,
+    val artistId: Long,
+    val albumId: Long,
     val mediaUri: String,
     val artworkUri: String,
     val title: String,

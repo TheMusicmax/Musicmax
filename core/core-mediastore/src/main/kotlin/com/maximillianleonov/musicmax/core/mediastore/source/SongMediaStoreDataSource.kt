@@ -36,6 +36,7 @@ class SongMediaStoreDataSource @Inject constructor(private val contentResolver: 
 
         val projection = arrayOf(
             MediaStore.Audio.Media._ID,
+            MediaStore.Audio.Media.ARTIST_ID,
             MediaStore.Audio.Media.ALBUM_ID,
             MediaStore.Audio.Media.TITLE,
             MediaStore.Audio.Media.ARTIST
@@ -51,12 +52,14 @@ class SongMediaStoreDataSource @Inject constructor(private val contentResolver: 
             null
         )?.use { cursor ->
             val idColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media._ID)
+            val artistIdColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST_ID)
             val albumIdColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM_ID)
             val titleColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.TITLE)
             val artistColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST)
 
             while (cursor.moveToNext()) {
                 val id = cursor.getLong(idColumn)
+                val artistId = cursor.getLong(artistIdColumn)
                 val albumId = cursor.getLong(albumIdColumn)
                 val title = cursor.getString(titleColumn)
                 val artist = cursor.getString(artistColumn)
@@ -66,6 +69,8 @@ class SongMediaStoreDataSource @Inject constructor(private val contentResolver: 
 
                 songs += Song(
                     mediaId = id.toString(),
+                    artistId = artistId,
+                    albumId = albumId,
                     mediaUri = mediaUri,
                     artworkUri = albumId.asArtworkUri(),
                     title = title,
