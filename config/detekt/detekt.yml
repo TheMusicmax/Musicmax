@@ -22,6 +22,10 @@ style:
   UnusedPrivateMember:
     ignoreAnnotated: [ 'Preview' ]
 
+formatting:
+  SpacingBetweenDeclarationsWithAnnotations:
+    active: false
+
 compose:
   ReusedModifierInstance:
     active: true
