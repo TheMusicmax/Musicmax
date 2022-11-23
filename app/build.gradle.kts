@@ -52,6 +52,7 @@ dependencies {
     implementation(project(":features:feature-settings"))
     implementation(project(":features:feature-player"))
     implementation(project(":features:feature-artist"))
+    implementation(project(":features:feature-album"))
 
     implementation(project(":sync:work"))
 
