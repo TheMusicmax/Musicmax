@@ -18,7 +18,7 @@ package com.maximillianleonov.musicmax.feature.home.component
 
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.itemsIndexed
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.maximillianleonov.musicmax.core.model.Album
@@ -27,12 +27,12 @@ import com.maximillianleonov.musicmax.core.ui.component.AlbumItem
 @Composable
 internal fun AlbumsTabContent(
     albums: List<Album>,
-    onClick: (Int) -> Unit,
+    onClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyVerticalGrid(modifier = modifier, columns = GridCells.Fixed(count = ColumnsCount)) {
-        itemsIndexed(albums) { index, album ->
-            AlbumItem(album = album, onClick = { onClick(index) })
+        items(albums) { album ->
+            AlbumItem(album = album, onClick = { onClick(album.id) })
         }
     }
 }

@@ -35,6 +35,7 @@ import com.maximillianleonov.musicmax.feature.home.component.SongsTabContent
 internal fun HomeRoute(
     onNavigateToPlayer: () -> Unit,
     onNavigateToArtist: (Long) -> Unit,
+    onNavigateToAlbum: (Long) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
@@ -51,7 +52,8 @@ internal fun HomeRoute(
             viewModel.play(startIndex)
             onNavigateToPlayer()
         },
-        onArtistClick = onNavigateToArtist
+        onArtistClick = onNavigateToArtist,
+        onAlbumClick = onNavigateToAlbum
     )
 }
 
@@ -62,12 +64,13 @@ private fun HomeScreen(
     albums: List<Album>,
     onSongClick: (Int) -> Unit,
     onArtistClick: (Long) -> Unit,
+    onAlbumClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
     MediaPager(
         modifier = modifier,
         songsTabContent = { SongsTabContent(songs = songs, onClick = onSongClick) },
         artistsTabContent = { ArtistsTabContent(artists = artists, onClick = onArtistClick) },
-        albumsTabContent = { AlbumsTabContent(albums = albums, onClick = { /* TODO */ }) }
+        albumsTabContent = { AlbumsTabContent(albums = albums, onClick = onAlbumClick) }
     )
 }

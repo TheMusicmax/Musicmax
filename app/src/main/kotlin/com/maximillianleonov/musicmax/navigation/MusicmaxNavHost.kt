@@ -34,6 +34,7 @@ fun MusicmaxNavHost(
     startDestination: String,
     onNavigateToPlayer: () -> Unit,
     onNavigateToArtist: (Long) -> Unit,
+    onNavigateToAlbum: (Long) -> Unit,
     onSetSystemBarsLightIcons: () -> Unit,
     onResetSystemBarsIcons: () -> Unit,
     onBackClick: () -> Unit,
@@ -46,7 +47,8 @@ fun MusicmaxNavHost(
     ) {
         homeScreen(
             onNavigateToPlayer = onNavigateToPlayer,
-            onNavigateToArtist = onNavigateToArtist
+            onNavigateToArtist = onNavigateToArtist,
+            onNavigateToAlbum = onNavigateToAlbum
         ) {
             artistScreen(onNavigateToPlayer = onNavigateToPlayer, onBackClick = onBackClick)
             albumScreen()

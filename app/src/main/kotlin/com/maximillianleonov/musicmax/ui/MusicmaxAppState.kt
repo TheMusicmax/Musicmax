@@ -32,6 +32,7 @@ import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.systemuicontroller.SystemUiController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.maximillianleonov.musicmax.core.permission.rememberMusicmaxPermissionState
+import com.maximillianleonov.musicmax.feature.album.navigation.navigateToAlbum
 import com.maximillianleonov.musicmax.feature.artist.navigation.navigateToArtist
 import com.maximillianleonov.musicmax.feature.favorite.navigation.FavoriteRoute
 import com.maximillianleonov.musicmax.feature.home.navigation.HomeRoute
@@ -102,6 +103,7 @@ class MusicmaxAppState(
 
     fun navigateToPlayer() = navController.navigateToPlayer()
     fun navigateToArtist(artistId: Long) = navController.navigateToArtist(artistId)
+    fun navigateToAlbum(albumId: Long) = navController.navigateToAlbum(albumId)
 
     fun setSystemBarsLightIcons() {
         systemUiController.systemBarsDarkContentEnabled = false
