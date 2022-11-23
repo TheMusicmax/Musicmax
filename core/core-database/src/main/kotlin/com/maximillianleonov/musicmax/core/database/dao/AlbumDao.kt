@@ -21,6 +21,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
+import com.maximillianleonov.musicmax.core.database.model.AlbumDetails
 import com.maximillianleonov.musicmax.core.database.model.AlbumEntity
 import com.maximillianleonov.musicmax.core.database.util.Constants.Tables.ALBUMS
 import kotlinx.coroutines.flow.Flow
@@ -29,6 +30,9 @@ import kotlinx.coroutines.flow.Flow
 interface AlbumDao {
     @Query("SELECT * FROM $ALBUMS")
     fun getAll(): Flow<List<AlbumEntity>>
+
+    @Query("SELECT * FROM $ALBUMS WHERE album_id = :albumId")
+    fun getById(albumId: Long): Flow<AlbumDetails>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(albums: List<AlbumEntity>)

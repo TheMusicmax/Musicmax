@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.core.database.source
+package com.maximillianleonov.musicmax.core.data.mapper
 
-import com.maximillianleonov.musicmax.core.database.dao.AlbumDao
-import com.maximillianleonov.musicmax.core.database.model.AlbumEntity
-import javax.inject.Inject
+import com.maximillianleonov.musicmax.core.database.model.AlbumDetails
+import com.maximillianleonov.musicmax.core.database.model.SongEntity
+import com.maximillianleonov.musicmax.core.domain.model.AlbumDetailsModel
 
-class AlbumDatabaseDataSource @Inject constructor(private val albumDao: AlbumDao) {
-    fun getAll() = albumDao.getAll()
-    fun getById(albumId: Long) = albumDao.getById(albumId)
-    suspend fun deleteAndInsertAll(albums: List<AlbumEntity>) = albumDao.deleteAndInsertAll(albums)
-}
+internal fun AlbumDetails.asAlbumDetailsModel() = AlbumDetailsModel(
+    album = album.asAlbumModel(),
+    songs = songs.map(SongEntity::asSongModel)
+)

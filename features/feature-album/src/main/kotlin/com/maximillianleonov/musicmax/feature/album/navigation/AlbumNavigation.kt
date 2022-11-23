@@ -34,11 +34,14 @@ internal fun SavedStateHandle.getAlbumId(): Long = checkNotNull(this[AlbumIdArg]
 fun NavHostController.navigateToAlbum(albumId: Long) =
     navigate(route = "$AlbumRoute/$albumId") { launchSingleTop = true }
 
-fun NavGraphBuilder.albumScreen() = composable(
+fun NavGraphBuilder.albumScreen(
+    onNavigateToPlayer: () -> Unit,
+    onBackClick: () -> Unit
+) = composable(
     route = AlbumRouteWithArguments,
     arguments = listOf(
         navArgument(AlbumIdArg) { type = NavType.LongType }
     )
 ) {
-    AlbumRoute()
+    AlbumRoute(onNavigateToPlayer = onNavigateToPlayer, onBackClick = onBackClick)
 }

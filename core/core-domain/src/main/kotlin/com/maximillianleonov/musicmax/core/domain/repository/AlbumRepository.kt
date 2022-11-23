@@ -16,10 +16,12 @@
 
 package com.maximillianleonov.musicmax.core.domain.repository
 
+import com.maximillianleonov.musicmax.core.domain.model.AlbumDetailsModel
 import com.maximillianleonov.musicmax.core.domain.model.AlbumModel
 import com.maximillianleonov.musicmax.core.domain.sync.Syncable
 import kotlinx.coroutines.flow.Flow
 
 interface AlbumRepository : Syncable {
     fun getAll(): Flow<List<AlbumModel>>
+    fun getById(albumId: Long): Flow<AlbumDetailsModel>
 }

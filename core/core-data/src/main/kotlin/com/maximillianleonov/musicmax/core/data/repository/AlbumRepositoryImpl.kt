@@ -16,16 +16,20 @@
 
 package com.maximillianleonov.musicmax.core.data.repository
 
+import com.maximillianleonov.musicmax.core.data.mapper.asAlbumDetailsModel
 import com.maximillianleonov.musicmax.core.data.mapper.asAlbumEntity
 import com.maximillianleonov.musicmax.core.data.mapper.asAlbumModel
 import com.maximillianleonov.musicmax.core.data.mapper.listMap
+import com.maximillianleonov.musicmax.core.database.model.AlbumDetails
 import com.maximillianleonov.musicmax.core.database.model.AlbumEntity
 import com.maximillianleonov.musicmax.core.database.source.AlbumDatabaseDataSource
+import com.maximillianleonov.musicmax.core.domain.model.AlbumDetailsModel
 import com.maximillianleonov.musicmax.core.domain.model.AlbumModel
 import com.maximillianleonov.musicmax.core.domain.repository.AlbumRepository
 import com.maximillianleonov.musicmax.core.mediastore.source.AlbumMediaStoreDataSource
 import com.maximillianleonov.musicmax.core.model.Album
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class AlbumRepositoryImpl @Inject constructor(
@@ -34,6 +38,9 @@ class AlbumRepositoryImpl @Inject constructor(
 ) : AlbumRepository {
     override fun getAll(): Flow<List<AlbumModel>> =
         albumDatabaseDataSource.getAll().listMap(AlbumEntity::asAlbumModel)
+
+    override fun getById(albumId: Long): Flow<AlbumDetailsModel> =
+        albumDatabaseDataSource.getById(albumId).map(AlbumDetails::asAlbumDetailsModel)
 
     override suspend fun synchronize() {
         val albums = albumMediaStoreDataSource.getAll().map(Album::asAlbumEntity)

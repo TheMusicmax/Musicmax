@@ -41,6 +41,7 @@ fun MusicmaxArtworkImage(
     colors: CardColors = CardDefaults.cardColors(containerColor = Color.Transparent),
     placeholder: @Composable () -> Unit = {
         Card(
+            shape = shape,
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.primaryContainer,
                 contentColor = MaterialTheme.colorScheme.primary

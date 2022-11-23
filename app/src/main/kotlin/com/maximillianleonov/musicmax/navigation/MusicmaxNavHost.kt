@@ -51,7 +51,7 @@ fun MusicmaxNavHost(
             onNavigateToAlbum = onNavigateToAlbum
         ) {
             artistScreen(onNavigateToPlayer = onNavigateToPlayer, onBackClick = onBackClick)
-            albumScreen()
+            albumScreen(onNavigateToPlayer = onNavigateToPlayer, onBackClick = onBackClick)
         }
         searchScreen()
         favoriteScreen()
