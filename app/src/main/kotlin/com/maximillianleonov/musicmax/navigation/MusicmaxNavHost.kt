@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import com.maximillianleonov.musicmax.feature.album.navigation.albumScreen
 import com.maximillianleonov.musicmax.feature.artist.navigation.artistScreen
 import com.maximillianleonov.musicmax.feature.favorite.navigation.favoriteScreen
 import com.maximillianleonov.musicmax.feature.home.navigation.homeScreen
@@ -48,6 +49,7 @@ fun MusicmaxNavHost(
             onNavigateToArtist = onNavigateToArtist
         ) {
             artistScreen(onNavigateToPlayer = onNavigateToPlayer, onBackClick = onBackClick)
+            albumScreen()
         }
         searchScreen()
         favoriteScreen()
