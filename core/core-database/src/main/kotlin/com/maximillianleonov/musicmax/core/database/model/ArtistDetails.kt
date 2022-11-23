@@ -14,14 +14,19 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.core.domain.repository
+package com.maximillianleonov.musicmax.core.database.model
 
-import com.maximillianleonov.musicmax.core.domain.model.ArtistDetailsModel
-import com.maximillianleonov.musicmax.core.domain.model.ArtistModel
-import com.maximillianleonov.musicmax.core.domain.sync.Syncable
-import kotlinx.coroutines.flow.Flow
+import androidx.room.Embedded
+import androidx.room.Relation
+import com.maximillianleonov.musicmax.core.database.util.Constants
 
-interface ArtistRepository : Syncable {
-    fun getAll(): Flow<List<ArtistModel>>
-    fun getById(artistId: Long): Flow<ArtistDetailsModel>
-}
+data class ArtistDetails(
+    @Embedded
+    val artist: ArtistEntity,
+
+    @Relation(
+        parentColumn = Constants.Fields.ARTIST_ID,
+        entityColumn = Constants.Fields.ARTIST_ID
+    )
+    val songs: List<SongEntity>
+)

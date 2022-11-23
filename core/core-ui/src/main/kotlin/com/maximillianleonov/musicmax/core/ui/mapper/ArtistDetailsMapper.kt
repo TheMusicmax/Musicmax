@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.core.domain.repository
+package com.maximillianleonov.musicmax.core.ui.mapper
 
 import com.maximillianleonov.musicmax.core.domain.model.ArtistDetailsModel
-import com.maximillianleonov.musicmax.core.domain.model.ArtistModel
-import com.maximillianleonov.musicmax.core.domain.sync.Syncable
-import kotlinx.coroutines.flow.Flow
+import com.maximillianleonov.musicmax.core.domain.model.SongModel
+import com.maximillianleonov.musicmax.core.model.ArtistDetails
 
-interface ArtistRepository : Syncable {
-    fun getAll(): Flow<List<ArtistModel>>
-    fun getById(artistId: Long): Flow<ArtistDetailsModel>
-}
+fun ArtistDetailsModel.asArtistDetails() = ArtistDetails(
+    artist = artist.asArtist(),
+    songs = songs.map(SongModel::asSong)
+)

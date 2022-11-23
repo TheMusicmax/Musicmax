@@ -14,14 +14,11 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.core.domain.repository
+package com.maximillianleonov.musicmax.core.domain.usecase
 
-import com.maximillianleonov.musicmax.core.domain.model.ArtistDetailsModel
-import com.maximillianleonov.musicmax.core.domain.model.ArtistModel
-import com.maximillianleonov.musicmax.core.domain.sync.Syncable
-import kotlinx.coroutines.flow.Flow
+import com.maximillianleonov.musicmax.core.domain.repository.ArtistRepository
+import javax.inject.Inject
 
-interface ArtistRepository : Syncable {
-    fun getAll(): Flow<List<ArtistModel>>
-    fun getById(artistId: Long): Flow<ArtistDetailsModel>
+class GetArtistDetailsUseCase @Inject constructor(private val artistRepository: ArtistRepository) {
+    operator fun invoke(artistId: Long) = artistRepository.getById(artistId)
 }

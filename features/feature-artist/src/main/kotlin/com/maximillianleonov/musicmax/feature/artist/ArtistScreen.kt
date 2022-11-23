@@ -16,15 +16,67 @@
 
 package com.maximillianleonov.musicmax.feature.artist
 
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.consumedWindowInsets
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxScaffold
+import com.maximillianleonov.musicmax.core.model.ArtistDetails
+import com.maximillianleonov.musicmax.core.ui.component.SongItem
+import com.maximillianleonov.musicmax.feature.artist.component.Header
 
 @Composable
-internal fun ArtistRoute(modifier: Modifier = Modifier) {
-    ArtistScreen(modifier = modifier)
+internal fun ArtistRoute(
+    onNavigateToPlayer: () -> Unit,
+    onBackClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: ArtistViewModel = hiltViewModel()
+) {
+    val artistDetails by viewModel.artistDetails.collectAsState()
+    ArtistScreen(
+        artistDetails = artistDetails,
+        onSongClick = { startIndex ->
+            viewModel.play(startIndex)
+            onNavigateToPlayer()
+        },
+        onBackClick = onBackClick,
+        modifier = modifier
+    )
 }
 
-@Suppress("UnusedPrivateMember", "EmptyFunctionBlock")
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun ArtistScreen(modifier: Modifier = Modifier) {
+private fun ArtistScreen(
+    artistDetails: ArtistDetails,
+    onSongClick: (Int) -> Unit,
+    onBackClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    MusicmaxScaffold(
+        modifier = modifier,
+        titleResource = R.string.artist,
+        onBackClick = onBackClick
+    ) { innerPadding ->
+        LazyColumn(
+            modifier = Modifier
+                .padding(innerPadding)
+                .consumedWindowInsets(innerPadding)
+        ) {
+            item {
+                Header(
+                    name = artistDetails.artist.name,
+                    numberOfSongs = artistDetails.artist.numberOfSongs
+                )
+            }
+            itemsIndexed(artistDetails.songs) { index, song ->
+                SongItem(song = song, onClick = { onSongClick(index) })
+            }
+        }
+    }
 }

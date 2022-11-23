@@ -110,4 +110,6 @@ class MusicmaxAppState(
     fun resetSystemBarsIcons() {
         systemUiController.systemBarsDarkContentEnabled = true
     }
+
+    fun onBackClick() = navController.popBackStack()
 }

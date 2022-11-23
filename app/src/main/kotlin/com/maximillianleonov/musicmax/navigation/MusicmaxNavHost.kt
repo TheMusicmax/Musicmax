@@ -35,6 +35,7 @@ fun MusicmaxNavHost(
     onNavigateToArtist: (Long) -> Unit,
     onSetSystemBarsLightIcons: () -> Unit,
     onResetSystemBarsIcons: () -> Unit,
+    onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     NavHost(
@@ -46,7 +47,7 @@ fun MusicmaxNavHost(
             onNavigateToPlayer = onNavigateToPlayer,
             onNavigateToArtist = onNavigateToArtist
         ) {
-            artistScreen()
+            artistScreen(onNavigateToPlayer = onNavigateToPlayer, onBackClick = onBackClick)
         }
         searchScreen()
         favoriteScreen()

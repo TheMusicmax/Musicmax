@@ -22,6 +22,7 @@ import javax.inject.Inject
 
 class ArtistDatabaseDataSource @Inject constructor(private val artistDao: ArtistDao) {
     fun getAll() = artistDao.getAll()
+    fun getById(artistId: Long) = artistDao.getById(artistId)
     suspend fun deleteAndInsertAll(artists: List<ArtistEntity>) =
         artistDao.deleteAndInsertAll(artists)
 }

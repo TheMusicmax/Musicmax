@@ -26,28 +26,21 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.consumedWindowInsets
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarColors
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
+import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxTopAppBar
 import com.maximillianleonov.musicmax.core.designsystem.theme.MusicmaxTheme
 import com.maximillianleonov.musicmax.core.permission.PermissionContent
 import com.maximillianleonov.musicmax.feature.player.mini.MiniPlayer
 import com.maximillianleonov.musicmax.navigation.MusicmaxNavHost
 import com.maximillianleonov.musicmax.ui.component.MusicmaxBottomBar
 
-@OptIn(ExperimentalPermissionsApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun MusicmaxApp(appState: MusicmaxAppState = rememberMusicmaxAppState()) {
     MusicmaxTheme {
@@ -69,10 +62,7 @@ fun MusicmaxApp(appState: MusicmaxAppState = rememberMusicmaxAppState()) {
 @Composable
 private fun MusicmaxAppContent(
     appState: MusicmaxAppState,
-    modifier: Modifier = Modifier,
-    topAppBarColors: TopAppBarColors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-        containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(TopAppBarElevation)
-    )
+    modifier: Modifier = Modifier
 ) {
     Scaffold(
         modifier = modifier,
@@ -82,16 +72,7 @@ private fun MusicmaxAppContent(
                 enter = TopAppBarEnterTransition,
                 exit = TopAppBarExitTransition
             ) {
-                CenterAlignedTopAppBar(
-                    title = {
-                        Text(
-                            text = stringResource(
-                                id = appState.currentTopLevelDestination.titleResource
-                            )
-                        )
-                    },
-                    colors = topAppBarColors
-                )
+                MusicmaxTopAppBar(titleResource = appState.currentTopLevelDestination.titleResource)
             }
         },
         bottomBar = {
@@ -121,7 +102,8 @@ private fun MusicmaxAppContent(
                 onNavigateToPlayer = appState::navigateToPlayer,
                 onNavigateToArtist = appState::navigateToArtist,
                 onSetSystemBarsLightIcons = appState::setSystemBarsLightIcons,
-                onResetSystemBarsIcons = appState::resetSystemBarsIcons
+                onResetSystemBarsIcons = appState::resetSystemBarsIcons,
+                onBackClick = appState::onBackClick
             )
             AnimatedVisibility(
                 visible = appState.isTopLevelDestination,
@@ -136,7 +118,6 @@ private fun MusicmaxAppContent(
 
 private val ScaffoldWindowInsets = WindowInsets(left = 0, top = 0, right = 0, bottom = 0)
 
-private val TopAppBarElevation = 3.dp
 private val TopAppBarEnterTransition = fadeIn() + expandVertically(expandFrom = Alignment.Bottom)
 private val TopAppBarExitTransition = shrinkVertically(shrinkTowards = Alignment.Bottom) + fadeOut()
 

@@ -16,6 +16,7 @@
 
 package com.maximillianleonov.musicmax.feature.artist.navigation
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -28,14 +29,19 @@ private const val ArtistRoute = "artist_route"
 private const val ArtistIdArg = "artist_id"
 private const val ArtistRouteWithArguments = "$ArtistRoute/{$ArtistIdArg}"
 
+internal fun SavedStateHandle.getArtistId(): Long = checkNotNull(this[ArtistIdArg])
+
 fun NavHostController.navigateToArtist(artistId: Long) =
     navigate(route = "$ArtistRoute/$artistId") { launchSingleTop = true }
 
-fun NavGraphBuilder.artistScreen() = composable(
+fun NavGraphBuilder.artistScreen(
+    onNavigateToPlayer: () -> Unit,
+    onBackClick: () -> Unit
+) = composable(
     route = ArtistRouteWithArguments,
     arguments = listOf(
         navArgument(ArtistIdArg) { type = NavType.LongType }
     )
 ) {
-    ArtistRoute()
+    ArtistRoute(onNavigateToPlayer = onNavigateToPlayer, onBackClick = onBackClick)
 }

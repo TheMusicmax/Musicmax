@@ -16,16 +16,20 @@
 
 package com.maximillianleonov.musicmax.core.data.repository
 
+import com.maximillianleonov.musicmax.core.data.mapper.asArtistDetailsModel
 import com.maximillianleonov.musicmax.core.data.mapper.asArtistEntity
 import com.maximillianleonov.musicmax.core.data.mapper.asArtistModel
 import com.maximillianleonov.musicmax.core.data.mapper.listMap
+import com.maximillianleonov.musicmax.core.database.model.ArtistDetails
 import com.maximillianleonov.musicmax.core.database.model.ArtistEntity
 import com.maximillianleonov.musicmax.core.database.source.ArtistDatabaseDataSource
+import com.maximillianleonov.musicmax.core.domain.model.ArtistDetailsModel
 import com.maximillianleonov.musicmax.core.domain.model.ArtistModel
 import com.maximillianleonov.musicmax.core.domain.repository.ArtistRepository
 import com.maximillianleonov.musicmax.core.mediastore.source.ArtistMediaStoreDataSource
 import com.maximillianleonov.musicmax.core.model.Artist
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class ArtistRepositoryImpl @Inject constructor(
@@ -34,6 +38,9 @@ class ArtistRepositoryImpl @Inject constructor(
 ) : ArtistRepository {
     override fun getAll(): Flow<List<ArtistModel>> =
         artistDatabaseDataSource.getAll().listMap(ArtistEntity::asArtistModel)
+
+    override fun getById(artistId: Long): Flow<ArtistDetailsModel> =
+        artistDatabaseDataSource.getById(artistId).map(ArtistDetails::asArtistDetailsModel)
 
     override suspend fun synchronize() {
         val artists = artistMediaStoreDataSource.getAll().map(Artist::asArtistEntity)
