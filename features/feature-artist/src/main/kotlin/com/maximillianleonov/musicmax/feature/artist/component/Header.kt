@@ -18,7 +18,9 @@ package com.maximillianleonov.musicmax.feature.artist.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -29,11 +31,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.unit.dp
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
+import com.maximillianleonov.musicmax.core.ui.component.PlayOutlinedShuffleButtons
 import com.maximillianleonov.musicmax.core.ui.R as uiR
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-internal fun Header(name: String, numberOfSongs: Int, modifier: Modifier = Modifier) {
+internal fun Header(
+    name: String,
+    numberOfSongs: Int,
+    onPlayClick: () -> Unit,
+    onShuffleClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Column(
         modifier = modifier
             .background(MaterialTheme.colorScheme.surfaceColorAtElevation(HeaderElevation))
@@ -54,6 +63,8 @@ internal fun Header(name: String, numberOfSongs: Int, modifier: Modifier = Modif
             style = MaterialTheme.typography.headlineSmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraSmall))
+        PlayOutlinedShuffleButtons(onPlayClick = onPlayClick, onShuffleClick = onShuffleClick)
     }
 }
 

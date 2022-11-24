@@ -48,6 +48,14 @@ internal fun ArtistRoute(
             onNavigateToPlayer()
         },
         onBackClick = onBackClick,
+        onPlayClick = {
+            viewModel.play()
+            onNavigateToPlayer()
+        },
+        onShuffleClick = {
+            viewModel.shuffle()
+            onNavigateToPlayer()
+        },
         modifier = modifier
     )
 }
@@ -58,6 +66,8 @@ private fun ArtistScreen(
     artistDetails: ArtistDetails,
     onSongClick: (Int) -> Unit,
     onBackClick: () -> Unit,
+    onPlayClick: () -> Unit,
+    onShuffleClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     MusicmaxScaffold(
@@ -73,7 +83,9 @@ private fun ArtistScreen(
             item {
                 Header(
                     name = artistDetails.artist.name,
-                    numberOfSongs = artistDetails.artist.numberOfSongs
+                    numberOfSongs = artistDetails.artist.numberOfSongs,
+                    onPlayClick = onPlayClick,
+                    onShuffleClick = onShuffleClick
                 )
             }
             itemsIndexed(artistDetails.songs) { index, song ->
