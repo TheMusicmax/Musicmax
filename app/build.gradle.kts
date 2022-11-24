@@ -36,6 +36,7 @@ dependencies {
     implementation(project(":core:core-common"))
     implementation(project(":core:core-data"))
     implementation(project(":core:core-database"))
+    implementation(project(":core:core-datastore"))
     implementation(project(":core:core-mediastore"))
     implementation(project(":core:core-domain"))
     implementation(project(":core:core-ui"))
