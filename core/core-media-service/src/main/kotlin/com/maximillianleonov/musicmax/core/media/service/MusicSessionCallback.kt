@@ -29,7 +29,11 @@ import com.google.common.collect.ImmutableList
 import com.google.common.util.concurrent.ListenableFuture
 import com.maximillianleonov.musicmax.core.common.dispatcher.Dispatcher
 import com.maximillianleonov.musicmax.core.common.dispatcher.MusicmaxDispatchers.MAIN
+import com.maximillianleonov.musicmax.core.domain.model.AlbumModel
+import com.maximillianleonov.musicmax.core.domain.model.ArtistModel
 import com.maximillianleonov.musicmax.core.domain.model.SongModel
+import com.maximillianleonov.musicmax.core.domain.usecase.GetAlbumsUseCase
+import com.maximillianleonov.musicmax.core.domain.usecase.GetArtistsUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.GetSongsUseCase
 import com.maximillianleonov.musicmax.core.media.service.mapper.asMediaItem
 import com.maximillianleonov.musicmax.core.media.service.util.Constants.INVALID_MEDIA_ID_ERROR_MESSAGE
@@ -50,7 +54,9 @@ import javax.inject.Inject
 class MusicSessionCallback @Inject constructor(
     @Dispatcher(MAIN) mainDispatcher: CoroutineDispatcher,
     private val musicActionHandler: MusicActionHandler,
-    private val getSongsUseCase: GetSongsUseCase
+    private val getSongsUseCase: GetSongsUseCase,
+    private val getArtistsUseCase: GetArtistsUseCase,
+    private val getAlbumsUseCase: GetAlbumsUseCase
 ) : MediaLibrarySession.Callback {
     private val coroutineScope = CoroutineScope(mainDispatcher + SupervisorJob())
 
@@ -76,8 +82,8 @@ class MusicSessionCallback @Inject constructor(
         val mediaItems = when (parentId) {
             RootMediaId -> MediaType.values().map(MediaType::asMediaItem)
             Song.mediaId -> getSongsUseCase().first().map(SongModel::asMediaItem)
-            Artist.mediaId -> TODO()
-            Album.mediaId -> TODO()
+            Artist.mediaId -> getArtistsUseCase().first().map(ArtistModel::asMediaItem)
+            Album.mediaId -> getAlbumsUseCase().first().map(AlbumModel::asMediaItem)
             else -> error("$INVALID_MEDIA_ID_ERROR_MESSAGE $parentId")
         }
         LibraryResult.ofItemList(mediaItems, null)
