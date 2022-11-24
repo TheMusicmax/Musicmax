@@ -19,8 +19,10 @@ package com.maximillianleonov.musicmax.feature.album.component
 import android.net.Uri
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -32,12 +34,15 @@ import androidx.compose.ui.graphics.RectangleShape
 import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxOverlay
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 import com.maximillianleonov.musicmax.core.ui.component.MusicmaxArtworkImage
+import com.maximillianleonov.musicmax.core.ui.component.PlayShuffleButtons
 
 @Composable
 internal fun Header(
     name: String,
     artist: String,
     artworkUri: Uri,
+    onPlayClick: () -> Unit,
+    onShuffleClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(modifier = modifier) {
@@ -63,18 +68,20 @@ internal fun Header(
             Text(
                 text = name,
                 style = MaterialTheme.typography.headlineMedium,
-                color = NameColor
+                color = ContentColor
             )
             Text(
                 text = artist,
                 style = MaterialTheme.typography.headlineSmall,
-                color = ArtistColor
+                color = SecondColor
             )
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraSmall))
+            PlayShuffleButtons(onPlayClick = onPlayClick, onShuffleClick = onShuffleClick)
         }
     }
 }
 
 private const val ArtworkOverlayAlpha = 0.05f
-private val NameColor = Color.White
-private const val ArtistColorAlpha = 0.75f
-private val ArtistColor = NameColor.copy(ArtistColorAlpha)
+private val ContentColor = Color.White
+private const val SecondColorAlpha = 0.75f
+private val SecondColor = ContentColor.copy(SecondColorAlpha)

@@ -22,6 +22,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maximillianleonov.musicmax.core.domain.model.AlbumDetailsModel
 import com.maximillianleonov.musicmax.core.domain.usecase.GetAlbumDetailsUseCase
+import com.maximillianleonov.musicmax.core.media.common.MediaConstants
 import com.maximillianleonov.musicmax.core.media.service.MusicServiceConnection
 import com.maximillianleonov.musicmax.core.model.Album
 import com.maximillianleonov.musicmax.core.model.AlbumDetails
@@ -50,7 +51,8 @@ class AlbumViewModel @Inject constructor(
             )
         )
 
-    fun play(startIndex: Int) {
+    fun play(startIndex: Int = MediaConstants.DEFAULT_INDEX) =
         musicServiceConnection.playSongs(songs = albumDetails.value.songs, startIndex = startIndex)
-    }
+
+    fun shuffle() = musicServiceConnection.shuffleSongs(songs = albumDetails.value.songs)
 }

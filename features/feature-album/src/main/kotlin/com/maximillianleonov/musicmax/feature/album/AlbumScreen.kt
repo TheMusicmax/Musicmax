@@ -49,6 +49,14 @@ internal fun AlbumRoute(
             onNavigateToPlayer()
         },
         onBackClick = onBackClick,
+        onPlayClick = {
+            viewModel.play()
+            onNavigateToPlayer()
+        },
+        onShuffleClick = {
+            viewModel.shuffle()
+            onNavigateToPlayer()
+        },
         modifier = modifier
     )
 }
@@ -59,6 +67,8 @@ private fun AlbumScreen(
     albumDetails: AlbumDetails,
     onSongClick: (Int) -> Unit,
     onBackClick: () -> Unit,
+    onPlayClick: () -> Unit,
+    onShuffleClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     MusicmaxScaffold(
@@ -76,7 +86,9 @@ private fun AlbumScreen(
                     modifier = Modifier.aspectRatio(1f),
                     name = albumDetails.album.name,
                     artist = albumDetails.album.artist,
-                    artworkUri = albumDetails.album.artworkUri
+                    artworkUri = albumDetails.album.artworkUri,
+                    onPlayClick = onPlayClick,
+                    onShuffleClick = onShuffleClick
                 )
             }
             itemsIndexed(albumDetails.songs) { index, song ->
