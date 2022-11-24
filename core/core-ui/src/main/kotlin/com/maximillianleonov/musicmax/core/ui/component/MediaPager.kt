@@ -19,6 +19,12 @@ package com.maximillianleonov.musicmax.core.ui.component
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TabPosition
 import androidx.compose.material3.TabRowDefaults
@@ -38,6 +44,9 @@ import com.google.accompanist.pager.rememberPagerState
 import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxTab
 import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxTabRow
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
+import com.maximillianleonov.musicmax.core.model.Album
+import com.maximillianleonov.musicmax.core.model.Artist
+import com.maximillianleonov.musicmax.core.model.Song
 import com.maximillianleonov.musicmax.core.ui.common.MediaTab
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -45,9 +54,12 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun MediaPager(
-    songsTabContent: @Composable () -> Unit,
-    artistsTabContent: @Composable () -> Unit,
-    albumsTabContent: @Composable () -> Unit,
+    songs: List<Song>,
+    artists: List<Artist>,
+    albums: List<Album>,
+    onSongClick: (Int) -> Unit,
+    onArtistClick: (Long) -> Unit,
+    onAlbumClick: (Long) -> Unit,
     onPlayClick: () -> Unit,
     onShuffleClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -90,10 +102,55 @@ fun MediaPager(
             count = tabs.size
         ) { page ->
             when (page) {
-                MediaTab.Songs.ordinal -> songsTabContent()
-                MediaTab.Artists.ordinal -> artistsTabContent()
-                MediaTab.Albums.ordinal -> albumsTabContent()
+                MediaTab.Songs.ordinal -> {
+                    SongsTabContent(songs = songs, onClick = onSongClick)
+                }
+                MediaTab.Artists.ordinal -> {
+                    ArtistsTabContent(artists = artists, onClick = onArtistClick)
+                }
+                MediaTab.Albums.ordinal -> {
+                    AlbumsTabContent(albums = albums, onClick = onAlbumClick)
+                }
             }
+        }
+    }
+}
+
+@Composable
+private fun SongsTabContent(
+    songs: List<Song>,
+    onClick: (Int) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    LazyColumn(modifier = modifier) {
+        itemsIndexed(songs) { index, song ->
+            SongItem(song = song, onClick = { onClick(index) })
+        }
+    }
+}
+
+@Composable
+private fun ArtistsTabContent(
+    artists: List<Artist>,
+    onClick: (Long) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    LazyColumn(modifier = modifier) {
+        items(artists) { artist ->
+            ArtistItem(artist = artist, onClick = { onClick(artist.id) })
+        }
+    }
+}
+
+@Composable
+private fun AlbumsTabContent(
+    albums: List<Album>,
+    onClick: (Long) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    LazyVerticalGrid(modifier = modifier, columns = GridCells.Fixed(count = ColumnsCount)) {
+        items(albums) { album ->
+            AlbumItem(album = album, onClick = { onClick(album.id) })
         }
     }
 }
@@ -142,3 +199,5 @@ private fun Modifier.pagerTabIndicatorOffset(
         }
     }
 }
+
+private const val ColumnsCount = 2

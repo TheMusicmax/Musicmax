@@ -26,9 +26,6 @@ import com.maximillianleonov.musicmax.core.model.Album
 import com.maximillianleonov.musicmax.core.model.Artist
 import com.maximillianleonov.musicmax.core.model.Song
 import com.maximillianleonov.musicmax.core.ui.component.MediaPager
-import com.maximillianleonov.musicmax.feature.home.component.AlbumsTabContent
-import com.maximillianleonov.musicmax.feature.home.component.ArtistsTabContent
-import com.maximillianleonov.musicmax.feature.home.component.SongsTabContent
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
@@ -79,9 +76,12 @@ private fun HomeScreen(
 ) {
     MediaPager(
         modifier = modifier,
-        songsTabContent = { SongsTabContent(songs = songs, onClick = onSongClick) },
-        artistsTabContent = { ArtistsTabContent(artists = artists, onClick = onArtistClick) },
-        albumsTabContent = { AlbumsTabContent(albums = albums, onClick = onAlbumClick) },
+        songs = songs,
+        artists = artists,
+        albums = albums,
+        onSongClick = onSongClick,
+        onArtistClick = onArtistClick,
+        onAlbumClick = onAlbumClick,
         onPlayClick = onPlayClick,
         onShuffleClick = onShuffleClick
     )
