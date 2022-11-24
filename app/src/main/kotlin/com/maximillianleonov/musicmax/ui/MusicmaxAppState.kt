@@ -102,8 +102,11 @@ class MusicmaxAppState(
         }
 
     fun navigateToPlayer() = navController.navigateToPlayer()
-    fun navigateToArtist(artistId: Long) = navController.navigateToArtist(artistId)
-    fun navigateToAlbum(albumId: Long) = navController.navigateToAlbum(albumId)
+    fun navigateToArtist(prefix: String, artistId: Long) =
+        navController.navigateToArtist(prefix, artistId)
+
+    fun navigateToAlbum(prefix: String, albumId: Long) =
+        navController.navigateToAlbum(prefix, albumId)
 
     fun setSystemBarsLightIcons() {
         systemUiController.systemBarsDarkContentEnabled = false

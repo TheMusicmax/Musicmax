@@ -16,26 +16,93 @@
 
 package com.maximillianleonov.musicmax.feature.search
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.maximillianleonov.musicmax.core.model.Album
+import com.maximillianleonov.musicmax.core.model.Artist
+import com.maximillianleonov.musicmax.core.model.Song
+import com.maximillianleonov.musicmax.core.ui.component.MediaPager
+import com.maximillianleonov.musicmax.feature.search.component.SearchTextField
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
-internal fun SearchRoute(modifier: Modifier = Modifier) {
-    SearchScreen(modifier = modifier)
+internal fun SearchRoute(
+    onNavigateToPlayer: () -> Unit,
+    onNavigateToArtist: (Long) -> Unit,
+    onNavigateToAlbum: (Long) -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: SearchViewModel = hiltViewModel()
+) {
+    val query by viewModel.query.collectAsStateWithLifecycle()
+    val searchDetails by viewModel.searchDetails.collectAsStateWithLifecycle()
+
+    SearchScreen(
+        query = query,
+        songs = searchDetails.songs,
+        artists = searchDetails.artists,
+        albums = searchDetails.albums,
+        onQueryChange = viewModel::changeQuery,
+        onSongClick = { startIndex ->
+            viewModel.play(startIndex)
+            onNavigateToPlayer()
+        },
+        onPlayClick = {
+            viewModel.play()
+            onNavigateToPlayer()
+        },
+        onShuffleClick = {
+            viewModel.shuffle()
+            onNavigateToPlayer()
+        },
+        onArtistClick = onNavigateToArtist,
+        onAlbumClick = onNavigateToAlbum,
+        modifier = modifier
+    )
 }
 
+@Suppress("LongParameterList")
 @Composable
-private fun SearchScreen(modifier: Modifier = Modifier) {
-    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(
-            text = stringResource(id = R.string.search),
-            style = MaterialTheme.typography.displaySmall
-        )
+private fun SearchScreen(
+    query: String,
+    songs: List<Song>,
+    artists: List<Artist>,
+    albums: List<Album>,
+    onQueryChange: (String) -> Unit,
+    onSongClick: (Int) -> Unit,
+    onArtistClick: (Long) -> Unit,
+    onAlbumClick: (Long) -> Unit,
+    onPlayClick: () -> Unit,
+    onShuffleClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(modifier = modifier) {
+        SearchTextField(query = query, onQueryChange = onQueryChange)
+        AnimatedVisibility(
+            visible = query.isNotBlank(),
+            enter = MediaPagerEnterTransition,
+            exit = MediaPagerExitTransition
+        ) {
+            MediaPager(
+                songs = songs,
+                artists = artists,
+                albums = albums,
+                onSongClick = onSongClick,
+                onArtistClick = onArtistClick,
+                onAlbumClick = onAlbumClick,
+                onPlayClick = onPlayClick,
+                onShuffleClick = onShuffleClick
+            )
+        }
     }
 }
+
+private val MediaPagerEnterTransition = fadeIn()
+private val MediaPagerExitTransition = fadeOut()

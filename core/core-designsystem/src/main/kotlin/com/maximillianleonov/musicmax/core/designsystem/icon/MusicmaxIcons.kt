@@ -19,6 +19,7 @@ package com.maximillianleonov.musicmax.core.designsystem.icon
 import androidx.annotation.DrawableRes
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.Clear
 import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Search
@@ -34,6 +35,7 @@ object MusicmaxIcons {
     val Favorite = ImageVectorIcon(Icons.Rounded.Favorite)
     val Settings = ImageVectorIcon(Icons.Rounded.Settings)
     val ArrowBack = ImageVectorIcon(Icons.Rounded.ArrowBack)
+    val Clear = ImageVectorIcon(Icons.Rounded.Clear)
     val Music = DrawableResourceIcon(R.drawable.ic_music)
     val Repeat = DrawableResourceIcon(R.drawable.ic_repeat)
     val RepeatOne = DrawableResourceIcon(R.drawable.ic_repeat_one)

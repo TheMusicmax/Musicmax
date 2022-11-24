@@ -18,8 +18,24 @@ package com.maximillianleonov.musicmax.feature.search.navigation
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import androidx.navigation.navigation
 import com.maximillianleonov.musicmax.feature.search.SearchRoute
 
+const val SearchGraphRoute = "search_graph"
 const val SearchRoute = "search_route"
 
-fun NavGraphBuilder.searchScreen() = composable(route = SearchRoute) { SearchRoute() }
+fun NavGraphBuilder.searchScreen(
+    onNavigateToPlayer: () -> Unit,
+    onNavigateToArtist: (Long) -> Unit,
+    onNavigateToAlbum: (Long) -> Unit,
+    nestedGraphs: NavGraphBuilder.() -> Unit
+) = navigation(route = SearchGraphRoute, startDestination = SearchRoute) {
+    composable(route = SearchRoute) {
+        SearchRoute(
+            onNavigateToPlayer = onNavigateToPlayer,
+            onNavigateToArtist = onNavigateToArtist,
+            onNavigateToAlbum = onNavigateToAlbum
+        )
+    }
+    nestedGraphs()
+}

@@ -31,14 +31,15 @@ private const val ArtistRouteWithArguments = "$ArtistRoute/{$ArtistIdArg}"
 
 internal fun SavedStateHandle.getArtistId(): Long = checkNotNull(this[ArtistIdArg])
 
-fun NavHostController.navigateToArtist(artistId: Long) =
-    navigate(route = "$ArtistRoute/$artistId") { launchSingleTop = true }
+fun NavHostController.navigateToArtist(prefix: String, artistId: Long) =
+    navigate(route = "$prefix$ArtistRoute/$artistId") { launchSingleTop = true }
 
 fun NavGraphBuilder.artistScreen(
+    prefix: String,
     onNavigateToPlayer: () -> Unit,
     onBackClick: () -> Unit
 ) = composable(
-    route = ArtistRouteWithArguments,
+    route = prefix + ArtistRouteWithArguments,
     arguments = listOf(
         navArgument(ArtistIdArg) { type = NavType.LongType }
     )

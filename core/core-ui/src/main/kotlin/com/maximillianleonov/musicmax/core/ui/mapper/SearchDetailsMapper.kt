@@ -14,12 +14,16 @@
  * limitations under the License.
  */
 
-plugins {
-    id("musicmax.android.feature")
-}
+package com.maximillianleonov.musicmax.core.ui.mapper
 
-android.namespace = "com.maximillianleonov.musicmax.feature.search"
+import com.maximillianleonov.musicmax.core.domain.model.AlbumModel
+import com.maximillianleonov.musicmax.core.domain.model.ArtistModel
+import com.maximillianleonov.musicmax.core.domain.model.SearchDetailsModel
+import com.maximillianleonov.musicmax.core.domain.model.SongModel
+import com.maximillianleonov.musicmax.core.model.SearchDetails
 
-dependencies {
-    implementation(project(":core:core-media-service"))
-}
+fun SearchDetailsModel.asSearchDetails() = SearchDetails(
+    songs = songs.map(SongModel::asSong),
+    artists = artists.map(ArtistModel::asArtist),
+    albums = albums.map(AlbumModel::asAlbum)
+)

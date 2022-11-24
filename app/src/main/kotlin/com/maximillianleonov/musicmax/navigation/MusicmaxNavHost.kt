@@ -18,13 +18,16 @@ package com.maximillianleonov.musicmax.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.maximillianleonov.musicmax.feature.album.navigation.albumScreen
 import com.maximillianleonov.musicmax.feature.artist.navigation.artistScreen
 import com.maximillianleonov.musicmax.feature.favorite.navigation.favoriteScreen
+import com.maximillianleonov.musicmax.feature.home.navigation.HomeGraphRoute
 import com.maximillianleonov.musicmax.feature.home.navigation.homeScreen
 import com.maximillianleonov.musicmax.feature.player.navigation.playerScreen
+import com.maximillianleonov.musicmax.feature.search.navigation.SearchGraphRoute
 import com.maximillianleonov.musicmax.feature.search.navigation.searchScreen
 import com.maximillianleonov.musicmax.feature.settings.navigation.settingsScreen
 
@@ -33,8 +36,8 @@ fun MusicmaxNavHost(
     navController: NavHostController,
     startDestination: String,
     onNavigateToPlayer: () -> Unit,
-    onNavigateToArtist: (Long) -> Unit,
-    onNavigateToAlbum: (Long) -> Unit,
+    onNavigateToArtist: (prefix: String, artistId: Long) -> Unit,
+    onNavigateToAlbum: (prefix: String, albumId: Long) -> Unit,
     onSetSystemBarsLightIcons: () -> Unit,
     onResetSystemBarsIcons: () -> Unit,
     onBackClick: () -> Unit,
@@ -47,13 +50,26 @@ fun MusicmaxNavHost(
     ) {
         homeScreen(
             onNavigateToPlayer = onNavigateToPlayer,
-            onNavigateToArtist = onNavigateToArtist,
-            onNavigateToAlbum = onNavigateToAlbum
+            onNavigateToArtist = { onNavigateToArtist(HomeGraphRoute, it) },
+            onNavigateToAlbum = { onNavigateToAlbum(HomeGraphRoute, it) }
         ) {
-            artistScreen(onNavigateToPlayer = onNavigateToPlayer, onBackClick = onBackClick)
-            albumScreen(onNavigateToPlayer = onNavigateToPlayer, onBackClick = onBackClick)
+            nestedGraphs(
+                prefix = HomeGraphRoute,
+                onNavigateToPlayer = onNavigateToPlayer,
+                onBackClick = onBackClick
+            )
         }
-        searchScreen()
+        searchScreen(
+            onNavigateToPlayer = onNavigateToPlayer,
+            onNavigateToArtist = { onNavigateToArtist(SearchGraphRoute, it) },
+            onNavigateToAlbum = { onNavigateToAlbum(SearchGraphRoute, it) }
+        ) {
+            nestedGraphs(
+                prefix = SearchGraphRoute,
+                onNavigateToPlayer = onNavigateToPlayer,
+                onBackClick = onBackClick
+            )
+        }
         favoriteScreen()
         settingsScreen()
         playerScreen(
@@ -61,4 +77,21 @@ fun MusicmaxNavHost(
             onResetSystemBarsIcons = onResetSystemBarsIcons
         )
     }
+}
+
+private fun NavGraphBuilder.nestedGraphs(
+    prefix: String,
+    onNavigateToPlayer: () -> Unit,
+    onBackClick: () -> Unit
+) {
+    artistScreen(
+        prefix = prefix,
+        onNavigateToPlayer = onNavigateToPlayer,
+        onBackClick = onBackClick
+    )
+    albumScreen(
+        prefix = prefix,
+        onNavigateToPlayer = onNavigateToPlayer,
+        onBackClick = onBackClick
+    )
 }

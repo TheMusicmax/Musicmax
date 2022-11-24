@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-plugins {
-    id("musicmax.android.feature")
-}
+package com.maximillianleonov.musicmax.core.domain.model
 
-android.namespace = "com.maximillianleonov.musicmax.feature.search"
-
-dependencies {
-    implementation(project(":core:core-media-service"))
-}
+data class SearchDetailsModel(
+    val songs: List<SongModel>,
+    val artists: List<ArtistModel>,
+    val albums: List<AlbumModel>
+)

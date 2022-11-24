@@ -31,14 +31,15 @@ private const val AlbumRouteWithArguments = "$AlbumRoute/{$AlbumIdArg}"
 
 internal fun SavedStateHandle.getAlbumId(): Long = checkNotNull(this[AlbumIdArg])
 
-fun NavHostController.navigateToAlbum(albumId: Long) =
-    navigate(route = "$AlbumRoute/$albumId") { launchSingleTop = true }
+fun NavHostController.navigateToAlbum(prefix: String, albumId: Long) =
+    navigate(route = "$prefix$AlbumRoute/$albumId") { launchSingleTop = true }
 
 fun NavGraphBuilder.albumScreen(
+    prefix: String,
     onNavigateToPlayer: () -> Unit,
     onBackClick: () -> Unit
 ) = composable(
-    route = AlbumRouteWithArguments,
+    route = prefix + AlbumRouteWithArguments,
     arguments = listOf(
         navArgument(AlbumIdArg) { type = NavType.LongType }
     )

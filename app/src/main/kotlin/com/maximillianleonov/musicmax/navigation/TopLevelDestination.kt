@@ -21,7 +21,7 @@ import com.maximillianleonov.musicmax.core.designsystem.icon.Icon.ImageVectorIco
 import com.maximillianleonov.musicmax.core.designsystem.icon.MusicmaxIcons
 import com.maximillianleonov.musicmax.feature.favorite.navigation.FavoriteRoute
 import com.maximillianleonov.musicmax.feature.home.navigation.HomeGraphRoute
-import com.maximillianleonov.musicmax.feature.search.navigation.SearchRoute
+import com.maximillianleonov.musicmax.feature.search.navigation.SearchGraphRoute
 import com.maximillianleonov.musicmax.feature.settings.navigation.SettingsRoute
 import com.maximillianleonov.musicmax.feature.favorite.R as favoriteR
 import com.maximillianleonov.musicmax.feature.home.R as homeR
@@ -39,7 +39,7 @@ enum class TopLevelDestination(
         titleResource = homeR.string.home
     ),
     Search(
-        route = SearchRoute,
+        route = SearchGraphRoute,
         icon = MusicmaxIcons.Search,
         titleResource = searchR.string.search
     ),

@@ -127,4 +127,4 @@ private fun OutlinedPlayShuffleButton(
     }
 }
 
-private val IconSize = 24.dp
+private val IconSize = 20.dp
