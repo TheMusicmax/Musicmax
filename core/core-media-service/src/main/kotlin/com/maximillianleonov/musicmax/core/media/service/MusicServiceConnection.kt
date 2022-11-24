@@ -108,6 +108,16 @@ class MusicServiceConnection @Inject constructor(
         play()
     }
 
+    fun shuffleSongs(
+        songs: List<Song>,
+        startIndex: Int = DEFAULT_INDEX,
+        startPositionMs: Long = DEFAULT_POSITION_MS
+    ) = playSongs(
+        songs = songs.shuffled(),
+        startIndex = startIndex,
+        startPositionMs = startPositionMs
+    )
+
     private inner class PlayerListener : Player.Listener {
         override fun onEvents(player: Player, events: Player.Events) {
             if (events.containsAny(

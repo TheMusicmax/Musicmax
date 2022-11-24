@@ -22,7 +22,7 @@ plugins {
 android.namespace = "com.maximillianleonov.musicmax.core.media.service"
 
 dependencies {
-    implementation(project(":core:core-media-common"))
+    api(project(":core:core-media-common"))
     implementation(project(":core:core-media-notification"))
     implementation(project(":core:core-designsystem"))
     implementation(project(":core:core-model"))
