@@ -23,4 +23,7 @@
         <item quantity="one">%d song</item>
         <item quantity="other">%d songs</item>
     </plurals>
+    <string name="no_songs">No songs.</string>
+    <string name="no_artists">No artists.</string>
+    <string name="no_albums">No albums.</string>
 </resources>

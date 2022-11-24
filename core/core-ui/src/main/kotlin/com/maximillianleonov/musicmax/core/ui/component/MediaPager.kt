@@ -16,6 +16,9 @@
 
 package com.maximillianleonov.musicmax.core.ui.component
 
+import androidx.annotation.StringRes
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -48,6 +51,7 @@ import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 import com.maximillianleonov.musicmax.core.model.Album
 import com.maximillianleonov.musicmax.core.model.Artist
 import com.maximillianleonov.musicmax.core.model.Song
+import com.maximillianleonov.musicmax.core.ui.R
 import com.maximillianleonov.musicmax.core.ui.common.MediaTab
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -91,11 +95,13 @@ fun MediaPager(
             }
         }
 
-        PlayOutlinedShuffleButtons(
-            modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small),
-            onPlayClick = onPlayClick,
-            onShuffleClick = onShuffleClick
-        )
+        AnimatedVisibility(visible = songs.isNotEmpty()) {
+            PlayOutlinedShuffleButtons(
+                modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small),
+                onPlayClick = onPlayClick,
+                onShuffleClick = onShuffleClick
+            )
+        }
 
         HorizontalPager(
             modifier = Modifier.fillMaxSize(),
@@ -124,10 +130,14 @@ private fun SongsTabContent(
     onClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    LazyColumn(modifier = modifier) {
-        itemsIndexed(songs) { index, song ->
-            SongItem(song = song, onClick = { onClick(index) })
+    if (songs.isNotEmpty()) {
+        LazyColumn(modifier = modifier) {
+            itemsIndexed(songs) { index, song ->
+                SongItem(song = song, onClick = { onClick(index) })
+            }
         }
+    } else {
+        EmptyContent(textResource = R.string.no_songs)
     }
 }
 
@@ -137,10 +147,14 @@ private fun ArtistsTabContent(
     onClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    LazyColumn(modifier = modifier) {
-        items(artists) { artist ->
-            ArtistItem(artist = artist, onClick = { onClick(artist.id) })
+    if (artists.isNotEmpty()) {
+        LazyColumn(modifier = modifier) {
+            items(artists) { artist ->
+                ArtistItem(artist = artist, onClick = { onClick(artist.id) })
+            }
         }
+    } else {
+        EmptyContent(textResource = R.string.no_artists)
     }
 }
 
@@ -150,10 +164,24 @@ private fun AlbumsTabContent(
     onClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    LazyVerticalGrid(modifier = modifier, columns = GridCells.Fixed(count = ColumnsCount)) {
-        items(albums) { album ->
-            AlbumItem(album = album, onClick = { onClick(album.id) })
+    if (albums.isNotEmpty()) {
+        LazyVerticalGrid(modifier = modifier, columns = GridCells.Fixed(count = ColumnsCount)) {
+            items(albums) { album ->
+                AlbumItem(album = album, onClick = { onClick(album.id) })
+            }
         }
+    } else {
+        EmptyContent(textResource = R.string.no_albums)
+    }
+}
+
+@Composable
+private fun EmptyContent(@StringRes textResource: Int, modifier: Modifier = Modifier) {
+    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Text(
+            text = stringResource(id = textResource),
+            style = MaterialTheme.typography.headlineMedium
+        )
     }
 }
 
