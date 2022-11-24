@@ -18,6 +18,8 @@ package com.maximillianleonov.musicmax.core.ui.component
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TabPosition
 import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.Text
@@ -35,6 +37,7 @@ import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
 import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxTab
 import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxTabRow
+import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 import com.maximillianleonov.musicmax.core.ui.common.MediaTab
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -45,6 +48,8 @@ fun MediaPager(
     songsTabContent: @Composable () -> Unit,
     artistsTabContent: @Composable () -> Unit,
     albumsTabContent: @Composable () -> Unit,
+    onPlayClick: () -> Unit,
+    onShuffleClick: () -> Unit,
     modifier: Modifier = Modifier,
     coroutineScope: CoroutineScope = rememberCoroutineScope()
 ) {
@@ -72,6 +77,12 @@ fun MediaPager(
                 )
             }
         }
+
+        PlayOutlinedShuffleButtons(
+            modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small),
+            onPlayClick = onPlayClick,
+            onShuffleClick = onShuffleClick
+        )
 
         HorizontalPager(
             modifier = Modifier.fillMaxSize(),

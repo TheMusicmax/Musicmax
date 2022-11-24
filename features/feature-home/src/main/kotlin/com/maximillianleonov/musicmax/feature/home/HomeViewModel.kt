@@ -24,6 +24,7 @@ import com.maximillianleonov.musicmax.core.domain.model.SongModel
 import com.maximillianleonov.musicmax.core.domain.usecase.GetAlbumsUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.GetArtistsUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.GetSongsUseCase
+import com.maximillianleonov.musicmax.core.media.common.MediaConstants
 import com.maximillianleonov.musicmax.core.media.service.MusicServiceConnection
 import com.maximillianleonov.musicmax.core.ui.mapper.asAlbum
 import com.maximillianleonov.musicmax.core.ui.mapper.asArtist
@@ -65,7 +66,8 @@ class HomeViewModel @Inject constructor(
             initialValue = emptyList()
         )
 
-    fun play(startIndex: Int) {
+    fun play(startIndex: Int = MediaConstants.DEFAULT_INDEX) =
         musicServiceConnection.playSongs(songs = songs.value, startIndex = startIndex)
-    }
+
+    fun shuffle() = musicServiceConnection.shuffleSongs(songs = songs.value)
 }

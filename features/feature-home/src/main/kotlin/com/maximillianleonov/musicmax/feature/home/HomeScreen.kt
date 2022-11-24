@@ -52,6 +52,14 @@ internal fun HomeRoute(
             viewModel.play(startIndex)
             onNavigateToPlayer()
         },
+        onPlayClick = {
+            viewModel.play()
+            onNavigateToPlayer()
+        },
+        onShuffleClick = {
+            viewModel.shuffle()
+            onNavigateToPlayer()
+        },
         onArtistClick = onNavigateToArtist,
         onAlbumClick = onNavigateToAlbum
     )
@@ -65,12 +73,16 @@ private fun HomeScreen(
     onSongClick: (Int) -> Unit,
     onArtistClick: (Long) -> Unit,
     onAlbumClick: (Long) -> Unit,
+    onPlayClick: () -> Unit,
+    onShuffleClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     MediaPager(
         modifier = modifier,
         songsTabContent = { SongsTabContent(songs = songs, onClick = onSongClick) },
         artistsTabContent = { ArtistsTabContent(artists = artists, onClick = onArtistClick) },
-        albumsTabContent = { AlbumsTabContent(albums = albums, onClick = onAlbumClick) }
+        albumsTabContent = { AlbumsTabContent(albums = albums, onClick = onAlbumClick) },
+        onPlayClick = onPlayClick,
+        onShuffleClick = onShuffleClick
     )
 }
