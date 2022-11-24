@@ -46,5 +46,8 @@ data class SongEntity(
     val title: String,
 
     @ColumnInfo(name = Constants.Fields.ARTIST)
-    val artist: String
+    val artist: String,
+
+    @ColumnInfo(name = Constants.Fields.ALBUM)
+    val album: String
 )

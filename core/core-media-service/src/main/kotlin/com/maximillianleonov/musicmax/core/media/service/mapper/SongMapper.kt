@@ -55,7 +55,8 @@ internal fun MediaItem?.asSong() = Song(
     mediaUri = this?.requestMetadata?.mediaUri.orEmpty(),
     artworkUri = this?.mediaMetadata?.artworkUri.orEmpty(),
     title = this?.mediaMetadata?.title.orEmpty(),
-    artist = this?.mediaMetadata?.artist.orEmpty()
+    artist = this?.mediaMetadata?.artist.orEmpty(),
+    album = this?.mediaMetadata?.albumTitle.orEmpty()
 )
 
 private fun Uri?.orEmpty() = this ?: Uri.EMPTY

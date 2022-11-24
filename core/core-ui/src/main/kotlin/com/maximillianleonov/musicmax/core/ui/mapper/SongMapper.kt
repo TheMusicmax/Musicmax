@@ -27,5 +27,6 @@ fun SongModel.asSong() = Song(
     mediaUri = mediaUri.toUri(),
     artworkUri = artworkUri.toUri(),
     title = title,
-    artist = artist
+    artist = artist,
+    album = album
 )

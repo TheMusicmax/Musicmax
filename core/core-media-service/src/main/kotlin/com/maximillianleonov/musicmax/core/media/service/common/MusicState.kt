@@ -31,7 +31,8 @@ data class MusicState(
         mediaUri = Uri.EMPTY,
         artworkUri = Uri.EMPTY,
         title = "",
-        artist = ""
+        artist = "",
+        album = ""
     ),
     val playbackState: PlaybackState = PlaybackState.IDLE,
     val playWhenReady: Boolean = false,

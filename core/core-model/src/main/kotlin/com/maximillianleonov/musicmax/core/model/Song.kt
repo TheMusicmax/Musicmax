@@ -25,5 +25,6 @@ data class Song(
     val mediaUri: Uri,
     val artworkUri: Uri,
     val title: String,
-    val artist: String
+    val artist: String,
+    val album: String
 )

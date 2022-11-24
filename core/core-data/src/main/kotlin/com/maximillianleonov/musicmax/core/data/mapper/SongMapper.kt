@@ -27,7 +27,8 @@ internal fun Song.asSongEntity() = SongEntity(
     mediaUri = mediaUri.toString(),
     artworkUri = artworkUri.toString(),
     title = title,
-    artist = artist
+    artist = artist,
+    album = album
 )
 
 internal fun SongEntity.asSongModel() = SongModel(
@@ -37,5 +38,6 @@ internal fun SongEntity.asSongModel() = SongModel(
     mediaUri = mediaUri,
     artworkUri = artworkUri,
     title = title,
-    artist = artist
+    artist = artist,
+    album = album
 )

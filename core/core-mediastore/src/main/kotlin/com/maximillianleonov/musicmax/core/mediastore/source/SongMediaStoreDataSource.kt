@@ -39,7 +39,8 @@ class SongMediaStoreDataSource @Inject constructor(private val contentResolver: 
             MediaStore.Audio.Media.ARTIST_ID,
             MediaStore.Audio.Media.ALBUM_ID,
             MediaStore.Audio.Media.TITLE,
-            MediaStore.Audio.Media.ARTIST
+            MediaStore.Audio.Media.ARTIST,
+            MediaStore.Audio.Media.ALBUM
         )
 
         val selection = "${MediaStore.Audio.Media.IS_MUSIC} != 0"
@@ -56,6 +57,7 @@ class SongMediaStoreDataSource @Inject constructor(private val contentResolver: 
             val albumIdColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM_ID)
             val titleColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.TITLE)
             val artistColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST)
+            val albumColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM)
 
             while (cursor.moveToNext()) {
                 val id = cursor.getLong(idColumn)
@@ -63,6 +65,7 @@ class SongMediaStoreDataSource @Inject constructor(private val contentResolver: 
                 val albumId = cursor.getLong(albumIdColumn)
                 val title = cursor.getString(titleColumn)
                 val artist = cursor.getString(artistColumn)
+                val album = cursor.getString(albumColumn)
 
                 val mediaUri =
                     ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id)
@@ -74,7 +77,8 @@ class SongMediaStoreDataSource @Inject constructor(private val contentResolver: 
                     mediaUri = mediaUri,
                     artworkUri = albumId.asArtworkUri(),
                     title = title,
-                    artist = artist
+                    artist = artist,
+                    album = album
                 )
             }
         }
