@@ -34,8 +34,8 @@ internal fun FavoriteRoute(modifier: Modifier = Modifier) {
 private fun FavoriteScreen(modifier: Modifier = Modifier) {
     Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Text(
-            text = stringResource(id = R.string.favorite),
-            style = MaterialTheme.typography.displaySmall
+            text = stringResource(id = R.string.not_implemented_yet),
+            style = MaterialTheme.typography.headlineLarge
         )
     }
 }
