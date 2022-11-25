@@ -4,6 +4,11 @@
 
 Musicmax is a music player application for Android. **[Under development]**
 
+# Preview
+
+<img src="docs/images/screenshot-1-player.png" width="33%"><img src="docs/images/screenshot-2-notification.png" width="33%"><img src="docs/images/screenshot-3-home.png" width="33%">
+<img src="docs/images/screenshot-4-home.png" width="33%"><img src="docs/images/screenshot-5-search.png" width="33%"><img src="docs/images/screenshot-6-settings.png" width="33%">
+
 # License
 
 ```
