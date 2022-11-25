@@ -14,14 +14,29 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.core.domain.repository
+package com.maximillianleonov.musicmax.core.data.mapper
 
+import com.maximillianleonov.musicmax.core.database.model.PlayingQueueEntity
 import com.maximillianleonov.musicmax.core.domain.model.SongModel
-import com.maximillianleonov.musicmax.core.domain.sync.Syncable
-import kotlinx.coroutines.flow.Flow
 
-interface SongRepository : Syncable {
-    fun getAll(): Flow<List<SongModel>>
-    fun getPlayingQueue(): Flow<List<SongModel>>
-    suspend fun setPlayingQueue(songs: List<SongModel>)
-}
+internal fun SongModel.asPlayingQueueEntity() = PlayingQueueEntity(
+    mediaId = mediaId,
+    artistId = artistId,
+    albumId = albumId,
+    mediaUri = mediaUri,
+    artworkUri = artworkUri,
+    title = title,
+    artist = artist,
+    album = album
+)
+
+internal fun PlayingQueueEntity.asSongModel() = SongModel(
+    mediaId = mediaId,
+    artistId = artistId,
+    albumId = albumId,
+    mediaUri = mediaUri,
+    artworkUri = artworkUri,
+    title = title,
+    artist = artist,
+    album = album
+)

@@ -23,5 +23,4 @@ android.namespace = "com.maximillianleonov.musicmax.core.mediastore"
 
 dependencies {
     implementation(project(":core:core-model"))
-    implementation(libs.javax.inject)
 }

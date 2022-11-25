@@ -16,9 +16,11 @@
 
 package com.maximillianleonov.musicmax.core.data.repository
 
+import com.maximillianleonov.musicmax.core.data.mapper.asPlayingQueueEntity
 import com.maximillianleonov.musicmax.core.data.mapper.asSongEntity
 import com.maximillianleonov.musicmax.core.data.mapper.asSongModel
 import com.maximillianleonov.musicmax.core.data.mapper.listMap
+import com.maximillianleonov.musicmax.core.database.model.PlayingQueueEntity
 import com.maximillianleonov.musicmax.core.database.model.SongEntity
 import com.maximillianleonov.musicmax.core.database.source.SongDatabaseDataSource
 import com.maximillianleonov.musicmax.core.domain.model.SongModel
@@ -34,6 +36,12 @@ class SongRepositoryImpl @Inject constructor(
 ) : SongRepository {
     override fun getAll(): Flow<List<SongModel>> =
         songDatabaseDataSource.getAll().listMap(SongEntity::asSongModel)
+
+    override fun getPlayingQueue(): Flow<List<SongModel>> =
+        songDatabaseDataSource.getPlayingQueue().listMap(PlayingQueueEntity::asSongModel)
+
+    override suspend fun setPlayingQueue(songs: List<SongModel>) =
+        songDatabaseDataSource.setPlayingQueue(entities = songs.map(SongModel::asPlayingQueueEntity))
 
     override suspend fun synchronize() {
         val songs = songMediaStoreDataSource.getAll().map(Song::asSongEntity)

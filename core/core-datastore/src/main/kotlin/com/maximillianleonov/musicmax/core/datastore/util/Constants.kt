@@ -14,19 +14,11 @@
  * limitations under the License.
  */
 
-plugins {
-    id("musicmax.android.library")
-    id("musicmax.android.hilt")
-}
+package com.maximillianleonov.musicmax.core.datastore.util
 
-android.namespace = "com.maximillianleonov.musicmax.core.data"
+import androidx.datastore.preferences.core.intPreferencesKey
 
-dependencies {
-    implementation(project(":core:core-database"))
-    implementation(project(":core:core-datastore"))
-    implementation(project(":core:core-mediastore"))
-    implementation(project(":core:core-domain"))
-    implementation(project(":core:core-model"))
-
-    implementation(libs.kotlinx.coroutines.core)
+internal object Constants {
+    private const val PLAYING_QUEUE_INDEX_NAME = "playing_queue_index"
+    internal val PLAYING_QUEUE_INDEX = intPreferencesKey(PLAYING_QUEUE_INDEX_NAME)
 }

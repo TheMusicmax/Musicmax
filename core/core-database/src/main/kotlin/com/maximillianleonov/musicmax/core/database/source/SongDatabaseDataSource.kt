@@ -16,11 +16,21 @@
 
 package com.maximillianleonov.musicmax.core.database.source
 
+import com.maximillianleonov.musicmax.core.database.dao.PlayingQueueDao
 import com.maximillianleonov.musicmax.core.database.dao.SongDao
+import com.maximillianleonov.musicmax.core.database.model.PlayingQueueEntity
 import com.maximillianleonov.musicmax.core.database.model.SongEntity
 import javax.inject.Inject
 
-class SongDatabaseDataSource @Inject constructor(private val songDao: SongDao) {
+class SongDatabaseDataSource @Inject constructor(
+    private val songDao: SongDao,
+    private val playingQueueDao: PlayingQueueDao
+) {
     fun getAll() = songDao.getAll()
+    fun getPlayingQueue() = playingQueueDao.getAll()
+
+    suspend fun setPlayingQueue(entities: List<PlayingQueueEntity>) =
+        playingQueueDao.deleteAndInsertAll(entities)
+
     suspend fun deleteAndInsertAll(songs: List<SongEntity>) = songDao.deleteAndInsertAll(songs)
 }

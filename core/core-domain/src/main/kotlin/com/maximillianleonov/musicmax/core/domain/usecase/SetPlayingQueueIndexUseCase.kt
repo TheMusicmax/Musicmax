@@ -14,19 +14,11 @@
  * limitations under the License.
  */
 
-plugins {
-    id("musicmax.android.library")
-    id("musicmax.android.hilt")
-}
+package com.maximillianleonov.musicmax.core.domain.usecase
 
-android.namespace = "com.maximillianleonov.musicmax.core.data"
+import com.maximillianleonov.musicmax.core.domain.repository.SettingsRepository
+import javax.inject.Inject
 
-dependencies {
-    implementation(project(":core:core-database"))
-    implementation(project(":core:core-datastore"))
-    implementation(project(":core:core-mediastore"))
-    implementation(project(":core:core-domain"))
-    implementation(project(":core:core-model"))
-
-    implementation(libs.kotlinx.coroutines.core)
+class SetPlayingQueueIndexUseCase @Inject constructor(private val settingsRepository: SettingsRepository) {
+    suspend operator fun invoke(index: Int) = settingsRepository.setPlayingQueueIndex(index)
 }

@@ -14,19 +14,11 @@
  * limitations under the License.
  */
 
-plugins {
-    id("musicmax.android.library")
-    id("musicmax.android.hilt")
-}
+package com.maximillianleonov.musicmax.core.domain.repository
 
-android.namespace = "com.maximillianleonov.musicmax.core.data"
+import kotlinx.coroutines.flow.Flow
 
-dependencies {
-    implementation(project(":core:core-database"))
-    implementation(project(":core:core-datastore"))
-    implementation(project(":core:core-mediastore"))
-    implementation(project(":core:core-domain"))
-    implementation(project(":core:core-model"))
-
-    implementation(libs.kotlinx.coroutines.core)
+interface SettingsRepository {
+    fun getPlayingQueueIndex(): Flow<Int>
+    suspend fun setPlayingQueueIndex(index: Int)
 }

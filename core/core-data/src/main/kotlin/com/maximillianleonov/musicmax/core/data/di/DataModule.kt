@@ -18,9 +18,11 @@ package com.maximillianleonov.musicmax.core.data.di
 
 import com.maximillianleonov.musicmax.core.data.repository.AlbumRepositoryImpl
 import com.maximillianleonov.musicmax.core.data.repository.ArtistRepositoryImpl
+import com.maximillianleonov.musicmax.core.data.repository.SettingsRepositoryImpl
 import com.maximillianleonov.musicmax.core.data.repository.SongRepositoryImpl
 import com.maximillianleonov.musicmax.core.domain.repository.AlbumRepository
 import com.maximillianleonov.musicmax.core.domain.repository.ArtistRepository
+import com.maximillianleonov.musicmax.core.domain.repository.SettingsRepository
 import com.maximillianleonov.musicmax.core.domain.repository.SongRepository
 import dagger.Binds
 import dagger.Module
@@ -38,4 +40,7 @@ interface DataModule {
 
     @Binds
     fun bindAlbumRepository(albumRepositoryImpl: AlbumRepositoryImpl): AlbumRepository
+
+    @Binds
+    fun bindSettingsRepository(settingsRepositoryImpl: SettingsRepositoryImpl): SettingsRepository
 }

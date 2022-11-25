@@ -20,13 +20,15 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.maximillianleonov.musicmax.core.database.dao.AlbumDao
 import com.maximillianleonov.musicmax.core.database.dao.ArtistDao
+import com.maximillianleonov.musicmax.core.database.dao.PlayingQueueDao
 import com.maximillianleonov.musicmax.core.database.dao.SongDao
 import com.maximillianleonov.musicmax.core.database.model.AlbumEntity
 import com.maximillianleonov.musicmax.core.database.model.ArtistEntity
+import com.maximillianleonov.musicmax.core.database.model.PlayingQueueEntity
 import com.maximillianleonov.musicmax.core.database.model.SongEntity
 
 @Database(
-    entities = [SongEntity::class, ArtistEntity::class, AlbumEntity::class],
+    entities = [SongEntity::class, ArtistEntity::class, AlbumEntity::class, PlayingQueueEntity::class],
     version = 1,
     exportSchema = false
 )
@@ -34,4 +36,5 @@ abstract class MusicmaxDatabase : RoomDatabase() {
     abstract val songDao: SongDao
     abstract val artistDao: ArtistDao
     abstract val albumDao: AlbumDao
+    abstract val playingQueueDao: PlayingQueueDao
 }

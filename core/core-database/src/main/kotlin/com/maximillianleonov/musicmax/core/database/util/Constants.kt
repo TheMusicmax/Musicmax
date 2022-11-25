@@ -21,6 +21,7 @@ internal object Constants {
         internal const val SONGS = "songs"
         internal const val ARTISTS = "artists"
         internal const val ALBUMS = "albums"
+        internal const val PLAYING_QUEUE = "playing_queue"
     }
 
     internal object Fields {

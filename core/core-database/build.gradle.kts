@@ -25,5 +25,4 @@ android.namespace = "com.maximillianleonov.musicmax.core.database"
 dependencies {
     implementation(libs.bundles.androidx.room)
     ksp(libs.androidx.room.compiler)
-    implementation(libs.javax.inject)
 }

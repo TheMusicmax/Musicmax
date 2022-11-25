@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.core.database.di
+package com.maximillianleonov.musicmax.core.datastore.di
 
 import android.content.Context
-import androidx.room.Room
-import com.maximillianleonov.musicmax.core.database.MusicmaxDatabase
+import androidx.datastore.preferences.preferencesDataStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,27 +27,12 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DatabaseModule {
+object DataStoreModule {
     @Provides
     @Singleton
-    fun provideMusicmaxDatabase(@ApplicationContext context: Context) = Room.databaseBuilder(
-        context,
-        MusicmaxDatabase::class.java,
-        MUSICMAX_DATABASE
-    ).build()
-
-    @Provides
-    fun provideSongDao(musicmaxDatabase: MusicmaxDatabase) = musicmaxDatabase.songDao
-
-    @Provides
-    fun provideArtistDao(musicmaxDatabase: MusicmaxDatabase) = musicmaxDatabase.artistDao
-
-    @Provides
-    fun provideAlbumDao(musicmaxDatabase: MusicmaxDatabase) = musicmaxDatabase.albumDao
-
-    @Provides
-    fun providePlayingQueueDao(musicmaxDatabase: MusicmaxDatabase) =
-        musicmaxDatabase.playingQueueDao
+    fun providePreferencesDataStore(@ApplicationContext context: Context) =
+        context.preferencesDataStore
 }
 
-private const val MUSICMAX_DATABASE = "musicmax.db"
+private const val PREFERENCES_NAME = "preferences"
+private val Context.preferencesDataStore by preferencesDataStore(name = PREFERENCES_NAME)
