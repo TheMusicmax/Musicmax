@@ -16,14 +16,21 @@
 
 package com.maximillianleonov.musicmax.core.data.repository
 
+import com.maximillianleonov.musicmax.core.data.util.Constants
+import com.maximillianleonov.musicmax.core.data.util.MusicmaxVersionProvider
 import com.maximillianleonov.musicmax.core.datastore.PreferencesDataStoreDataSource
 import com.maximillianleonov.musicmax.core.domain.repository.SettingsRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class SettingsRepositoryImpl @Inject constructor(
-    private val preferencesDataStoreDataSource: PreferencesDataStoreDataSource
+    private val preferencesDataStoreDataSource: PreferencesDataStoreDataSource,
+    versionProvider: MusicmaxVersionProvider
 ) : SettingsRepository {
+    override val repoUrl = Constants.Urls.MUSICMAX_REPO_URL
+    override val privacyPolicyUrl = Constants.Urls.PRIVACY_POLICY_URL
+    override val version = versionProvider.version
+
     override fun getPlayingQueueIndex(): Flow<Int> =
         preferencesDataStoreDataSource.getPlayingQueueIndex()
 

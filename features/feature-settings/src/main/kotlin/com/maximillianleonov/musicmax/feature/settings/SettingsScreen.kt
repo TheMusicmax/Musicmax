@@ -16,26 +16,62 @@
 
 package com.maximillianleonov.musicmax.feature.settings
 
-import androidx.compose.foundation.layout.Box
+import android.net.Uri
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.maximillianleonov.musicmax.core.designsystem.icon.MusicmaxIcons
+import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
+import com.maximillianleonov.musicmax.feature.settings.component.Group
+import com.maximillianleonov.musicmax.feature.settings.component.InfoText
+import com.maximillianleonov.musicmax.feature.settings.component.UrlText
 
 @Composable
-internal fun SettingsRoute(modifier: Modifier = Modifier) {
-    SettingsScreen(modifier = modifier)
+internal fun SettingsRoute(
+    modifier: Modifier = Modifier,
+    viewModel: SettingsViewModel = hiltViewModel()
+) {
+    SettingsScreen(
+        repoUrl = viewModel.repoUrl,
+        privacyPolicyUrl = viewModel.privacyPolicyUrl,
+        version = viewModel.version,
+        modifier = modifier
+    )
 }
 
 @Composable
-fun SettingsScreen(modifier: Modifier = Modifier) {
-    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(
-            text = stringResource(id = R.string.settings),
-            style = MaterialTheme.typography.displaySmall
-        )
+fun SettingsScreen(
+    repoUrl: Uri,
+    privacyPolicyUrl: Uri,
+    version: String,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.smallMedium)
+    ) {
+        Group(titleResource = R.string.about) {
+            UrlText(
+                icon = MusicmaxIcons.GitHub,
+                textResource = R.string.source_code_github,
+                url = repoUrl
+            )
+            UrlText(
+                icon = MusicmaxIcons.Security,
+                textResource = R.string.privacy_policy,
+                url = privacyPolicyUrl
+            )
+            InfoText(
+                icon = MusicmaxIcons.Info,
+                textResource = R.string.version,
+                info = version
+            )
+        }
     }
 }

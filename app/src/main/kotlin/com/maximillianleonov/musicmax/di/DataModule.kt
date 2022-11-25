@@ -14,15 +14,20 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.core.domain.repository
+package com.maximillianleonov.musicmax.di
 
-import kotlinx.coroutines.flow.Flow
+import com.maximillianleonov.musicmax.BuildConfig
+import com.maximillianleonov.musicmax.core.data.util.MusicmaxVersionProvider
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
-interface SettingsRepository {
-    val repoUrl: String
-    val privacyPolicyUrl: String
-    val version: String
-
-    fun getPlayingQueueIndex(): Flow<Int>
-    suspend fun setPlayingQueueIndex(index: Int)
+@Module
+@InstallIn(SingletonComponent::class)
+object DataModule {
+    @Provides
+    fun provideMusicmaxVersionProvider() = object : MusicmaxVersionProvider {
+        override val version: String = BuildConfig.VERSION_NAME
+    }
 }

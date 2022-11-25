@@ -14,15 +14,11 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.core.domain.repository
+package com.maximillianleonov.musicmax.core.domain.usecase
 
-import kotlinx.coroutines.flow.Flow
+import com.maximillianleonov.musicmax.core.domain.repository.SettingsRepository
+import javax.inject.Inject
 
-interface SettingsRepository {
-    val repoUrl: String
-    val privacyPolicyUrl: String
-    val version: String
-
-    fun getPlayingQueueIndex(): Flow<Int>
-    suspend fun setPlayingQueueIndex(index: Int)
+class GetVersionUseCase @Inject constructor(private val settingsRepository: SettingsRepository) {
+    operator fun invoke() = settingsRepository.version
 }

@@ -22,6 +22,7 @@ import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Clear
 import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.Home
+import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -44,6 +45,9 @@ object MusicmaxIcons {
     val Play = DrawableResourceIcon(R.drawable.ic_play)
     val Pause = DrawableResourceIcon(R.drawable.ic_pause)
     val SkipNext = DrawableResourceIcon(R.drawable.ic_skip_next)
+    val GitHub = DrawableResourceIcon(R.drawable.ic_github)
+    val Info = ImageVectorIcon(Icons.Rounded.Info)
+    val Security = DrawableResourceIcon(R.drawable.ic_security)
 }
 
 sealed interface Icon {

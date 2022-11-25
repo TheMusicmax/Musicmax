@@ -14,15 +14,12 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.core.domain.repository
+package com.maximillianleonov.musicmax.core.data.util
 
-import kotlinx.coroutines.flow.Flow
-
-interface SettingsRepository {
-    val repoUrl: String
-    val privacyPolicyUrl: String
-    val version: String
-
-    fun getPlayingQueueIndex(): Flow<Int>
-    suspend fun setPlayingQueueIndex(index: Int)
+internal object Constants {
+    internal object Urls {
+        private const val MUSICMAX_PAGE_URL = "https://maximillianleonov.github.io/Musicmax"
+        internal const val MUSICMAX_REPO_URL = "https://github.com/MaximillianLeonov/Musicmax"
+        internal const val PRIVACY_POLICY_URL = "$MUSICMAX_PAGE_URL/privacy-policy.html"
+    }
 }
