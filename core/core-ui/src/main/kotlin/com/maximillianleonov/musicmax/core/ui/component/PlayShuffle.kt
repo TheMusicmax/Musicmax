@@ -24,10 +24,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -35,6 +33,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxButton
+import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxOutlinedButton
 import com.maximillianleonov.musicmax.core.designsystem.icon.MusicmaxIcons
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 import com.maximillianleonov.musicmax.core.media.common.R
@@ -98,7 +98,7 @@ private fun PlayShuffleButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Button(modifier = modifier, onClick = onClick) {
+    MusicmaxButton(modifier = modifier, onClick = onClick) {
         Icon(
             modifier = Modifier.size(IconSize),
             painter = painterResource(id = iconResource),
@@ -116,7 +116,7 @@ private fun OutlinedPlayShuffleButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    OutlinedButton(modifier = modifier, onClick = onClick) {
+    MusicmaxOutlinedButton(modifier = modifier, onClick = onClick) {
         Icon(
             modifier = Modifier.size(IconSize),
             painter = painterResource(id = iconResource),
