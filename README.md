@@ -6,19 +6,14 @@ Musicmax is a Music Player application for Android built with Jetpack Compose an
 
 # Preview
 
-<img src="docs/images/screenshot-1-player.png" width="33%"><img src="docs/images/screenshot-2-notification.png" width="33%"><img src="docs/images/screenshot-3-home.png" width="33%">
-<img src="docs/images/screenshot-4-home.png" width="33%"><img src="docs/images/screenshot-5-search.png" width="33%"><img src="docs/images/screenshot-6-settings.png" width="33%">
+<img src="docs/images/screenshot-1-home.png" width="25%"><img src="docs/images/screenshot-2-player.png" width="25%"><img src="docs/images/screenshot-3-artist.png" width="25%"><img src="docs/images/screenshot-4-album.png" width="25%">
+<img src="docs/images/screenshot-5-home.png" width="25%"><img src="docs/images/screenshot-6-search.png" width="25%"><img src="docs/images/screenshot-7-notification.png" width="25%"><img src="docs/images/screenshot-8-settings.png" width="25%">
 
 # Development Environment
 
 **Musicmax** uses the Gradle build system and can be imported directly into the latest stable
 version of Android Studio (available [here](https://developer.android.com/studio)). The `debug`
 build can be built and run using the default configuration.
-
-Once you're up and running, you can refer to the learning journeys below to get a better
-understanding of which libraries and tools are being used, the reasoning behind the approaches to
-UI, testing, architecture and more, and how all of these different pieces of the project fit
-together to create a complete app.
 
 # Build
 
