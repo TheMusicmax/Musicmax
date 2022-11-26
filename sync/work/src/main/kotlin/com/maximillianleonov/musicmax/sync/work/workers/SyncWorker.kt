@@ -35,6 +35,8 @@ import dagger.assisted.AssistedInject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.withContext
 
 /**
@@ -76,8 +78,8 @@ internal class SyncWorker @AssistedInject constructor(
     }
 }
 
-private fun Context.awaitMusicmaxPermission() {
-    while (true) {
+private suspend fun Context.awaitMusicmaxPermission() {
+    while (currentCoroutineContext().isActive) {
         if (checkMusicmaxPermission()) return
     }
 }
