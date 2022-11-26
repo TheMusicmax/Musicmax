@@ -26,6 +26,7 @@ import androidx.media3.session.MediaSession
 import androidx.media3.session.SessionCommand
 import androidx.media3.session.SessionResult
 import com.google.common.collect.ImmutableList
+import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
 import com.maximillianleonov.musicmax.core.common.dispatcher.Dispatcher
 import com.maximillianleonov.musicmax.core.common.dispatcher.MusicmaxDispatchers.MAIN
@@ -64,12 +65,12 @@ class MusicSessionCallback @Inject constructor(
         session: MediaLibrarySession,
         browser: MediaSession.ControllerInfo,
         params: MediaLibraryService.LibraryParams?
-    ): ListenableFuture<LibraryResult<MediaItem>> = coroutineScope.future {
+    ): ListenableFuture<LibraryResult<MediaItem>> = Futures.immediateFuture(
         LibraryResult.ofItem(
             buildBrowsableMediaItem(mediaId = RootMediaId, folderType = FOLDER_TYPE_MIXED),
             null
         )
-    }
+    )
 
     override fun onGetChildren(
         session: MediaLibrarySession,
@@ -93,13 +94,13 @@ class MusicSessionCallback @Inject constructor(
         mediaSession: MediaSession,
         controller: MediaSession.ControllerInfo,
         mediaItems: List<MediaItem>
-    ): ListenableFuture<List<MediaItem>> = coroutineScope.future {
+    ): ListenableFuture<List<MediaItem>> = Futures.immediateFuture(
         mediaItems.map { mediaItem ->
             mediaItem.buildUpon()
                 .setUri(mediaItem.requestMetadata.mediaUri)
                 .build()
         }
-    }
+    )
 
     override fun onConnect(
         session: MediaSession,
@@ -126,10 +127,10 @@ class MusicSessionCallback @Inject constructor(
         controller: MediaSession.ControllerInfo,
         customCommand: SessionCommand,
         args: Bundle
-    ): ListenableFuture<SessionResult> = coroutineScope.future {
+    ): ListenableFuture<SessionResult> {
         musicActionHandler.onCustomCommand(mediaSession = session, customCommand = customCommand)
         session.setCustomLayout(musicActionHandler.customLayout)
-        SessionResult(SessionResult.RESULT_SUCCESS)
+        return Futures.immediateFuture(SessionResult(SessionResult.RESULT_SUCCESS))
     }
 
     fun cancelCoroutineScope() {
