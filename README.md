@@ -4,6 +4,12 @@
 
 Musicmax is a Music Player application for Android built with Jetpack Compose and Jetpack Media 3.
 
+[<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png"
+     alt="Get it on IzzyOnDroid"
+     height="80">](https://apt.izzysoft.de/fdroid/index/apk/com.maximillianleonov.musicmax)
+
+or get the apk from the [Releases section](https://github.com/MaximillianLeonov/Musicmax/releases/latest).
+
 # Preview
 
 <img src="docs/images/screenshot-1-home.png" width="25%"><img src="docs/images/screenshot-2-player.png" width="25%"><img src="docs/images/screenshot-3-artist.png" width="25%"><img src="docs/images/screenshot-4-album.png" width="25%">
