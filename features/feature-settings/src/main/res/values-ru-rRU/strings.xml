@@ -18,6 +18,6 @@
     <string name="settings">Настройки</string>
     <string name="about">О приложении</string>
     <string name="source_code_github">Исходный код на GitHub</string>
-    <string name="privacy_policy">Политика конфиденциальности</string>
+    <string name="privacy_policy">Privacy policy</string>
     <string name="version">Версия</string>
 </resources>
