@@ -15,5 +15,5 @@
      limitations under the License.
 -->
 <resources>
-    <string name="artist">Artist</string>
+    <string name="artist">Исполнитель</string>
 </resources>
