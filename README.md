@@ -71,6 +71,10 @@ To generate the baseline profile, select the `benchmark` build variant and run t
 baseline profile from the emulator
 to [`app/src/main/baseline-prof.txt`](app/src/main/baseline-prof.txt).
 
+# Localization
+
+**Musicmax** uses [Crowdin](https://crowdin.com/) as a localization management platform and is available on Crowdin at [this link](https://crowdin.com/project/musicmax-android).
+
 # License
 
 ```
