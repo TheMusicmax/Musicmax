@@ -15,8 +15,8 @@
      limitations under the License.
 -->
 <resources>
-    <string name="storage_access">Storage Access</string>
-    <string name="storage_access_permission_text">The app needs permission to access your device storage for playing music.</string>
-    <string name="grant_access">Grant access</string>
-    <string name="settings">Settings</string>
+    <string name="storage_access">Доступ к хранилищу</string>
+    <string name="storage_access_permission_text">Приложению требуется разрешение на доступ к хранилищу вашего устройства для воспроизведения музыки.</string>
+    <string name="grant_access">Предоставить доступ</string>
+    <string name="settings">Настройки</string>
 </resources>
