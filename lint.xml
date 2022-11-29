@@ -18,4 +18,7 @@
     <issue id="UnsafeOptInUsageError">
         <ignore regexp="\(markerClass = androidx\.media3\.common\.util\.UnstableApi\.class\)" />
     </issue>
+
+    <issue id="MissingQuantity" severity="ignore" />
+    <issue id="Typos" severity="ignore" />
 </lint>
