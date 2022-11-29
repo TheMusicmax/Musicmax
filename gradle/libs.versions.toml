@@ -30,7 +30,7 @@ androidx-test-ext = "1.1.4"
 androidx-test-espresso = "3.5.0"
 androidx-test-uiautomator = "2.2.0"
 junit = "4.13.2"
-mockk = "1.13.2"
+mockk = "1.13.3"
 
 kotlinx-coroutines = "1.6.4"
 dagger = "2.44.2"
