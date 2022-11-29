@@ -75,6 +75,8 @@ to [`app/src/main/baseline-prof.txt`](app/src/main/baseline-prof.txt).
 
 **Musicmax** uses [Crowdin](https://crowdin.com/) as a localization management platform and is available on Crowdin at [this link](https://crowdin.com/project/musicmax-android).
 
+[![Crowdin](https://badges.crowdin.net/musicmax-android/localized.svg)](https://crowdin.com/project/musicmax-android)
+
 # License
 
 ```
