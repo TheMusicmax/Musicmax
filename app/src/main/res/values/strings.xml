@@ -15,5 +15,5 @@
      limitations under the License.
 -->
 <resources>
-    <string name="app_name">Musicmax</string>
+    <string name="app_name" translatable="false">Musicmax</string>
 </resources>
