@@ -17,12 +17,12 @@
 <resources>
     <string name="songs">Songs</string>
     <string name="artists">Artists</string>
-    <string name="albums">Álbuns</string>
+    <string name="albums">Albums</string>
     <plurals name="number_of_songs">
         <item quantity="one">%d song</item>
         <item quantity="other">%d songs</item>
     </plurals>
     <string name="no_songs">No songs.</string>
     <string name="no_artists">No artists.</string>
-    <string name="no_albums">No álbuns.</string>
+    <string name="no_albums">No albums.</string>
 </resources>
