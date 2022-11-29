@@ -20,7 +20,7 @@
     <string name="albums">Альбомы</string>
     <plurals name="number_of_songs">
         <item quantity="one">%d песня</item>
-        <item quantity="few">%d песен</item>
+        <item quantity="few">%d песни</item>
         <item quantity="many">%d песен</item>
         <item quantity="other">%d песен</item>
     </plurals>
