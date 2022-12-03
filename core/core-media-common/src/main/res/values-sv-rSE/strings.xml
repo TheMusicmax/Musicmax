@@ -20,6 +20,6 @@
     <string name="shuffle">Blanda</string>
     <string name="skip_previous">Hoppa till föregående</string>
     <string name="play">Spela</string>
-    <string name="pause">Pause</string>
-    <string name="skip_next">Skip to next</string>
+    <string name="pause">Pausa</string>
+    <string name="skip_next">Hoppa till nästa</string>
 </resources>
