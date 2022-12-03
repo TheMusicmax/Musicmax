@@ -15,14 +15,14 @@
      limitations under the License.
 -->
 <resources>
-    <string name="songs">Songs</string>
-    <string name="artists">Artists</string>
-    <string name="albums">Albums</string>
+    <string name="songs">Låtar</string>
+    <string name="artists">Artister</string>
+    <string name="albums">Album</string>
     <plurals name="number_of_songs">
-        <item quantity="one">%d song</item>
-        <item quantity="other">%d songs</item>
+        <item quantity="one">%d låt</item>
+        <item quantity="other">%d låtar</item>
     </plurals>
-    <string name="no_songs">No songs.</string>
-    <string name="no_artists">No artists.</string>
-    <string name="no_albums">No albums.</string>
+    <string name="no_songs">Inga låtar.</string>
+    <string name="no_artists">Inga artister.</string>
+    <string name="no_albums">Inga album.</string>
 </resources>
