@@ -15,9 +15,9 @@
      limitations under the License.
 -->
 <resources>
-    <string name="settings">Settings</string>
-    <string name="about">About</string>
-    <string name="source_code_github">Source code on GitHub</string>
-    <string name="privacy_policy">Privacy policy</string>
-    <string name="version">Version</string>
+    <string name="settings">Налаштування</string>
+    <string name="about">Про</string>
+    <string name="source_code_github">Вихідний код на GitHub</string>
+    <string name="privacy_policy">Політика конфіденційності</string>
+    <string name="version">Версія</string>
 </resources>
