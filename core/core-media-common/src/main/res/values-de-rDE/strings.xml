@@ -15,11 +15,11 @@
      limitations under the License.
 -->
 <resources>
-    <string name="repeat">Repeat</string>
-    <string name="repeat_one">Repeat one</string>
-    <string name="shuffle">Shuffle</string>
-    <string name="skip_previous">Skip to previous</string>
-    <string name="play">Play</string>
+    <string name="repeat">Wiederholen</string>
+    <string name="repeat_one">Wiederhole eins</string>
+    <string name="shuffle">Zufällig</string>
+    <string name="skip_previous">Zum vorherigen springen</string>
+    <string name="play">Wiedergeben</string>
     <string name="pause">Pause</string>
-    <string name="skip_next">Skip to next</string>
+    <string name="skip_next">Zum nächsten springen</string>
 </resources>
