@@ -17,5 +17,5 @@
 <resources>
     <string name="search">Suche</string>
     <string name="search_placeholder">Suche…</string>
-    <string name="clear">Clear</string>
+    <string name="clear">Löschen</string>
 </resources>
