@@ -16,7 +16,7 @@
 -->
 <resources>
     <string name="settings">Settings</string>
-    <string name="about">About</string>
+    <string name="about">Despre</string>
     <string name="source_code_github">Source code on GitHub</string>
     <string name="privacy_policy">Privacy policy</string>
     <string name="version">Version</string>
