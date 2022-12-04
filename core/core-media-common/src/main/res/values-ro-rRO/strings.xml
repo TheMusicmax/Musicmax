@@ -15,11 +15,11 @@
      limitations under the License.
 -->
 <resources>
-    <string name="repeat">Repeat</string>
-    <string name="repeat_one">Repeat one</string>
+    <string name="repeat">Repetați</string>
+    <string name="repeat_one">Repetați unul</string>
     <string name="shuffle">Amestecare</string>
-    <string name="skip_previous">Skip to previous</string>
-    <string name="play">Play</string>
-    <string name="pause">Pause</string>
+    <string name="skip_previous">Sari la precedentul</string>
+    <string name="play">Joacă</string>
+    <string name="pause">Pauză</string>
     <string name="skip_next">Skip to next</string>
 </resources>
