@@ -15,7 +15,7 @@
      limitations under the License.
 -->
 <resources>
-    <string name="sync_notification_title">Checking storage…</string>
-    <string name="sync_notification_channel_name">Storage synchronization</string>
-    <string name="sync_notification_channel_description">Storage synchronization tasks for Musicmax</string>
+    <string name="sync_notification_title">Verificare stocare…</string>
+    <string name="sync_notification_channel_name">Sincronizarea stocării</string>
+    <string name="sync_notification_channel_description">Stocare sarcini de sincronizare pentru Musicmax</string>
 </resources>
