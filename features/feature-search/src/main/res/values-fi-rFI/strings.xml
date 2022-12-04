@@ -15,7 +15,7 @@
      limitations under the License.
 -->
 <resources>
-    <string name="search">Search</string>
-    <string name="search_placeholder">Search…</string>
-    <string name="clear">Clear</string>
+    <string name="search">Etsi</string>
+    <string name="search_placeholder">Etsi…</string>
+    <string name="clear">Tyhjennä</string>
 </resources>
