@@ -16,7 +16,7 @@
 -->
 <resources>
     <string name="settings">Instelling</string>
-    <string name="about">About</string>
+    <string name="about">Aangaande</string>
     <string name="source_code_github">Bronkode by GitHub</string>
     <string name="privacy_policy">Privaatheidsbeleid</string>
     <string name="version">Weergawe</string>
