@@ -15,14 +15,14 @@
      limitations under the License.
 -->
 <resources>
-    <string name="songs">Songs</string>
-    <string name="artists">Artists</string>
-    <string name="albums">Albums</string>
+    <string name="songs">Sanger</string>
+    <string name="artists">Artister</string>
+    <string name="albums">Album</string>
     <plurals name="number_of_songs">
-        <item quantity="one">%d song</item>
-        <item quantity="other">%d songs</item>
+        <item quantity="one">%d sang</item>
+        <item quantity="other">%d sanger</item>
     </plurals>
-    <string name="no_songs">No songs.</string>
-    <string name="no_artists">No artists.</string>
-    <string name="no_albums">No albums.</string>
+    <string name="no_songs">Ingen sanger.</string>
+    <string name="no_artists">Ingen kunstnere.</string>
+    <string name="no_albums">Ingen album.</string>
 </resources>
