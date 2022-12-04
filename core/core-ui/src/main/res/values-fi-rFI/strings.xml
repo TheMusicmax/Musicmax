@@ -15,14 +15,14 @@
      limitations under the License.
 -->
 <resources>
-    <string name="songs">Songs</string>
-    <string name="artists">Artists</string>
-    <string name="albums">Albums</string>
+    <string name="songs">Kappaleet</string>
+    <string name="artists">Taiteilijat</string>
+    <string name="albums">Albumit</string>
     <plurals name="number_of_songs">
-        <item quantity="one">%d song</item>
-        <item quantity="other">%d songs</item>
+        <item quantity="one">%d kappale</item>
+        <item quantity="other">%d kappaletta</item>
     </plurals>
-    <string name="no_songs">No songs.</string>
-    <string name="no_artists">No artists.</string>
-    <string name="no_albums">No albums.</string>
+    <string name="no_songs">Ei kappaleita.</string>
+    <string name="no_artists">Ei artisteja.</string>
+    <string name="no_albums">Ei albumeita.</string>
 </resources>
