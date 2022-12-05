@@ -21,20 +21,6 @@ import androidx.core.os.bundleOf
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaItem.RequestMetadata
 import androidx.media3.common.MediaMetadata
-import androidx.media3.common.MediaMetadata.FolderType
-
-internal fun buildBrowsableMediaItem(
-    mediaId: String,
-    @FolderType folderType: Int
-) = MediaItem.Builder()
-    .setMediaId(mediaId)
-    .setMediaMetadata(
-        MediaMetadata.Builder()
-            .setFolderType(folderType)
-            .setIsPlayable(false)
-            .build()
-    )
-    .build()
 
 internal fun buildPlayableMediaItem(
     mediaId: String,
