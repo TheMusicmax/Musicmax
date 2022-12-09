@@ -15,9 +15,9 @@
      limitations under the License.
 -->
 <resources>
-    <string name="songs">Songs</string>
-    <string name="artists">Artists</string>
-    <string name="albums">Albums</string>
+    <string name="songs">Bài hát</string>
+    <string name="artists">Nghệ sĩ</string>
+    <string name="albums">Album</string>
     <plurals name="number_of_songs">
         <item quantity="other">%d songs</item>
     </plurals>
