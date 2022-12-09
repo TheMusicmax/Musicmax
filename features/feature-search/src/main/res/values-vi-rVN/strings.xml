@@ -15,7 +15,7 @@
      limitations under the License.
 -->
 <resources>
-    <string name="search">Search</string>
-    <string name="search_placeholder">Search…</string>
-    <string name="clear">Clear</string>
+    <string name="search">Tìm kiếm</string>
+    <string name="search_placeholder">Tìm kiếm…</string>
+    <string name="clear">Rõ ràng</string>
 </resources>
