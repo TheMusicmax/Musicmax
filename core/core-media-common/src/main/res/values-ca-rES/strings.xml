@@ -15,11 +15,11 @@
      limitations under the License.
 -->
 <resources>
-    <string name="repeat">Repeat</string>
-    <string name="repeat_one">Repeat one</string>
+    <string name="repeat">Repeteix</string>
+    <string name="repeat_one">Repeteix una</string>
     <string name="shuffle">Shuffle</string>
-    <string name="skip_previous">Skip to previous</string>
-    <string name="play">Play</string>
-    <string name="pause">Pause</string>
+    <string name="skip_previous">Anar a l\'anterior</string>
+    <string name="play">Reprodueix</string>
+    <string name="pause">Pausa</string>
     <string name="skip_next">Skip to next</string>
 </resources>
