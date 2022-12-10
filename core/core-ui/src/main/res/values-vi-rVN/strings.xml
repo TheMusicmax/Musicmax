@@ -19,9 +19,9 @@
     <string name="artists">Nghệ sĩ</string>
     <string name="albums">Album</string>
     <plurals name="number_of_songs">
-        <item quantity="other">%d songs</item>
+        <item quantity="other">%d bài hát</item>
     </plurals>
-    <string name="no_songs">No songs.</string>
-    <string name="no_artists">No artists.</string>
-    <string name="no_albums">No albums.</string>
+    <string name="no_songs">Không có bài hát.</string>
+    <string name="no_artists">Không nghệ sĩ.</string>
+    <string name="no_albums">Không có album.</string>
 </resources>
