@@ -15,15 +15,15 @@
      limitations under the License.
 -->
 <resources>
-    <string name="songs">Songs</string>
-    <string name="artists">Artists</string>
-    <string name="albums">Albums</string>
+    <string name="songs">Песме</string>
+    <string name="artists">Уметници</string>
+    <string name="albums">Албуми</string>
     <plurals name="number_of_songs">
-        <item quantity="one">%d song</item>
-        <item quantity="few">%d songs</item>
-        <item quantity="other">%d songs</item>
+        <item quantity="one">%d песма</item>
+        <item quantity="few">%d песме</item>
+        <item quantity="other">%d песме</item>
     </plurals>
-    <string name="no_songs">No songs.</string>
-    <string name="no_artists">No artists.</string>
-    <string name="no_albums">No albums.</string>
+    <string name="no_songs">Нема песама.</string>
+    <string name="no_artists">Нема уметника.</string>
+    <string name="no_albums">Нема албума.</string>
 </resources>
