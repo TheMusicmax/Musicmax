@@ -15,11 +15,11 @@
      limitations under the License.
 -->
 <resources>
-    <string name="repeat">Repeat</string>
-    <string name="repeat_one">Repeat one</string>
-    <string name="shuffle">Shuffle</string>
-    <string name="skip_previous">Skip to previous</string>
-    <string name="play">Play</string>
-    <string name="pause">Pause</string>
-    <string name="skip_next">Skip to next</string>
+    <string name="repeat">Поновите</string>
+    <string name="repeat_one">Поновите један</string>
+    <string name="shuffle">Шаркање</string>
+    <string name="skip_previous">Идите на претходни</string>
+    <string name="play">Играј</string>
+    <string name="pause">Пауза</string>
+    <string name="skip_next">Пређи на следеће</string>
 </resources>
