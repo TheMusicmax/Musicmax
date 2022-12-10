@@ -18,8 +18,8 @@
     <string name="repeat">Lặp lại</string>
     <string name="repeat_one">Lặp lại một</string>
     <string name="shuffle">Xáo trộn</string>
-    <string name="skip_previous">Skip to previous</string>
-    <string name="play">Play</string>
-    <string name="pause">Pause</string>
-    <string name="skip_next">Skip to next</string>
+    <string name="skip_previous">Bỏ qua trước đó</string>
+    <string name="play">Chơi</string>
+    <string name="pause">Tạm dừng</string>
+    <string name="skip_next">Bỏ qua để tiếp theo</string>
 </resources>
