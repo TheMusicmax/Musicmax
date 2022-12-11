@@ -15,11 +15,11 @@
      limitations under the License.
 -->
 <resources>
-    <string name="repeat">Repeat</string>
-    <string name="repeat_one">Repeat one</string>
-    <string name="shuffle">Shuffle</string>
-    <string name="skip_previous">Skip to previous</string>
-    <string name="play">Play</string>
-    <string name="pause">Pause</string>
-    <string name="skip_next">Skip to next</string>
+    <string name="repeat">Tekrarla</string>
+    <string name="repeat_one">Tekrarla bir</string>
+    <string name="shuffle">Karıştır</string>
+    <string name="skip_previous">Öncekine atla</string>
+    <string name="play">Oynat</string>
+    <string name="pause">Duraklat</string>
+    <string name="skip_next">Sonrakine atla</string>
 </resources>
