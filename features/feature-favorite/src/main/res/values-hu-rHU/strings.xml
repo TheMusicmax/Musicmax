@@ -15,6 +15,6 @@
      limitations under the License.
 -->
 <resources>
-    <string name="favorite">Favorite</string>
-    <string name="not_implemented_yet">Not implemented yet.</string>
+    <string name="favorite">Kedvenc</string>
+    <string name="not_implemented_yet">Még nem valósult meg.</string>
 </resources>
