@@ -15,7 +15,7 @@
      limitations under the License.
 -->
 <resources>
-    <string name="sync_notification_title">Checking storage…</string>
-    <string name="sync_notification_channel_name">Storage synchronization</string>
-    <string name="sync_notification_channel_description">Storage synchronization tasks for Musicmax</string>
+    <string name="sync_notification_title">Kontrola úložiště…</string>
+    <string name="sync_notification_channel_name">Synchronizace úložiště</string>
+    <string name="sync_notification_channel_description">Úlohy synchronizace úložiště pro Musicmax</string>
 </resources>
