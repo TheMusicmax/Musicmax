@@ -15,7 +15,7 @@
      limitations under the License.
 -->
 <resources>
-    <string name="search">Search</string>
-    <string name="search_placeholder">Search…</string>
-    <string name="clear">Clear</string>
+    <string name="search">Vyhledávání</string>
+    <string name="search_placeholder">Vyhledávání…</string>
+    <string name="clear">Přehledně</string>
 </resources>
