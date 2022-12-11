@@ -16,7 +16,7 @@
 -->
 <resources>
     <string name="storage_access">Přístup k úložišti</string>
-    <string name="storage_access_permission_text">The app needs permission to access your device storage for playing music.</string>
-    <string name="grant_access">Grant access</string>
+    <string name="storage_access_permission_text">Aplikace potřebuje oprávnění k přístupu k úložišti pro přehrávání hudby.</string>
+    <string name="grant_access">Udělení přístupu</string>
     <string name="settings">Nastavení</string>
 </resources>
