@@ -15,7 +15,7 @@
      limitations under the License.
 -->
 <resources>
-    <string name="settings">Settings</string>
+    <string name="settings">Nastavení</string>
     <string name="about">About</string>
     <string name="source_code_github">Source code on GitHub</string>
     <string name="privacy_policy">Privacy policy</string>
