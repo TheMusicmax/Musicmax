@@ -19,10 +19,10 @@
     <string name="artists">Artists</string>
     <string name="albums">Albums</string>
     <plurals name="number_of_songs">
-        <item quantity="one">%d song</item>
-        <item quantity="other">%d songs</item>
+        <item quantity="one">%d música</item>
+        <item quantity="other">%d músicas</item>
     </plurals>
     <string name="no_songs">No songs.</string>
     <string name="no_artists">No artists.</string>
-    <string name="no_albums">No albums.</string>
+    <string name="no_albums">Nenhum álbum.</string>
 </resources>
