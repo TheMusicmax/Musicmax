@@ -15,5 +15,5 @@
      limitations under the License.
 -->
 <resources>
-    <string name="music_notification_channel_name">Now playing</string>
+    <string name="music_notification_channel_name">Teraz gra</string>
 </resources>
