@@ -17,7 +17,7 @@
 <resources>
     <string name="settings">Settings</string>
     <string name="about">About</string>
-    <string name="source_code_github">Source code on GitHub</string>
+    <string name="source_code_github">Codice sorgente su GitHub</string>
     <string name="privacy_policy">Privacy policy</string>
-    <string name="version">Version</string>
+    <string name="version">Versione</string>
 </resources>
