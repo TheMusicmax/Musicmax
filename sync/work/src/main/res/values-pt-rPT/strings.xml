@@ -16,6 +16,6 @@
 -->
 <resources>
     <string name="sync_notification_title">Checking storage…</string>
-    <string name="sync_notification_channel_name">Storage synchronization</string>
+    <string name="sync_notification_channel_name">Sincronização de armazenamento</string>
     <string name="sync_notification_channel_description">Storage synchronization tasks for Musicmax</string>
 </resources>
