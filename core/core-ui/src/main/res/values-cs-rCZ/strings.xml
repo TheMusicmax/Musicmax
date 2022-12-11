@@ -15,16 +15,16 @@
      limitations under the License.
 -->
 <resources>
-    <string name="songs">Songs</string>
-    <string name="artists">Artists</string>
-    <string name="albums">Albums</string>
+    <string name="songs">Písně</string>
+    <string name="artists">Umělci</string>
+    <string name="albums">Alba</string>
     <plurals name="number_of_songs">
-        <item quantity="one">%d song</item>
-        <item quantity="few">%d songs</item>
-        <item quantity="many">%d songs</item>
-        <item quantity="other">%d songs</item>
+        <item quantity="one">%d skladba</item>
+        <item quantity="few">%d skladeb</item>
+        <item quantity="many">%d skladeb</item>
+        <item quantity="other">%d skladeb</item>
     </plurals>
-    <string name="no_songs">No songs.</string>
-    <string name="no_artists">No artists.</string>
-    <string name="no_albums">No albums.</string>
+    <string name="no_songs">Žádné písně.</string>
+    <string name="no_artists">Žádní umělci.</string>
+    <string name="no_albums">Žádná alba.</string>
 </resources>
