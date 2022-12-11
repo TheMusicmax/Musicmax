@@ -16,8 +16,8 @@
 -->
 <resources>
     <string name="settings">Nastavení</string>
-    <string name="about">About</string>
-    <string name="source_code_github">Source code on GitHub</string>
-    <string name="privacy_policy">Privacy policy</string>
-    <string name="version">Version</string>
+    <string name="about">O</string>
+    <string name="source_code_github">Zdrojový kód na GitHub</string>
+    <string name="privacy_policy">Zásady ochrany soukromí</string>
+    <string name="version">Verze</string>
 </resources>
