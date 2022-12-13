@@ -15,7 +15,7 @@
      limitations under the License.
 -->
 <resources>
-    <string name="search">Search</string>
-    <string name="search_placeholder">Search…</string>
-    <string name="clear">Clear</string>
+    <string name="search">Pesquisa</string>
+    <string name="search_placeholder">Pesquisa…</string>
+    <string name="clear">Limpar</string>
 </resources>
