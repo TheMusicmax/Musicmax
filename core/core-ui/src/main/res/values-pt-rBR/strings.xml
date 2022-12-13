@@ -15,9 +15,9 @@
      limitations under the License.
 -->
 <resources>
-    <string name="songs">Songs</string>
-    <string name="artists">Artists</string>
-    <string name="albums">Albums</string>
+    <string name="songs">Músicas</string>
+    <string name="artists">Artistas</string>
+    <string name="albums">Álbuns</string>
     <plurals name="number_of_songs">
         <item quantity="one">%d song</item>
         <item quantity="other">%d songs</item>
