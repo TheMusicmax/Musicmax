@@ -15,11 +15,11 @@
      limitations under the License.
 -->
 <resources>
-    <string name="repeat">Toista</string>
-    <string name="repeat_one">Toista yksi</string>
-    <string name="shuffle">Sekoita</string>
+    <string name="repeat">Toisto</string>
+    <string name="repeat_one">Yksittäisen toisto</string>
+    <string name="shuffle">Sekoitus</string>
     <string name="skip_previous">Siirry edelliseen</string>
-    <string name="play">Pelaa</string>
-    <string name="pause">Tauko</string>
+    <string name="play">Toista</string>
+    <string name="pause">Tauota</string>
     <string name="skip_next">Siirry seuraavaan</string>
 </resources>
