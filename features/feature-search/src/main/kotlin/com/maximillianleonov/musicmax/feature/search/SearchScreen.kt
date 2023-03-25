@@ -24,7 +24,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.maximillianleonov.musicmax.core.model.Album
 import com.maximillianleonov.musicmax.core.model.Artist
@@ -32,7 +31,6 @@ import com.maximillianleonov.musicmax.core.model.Song
 import com.maximillianleonov.musicmax.core.ui.component.MediaPager
 import com.maximillianleonov.musicmax.feature.search.component.SearchTextField
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 internal fun SearchRoute(
     onNavigateToPlayer: () -> Unit,

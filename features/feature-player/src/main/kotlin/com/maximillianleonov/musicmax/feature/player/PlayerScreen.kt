@@ -21,7 +21,6 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.maximillianleonov.musicmax.core.media.service.common.MusicState
 import com.maximillianleonov.musicmax.feature.player.component.PlayerBackdropArtworkOverlay
@@ -29,7 +28,6 @@ import com.maximillianleonov.musicmax.feature.player.component.PlayerMediaButton
 import com.maximillianleonov.musicmax.feature.player.component.PlayerTimeSlider
 import com.maximillianleonov.musicmax.feature.player.component.PlayerTitleArtist
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 internal fun PlayerRoute(
     onSetSystemBarsLightIcons: () -> Unit,

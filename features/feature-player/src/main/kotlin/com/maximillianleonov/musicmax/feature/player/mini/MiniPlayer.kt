@@ -28,13 +28,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 import com.maximillianleonov.musicmax.core.media.service.common.MusicState
 import com.maximillianleonov.musicmax.feature.player.PlayerViewModel
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun MiniPlayer(
     onNavigateToPlayer: () -> Unit,

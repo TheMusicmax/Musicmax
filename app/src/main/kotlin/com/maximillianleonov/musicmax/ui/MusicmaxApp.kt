@@ -24,7 +24,7 @@ import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.consumedWindowInsets
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -48,6 +48,7 @@ fun MusicmaxApp(appState: MusicmaxAppState = rememberMusicmaxAppState()) {
             PermissionStatus.Granted -> {
                 MusicmaxAppContent(appState = appState)
             }
+
             is PermissionStatus.Denied -> {
                 PermissionContent(
                     permissionState = appState.permissionState,
@@ -93,7 +94,7 @@ private fun MusicmaxAppContent(
         Column(
             modifier = Modifier
                 .padding(innerPadding)
-                .consumedWindowInsets(innerPadding)
+                .consumeWindowInsets(innerPadding)
         ) {
             MusicmaxNavHost(
                 modifier = Modifier.weight(1f),

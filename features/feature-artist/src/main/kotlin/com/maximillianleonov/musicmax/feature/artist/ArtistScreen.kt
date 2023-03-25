@@ -17,7 +17,7 @@
 package com.maximillianleonov.musicmax.feature.artist
 
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.consumedWindowInsets
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -25,14 +25,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxScaffold
 import com.maximillianleonov.musicmax.core.model.ArtistDetails
 import com.maximillianleonov.musicmax.core.ui.component.SongItem
 import com.maximillianleonov.musicmax.feature.artist.component.Header
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 internal fun ArtistRoute(
     onNavigateToPlayer: () -> Unit,
@@ -78,7 +76,7 @@ private fun ArtistScreen(
         LazyColumn(
             modifier = Modifier
                 .padding(innerPadding)
-                .consumedWindowInsets(innerPadding)
+                .consumeWindowInsets(innerPadding)
         ) {
             item {
                 Header(
