@@ -32,8 +32,6 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             configureKotlinAndroid(this)
 
             defaultConfig {
-                targetSdk = libs.versions.android.targetSdk.get().toInt()
-
                 buildTypes {
                     release {
                         isMinifyEnabled = true
