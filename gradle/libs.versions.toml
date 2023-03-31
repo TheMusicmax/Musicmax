@@ -33,7 +33,7 @@ junit = "4.13.2"
 mockk = "1.13.4"
 
 protobuf = "3.22.2"
-protobuf-plugin = "0.9.1"
+protobuf-plugin = "0.9.2"
 
 kotlinx-coroutines = "1.6.4"
 dagger = "2.45"
