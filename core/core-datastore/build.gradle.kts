@@ -17,10 +17,30 @@
 plugins {
     id("musicmax.android.library")
     id("musicmax.android.hilt")
+    alias(libs.plugins.protobuf)
 }
 
-android.namespace = "com.maximillianleonov.musicmax.core.datastore"
+android {
+    namespace = "com.maximillianleonov.musicmax.core.datastore"
+    defaultConfig.consumerProguardFiles("consumer-rules.pro")
+}
+
+protobuf {
+    protoc {
+        artifact = libs.protobuf.protoc.get().toString()
+    }
+    generateProtoTasks {
+        all().forEach { task ->
+            task.builtins {
+                register("java") { option("lite") }
+                register("kotlin") { option("lite") }
+            }
+        }
+    }
+}
 
 dependencies {
+    implementation(libs.androidx.datastore)
+    implementation(libs.protobuf.kotlin.lite)
     implementation(libs.androidx.datastore.preferences)
 }
