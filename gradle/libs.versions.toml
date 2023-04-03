@@ -5,7 +5,7 @@ android-targetSdk = "33"
 
 kotlin = "1.8.10"
 android-gradle-plugin = "7.4.2"
-ksp = "1.8.10-1.0.9"
+ksp = "1.8.20-1.0.10"
 spotless = "6.17.0"
 detekt = "1.22.0"
 kode-detekt-rules-compose = "1.2.2"
