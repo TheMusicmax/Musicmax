@@ -113,9 +113,11 @@ fun MediaPager(
                 MediaTab.Songs.ordinal -> {
                     SongsTabContent(songs = songs, onClick = onSongClick)
                 }
+
                 MediaTab.Artists.ordinal -> {
                     ArtistsTabContent(artists = artists, onClick = onArtistClick)
                 }
+
                 MediaTab.Albums.ordinal -> {
                     AlbumsTabContent(albums = albums, onClick = onAlbumClick)
                 }

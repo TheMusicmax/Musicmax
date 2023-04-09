@@ -18,11 +18,13 @@ package com.maximillianleonov.musicmax.core.ui.mapper
 
 import androidx.core.net.toUri
 import com.maximillianleonov.musicmax.core.domain.model.AlbumModel
+import com.maximillianleonov.musicmax.core.domain.model.SongModel
 import com.maximillianleonov.musicmax.core.model.Album
 
 fun AlbumModel.asAlbum() = Album(
     id = id,
     artworkUri = artworkUri.toUri(),
     name = name,
-    artist = artist
+    artist = artist,
+    songs = songs.map(SongModel::asSong)
 )

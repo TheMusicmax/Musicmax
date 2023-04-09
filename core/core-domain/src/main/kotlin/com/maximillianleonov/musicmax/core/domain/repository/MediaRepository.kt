@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Maximillian Leonov
+ * Copyright 2023 Maximillian Leonov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,12 +14,15 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.core.data.mapper
+package com.maximillianleonov.musicmax.core.domain.repository
 
+import com.maximillianleonov.musicmax.core.domain.model.AlbumModel
+import com.maximillianleonov.musicmax.core.domain.model.ArtistModel
+import com.maximillianleonov.musicmax.core.domain.model.SongModel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.toList
 
-internal fun <T, R> Flow<List<T>>.listMap(transform: (T) -> R) =
-    map { it.asFlow().map(transform).toList() }
+interface MediaRepository {
+    val songs: Flow<List<SongModel>>
+    val artists: Flow<List<ArtistModel>>
+    val albums: Flow<List<AlbumModel>>
+}

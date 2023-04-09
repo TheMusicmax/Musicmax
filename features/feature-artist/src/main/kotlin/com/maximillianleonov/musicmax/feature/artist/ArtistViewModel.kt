@@ -19,14 +19,13 @@ package com.maximillianleonov.musicmax.feature.artist
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.maximillianleonov.musicmax.core.domain.model.ArtistDetailsModel
-import com.maximillianleonov.musicmax.core.domain.usecase.GetArtistDetailsUseCase
+import com.maximillianleonov.musicmax.core.domain.model.ArtistModel
+import com.maximillianleonov.musicmax.core.domain.usecase.GetArtistUseCase
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants
 import com.maximillianleonov.musicmax.core.media.service.MusicServiceConnection
-import com.maximillianleonov.musicmax.core.model.Artist
-import com.maximillianleonov.musicmax.core.model.ArtistDetails
-import com.maximillianleonov.musicmax.core.ui.mapper.asArtistDetails
+import com.maximillianleonov.musicmax.core.ui.mapper.asArtist
 import com.maximillianleonov.musicmax.feature.artist.navigation.getArtistId
+import com.maximillianleonov.musicmax.feature.artist.util.EmptyArtist
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
@@ -36,22 +35,19 @@ import javax.inject.Inject
 @HiltViewModel
 class ArtistViewModel @Inject constructor(
     private val musicServiceConnection: MusicServiceConnection,
-    getArtistDetailsUseCase: GetArtistDetailsUseCase,
+    getArtistUseCase: GetArtistUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-    val artistDetails = getArtistDetailsUseCase(savedStateHandle.getArtistId())
-        .map(ArtistDetailsModel::asArtistDetails)
+    val artist = getArtistUseCase(savedStateHandle.getArtistId())
+        .map(ArtistModel::asArtist)
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.Eagerly,
-            initialValue = ArtistDetails(
-                artist = Artist(id = 0L, name = "", numberOfSongs = 0),
-                songs = emptyList()
-            )
+            initialValue = EmptyArtist
         )
 
     fun play(startIndex: Int = MediaConstants.DEFAULT_INDEX) =
-        musicServiceConnection.playSongs(songs = artistDetails.value.songs, startIndex = startIndex)
+        musicServiceConnection.playSongs(songs = artist.value.songs, startIndex = startIndex)
 
-    fun shuffle() = musicServiceConnection.shuffleSongs(songs = artistDetails.value.songs)
+    fun shuffle() = musicServiceConnection.shuffleSongs(songs = artist.value.songs)
 }

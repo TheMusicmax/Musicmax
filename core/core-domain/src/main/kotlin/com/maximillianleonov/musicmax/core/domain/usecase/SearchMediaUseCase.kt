@@ -17,24 +17,18 @@
 package com.maximillianleonov.musicmax.core.domain.usecase
 
 import com.maximillianleonov.musicmax.core.domain.model.SearchDetailsModel
-import com.maximillianleonov.musicmax.core.domain.repository.AlbumRepository
-import com.maximillianleonov.musicmax.core.domain.repository.ArtistRepository
-import com.maximillianleonov.musicmax.core.domain.repository.SongRepository
+import com.maximillianleonov.musicmax.core.domain.repository.MediaRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.mapLatest
 import javax.inject.Inject
 
-class SearchMediaUseCase @Inject constructor(
-    private val songRepository: SongRepository,
-    private val artistRepository: ArtistRepository,
-    private val albumRepository: AlbumRepository
-) {
+class SearchMediaUseCase @Inject constructor(private val mediaRepository: MediaRepository) {
     @OptIn(ExperimentalCoroutinesApi::class)
     operator fun invoke(query: String) = combine(
-        songRepository.getAll(),
-        artistRepository.getAll(),
-        albumRepository.getAll()
+        mediaRepository.songs,
+        mediaRepository.artists,
+        mediaRepository.albums
     ) { songs, artists, albums -> SearchDetailsModel(songs, artists, albums) }
         .mapLatest { searchDetails ->
             if (query.isBlank()) {

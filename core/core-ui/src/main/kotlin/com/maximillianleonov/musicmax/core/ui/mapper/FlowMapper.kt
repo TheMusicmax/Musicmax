@@ -17,6 +17,8 @@
 package com.maximillianleonov.musicmax.core.ui.mapper
 
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.toList
 
-fun <T, R> Flow<List<T>>.listMap(transform: (T) -> R) = map { it.map(transform) }
+fun <T, R> Flow<List<T>>.listMap(transform: (T) -> R) = map { it.asFlow().map(transform).toList() }

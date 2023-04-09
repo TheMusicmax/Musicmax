@@ -26,8 +26,20 @@ class PreferencesDataSource @Inject constructor(
 ) {
     val userData = userPreferences.data.map { preferences ->
         UserData(
+            playingQueueIds = preferences.playingQueueIdsList,
             playingQueueIndex = preferences.playingQueueIndex
         )
+    }
+
+    suspend fun setPlayingQueueIds(playingQueueIds: List<String>) {
+        userPreferences.updateData {
+            it.copy {
+                this.playingQueueIds.run {
+                    clear()
+                    addAll(playingQueueIds)
+                }
+            }
+        }
     }
 
     suspend fun setPlayingQueueIndex(playingQueueIndex: Int) {

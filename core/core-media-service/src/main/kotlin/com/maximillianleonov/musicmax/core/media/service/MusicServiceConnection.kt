@@ -28,16 +28,16 @@ import androidx.media3.session.SessionToken
 import com.maximillianleonov.musicmax.core.common.dispatcher.Dispatcher
 import com.maximillianleonov.musicmax.core.common.dispatcher.MusicmaxDispatchers.MAIN
 import com.maximillianleonov.musicmax.core.domain.model.SongModel
+import com.maximillianleonov.musicmax.core.domain.usecase.GetPlayingQueueIdsUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.GetPlayingQueueIndexUseCase
-import com.maximillianleonov.musicmax.core.domain.usecase.GetPlayingQueueUseCase
+import com.maximillianleonov.musicmax.core.domain.usecase.GetSongsUseCase
+import com.maximillianleonov.musicmax.core.domain.usecase.SetPlayingQueueIdsUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.SetPlayingQueueIndexUseCase
-import com.maximillianleonov.musicmax.core.domain.usecase.SetPlayingQueueUseCase
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_INDEX
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_POSITION_MS
 import com.maximillianleonov.musicmax.core.media.service.common.MusicState
 import com.maximillianleonov.musicmax.core.media.service.mapper.asMediaItem
 import com.maximillianleonov.musicmax.core.media.service.mapper.asSong
-import com.maximillianleonov.musicmax.core.media.service.mapper.asSongModel
 import com.maximillianleonov.musicmax.core.media.service.util.Constants.POSITION_UPDATE_INTERVAL_MS
 import com.maximillianleonov.musicmax.core.media.service.util.asPlaybackState
 import com.maximillianleonov.musicmax.core.media.service.util.orDefaultTimestamp
@@ -59,12 +59,14 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
 
+@Suppress("LongParameterList")
 @Singleton
 class MusicServiceConnection @Inject constructor(
     @ApplicationContext context: Context,
     @Dispatcher(MAIN) mainDispatcher: CoroutineDispatcher,
-    private val getPlayingQueueUseCase: GetPlayingQueueUseCase,
-    private val setPlayingQueueUseCase: SetPlayingQueueUseCase,
+    private val getSongsUseCase: GetSongsUseCase,
+    private val getPlayingQueueIdsUseCase: GetPlayingQueueIdsUseCase,
+    private val setPlayingQueueIdsUseCase: SetPlayingQueueIdsUseCase,
     private val getPlayingQueueIndexUseCase: GetPlayingQueueIndexUseCase,
     private val setPlayingQueueIndexUseCase: SetPlayingQueueIndexUseCase
 ) {
@@ -120,7 +122,7 @@ class MusicServiceConnection @Inject constructor(
             prepare()
             play()
         }
-        coroutineScope.launch { setPlayingQueueUseCase(songs.map(Song::asSongModel)) }
+        coroutineScope.launch { setPlayingQueueIdsUseCase(playingQueueIds = songs.map(Song::mediaId)) }
     }
 
     fun shuffleSongs(
@@ -162,7 +164,8 @@ class MusicServiceConnection @Inject constructor(
     }
 
     private suspend fun updatePlayingQueue(startPositionMs: Long = DEFAULT_POSITION_MS) {
-        val songs = getPlayingQueueUseCase().first()
+        val ids = getPlayingQueueIdsUseCase().first()
+        val songs = getSongsUseCase().first().filter { it.mediaId in ids }
         val startIndex = getPlayingQueueIndexUseCase().first()
         mediaBrowser?.run {
             setMediaItems(songs.map(SongModel::asMediaItem), startIndex, startPositionMs)

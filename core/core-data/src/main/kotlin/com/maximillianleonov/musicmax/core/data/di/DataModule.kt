@@ -16,14 +16,10 @@
 
 package com.maximillianleonov.musicmax.core.data.di
 
-import com.maximillianleonov.musicmax.core.data.repository.AlbumRepositoryImpl
-import com.maximillianleonov.musicmax.core.data.repository.ArtistRepositoryImpl
+import com.maximillianleonov.musicmax.core.data.repository.MediaRepositoryImpl
 import com.maximillianleonov.musicmax.core.data.repository.SettingsRepositoryImpl
-import com.maximillianleonov.musicmax.core.data.repository.SongRepositoryImpl
-import com.maximillianleonov.musicmax.core.domain.repository.AlbumRepository
-import com.maximillianleonov.musicmax.core.domain.repository.ArtistRepository
+import com.maximillianleonov.musicmax.core.domain.repository.MediaRepository
 import com.maximillianleonov.musicmax.core.domain.repository.SettingsRepository
-import com.maximillianleonov.musicmax.core.domain.repository.SongRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -33,13 +29,7 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 interface DataModule {
     @Binds
-    fun bindSongRepository(songRepositoryImpl: SongRepositoryImpl): SongRepository
-
-    @Binds
-    fun bindArtistRepository(artistRepositoryImpl: ArtistRepositoryImpl): ArtistRepository
-
-    @Binds
-    fun bindAlbumRepository(albumRepositoryImpl: AlbumRepositoryImpl): AlbumRepository
+    fun bindMediaRepository(mediaRepositoryImpl: MediaRepositoryImpl): MediaRepository
 
     @Binds
     fun bindSettingsRepository(settingsRepositoryImpl: SettingsRepositoryImpl): SettingsRepository

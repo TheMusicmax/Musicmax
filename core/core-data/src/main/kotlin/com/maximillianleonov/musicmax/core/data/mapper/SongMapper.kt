@@ -16,27 +16,15 @@
 
 package com.maximillianleonov.musicmax.core.data.mapper
 
-import com.maximillianleonov.musicmax.core.database.model.SongEntity
 import com.maximillianleonov.musicmax.core.domain.model.SongModel
 import com.maximillianleonov.musicmax.core.model.Song
 
-internal fun Song.asSongEntity() = SongEntity(
+internal fun Song.asSongModel() = SongModel(
     mediaId = mediaId,
     artistId = artistId,
     albumId = albumId,
     mediaUri = mediaUri.toString(),
     artworkUri = artworkUri.toString(),
-    title = title,
-    artist = artist,
-    album = album
-)
-
-internal fun SongEntity.asSongModel() = SongModel(
-    mediaId = mediaId,
-    artistId = artistId,
-    albumId = albumId,
-    mediaUri = mediaUri,
-    artworkUri = artworkUri,
     title = title,
     artist = artist,
     album = album

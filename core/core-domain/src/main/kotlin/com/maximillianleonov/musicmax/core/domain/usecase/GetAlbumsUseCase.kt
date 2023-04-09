@@ -16,9 +16,9 @@
 
 package com.maximillianleonov.musicmax.core.domain.usecase
 
-import com.maximillianleonov.musicmax.core.domain.repository.AlbumRepository
+import com.maximillianleonov.musicmax.core.domain.repository.MediaRepository
 import javax.inject.Inject
 
-class GetAlbumsUseCase @Inject constructor(private val albumRepository: AlbumRepository) {
-    operator fun invoke() = albumRepository.getAll()
+class GetAlbumsUseCase @Inject constructor(private val mediaRepository: MediaRepository) {
+    operator fun invoke() = mediaRepository.albums
 }

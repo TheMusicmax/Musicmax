@@ -16,9 +16,9 @@
 
 package com.maximillianleonov.musicmax.core.domain.usecase
 
-import com.maximillianleonov.musicmax.core.domain.repository.SongRepository
+import com.maximillianleonov.musicmax.core.domain.repository.MediaRepository
 import javax.inject.Inject
 
-class GetSongsUseCase @Inject constructor(private val songRepository: SongRepository) {
-    operator fun invoke() = songRepository.getAll()
+class GetSongsUseCase @Inject constructor(private val mediaRepository: MediaRepository) {
+    operator fun invoke() = mediaRepository.songs
 }

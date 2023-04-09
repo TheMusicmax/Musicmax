@@ -19,10 +19,13 @@ package com.maximillianleonov.musicmax.core.domain.repository
 import kotlinx.coroutines.flow.Flow
 
 interface SettingsRepository {
+    val playingQueueIds: Flow<List<String>>
+    val playingQueueIndex: Flow<Int>
+
     val repoUrl: String
     val privacyPolicyUrl: String
     val version: String
 
-    fun getPlayingQueueIndex(): Flow<Int>
+    suspend fun setPlayingQueueIds(playingQueueIds: List<String>)
     suspend fun setPlayingQueueIndex(playingQueueIndex: Int)
 }

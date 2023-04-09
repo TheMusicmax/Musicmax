@@ -17,10 +17,11 @@
 package com.maximillianleonov.musicmax.core.ui.mapper
 
 import com.maximillianleonov.musicmax.core.domain.model.ArtistModel
+import com.maximillianleonov.musicmax.core.domain.model.SongModel
 import com.maximillianleonov.musicmax.core.model.Artist
 
 fun ArtistModel.asArtist() = Artist(
     id = id,
     name = name,
-    numberOfSongs = numberOfSongs
+    songs = songs.map(SongModel::asSong)
 )

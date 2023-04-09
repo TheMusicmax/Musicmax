@@ -4,5 +4,6 @@ option java_package = "com.maximillianleonov.musicmax.core.datastore";
 option java_multiple_files = true;
 
 message UserPreferences {
-    int32 playing_queue_index = 1;
+  repeated string playing_queue_ids = 1;
+  int32 playing_queue_index = 2;
 }

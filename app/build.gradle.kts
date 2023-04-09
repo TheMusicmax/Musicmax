@@ -35,7 +35,6 @@ android {
 dependencies {
     implementation(project(":core:core-common"))
     implementation(project(":core:core-data"))
-    implementation(project(":core:core-database"))
     implementation(project(":core:core-datastore"))
     implementation(project(":core:core-mediastore"))
     implementation(project(":core:core-domain"))
@@ -54,8 +53,6 @@ dependencies {
     implementation(project(":features:feature-player"))
     implementation(project(":features:feature-artist"))
     implementation(project(":features:feature-album"))
-
-    implementation(project(":sync:work"))
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.splashscreen)

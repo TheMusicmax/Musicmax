@@ -27,7 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxScaffold
-import com.maximillianleonov.musicmax.core.model.ArtistDetails
+import com.maximillianleonov.musicmax.core.model.Artist
 import com.maximillianleonov.musicmax.core.ui.component.SongItem
 import com.maximillianleonov.musicmax.feature.artist.component.Header
 
@@ -38,9 +38,9 @@ internal fun ArtistRoute(
     modifier: Modifier = Modifier,
     viewModel: ArtistViewModel = hiltViewModel()
 ) {
-    val artistDetails by viewModel.artistDetails.collectAsStateWithLifecycle()
+    val artist by viewModel.artist.collectAsStateWithLifecycle()
     ArtistScreen(
-        artistDetails = artistDetails,
+        artist = artist,
         onSongClick = { startIndex ->
             viewModel.play(startIndex)
             onNavigateToPlayer()
@@ -61,7 +61,7 @@ internal fun ArtistRoute(
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun ArtistScreen(
-    artistDetails: ArtistDetails,
+    artist: Artist,
     onSongClick: (Int) -> Unit,
     onBackClick: () -> Unit,
     onPlayClick: () -> Unit,
@@ -80,13 +80,13 @@ private fun ArtistScreen(
         ) {
             item {
                 Header(
-                    name = artistDetails.artist.name,
-                    numberOfSongs = artistDetails.artist.numberOfSongs,
+                    name = artist.name,
+                    numberOfSongs = artist.songs.size,
                     onPlayClick = onPlayClick,
                     onShuffleClick = onShuffleClick
                 )
             }
-            itemsIndexed(artistDetails.songs) { index, song ->
+            itemsIndexed(artist.songs) { index, song ->
                 SongItem(song = song, onClick = { onSongClick(index) })
             }
         }

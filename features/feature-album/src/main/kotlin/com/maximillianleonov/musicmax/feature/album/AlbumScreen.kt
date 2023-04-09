@@ -19,6 +19,7 @@ package com.maximillianleonov.musicmax.feature.album
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.consumeWindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -28,7 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxScaffold
-import com.maximillianleonov.musicmax.core.model.AlbumDetails
+import com.maximillianleonov.musicmax.core.model.Album
 import com.maximillianleonov.musicmax.core.ui.component.SongItem
 import com.maximillianleonov.musicmax.feature.album.component.Header
 
@@ -39,9 +40,9 @@ internal fun AlbumRoute(
     modifier: Modifier = Modifier,
     viewModel: AlbumViewModel = hiltViewModel()
 ) {
-    val albumDetails by viewModel.albumDetails.collectAsStateWithLifecycle()
+    val album by viewModel.album.collectAsStateWithLifecycle()
     AlbumScreen(
-        albumDetails = albumDetails,
+        album = album,
         onSongClick = { startIndex ->
             viewModel.play(startIndex)
             onNavigateToPlayer()
@@ -62,7 +63,7 @@ internal fun AlbumRoute(
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun AlbumScreen(
-    albumDetails: AlbumDetails,
+    album: Album,
     onSongClick: (Int) -> Unit,
     onBackClick: () -> Unit,
     onPlayClick: () -> Unit,
@@ -70,7 +71,7 @@ private fun AlbumScreen(
     modifier: Modifier = Modifier
 ) {
     MusicmaxScaffold(
-        modifier = modifier,
+        modifier = modifier.fillMaxSize(),
         titleResource = R.string.album,
         onBackClick = onBackClick
     ) { innerPadding ->
@@ -78,18 +79,19 @@ private fun AlbumScreen(
             modifier = Modifier
                 .padding(innerPadding)
                 .consumeWindowInsets(innerPadding)
+                .fillMaxSize()
         ) {
             item {
                 Header(
                     modifier = Modifier.aspectRatio(1f),
-                    name = albumDetails.album.name,
-                    artist = albumDetails.album.artist,
-                    artworkUri = albumDetails.album.artworkUri,
+                    name = album.name,
+                    artist = album.artist,
+                    artworkUri = album.artworkUri,
                     onPlayClick = onPlayClick,
                     onShuffleClick = onShuffleClick
                 )
             }
-            itemsIndexed(albumDetails.songs) { index, song ->
+            itemsIndexed(album.songs) { index, song ->
                 SongItem(song = song, onClick = { onSongClick(index) })
             }
         }

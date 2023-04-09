@@ -20,5 +20,6 @@ data class AlbumModel(
     val id: Long,
     val artworkUri: String,
     val name: String,
-    val artist: String
+    val artist: String,
+    val songs: List<SongModel>
 )

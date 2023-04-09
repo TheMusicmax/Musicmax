@@ -23,7 +23,6 @@ import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.pluralStringResource
 import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxCard
@@ -32,7 +31,6 @@ import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 import com.maximillianleonov.musicmax.core.model.Artist
 import com.maximillianleonov.musicmax.core.ui.R
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun ArtistItem(
     artist: Artist,
@@ -54,8 +52,8 @@ fun ArtistItem(
             SingleLineText(
                 text = pluralStringResource(
                     id = R.plurals.number_of_songs,
-                    count = artist.numberOfSongs,
-                    artist.numberOfSongs
+                    count = artist.songs.size,
+                    artist.songs.size
                 ),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant

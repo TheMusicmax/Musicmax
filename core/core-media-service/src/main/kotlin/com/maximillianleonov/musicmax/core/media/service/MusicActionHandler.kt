@@ -62,6 +62,7 @@ class MusicActionHandler @Inject constructor(
                     player = mediaSession.player
                 )
             }
+
             else -> error("$UNKNOWN_CUSTOM_ACTION_ERROR_MESSAGE ${customCommand.customAction}")
         }
 
@@ -72,16 +73,19 @@ class MusicActionHandler @Inject constructor(
             player.repeatMode = Player.REPEAT_MODE_ONE
             setRepeatShuffleCommand(REPEAT_ONE)
         }
+
         REPEAT_ONE -> {
             player.repeatMode = Player.REPEAT_MODE_ALL
             player.shuffleModeEnabled = true
             setRepeatShuffleCommand(SHUFFLE)
         }
+
         SHUFFLE -> {
             player.shuffleModeEnabled = false
             player.repeatMode = Player.REPEAT_MODE_ALL
             setRepeatShuffleCommand(REPEAT)
         }
+
         else -> error(UNHANDLED_STATE_ERROR_MESSAGE)
     }
 

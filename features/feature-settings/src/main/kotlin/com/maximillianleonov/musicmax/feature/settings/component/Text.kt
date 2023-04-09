@@ -134,6 +134,7 @@ private fun Icon(
                     tint = MaterialTheme.colorScheme.primary
                 )
             }
+
             is Icon.DrawableResourceIcon -> {
                 Icon(
                     painter = painterResource(id = icon.resourceId),

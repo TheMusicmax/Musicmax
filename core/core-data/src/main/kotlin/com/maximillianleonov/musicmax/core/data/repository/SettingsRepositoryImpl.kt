@@ -28,12 +28,18 @@ class SettingsRepositoryImpl @Inject constructor(
     private val preferencesDataSource: PreferencesDataSource,
     versionProvider: MusicmaxVersionProvider
 ) : SettingsRepository {
+    override val playingQueueIds: Flow<List<String>> =
+        preferencesDataSource.userData.map { it.playingQueueIds }
+
+    override val playingQueueIndex: Flow<Int> =
+        preferencesDataSource.userData.map { it.playingQueueIndex }
+
     override val repoUrl = Constants.Urls.MUSICMAX_REPO_URL
     override val privacyPolicyUrl = Constants.Urls.PRIVACY_POLICY_URL
     override val version = versionProvider.version
 
-    override fun getPlayingQueueIndex(): Flow<Int> =
-        preferencesDataSource.userData.map { it.playingQueueIndex }
+    override suspend fun setPlayingQueueIds(playingQueueIds: List<String>) =
+        preferencesDataSource.setPlayingQueueIds(playingQueueIds)
 
     override suspend fun setPlayingQueueIndex(playingQueueIndex: Int) =
         preferencesDataSource.setPlayingQueueIndex(playingQueueIndex)
