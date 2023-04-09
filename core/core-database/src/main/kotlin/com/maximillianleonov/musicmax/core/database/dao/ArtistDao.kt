@@ -31,6 +31,7 @@ interface ArtistDao {
     @Query("SELECT * FROM $ARTISTS")
     fun getAll(): Flow<List<ArtistEntity>>
 
+    @Transaction
     @Query("SELECT * FROM $ARTISTS WHERE artist_id = :artistId")
     fun getById(artistId: Long): Flow<ArtistDetails>
 
