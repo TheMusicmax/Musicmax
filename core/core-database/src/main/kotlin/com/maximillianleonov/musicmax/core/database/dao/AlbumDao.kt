@@ -31,6 +31,7 @@ interface AlbumDao {
     @Query("SELECT * FROM $ALBUMS")
     fun getAll(): Flow<List<AlbumEntity>>
 
+    @Transaction
     @Query("SELECT * FROM $ALBUMS WHERE album_id = :albumId")
     fun getById(albumId: Long): Flow<AlbumDetails>
 
