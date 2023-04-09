@@ -24,5 +24,5 @@ interface SettingsRepository {
     val version: String
 
     fun getPlayingQueueIndex(): Flow<Int>
-    suspend fun setPlayingQueueIndex(index: Int)
+    suspend fun setPlayingQueueIndex(playingQueueIndex: Int)
 }

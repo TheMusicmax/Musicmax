@@ -40,7 +40,8 @@ protobuf {
 }
 
 dependencies {
+    implementation(project(":core:core-common"))
+    implementation(project(":core:core-model"))
     implementation(libs.androidx.datastore)
     implementation(libs.protobuf.kotlin.lite)
-    implementation(libs.androidx.datastore.preferences)
 }
