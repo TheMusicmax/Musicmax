@@ -104,8 +104,6 @@ javax-inject = { module = "javax.inject:javax.inject", version.ref = "javax-inje
 
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
-accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanist" }
-accompanist-pager-indicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "accompanist" }
 coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 renderscript-intrinsics-replacement-toolkit = { module = "com.github.maximillianleonov:renderscript-intrinsics-replacement-toolkit", version.ref = "renderscript-intrinsics-replacement-toolkit" }

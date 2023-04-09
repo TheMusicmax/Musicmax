@@ -28,6 +28,4 @@ dependencies {
     implementation(project(":core:core-media-common"))
 
     implementation(libs.androidx.core.ktx)
-    implementation(libs.accompanist.pager)
-    implementation(libs.accompanist.pager.indicators)
 }
