@@ -27,4 +27,6 @@
     <string name="no_songs">Žádné písně.</string>
     <string name="no_artists">Žádní umělci.</string>
     <string name="no_albums">Žádná alba.</string>
+    <string name="favorite_add">Add to favorites</string>
+    <string name="favorite_remove">Remove from favorites</string>
 </resources>
