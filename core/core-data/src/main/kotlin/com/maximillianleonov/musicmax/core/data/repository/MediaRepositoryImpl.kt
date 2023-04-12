@@ -18,21 +18,29 @@ package com.maximillianleonov.musicmax.core.data.repository
 
 import com.maximillianleonov.musicmax.core.data.mapper.asSongModel
 import com.maximillianleonov.musicmax.core.data.mapper.listMap
+import com.maximillianleonov.musicmax.core.datastore.PreferencesDataSource
 import com.maximillianleonov.musicmax.core.domain.model.AlbumModel
 import com.maximillianleonov.musicmax.core.domain.model.ArtistModel
 import com.maximillianleonov.musicmax.core.domain.model.SongModel
 import com.maximillianleonov.musicmax.core.domain.repository.MediaRepository
 import com.maximillianleonov.musicmax.core.mediastore.source.MediaStoreDataSource
 import com.maximillianleonov.musicmax.core.model.Song
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class MediaRepositoryImpl @Inject constructor(
-    mediaStoreDataSource: MediaStoreDataSource
+    mediaStoreDataSource: MediaStoreDataSource,
+    preferencesDataSource: PreferencesDataSource
 ) : MediaRepository {
+    @OptIn(ExperimentalCoroutinesApi::class)
     override val songs: Flow<List<SongModel>> =
-        mediaStoreDataSource.getSongs().listMap(Song::asSongModel)
+        preferencesDataSource.userData
+            .map { it.favoriteSongs }
+            .flatMapLatest(mediaStoreDataSource::getSongs)
+            .listMap(Song::asSongModel)
 
     override val artists: Flow<List<ArtistModel>> = songs.map { songs ->
         songs.groupBy(SongModel::artistId).map { (artistId, songs) ->

@@ -26,5 +26,6 @@ data class Song(
     val artworkUri: Uri,
     val title: String,
     val artist: String,
-    val album: String
+    val album: String,
+    val isFavorite: Boolean
 )

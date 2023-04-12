@@ -25,6 +25,7 @@ import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_A
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_MEDIA_ID
 import com.maximillianleonov.musicmax.core.media.service.util.ALBUM_ID
 import com.maximillianleonov.musicmax.core.media.service.util.ARTIST_ID
+import com.maximillianleonov.musicmax.core.media.service.util.IS_FAVORITE_ID
 import com.maximillianleonov.musicmax.core.media.service.util.buildPlayableMediaItem
 import com.maximillianleonov.musicmax.core.model.Song
 
@@ -35,7 +36,8 @@ internal fun SongModel.asMediaItem() = buildPlayableMediaItem(
     mediaUri = mediaUri.toUri(),
     artworkUri = artworkUri.toUri(),
     title = title,
-    artist = artist
+    artist = artist,
+    isFavorite = isFavorite
 )
 
 internal fun Song.asMediaItem() = buildPlayableMediaItem(
@@ -45,7 +47,8 @@ internal fun Song.asMediaItem() = buildPlayableMediaItem(
     mediaUri = mediaUri,
     artworkUri = artworkUri,
     title = title,
-    artist = artist
+    artist = artist,
+    isFavorite = isFavorite
 )
 
 internal fun Song.asSongModel() = SongModel(
@@ -56,7 +59,8 @@ internal fun Song.asSongModel() = SongModel(
     artworkUri = artworkUri.toString(),
     title = title,
     artist = artist,
-    album = album
+    album = album,
+    isFavorite = isFavorite
 )
 
 internal fun MediaItem?.asSong() = Song(
@@ -67,7 +71,8 @@ internal fun MediaItem?.asSong() = Song(
     artworkUri = this?.mediaMetadata?.artworkUri.orEmpty(),
     title = this?.mediaMetadata?.title.orEmpty(),
     artist = this?.mediaMetadata?.artist.orEmpty(),
-    album = this?.mediaMetadata?.albumTitle.orEmpty()
+    album = this?.mediaMetadata?.albumTitle.orEmpty(),
+    isFavorite = this?.mediaMetadata?.extras?.getBoolean(IS_FAVORITE_ID) == true
 )
 
 private fun Uri?.orEmpty() = this ?: Uri.EMPTY

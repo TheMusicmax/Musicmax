@@ -28,5 +28,6 @@ fun SongModel.asSong() = Song(
     artworkUri = artworkUri.toUri(),
     title = title,
     artist = artist,
-    album = album
+    album = album,
+    isFavorite = isFavorite
 )

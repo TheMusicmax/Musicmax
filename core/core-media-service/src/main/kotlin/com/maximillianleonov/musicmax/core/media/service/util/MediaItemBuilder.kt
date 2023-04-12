@@ -29,7 +29,8 @@ internal fun buildPlayableMediaItem(
     mediaUri: Uri,
     artworkUri: Uri,
     title: String,
-    artist: String
+    artist: String,
+    isFavorite: Boolean
 ) = MediaItem.Builder()
     .setMediaId(mediaId)
     .setRequestMetadata(
@@ -44,10 +45,17 @@ internal fun buildPlayableMediaItem(
             .setArtist(artist)
             .setFolderType(MediaMetadata.FOLDER_TYPE_NONE)
             .setIsPlayable(true)
-            .setExtras(bundleOf(ARTIST_ID to artistId, ALBUM_ID to albumId))
+            .setExtras(
+                bundleOf(
+                    ARTIST_ID to artistId,
+                    ALBUM_ID to albumId,
+                    IS_FAVORITE_ID to isFavorite
+                )
+            )
             .build()
     )
     .build()
 
 internal const val ARTIST_ID = "artist_id"
 internal const val ALBUM_ID = "album_id"
+internal const val IS_FAVORITE_ID = "favorite_id"

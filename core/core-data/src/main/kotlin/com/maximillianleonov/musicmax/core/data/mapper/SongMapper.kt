@@ -27,5 +27,6 @@ internal fun Song.asSongModel() = SongModel(
     artworkUri = artworkUri.toString(),
     title = title,
     artist = artist,
-    album = album
+    album = album,
+    isFavorite = isFavorite
 )

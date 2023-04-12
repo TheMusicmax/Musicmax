@@ -30,36 +30,41 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class MediaStoreDataSource @Inject constructor(private val contentResolver: ContentResolver) {
-    fun getSongs() = contentResolver.observe(uri = MediaStoreConfig.Song.Collection).map {
-        buildList {
-            contentResolver.liteQuery(
-                collection = MediaStoreConfig.Song.Collection,
-                projection = MediaStoreConfig.Song.Projection,
-                selection = "${MediaStore.Audio.Media.IS_MUSIC} != 0"
-            )?.use { cursor ->
-                while (cursor.moveToNext()) {
-                    val id = cursor.getLong(MediaStore.Audio.Media._ID)
-                    val artistId = cursor.getLong(MediaStore.Audio.Media.ARTIST_ID)
-                    val albumId = cursor.getLong(MediaStore.Audio.Media.ALBUM_ID)
-                    val title = cursor.getString(MediaStore.Audio.Media.TITLE)
-                    val artist = cursor.getString(MediaStore.Audio.Media.ARTIST)
-                    val album = cursor.getString(MediaStore.Audio.Media.ALBUM)
+    fun getSongs(favoriteSongs: Set<String>) =
+        contentResolver.observe(uri = MediaStoreConfig.Song.Collection).map {
+            buildList {
+                contentResolver.liteQuery(
+                    collection = MediaStoreConfig.Song.Collection,
+                    projection = MediaStoreConfig.Song.Projection,
+                    selection = "${MediaStore.Audio.Media.IS_MUSIC} != 0"
+                )?.use { cursor ->
+                    while (cursor.moveToNext()) {
+                        val id = cursor.getLong(MediaStore.Audio.Media._ID)
+                        val artistId = cursor.getLong(MediaStore.Audio.Media.ARTIST_ID)
+                        val albumId = cursor.getLong(MediaStore.Audio.Media.ALBUM_ID)
+                        val title = cursor.getString(MediaStore.Audio.Media.TITLE)
+                        val artist = cursor.getString(MediaStore.Audio.Media.ARTIST)
+                        val album = cursor.getString(MediaStore.Audio.Media.ALBUM)
 
-                    val mediaUri =
-                        ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id)
+                        val mediaId = id.toString()
+                        val mediaUri = ContentUris.withAppendedId(
+                            MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                            id
+                        )
 
-                    Song(
-                        mediaId = id.toString(),
-                        artistId = artistId,
-                        albumId = albumId,
-                        mediaUri = mediaUri,
-                        artworkUri = albumId.asArtworkUri(),
-                        title = title,
-                        artist = artist,
-                        album = album
-                    ).let(::add)
+                        Song(
+                            mediaId = mediaId,
+                            artistId = artistId,
+                            albumId = albumId,
+                            mediaUri = mediaUri,
+                            artworkUri = albumId.asArtworkUri(),
+                            title = title,
+                            artist = artist,
+                            album = album,
+                            isFavorite = mediaId in favoriteSongs
+                        ).let(::add)
+                    }
                 }
             }
         }
-    }
 }
