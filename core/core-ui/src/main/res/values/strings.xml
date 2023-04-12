@@ -14,7 +14,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="songs">Songs</string>
     <string name="artists">Artists</string>
     <string name="albums">Albums</string>
@@ -27,6 +27,6 @@
     <string name="no_artists">No artists.</string>
     <string name="no_albums">No albums.</string>
 
-    <string name="favorite_add" tools:ignore="MissingTranslation">Add to favorites</string>
-    <string name="favorite_remove" tools:ignore="MissingTranslation">Remove from favorites</string>
+    <string name="favorite_add">Add to favorites</string>
+    <string name="favorite_remove">Remove from favorites</string>
 </resources>
