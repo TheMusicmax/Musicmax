@@ -21,6 +21,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Clear
 import androidx.compose.material.icons.rounded.Favorite
+import androidx.compose.material.icons.rounded.FavoriteBorder
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.Search
@@ -34,6 +35,7 @@ object MusicmaxIcons {
     val Home = ImageVectorIcon(Icons.Rounded.Home)
     val Search = ImageVectorIcon(Icons.Rounded.Search)
     val Favorite = ImageVectorIcon(Icons.Rounded.Favorite)
+    val FavoriteBorder = ImageVectorIcon(Icons.Rounded.FavoriteBorder)
     val Settings = ImageVectorIcon(Icons.Rounded.Settings)
     val ArrowBack = ImageVectorIcon(Icons.Rounded.ArrowBack)
     val Clear = ImageVectorIcon(Icons.Rounded.Clear)
