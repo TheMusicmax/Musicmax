@@ -27,7 +27,8 @@ class PreferencesDataSource @Inject constructor(
     val userData = userPreferences.data.map { preferences ->
         UserData(
             playingQueueIds = preferences.playingQueueIdsList,
-            playingQueueIndex = preferences.playingQueueIndex
+            playingQueueIndex = preferences.playingQueueIndex,
+            favoriteSongs = preferences.favoriteSongIdsMap.keys
         )
     }
 
