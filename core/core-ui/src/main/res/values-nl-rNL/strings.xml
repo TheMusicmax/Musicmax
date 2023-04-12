@@ -25,4 +25,6 @@
     <string name="no_songs">Geen liederen.</string>
     <string name="no_artists">Geen artiesten.</string>
     <string name="no_albums">Geen albums.</string>
+    <string name="favorite_add">Add to favorites</string>
+    <string name="favorite_remove">Remove from favorites</string>
 </resources>
