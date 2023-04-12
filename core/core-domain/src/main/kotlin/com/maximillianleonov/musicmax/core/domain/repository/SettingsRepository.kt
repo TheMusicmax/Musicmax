@@ -21,6 +21,7 @@ import kotlinx.coroutines.flow.Flow
 interface SettingsRepository {
     val playingQueueIds: Flow<List<String>>
     val playingQueueIndex: Flow<Int>
+    val favoriteSongs: Flow<Set<String>>
 
     val repoUrl: String
     val privacyPolicyUrl: String
