@@ -29,4 +29,5 @@ interface SettingsRepository {
 
     suspend fun setPlayingQueueIds(playingQueueIds: List<String>)
     suspend fun setPlayingQueueIndex(playingQueueIndex: Int)
+    suspend fun toggleFavoriteSong(id: String, isFavorite: Boolean)
 }

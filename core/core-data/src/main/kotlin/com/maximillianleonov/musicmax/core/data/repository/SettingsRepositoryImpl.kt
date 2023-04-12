@@ -46,4 +46,7 @@ class SettingsRepositoryImpl @Inject constructor(
 
     override suspend fun setPlayingQueueIndex(playingQueueIndex: Int) =
         preferencesDataSource.setPlayingQueueIndex(playingQueueIndex)
+
+    override suspend fun toggleFavoriteSong(id: String, isFavorite: Boolean) =
+        preferencesDataSource.toggleFavoriteSong(id, isFavorite)
 }
