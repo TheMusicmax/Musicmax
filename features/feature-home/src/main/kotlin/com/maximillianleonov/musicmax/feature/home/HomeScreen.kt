@@ -56,7 +56,8 @@ internal fun HomeRoute(
             onNavigateToPlayer()
         },
         onArtistClick = onNavigateToArtist,
-        onAlbumClick = onNavigateToAlbum
+        onAlbumClick = onNavigateToAlbum,
+        onToggleFavorite = viewModel::onToggleFavorite
     )
 }
 
@@ -70,6 +71,7 @@ private fun HomeScreen(
     onAlbumClick: (Long) -> Unit,
     onPlayClick: () -> Unit,
     onShuffleClick: () -> Unit,
+    onToggleFavorite: (id: String, isFavorite: Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     MediaPager(
@@ -81,6 +83,7 @@ private fun HomeScreen(
         onArtistClick = onArtistClick,
         onAlbumClick = onAlbumClick,
         onPlayClick = onPlayClick,
-        onShuffleClick = onShuffleClick
+        onShuffleClick = onShuffleClick,
+        onToggleFavorite = onToggleFavorite
     )
 }

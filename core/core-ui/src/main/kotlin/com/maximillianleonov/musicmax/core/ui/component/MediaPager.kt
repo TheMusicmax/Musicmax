@@ -67,6 +67,7 @@ fun MediaPager(
     onAlbumClick: (Long) -> Unit,
     onPlayClick: () -> Unit,
     onShuffleClick: () -> Unit,
+    onToggleFavorite: (id: String, isFavorite: Boolean) -> Unit,
     modifier: Modifier = Modifier,
     coroutineScope: CoroutineScope = rememberCoroutineScope()
 ) {
@@ -111,7 +112,11 @@ fun MediaPager(
         ) { page ->
             when (page) {
                 MediaTab.Songs.ordinal -> {
-                    SongsTabContent(songs = songs, onClick = onSongClick)
+                    SongsTabContent(
+                        songs = songs,
+                        onClick = onSongClick,
+                        onToggleFavorite = onToggleFavorite
+                    )
                 }
 
                 MediaTab.Artists.ordinal -> {
@@ -130,12 +135,17 @@ fun MediaPager(
 private fun SongsTabContent(
     songs: List<Song>,
     onClick: (Int) -> Unit,
+    onToggleFavorite: (id: String, isFavorite: Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     if (songs.isNotEmpty()) {
         LazyColumn(modifier = modifier) {
             itemsIndexed(songs) { index, song ->
-                SongItem(song = song, onClick = { onClick(index) })
+                SongItem(
+                    song = song,
+                    onClick = { onClick(index) },
+                    onToggleFavorite = { isFavorite -> onToggleFavorite(song.mediaId, isFavorite) }
+                )
             }
         }
     } else {

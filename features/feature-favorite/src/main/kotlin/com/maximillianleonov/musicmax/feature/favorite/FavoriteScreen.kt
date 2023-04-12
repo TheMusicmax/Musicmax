@@ -16,26 +16,75 @@
 
 package com.maximillianleonov.musicmax.feature.favorite
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
+import com.maximillianleonov.musicmax.core.model.Song
+import com.maximillianleonov.musicmax.core.ui.component.PlayOutlinedShuffleButtons
+import com.maximillianleonov.musicmax.core.ui.component.SongItem
 
 @Composable
-internal fun FavoriteRoute(modifier: Modifier = Modifier) {
-    FavoriteScreen(modifier = modifier)
+internal fun FavoriteRoute(
+    onNavigateToPlayer: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: FavoriteViewModel = hiltViewModel()
+) {
+    val songs by viewModel.songs.collectAsStateWithLifecycle()
+    FavoriteScreen(
+        modifier = modifier,
+        songs = songs,
+        onSongClick = { startIndex ->
+            viewModel.play(startIndex)
+            onNavigateToPlayer()
+        },
+        onPlayClick = {
+            viewModel.play()
+            onNavigateToPlayer()
+        },
+        onShuffleClick = {
+            viewModel.shuffle()
+            onNavigateToPlayer()
+        },
+        onToggleFavorite = viewModel::onToggleFavorite
+    )
 }
 
 @Composable
-private fun FavoriteScreen(modifier: Modifier = Modifier) {
-    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(
-            text = stringResource(id = R.string.not_implemented_yet),
-            style = MaterialTheme.typography.headlineLarge
-        )
+private fun FavoriteScreen(
+    songs: List<Song>,
+    onSongClick: (Int) -> Unit,
+    onPlayClick: () -> Unit,
+    onShuffleClick: () -> Unit,
+    onToggleFavorite: (id: String, isFavorite: Boolean) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(modifier = modifier.fillMaxSize()) {
+        AnimatedVisibility(visible = songs.isNotEmpty()) {
+            PlayOutlinedShuffleButtons(
+                modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small),
+                onPlayClick = onPlayClick,
+                onShuffleClick = onShuffleClick
+            )
+        }
+
+        LazyColumn {
+            itemsIndexed(songs) { index, song ->
+                SongItem(
+                    song = song,
+                    onClick = { onSongClick(index) },
+                    onToggleFavorite = { isFavorite -> onToggleFavorite(song.mediaId, isFavorite) }
+                )
+            }
+        }
     }
 }

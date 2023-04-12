@@ -43,6 +43,7 @@ internal fun SearchRoute(
     val searchDetails by viewModel.searchDetails.collectAsStateWithLifecycle()
 
     SearchScreen(
+        modifier = modifier,
         query = query,
         songs = searchDetails.songs,
         artists = searchDetails.artists,
@@ -52,6 +53,8 @@ internal fun SearchRoute(
             viewModel.play(startIndex)
             onNavigateToPlayer()
         },
+        onArtistClick = onNavigateToArtist,
+        onAlbumClick = onNavigateToAlbum,
         onPlayClick = {
             viewModel.play()
             onNavigateToPlayer()
@@ -60,9 +63,7 @@ internal fun SearchRoute(
             viewModel.shuffle()
             onNavigateToPlayer()
         },
-        onArtistClick = onNavigateToArtist,
-        onAlbumClick = onNavigateToAlbum,
-        modifier = modifier
+        onToggleFavorite = viewModel::onToggleFavorite
     )
 }
 
@@ -79,6 +80,7 @@ private fun SearchScreen(
     onAlbumClick: (Long) -> Unit,
     onPlayClick: () -> Unit,
     onShuffleClick: () -> Unit,
+    onToggleFavorite: (id: String, isFavorite: Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
@@ -96,7 +98,8 @@ private fun SearchScreen(
                 onArtistClick = onArtistClick,
                 onAlbumClick = onAlbumClick,
                 onPlayClick = onPlayClick,
-                onShuffleClick = onShuffleClick
+                onShuffleClick = onShuffleClick,
+                onToggleFavorite = onToggleFavorite
             )
         }
     }

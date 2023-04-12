@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maximillianleonov.musicmax.core.domain.model.ArtistModel
 import com.maximillianleonov.musicmax.core.domain.usecase.GetArtistUseCase
+import com.maximillianleonov.musicmax.core.domain.usecase.ToggleFavoriteSongUseCase
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants
 import com.maximillianleonov.musicmax.core.media.service.MusicServiceConnection
 import com.maximillianleonov.musicmax.core.ui.mapper.asArtist
@@ -30,12 +31,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ArtistViewModel @Inject constructor(
     private val musicServiceConnection: MusicServiceConnection,
     getArtistUseCase: GetArtistUseCase,
+    private val toggleFavoriteSongUseCase: ToggleFavoriteSongUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     val artist = getArtistUseCase(savedStateHandle.getArtistId())
@@ -50,4 +53,7 @@ class ArtistViewModel @Inject constructor(
         musicServiceConnection.playSongs(songs = artist.value.songs, startIndex = startIndex)
 
     fun shuffle() = musicServiceConnection.shuffleSongs(songs = artist.value.songs)
+
+    fun onToggleFavorite(id: String, isFavorite: Boolean) =
+        viewModelScope.launch { toggleFavoriteSongUseCase(id, isFavorite) }
 }

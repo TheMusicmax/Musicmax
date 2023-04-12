@@ -70,7 +70,7 @@ fun MusicmaxNavHost(
                 onBackClick = onBackClick
             )
         }
-        favoriteScreen()
+        favoriteScreen(onNavigateToPlayer = onNavigateToPlayer)
         settingsScreen()
         playerScreen(
             onSetSystemBarsLightIcons = onSetSystemBarsLightIcons,

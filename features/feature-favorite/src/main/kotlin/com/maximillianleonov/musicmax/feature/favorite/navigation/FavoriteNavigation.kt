@@ -22,4 +22,8 @@ import com.maximillianleonov.musicmax.feature.favorite.FavoriteRoute
 
 const val FavoriteRoute = "favorite_route"
 
-fun NavGraphBuilder.favoriteScreen() = composable(route = FavoriteRoute) { FavoriteRoute() }
+fun NavGraphBuilder.favoriteScreen(
+    onNavigateToPlayer: () -> Unit
+) = composable(route = FavoriteRoute) {
+    FavoriteRoute(onNavigateToPlayer = onNavigateToPlayer)
+}

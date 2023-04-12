@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maximillianleonov.musicmax.core.domain.model.SearchDetailsModel
 import com.maximillianleonov.musicmax.core.domain.usecase.SearchMediaUseCase
+import com.maximillianleonov.musicmax.core.domain.usecase.ToggleFavoriteSongUseCase
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants
 import com.maximillianleonov.musicmax.core.media.service.MusicServiceConnection
 import com.maximillianleonov.musicmax.core.model.SearchDetails
@@ -33,12 +34,14 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val musicServiceConnection: MusicServiceConnection,
-    searchMediaUseCase: SearchMediaUseCase
+    searchMediaUseCase: SearchMediaUseCase,
+    private val toggleFavoriteSongUseCase: ToggleFavoriteSongUseCase
 ) : ViewModel() {
     private val _query = MutableStateFlow("")
     val query = _query.asStateFlow()
@@ -62,4 +65,7 @@ class SearchViewModel @Inject constructor(
         musicServiceConnection.playSongs(songs = searchDetails.value.songs, startIndex = startIndex)
 
     fun shuffle() = musicServiceConnection.shuffleSongs(songs = searchDetails.value.songs)
+
+    fun onToggleFavorite(id: String, isFavorite: Boolean) =
+        viewModelScope.launch { toggleFavoriteSongUseCase(id, isFavorite) }
 }

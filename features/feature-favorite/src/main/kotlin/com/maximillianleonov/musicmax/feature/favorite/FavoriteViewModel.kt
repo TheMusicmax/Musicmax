@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Maximillian Leonov
+ * Copyright 2023 Maximillian Leonov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,55 +14,36 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.feature.home
+package com.maximillianleonov.musicmax.feature.favorite
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.maximillianleonov.musicmax.core.domain.model.AlbumModel
-import com.maximillianleonov.musicmax.core.domain.model.ArtistModel
 import com.maximillianleonov.musicmax.core.domain.model.SongModel
-import com.maximillianleonov.musicmax.core.domain.usecase.GetAlbumsUseCase
-import com.maximillianleonov.musicmax.core.domain.usecase.GetArtistsUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.GetSongsUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.ToggleFavoriteSongUseCase
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants
 import com.maximillianleonov.musicmax.core.media.service.MusicServiceConnection
-import com.maximillianleonov.musicmax.core.ui.mapper.asAlbum
-import com.maximillianleonov.musicmax.core.ui.mapper.asArtist
 import com.maximillianleonov.musicmax.core.ui.mapper.asSong
 import com.maximillianleonov.musicmax.core.ui.mapper.listMap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
+class FavoriteViewModel @Inject constructor(
     private val musicServiceConnection: MusicServiceConnection,
     getSongsUseCase: GetSongsUseCase,
-    getArtistsUseCase: GetArtistsUseCase,
-    getAlbumsUseCase: GetAlbumsUseCase,
     private val toggleFavoriteSongUseCase: ToggleFavoriteSongUseCase
 ) : ViewModel() {
     val songs = getSongsUseCase()
+        .map { songs -> songs.asFlow().filter { it.isFavorite }.toList() }
         .listMap(SongModel::asSong)
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.Eagerly,
-            initialValue = emptyList()
-        )
-
-    val artists = getArtistsUseCase()
-        .listMap(ArtistModel::asArtist)
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.Eagerly,
-            initialValue = emptyList()
-        )
-
-    val albums = getAlbumsUseCase()
-        .listMap(AlbumModel::asAlbum)
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.Eagerly,

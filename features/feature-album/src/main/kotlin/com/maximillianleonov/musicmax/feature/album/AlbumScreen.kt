@@ -42,6 +42,7 @@ internal fun AlbumRoute(
 ) {
     val album by viewModel.album.collectAsStateWithLifecycle()
     AlbumScreen(
+        modifier = modifier,
         album = album,
         onSongClick = { startIndex ->
             viewModel.play(startIndex)
@@ -56,7 +57,7 @@ internal fun AlbumRoute(
             viewModel.shuffle()
             onNavigateToPlayer()
         },
-        modifier = modifier
+        onToggleFavorite = viewModel::onToggleFavorite
     )
 }
 
@@ -68,6 +69,7 @@ private fun AlbumScreen(
     onBackClick: () -> Unit,
     onPlayClick: () -> Unit,
     onShuffleClick: () -> Unit,
+    onToggleFavorite: (id: String, isFavorite: Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     MusicmaxScaffold(
@@ -92,7 +94,11 @@ private fun AlbumScreen(
                 )
             }
             itemsIndexed(album.songs) { index, song ->
-                SongItem(song = song, onClick = { onSongClick(index) })
+                SongItem(
+                    song = song,
+                    onClick = { onSongClick(index) },
+                    onToggleFavorite = { isFavorite -> onToggleFavorite(song.mediaId, isFavorite) }
+                )
             }
         }
     }
