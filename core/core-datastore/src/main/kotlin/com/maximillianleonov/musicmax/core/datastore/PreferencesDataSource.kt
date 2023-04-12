@@ -50,4 +50,16 @@ class PreferencesDataSource @Inject constructor(
             }
         }
     }
+
+    suspend fun toggleFavoriteSong(id: String, isFavorite: Boolean) {
+        userPreferences.updateData {
+            it.copy {
+                if (isFavorite) {
+                    favoriteSongIds.put(id, true)
+                } else {
+                    favoriteSongIds.remove(id)
+                }
+            }
+        }
+    }
 }
