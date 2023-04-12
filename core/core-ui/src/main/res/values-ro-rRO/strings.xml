@@ -26,4 +26,6 @@
     <string name="no_songs">Nu există melodii.</string>
     <string name="no_artists">Nu sunt artişti.</string>
     <string name="no_albums">Niciun album.</string>
+    <string name="favorite_add">Add to favorites</string>
+    <string name="favorite_remove">Remove from favorites</string>
 </resources>
