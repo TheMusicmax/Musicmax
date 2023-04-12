@@ -24,4 +24,6 @@
     <string name="no_songs">Không có bài hát.</string>
     <string name="no_artists">Không nghệ sĩ.</string>
     <string name="no_albums">Không có album.</string>
+    <string name="favorite_add">Add to favorites</string>
+    <string name="favorite_remove">Remove from favorites</string>
 </resources>
