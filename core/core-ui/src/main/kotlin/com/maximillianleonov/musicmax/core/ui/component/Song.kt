@@ -65,7 +65,7 @@ fun SongItem(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Row(
-                modifier = Modifier.weight(0.9f),
+                modifier = Modifier.weight(SongDescriptionWeight),
                 horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.smallMedium),
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -90,7 +90,7 @@ fun SongItem(
             }
 
             FavoriteButton(
-                modifier = Modifier.weight(0.1f),
+                modifier = Modifier.weight(FavoriteButtonWeight),
                 isFavorite = song.isFavorite,
                 onToggleFavorite = onToggleFavorite
             )
@@ -139,6 +139,8 @@ private fun FavoriteButton(
     }
 }
 
+private const val SongDescriptionWeight = 0.9f
+private const val FavoriteButtonWeight = 0.1f
 private val SongCoverSize = 50.dp
 
 private const val FavoriteButtonPressedScale = 0.85f
