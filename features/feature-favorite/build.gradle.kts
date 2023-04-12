@@ -19,3 +19,7 @@ plugins {
 }
 
 android.namespace = "com.maximillianleonov.musicmax.feature.favorite"
+
+dependencies {
+    implementation(project(":core:core-media-service"))
+}
