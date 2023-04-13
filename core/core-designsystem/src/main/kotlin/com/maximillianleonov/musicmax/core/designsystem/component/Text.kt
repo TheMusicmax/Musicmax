@@ -16,14 +16,16 @@
 
 package com.maximillianleonov.musicmax.core.designsystem.component
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.basicMarquee
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.style.TextOverflow
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SingleLineText(
     text: String,
@@ -32,14 +34,9 @@ fun SingleLineText(
     style: TextStyle = LocalTextStyle.current
 ) {
     Text(
-        modifier = modifier,
+        modifier = modifier.basicMarquee(),
         text = text,
         color = color,
-        overflow = SingleLineTextOverflow,
-        maxLines = SingleLineTextMaxLines,
         style = style
     )
 }
-
-private val SingleLineTextOverflow = TextOverflow.Ellipsis
-private const val SingleLineTextMaxLines = 1
