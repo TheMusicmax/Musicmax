@@ -139,7 +139,7 @@ private fun SongsTabContent(
     modifier: Modifier = Modifier
 ) {
     if (songs.isNotEmpty()) {
-        LazyColumn(modifier = modifier) {
+        LazyColumn(modifier = modifier.fillMaxSize()) {
             itemsIndexed(songs) { index, song ->
                 SongItem(
                     song = song,
@@ -160,7 +160,7 @@ private fun ArtistsTabContent(
     modifier: Modifier = Modifier
 ) {
     if (artists.isNotEmpty()) {
-        LazyColumn(modifier = modifier) {
+        LazyColumn(modifier = modifier.fillMaxSize()) {
             items(artists) { artist ->
                 ArtistItem(artist = artist, onClick = { onClick(artist.id) })
             }
@@ -177,7 +177,10 @@ private fun AlbumsTabContent(
     modifier: Modifier = Modifier
 ) {
     if (albums.isNotEmpty()) {
-        LazyVerticalGrid(modifier = modifier, columns = GridCells.Fixed(count = ColumnsCount)) {
+        LazyVerticalGrid(
+            modifier = modifier.fillMaxSize(),
+            columns = GridCells.Fixed(count = ColumnsCount)
+        ) {
             items(albums) { album ->
                 AlbumItem(album = album, onClick = { onClick(album.id) })
             }
