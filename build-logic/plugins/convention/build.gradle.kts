@@ -73,7 +73,7 @@ gradlePlugin {
             implementationClass = "AndroidLintConventionPlugin"
         }
         register("androidSigningConfig") {
-            id = "musicmax.android.signingconfig"
+            id = "musicmax.android.signing-config"
             implementationClass = "AndroidSigningConfigConventionPlugin"
         }
         register("spotless") {

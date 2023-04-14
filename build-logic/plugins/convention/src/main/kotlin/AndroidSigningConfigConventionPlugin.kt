@@ -32,17 +32,20 @@ class AndroidSigningConfigConventionPlugin : Plugin<Project> {
         }
 
         extensions.configure<BaseAppModuleExtension> {
-            val debugSigningConfig = signingConfigs.getByName("debug")
-            val releaseSigningConfig = createSigningConfigFromProperties(
-                target = this@with,
-                name = "release",
-                properties = keystoreProperties
-            )
+            val signingConfig = if (keystorePropertiesFile.exists()) {
+                createSigningConfigFromProperties(
+                    target = this@with,
+                    name = "release",
+                    properties = keystoreProperties
+                )
+            } else {
+                signingConfigs.getByName("debug")
+            }
 
             defaultConfig {
                 buildTypes {
                     release {
-                        signingConfig = releaseSigningConfig ?: debugSigningConfig
+                        this.signingConfig = signingConfig
                     }
                 }
             }
@@ -54,7 +57,7 @@ private fun BaseAppModuleExtension.createSigningConfigFromProperties(
     target: Project,
     name: String,
     properties: Properties
-): SigningConfig? {
+): SigningConfig {
     val keystore = mapOf(
         "keyAlias" to properties.getProperty("keyAlias"),
         "keyPassword" to properties.getProperty("keyPassword"),
@@ -62,7 +65,9 @@ private fun BaseAppModuleExtension.createSigningConfigFromProperties(
         "storePassword" to properties.getProperty("storePassword")
     )
 
-    if (keystore.values.any(String::isNullOrBlank)) return null
+    keystore.forEach { (key, value) ->
+        requireNotNull(value) { "$key is null." }
+    }
 
     return signingConfigs.create(name) {
         keyAlias = keystore.getValue("keyAlias")

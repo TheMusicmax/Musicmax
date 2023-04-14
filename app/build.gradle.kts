@@ -19,7 +19,7 @@ plugins {
     id("musicmax.android.application.compose")
     id("musicmax.android.hilt")
     id("musicmax.android.lint")
-    id("musicmax.android.signingconfig")
+    id("musicmax.android.signing-config")
 }
 
 android {
