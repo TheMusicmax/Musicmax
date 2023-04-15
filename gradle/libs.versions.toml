@@ -41,6 +41,8 @@ accompanist = "0.30.1"
 coil = "2.3.0"
 renderscript-intrinsics-replacement-toolkit = "0.8-beta"
 
+play-services-ads = "22.0.0"
+
 [libraries]
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "androidx-core-splashscreen" }
@@ -112,6 +114,8 @@ android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 spotless-gradle-plugin = { module = "com.diffplug.spotless:spotless-plugin-gradle", version.ref = "spotless" }
 detekt-gradle-plugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
+
+play-services-ads = { module = "com.google.android.gms:play-services-ads", version.ref = "play-services-ads" }
 
 [bundles]
 androidx-compose = [

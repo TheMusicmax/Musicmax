@@ -28,4 +28,5 @@ dependencies {
     implementation(project(":core:core-media-common"))
 
     implementation(libs.androidx.core.ktx)
+    implementation(libs.play.services.ads)
 }

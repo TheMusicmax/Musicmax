@@ -59,4 +59,5 @@ dependencies {
     implementation(libs.androidx.profileinstaller)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.play.services.ads)
 }
