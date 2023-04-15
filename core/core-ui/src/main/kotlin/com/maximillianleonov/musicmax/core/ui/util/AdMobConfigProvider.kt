@@ -29,10 +29,12 @@ interface AdMobConfigProvider {
 fun ProvideAdMobConfigProvider(
     adMobConfigProvider: AdMobConfigProvider,
     content: @Composable () -> Unit
-) = CompositionLocalProvider(
-    LocalAdMobConfigProvider provides adMobConfigProvider,
-    content = content
-)
+) {
+    CompositionLocalProvider(
+        LocalAdMobConfigProvider provides adMobConfigProvider,
+        content = content
+    )
+}
 
 val LocalAdMobConfigProvider = staticCompositionLocalOf<AdMobConfigProvider> {
     error("No AdMobController provided.")
