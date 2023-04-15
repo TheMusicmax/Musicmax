@@ -20,6 +20,7 @@ plugins {
     id("musicmax.android.hilt")
     id("musicmax.android.lint")
     id("musicmax.android.signing-config")
+    id("musicmax.admob-config.provider")
 }
 
 android {
