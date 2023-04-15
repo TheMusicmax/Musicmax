@@ -51,16 +51,21 @@ import com.maximillianleonov.musicmax.core.designsystem.icon.MusicmaxIcons
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 import com.maximillianleonov.musicmax.core.model.Song
 import com.maximillianleonov.musicmax.core.ui.R
+import com.maximillianleonov.musicmax.core.ui.util.AdMobConfigProvider
+import com.maximillianleonov.musicmax.core.ui.util.LocalAdMobConfigProvider
 
 @Composable
 fun Songs(
     songs: List<Song>,
     onClick: (Int) -> Unit,
     onToggleFavorite: (id: String, isFavorite: Boolean) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    adMobConfigProvider: AdMobConfigProvider = LocalAdMobConfigProvider.current
 ) {
     if (songs.isNotEmpty()) {
         LazyColumn(modifier = modifier.fillMaxSize()) {
+            item { BannerAd(adUnitId = adMobConfigProvider.songsBannerUnitId) }
+
             itemsIndexed(songs) { index, song ->
                 SongItem(
                     song = song,
@@ -68,6 +73,8 @@ fun Songs(
                     onToggleFavorite = { isFavorite -> onToggleFavorite(song.mediaId, isFavorite) }
                 )
             }
+
+            item { BannerAd(adUnitId = adMobConfigProvider.songsBannerUnitId) }
         }
     } else {
         EmptyContent(textResource = R.string.no_songs)
@@ -80,6 +87,8 @@ fun LazyListScope.songs(
     onToggleFavorite: (id: String, isFavorite: Boolean) -> Unit
 ) {
     if (songs.isNotEmpty()) {
+        item { BannerAd(adUnitId = LocalAdMobConfigProvider.current.songsBannerUnitId) }
+
         itemsIndexed(songs) { index, song ->
             SongItem(
                 song = song,
@@ -87,6 +96,8 @@ fun LazyListScope.songs(
                 onToggleFavorite = { isFavorite -> onToggleFavorite(song.mediaId, isFavorite) }
             )
         }
+
+        item { BannerAd(adUnitId = LocalAdMobConfigProvider.current.songsBannerUnitId) }
     } else {
         item {
             EmptyContent(textResource = R.string.no_songs)
