@@ -17,8 +17,11 @@
 package com.maximillianleonov.musicmax.core.ui.component
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -32,7 +35,24 @@ import com.maximillianleonov.musicmax.core.model.Artist
 import com.maximillianleonov.musicmax.core.ui.R
 
 @Composable
-fun ArtistItem(
+internal fun Artists(
+    artists: List<Artist>,
+    onClick: (Long) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    if (artists.isNotEmpty()) {
+        LazyColumn(modifier = modifier.fillMaxSize()) {
+            items(artists) { artist ->
+                ArtistItem(artist = artist, onClick = { onClick(artist.id) })
+            }
+        }
+    } else {
+        EmptyContent(textResource = R.string.no_artists)
+    }
+}
+
+@Composable
+private fun ArtistItem(
     artist: Artist,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,

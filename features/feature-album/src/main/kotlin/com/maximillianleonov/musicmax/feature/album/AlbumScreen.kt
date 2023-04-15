@@ -22,7 +22,6 @@ import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -30,7 +29,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxScaffold
 import com.maximillianleonov.musicmax.core.model.Album
-import com.maximillianleonov.musicmax.core.ui.component.SongItem
+import com.maximillianleonov.musicmax.core.ui.component.songs
 import com.maximillianleonov.musicmax.feature.album.component.Header
 
 @Composable
@@ -93,13 +92,12 @@ private fun AlbumScreen(
                     onShuffleClick = onShuffleClick
                 )
             }
-            itemsIndexed(album.songs) { index, song ->
-                SongItem(
-                    song = song,
-                    onClick = { onSongClick(index) },
-                    onToggleFavorite = { isFavorite -> onToggleFavorite(song.mediaId, isFavorite) }
-                )
-            }
+
+            songs(
+                songs = album.songs,
+                onClick = onSongClick,
+                onToggleFavorite = onToggleFavorite
+            )
         }
     }
 }

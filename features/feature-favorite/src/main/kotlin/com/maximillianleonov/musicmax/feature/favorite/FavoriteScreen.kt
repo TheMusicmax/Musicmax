@@ -20,8 +20,6 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -31,7 +29,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 import com.maximillianleonov.musicmax.core.model.Song
 import com.maximillianleonov.musicmax.core.ui.component.PlayOutlinedShuffleButtons
-import com.maximillianleonov.musicmax.core.ui.component.SongItem
+import com.maximillianleonov.musicmax.core.ui.component.Songs
 
 @Composable
 internal fun FavoriteRoute(
@@ -77,14 +75,10 @@ private fun FavoriteScreen(
             )
         }
 
-        LazyColumn {
-            itemsIndexed(songs) { index, song ->
-                SongItem(
-                    song = song,
-                    onClick = { onSongClick(index) },
-                    onToggleFavorite = { isFavorite -> onToggleFavorite(song.mediaId, isFavorite) }
-                )
-            }
-        }
+        Songs(
+            songs = songs,
+            onClick = onSongClick,
+            onToggleFavorite = onToggleFavorite
+        )
     }
 }

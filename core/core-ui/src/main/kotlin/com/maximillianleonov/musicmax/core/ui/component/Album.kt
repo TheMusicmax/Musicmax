@@ -19,7 +19,11 @@ package com.maximillianleonov.musicmax.core.ui.component
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -30,9 +34,30 @@ import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxCard
 import com.maximillianleonov.musicmax.core.designsystem.component.SingleLineText
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 import com.maximillianleonov.musicmax.core.model.Album
+import com.maximillianleonov.musicmax.core.ui.R
 
 @Composable
-fun AlbumItem(
+internal fun Albums(
+    albums: List<Album>,
+    onClick: (Long) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    if (albums.isNotEmpty()) {
+        LazyVerticalGrid(
+            modifier = modifier.fillMaxSize(),
+            columns = GridCells.Fixed(count = ColumnsCount)
+        ) {
+            items(albums) { album ->
+                AlbumItem(album = album, onClick = { onClick(album.id) })
+            }
+        }
+    } else {
+        EmptyContent(textResource = R.string.no_albums)
+    }
+}
+
+@Composable
+private fun AlbumItem(
     album: Album,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -69,3 +94,5 @@ fun AlbumItem(
         }
     }
 }
+
+private const val ColumnsCount = 2

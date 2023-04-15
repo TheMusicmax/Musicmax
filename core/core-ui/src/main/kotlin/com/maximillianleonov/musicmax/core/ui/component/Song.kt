@@ -23,9 +23,13 @@ import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -49,7 +53,49 @@ import com.maximillianleonov.musicmax.core.model.Song
 import com.maximillianleonov.musicmax.core.ui.R
 
 @Composable
-fun SongItem(
+fun Songs(
+    songs: List<Song>,
+    onClick: (Int) -> Unit,
+    onToggleFavorite: (id: String, isFavorite: Boolean) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    if (songs.isNotEmpty()) {
+        LazyColumn(modifier = modifier.fillMaxSize()) {
+            itemsIndexed(songs) { index, song ->
+                SongItem(
+                    song = song,
+                    onClick = { onClick(index) },
+                    onToggleFavorite = { isFavorite -> onToggleFavorite(song.mediaId, isFavorite) }
+                )
+            }
+        }
+    } else {
+        EmptyContent(textResource = R.string.no_songs)
+    }
+}
+
+fun LazyListScope.songs(
+    songs: List<Song>,
+    onClick: (Int) -> Unit,
+    onToggleFavorite: (id: String, isFavorite: Boolean) -> Unit
+) {
+    if (songs.isNotEmpty()) {
+        itemsIndexed(songs) { index, song ->
+            SongItem(
+                song = song,
+                onClick = { onClick(index) },
+                onToggleFavorite = { isFavorite -> onToggleFavorite(song.mediaId, isFavorite) }
+            )
+        }
+    } else {
+        item {
+            EmptyContent(textResource = R.string.no_songs)
+        }
+    }
+}
+
+@Composable
+private fun SongItem(
     song: Song,
     onClick: () -> Unit,
     onToggleFavorite: (isFavorite: Boolean) -> Unit,

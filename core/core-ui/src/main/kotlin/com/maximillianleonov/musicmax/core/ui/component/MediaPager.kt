@@ -16,19 +16,11 @@
 
 package com.maximillianleonov.musicmax.core.ui.component
 
-import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
@@ -51,7 +43,6 @@ import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 import com.maximillianleonov.musicmax.core.model.Album
 import com.maximillianleonov.musicmax.core.model.Artist
 import com.maximillianleonov.musicmax.core.model.Song
-import com.maximillianleonov.musicmax.core.ui.R
 import com.maximillianleonov.musicmax.core.ui.common.MediaTab
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -112,7 +103,7 @@ fun MediaPager(
         ) { page ->
             when (page) {
                 MediaTab.Songs.ordinal -> {
-                    SongsTabContent(
+                    Songs(
                         songs = songs,
                         onClick = onSongClick,
                         onToggleFavorite = onToggleFavorite
@@ -120,83 +111,14 @@ fun MediaPager(
                 }
 
                 MediaTab.Artists.ordinal -> {
-                    ArtistsTabContent(artists = artists, onClick = onArtistClick)
+                    Artists(artists = artists, onClick = onArtistClick)
                 }
 
                 MediaTab.Albums.ordinal -> {
-                    AlbumsTabContent(albums = albums, onClick = onAlbumClick)
+                    Albums(albums = albums, onClick = onAlbumClick)
                 }
             }
         }
-    }
-}
-
-@Composable
-private fun SongsTabContent(
-    songs: List<Song>,
-    onClick: (Int) -> Unit,
-    onToggleFavorite: (id: String, isFavorite: Boolean) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    if (songs.isNotEmpty()) {
-        LazyColumn(modifier = modifier.fillMaxSize()) {
-            itemsIndexed(songs) { index, song ->
-                SongItem(
-                    song = song,
-                    onClick = { onClick(index) },
-                    onToggleFavorite = { isFavorite -> onToggleFavorite(song.mediaId, isFavorite) }
-                )
-            }
-        }
-    } else {
-        EmptyContent(textResource = R.string.no_songs)
-    }
-}
-
-@Composable
-private fun ArtistsTabContent(
-    artists: List<Artist>,
-    onClick: (Long) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    if (artists.isNotEmpty()) {
-        LazyColumn(modifier = modifier.fillMaxSize()) {
-            items(artists) { artist ->
-                ArtistItem(artist = artist, onClick = { onClick(artist.id) })
-            }
-        }
-    } else {
-        EmptyContent(textResource = R.string.no_artists)
-    }
-}
-
-@Composable
-private fun AlbumsTabContent(
-    albums: List<Album>,
-    onClick: (Long) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    if (albums.isNotEmpty()) {
-        LazyVerticalGrid(
-            modifier = modifier.fillMaxSize(),
-            columns = GridCells.Fixed(count = ColumnsCount)
-        ) {
-            items(albums) { album ->
-                AlbumItem(album = album, onClick = { onClick(album.id) })
-            }
-        }
-    } else {
-        EmptyContent(textResource = R.string.no_albums)
-    }
-}
-
-@Composable
-private fun EmptyContent(@StringRes textResource: Int, modifier: Modifier = Modifier) {
-    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(
-            text = stringResource(id = textResource),
-            style = MaterialTheme.typography.headlineMedium
-        )
     }
 }
 
@@ -244,5 +166,3 @@ private fun Modifier.pagerTabIndicatorOffset(
         }
     }
 }
-
-private const val ColumnsCount = 2
