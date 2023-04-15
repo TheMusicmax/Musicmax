@@ -63,6 +63,20 @@ class AdMobConfigProviderConventionPlugin : Plugin<Project> {
                         "\"$artistsBannerId\""
                     )
                 }
+
+                getByName("benchmark") {
+                    manifestPlaceholders["admob_app_id"] = TEST_APP_ID
+                    buildConfigField(
+                        "String",
+                        "ADMOB_SONGS_BANNER_UNIT_ID",
+                        "\"$TEST_BANNER_ID\""
+                    )
+                    buildConfigField(
+                        "String",
+                        "ADMOB_ARTISTS_BANNER_UNIT_ID",
+                        "\"$TEST_BANNER_ID\""
+                    )
+                }
             }
         }
     }
