@@ -33,19 +33,21 @@ import com.google.android.gms.ads.LoadAdError
 internal fun BannerAd(
     adUnitId: String,
     modifier: Modifier = Modifier
-) = AndroidView(
-    modifier = modifier.fillMaxWidth(),
-    factory = { context ->
-        AdView(context).apply {
-            setAdSize(AdSize.BANNER)
-            setAdUnitId(adUnitId)
-            doOnLayout { loadAd(AdRequest.Builder().build()) }
-            adListener = object : AdListener() {
-                override fun onAdFailedToLoad(error: LoadAdError) {
-                    super.onAdFailedToLoad(error)
-                    isVisible = false
+) {
+    AndroidView(
+        modifier = modifier.fillMaxWidth(),
+        factory = { context ->
+            AdView(context).apply {
+                setAdSize(AdSize.BANNER)
+                setAdUnitId(adUnitId)
+                doOnLayout { loadAd(AdRequest.Builder().build()) }
+                adListener = object : AdListener() {
+                    override fun onAdFailedToLoad(error: LoadAdError) {
+                        super.onAdFailedToLoad(error)
+                        isVisible = false
+                    }
                 }
             }
         }
-    }
-)
+    )
+}
