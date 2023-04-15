@@ -21,19 +21,28 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
+import com.google.android.gms.ads.MobileAds
+import com.maximillianleonov.musicmax.core.ui.util.AdMobConfigProvider
+import com.maximillianleonov.musicmax.core.ui.util.ProvideAdMobConfigProvider
 import com.maximillianleonov.musicmax.ui.MusicmaxApp
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MusicmaxActivity : ComponentActivity() {
+    @Inject lateinit var adMobConfigProvider: AdMobConfigProvider
+
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
+        MobileAds.initialize(this)
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
-            MusicmaxApp()
+            ProvideAdMobConfigProvider(adMobConfigProvider = adMobConfigProvider) {
+                MusicmaxApp()
+            }
         }
     }
 }
