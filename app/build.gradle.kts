@@ -31,6 +31,8 @@ android {
         versionCode = 5
         versionName = "1.1.1"
     }
+
+    buildFeatures.buildConfig = true
 }
 
 dependencies {
