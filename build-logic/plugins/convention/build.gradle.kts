@@ -18,7 +18,7 @@ plugins {
     `kotlin-dsl`
 }
 
-group = "com.maximillianleonov.musicmax.buildlogic"
+group = "com.maximillianleonov.musicmax.build-logic"
 
 dependencies {
     compileOnly(libs.android.gradle.plugin)
