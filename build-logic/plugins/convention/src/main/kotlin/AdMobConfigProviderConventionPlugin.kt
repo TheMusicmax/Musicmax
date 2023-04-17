@@ -18,22 +18,24 @@ import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
+import java.io.File
 import java.util.Properties
 
 class AdMobConfigProviderConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) = with(target) {
-        val admobProperties = Properties()
-        val admobPropertiesFile = rootProject.file("admob.properties")
-        if (admobPropertiesFile.exists() && admobPropertiesFile.isFile) {
-            admobPropertiesFile.inputStream().use { input ->
-                admobProperties.load(input)
+        val properties = Properties()
+        val file = rootProject.file("admob.properties")
+        if (file.exists() && file.isFile) {
+            file.inputStream().use { input ->
+                properties.load(input)
             }
         }
 
         extensions.configure<BaseAppModuleExtension> {
-            val appId = admobProperties.getProperty("appId") ?: TEST_APP_ID
-            val songsBannerId = admobProperties.getProperty("songsBannerId") ?: TEST_BANNER_ID
-            val artistsBannerId = admobProperties.getProperty("artistsBannerId") ?: TEST_BANNER_ID
+            val adMobConfigMap = getAdMobConfigMap(file, properties)
+            val appId = adMobConfigMap.getValue("appId")
+            val songsBannerUnitId = adMobConfigMap.getValue("songsBannerUnitId")
+            val artistsBannerUnitId = adMobConfigMap.getValue("artistsBannerUnitId")
 
             buildTypes {
                 debug {
@@ -55,12 +57,12 @@ class AdMobConfigProviderConventionPlugin : Plugin<Project> {
                     buildConfigField(
                         "String",
                         "ADMOB_SONGS_BANNER_UNIT_ID",
-                        "\"$songsBannerId\""
+                        "\"$songsBannerUnitId\""
                     )
                     buildConfigField(
                         "String",
                         "ADMOB_ARTISTS_BANNER_UNIT_ID",
-                        "\"$artistsBannerId\""
+                        "\"$artistsBannerUnitId\""
                     )
                 }
 
@@ -81,6 +83,23 @@ class AdMobConfigProviderConventionPlugin : Plugin<Project> {
         }
     }
 }
+
+private fun getAdMobConfigMap(file: File, properties: Properties) =
+    if (file.exists()) {
+        mapOf(
+            "appId" to properties.getProperty("appId"),
+            "songsBannerUnitId" to properties.getProperty("songsBannerUnitId"),
+            "artistsBannerUnitId" to properties.getProperty("artistsBannerUnitId")
+        ).onEach { (key, value) ->
+            requireNotNull(value) { "$key is null." }
+        }
+    } else {
+        mapOf(
+            "appId" to TEST_APP_ID,
+            "songsBannerUnitId" to TEST_BANNER_ID,
+            "artistsBannerUnitId" to TEST_BANNER_ID
+        )
+    }
 
 private const val TEST_APP_ID = "ca-app-pub-3940256099942544~3347511713"
 private const val TEST_BANNER_ID = "ca-app-pub-3940256099942544/6300978111"
