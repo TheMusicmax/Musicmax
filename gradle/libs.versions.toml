@@ -41,6 +41,9 @@ accompanist = "0.30.1"
 coil = "2.3.0"
 renderscript-intrinsics-replacement-toolkit = "0.8-beta"
 
+firebase = "31.5.0"
+firebase-crashlytics-gradle-plugin = "2.9.5"
+google-services-gradle-plugin = "4.3.15"
 play-services-ads = "22.0.0"
 
 [libraries]
@@ -117,6 +120,9 @@ kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", v
 spotless-gradle-plugin = { module = "com.diffplug.spotless:spotless-plugin-gradle", version.ref = "spotless" }
 detekt-gradle-plugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase" }
+firebase-analytics-ktx = { module = "com.google.firebase:firebase-analytics-ktx" }
+firebase-crashlytics-ktx = { module = "com.google.firebase:firebase-crashlytics-ktx" }
 play-services-ads = { module = "com.google.android.gms:play-services-ads", version.ref = "play-services-ads" }
 
 [bundles]
@@ -147,3 +153,5 @@ spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobuf-plugin" }
+google-services = { id = "com.google.gms.google-services", version.ref = "google-services-gradle-plugin" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics-gradle-plugin" }

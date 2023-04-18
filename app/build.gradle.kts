@@ -21,6 +21,7 @@ plugins {
     id("musicmax.android.lint")
     id("musicmax.android.signing-config")
     id("musicmax.admob-config.provider")
+    id("musicmax.firebase-config")
 }
 
 android {
@@ -62,5 +63,9 @@ dependencies {
     implementation(libs.androidx.profileinstaller)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.accompanist.systemuicontroller)
+
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics.ktx)
+    implementation(libs.firebase.crashlytics.ktx)
     implementation(libs.play.services.ads)
 }

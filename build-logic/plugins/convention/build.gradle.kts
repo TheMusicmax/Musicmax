@@ -83,5 +83,9 @@ gradlePlugin {
             id = "musicmax.admob-config.provider"
             implementationClass = "AdMobConfigProviderConventionPlugin"
         }
+        register("firebaseConfig") {
+            id = "musicmax.firebase-config"
+            implementationClass = "FirebaseConfigConventionPlugin"
+        }
     }
 }
