@@ -73,8 +73,6 @@ fun Songs(
                     onToggleFavorite = { isFavorite -> onToggleFavorite(song.mediaId, isFavorite) }
                 )
             }
-
-            item { BannerAd(adUnitId = adMobConfigProvider.songsBannerUnitId) }
         }
     } else {
         EmptyContent(textResource = R.string.no_songs)
@@ -96,8 +94,6 @@ fun LazyListScope.songs(
                 onToggleFavorite = { isFavorite -> onToggleFavorite(song.mediaId, isFavorite) }
             )
         }
-
-        item { BannerAd(adUnitId = LocalAdMobConfigProvider.current.songsBannerUnitId) }
     } else {
         item {
             EmptyContent(textResource = R.string.no_songs)

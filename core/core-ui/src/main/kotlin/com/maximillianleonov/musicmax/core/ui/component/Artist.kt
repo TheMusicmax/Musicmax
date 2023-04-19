@@ -50,8 +50,6 @@ internal fun Artists(
             items(artists) { artist ->
                 ArtistItem(artist = artist, onClick = { onClick(artist.id) })
             }
-
-            item { BannerAd(adUnitId = adMobConfigProvider.artistsBannerUnitId) }
         }
     } else {
         EmptyContent(textResource = R.string.no_artists)
