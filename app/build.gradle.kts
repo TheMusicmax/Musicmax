@@ -29,8 +29,8 @@ android {
 
     defaultConfig {
         applicationId = "com.maximillianleonov.musicmax"
-        versionCode = 7
-        versionName = "1.1.3"
+        versionCode = 8
+        versionName = "1.1.4"
     }
 
     buildFeatures.buildConfig = true
