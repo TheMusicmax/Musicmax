@@ -22,4 +22,6 @@
     <string name="play">Speel</string>
     <string name="pause">Pauze</string>
     <string name="skip_next">Ga naar volgende</string>
+    <string name="favorite_add">Add to favorites</string>
+    <string name="favorite_remove">Remove from favorites</string>
 </resources>
