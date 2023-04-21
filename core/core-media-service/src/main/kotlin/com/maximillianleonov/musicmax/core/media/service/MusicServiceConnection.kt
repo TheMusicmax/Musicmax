@@ -59,7 +59,6 @@ import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.time.Duration.Companion.milliseconds
 
-@Suppress("LongParameterList")
 @Singleton
 class MusicServiceConnection @Inject constructor(
     @ApplicationContext context: Context,

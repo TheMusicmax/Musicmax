@@ -26,7 +26,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.unit.dp
@@ -34,7 +33,6 @@ import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 import com.maximillianleonov.musicmax.core.ui.component.PlayOutlinedShuffleButtons
 import com.maximillianleonov.musicmax.core.ui.R as uiR
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 internal fun Header(
     name: String,

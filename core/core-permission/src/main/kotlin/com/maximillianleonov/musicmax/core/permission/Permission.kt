@@ -17,11 +17,8 @@
 package com.maximillianleonov.musicmax.core.permission
 
 import android.Manifest
-import android.content.Context
-import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.Build
 import androidx.compose.runtime.Composable
-import androidx.core.content.ContextCompat
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 
@@ -33,9 +30,6 @@ fun rememberMusicmaxPermissionState(
     permission = MusicmaxAudioPermission,
     onPermissionResult = onPermissionResult
 )
-
-fun Context.checkMusicmaxPermission() =
-    ContextCompat.checkSelfPermission(this, MusicmaxAudioPermission) == PERMISSION_GRANTED
 
 private val MusicmaxAudioPermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
     Manifest.permission.READ_MEDIA_AUDIO

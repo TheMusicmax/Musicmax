@@ -50,11 +50,13 @@ fun MusicmaxCard(
     val isPressed by interactionSource.collectIsPressedAsState()
     val scale by animateFloatAsState(
         targetValue = if (isPressed) CardPressedScale else 1f,
-        animationSpec = CardPressedAnimation
+        animationSpec = CardPressedAnimation,
+        label = "ScaleAnimation"
     )
     val alpha by animateFloatAsState(
         targetValue = if (isPressed) CardPressedAlpha else 1f,
-        animationSpec = CardPressedAnimation
+        animationSpec = CardPressedAnimation,
+        label = "AlphaAnimation"
     )
 
     Card(

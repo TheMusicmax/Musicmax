@@ -85,7 +85,11 @@ internal fun PlayerMediaButtons(
             onClick = onSkipPreviousClick
         )
 
-        Crossfade(targetState = isPlaying, animationSpec = spring()) { targetIsPlaying ->
+        Crossfade(
+            targetState = isPlaying,
+            animationSpec = spring(),
+            label = "CrossfadeAnimation"
+        ) { targetIsPlaying ->
             PlayPauseMediaButton(
                 isPlaying = targetIsPlaying,
                 playIconResource = MusicmaxIcons.Play.resourceId,
@@ -127,11 +131,13 @@ private fun MediaButton(
     val isPressed by interactionSource.collectIsPressedAsState()
     val scale by animateFloatAsState(
         targetValue = if (isPressed) MediaButtonPressedScale else 1f,
-        animationSpec = MediaButtonPressedAnimation
+        animationSpec = MediaButtonPressedAnimation,
+        label = "ScaleAnimation"
     )
     val alpha by animateFloatAsState(
         targetValue = if (isPressed) MediaButtonPressedAlpha else 1f,
-        animationSpec = MediaButtonPressedAnimation
+        animationSpec = MediaButtonPressedAnimation,
+        label = "AlphaAnimation"
     )
 
     IconButton(
@@ -166,11 +172,13 @@ private fun PlayPauseMediaButton(
     val isPressed by interactionSource.collectIsPressedAsState()
     val scale by animateFloatAsState(
         targetValue = if (isPressed) MediaButtonPressedScale else 1f,
-        animationSpec = MediaButtonPressedAnimation
+        animationSpec = MediaButtonPressedAnimation,
+        label = "ScaleAnimation"
     )
     val alpha by animateFloatAsState(
         targetValue = if (isPressed) MediaButtonPressedAlpha else 1f,
-        animationSpec = MediaButtonPressedAnimation
+        animationSpec = MediaButtonPressedAnimation,
+        label = "AlphaAnimation"
     )
 
     Box(

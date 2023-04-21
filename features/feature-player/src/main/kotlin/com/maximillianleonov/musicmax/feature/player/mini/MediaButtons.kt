@@ -43,7 +43,7 @@ import com.maximillianleonov.musicmax.core.media.common.R as mediaCommonR
 
 @Composable
 internal fun MiniPlayerMediaButtons(
-    playWhenReady: Boolean,
+    isPlaying: Boolean,
     onSkipPreviousClick: () -> Unit,
     onPlayClick: () -> Unit,
     onPauseClick: () -> Unit,
@@ -60,8 +60,12 @@ internal fun MiniPlayerMediaButtons(
             onClick = onSkipPreviousClick
         )
 
-        Crossfade(targetState = playWhenReady, animationSpec = spring()) { targetPlayWhenReady ->
-            if (targetPlayWhenReady) {
+        Crossfade(
+            targetState = isPlaying,
+            animationSpec = spring(),
+            label = "CrossfadeAnimation"
+        ) { targetIsPlaying ->
+            if (targetIsPlaying) {
                 MediaButton(
                     iconResource = MusicmaxIcons.Pause.resourceId,
                     contentDescriptionResource = mediaCommonR.string.pause,
@@ -98,11 +102,13 @@ private fun MediaButton(
     val isPressed by interactionSource.collectIsPressedAsState()
     val scale by animateFloatAsState(
         targetValue = if (isPressed) MediaButtonPressedScale else 1f,
-        animationSpec = MediaButtonPressedAnimation
+        animationSpec = MediaButtonPressedAnimation,
+        label = "ScaleAnimation"
     )
     val alpha by animateFloatAsState(
         targetValue = if (isPressed) MediaButtonPressedAlpha else 1f,
-        animationSpec = MediaButtonPressedAnimation
+        animationSpec = MediaButtonPressedAnimation,
+        label = "AlphaAnimation"
     )
 
     IconButton(

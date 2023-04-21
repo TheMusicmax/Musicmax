@@ -50,11 +50,13 @@ fun MusicmaxButton(
     val isPressed by interactionSource.collectIsPressedAsState()
     val scale by animateFloatAsState(
         targetValue = if (isPressed) ButtonPressedScale else 1f,
-        animationSpec = ButtonPressedAnimation
+        animationSpec = ButtonPressedAnimation,
+        label = "ScaleAnimation"
     )
     val alpha by animateFloatAsState(
         targetValue = if (isPressed) ButtonPressedAlpha else 1f,
-        animationSpec = ButtonPressedAnimation
+        animationSpec = ButtonPressedAnimation,
+        label = "AlphaAnimation"
     )
 
     Button(

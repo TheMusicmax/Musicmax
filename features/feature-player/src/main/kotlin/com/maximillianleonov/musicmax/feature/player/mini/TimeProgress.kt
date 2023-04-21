@@ -41,7 +41,8 @@ internal fun MiniPlayerTimeProgress(
     modifier: Modifier = Modifier
 ) {
     val progress by animateFloatAsState(
-        targetValue = convertToProgress(count = currentPosition, total = duration)
+        targetValue = convertToProgress(count = currentPosition, total = duration),
+        label = "ProgressAnimation"
     )
 
     Column(modifier = modifier) {

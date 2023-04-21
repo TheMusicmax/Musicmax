@@ -62,7 +62,6 @@ internal fun PlayerRoute(
     }
 }
 
-@Suppress("LongParameterList")
 @Composable
 private fun PlayerScreen(
     musicState: MusicState,

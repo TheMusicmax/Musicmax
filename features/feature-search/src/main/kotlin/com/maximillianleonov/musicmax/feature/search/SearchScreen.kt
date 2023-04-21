@@ -67,7 +67,6 @@ internal fun SearchRoute(
     )
 }
 
-@Suppress("LongParameterList")
 @Composable
 private fun SearchScreen(
     query: String,

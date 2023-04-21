@@ -51,18 +51,6 @@ internal fun Song.asMediaItem() = buildPlayableMediaItem(
     isFavorite = isFavorite
 )
 
-internal fun Song.asSongModel() = SongModel(
-    mediaId = mediaId,
-    artistId = artistId,
-    albumId = albumId,
-    mediaUri = mediaUri.toString(),
-    artworkUri = artworkUri.toString(),
-    title = title,
-    artist = artist,
-    album = album,
-    isFavorite = isFavorite
-)
-
 internal fun MediaItem?.asSong() = Song(
     mediaId = this?.mediaId ?: DEFAULT_MEDIA_ID,
     artistId = this?.mediaMetadata?.extras?.getLong(ARTIST_ID) ?: DEFAULT_ARTIST_ID,

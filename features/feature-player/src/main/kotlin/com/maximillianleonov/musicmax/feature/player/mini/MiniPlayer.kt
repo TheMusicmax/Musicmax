@@ -88,7 +88,7 @@ private fun MiniPlayer(
                 )
             }
             MiniPlayerMediaButtons(
-                playWhenReady = musicState.playWhenReady,
+                isPlaying = !musicState.playWhenReady,
                 onSkipPreviousClick = onMediaButtonSkipPreviousClick,
                 onPlayClick = onMediaButtonPlayClick,
                 onPauseClick = onMediaButtonPauseClick,
