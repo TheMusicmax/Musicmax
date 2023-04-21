@@ -26,7 +26,9 @@ import androidx.media3.session.MediaLibraryService
 import androidx.media3.session.MediaSession
 import com.maximillianleonov.musicmax.core.common.dispatcher.Dispatcher
 import com.maximillianleonov.musicmax.core.common.dispatcher.MusicmaxDispatchers.MAIN
+import com.maximillianleonov.musicmax.core.domain.model.PlaybackModeModel
 import com.maximillianleonov.musicmax.core.domain.usecase.GetFavoriteSongIdsUseCase
+import com.maximillianleonov.musicmax.core.domain.usecase.GetPlaybackModeUseCase
 import com.maximillianleonov.musicmax.core.media.notification.MusicNotificationProvider
 import com.maximillianleonov.musicmax.core.media.service.util.unsafeLazy
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,6 +50,7 @@ class MusicService : MediaLibraryService() {
 
     @Inject lateinit var musicSessionCallback: MusicSessionCallback
     @Inject lateinit var musicNotificationProvider: MusicNotificationProvider
+    @Inject lateinit var getPlaybackModeUseCase: GetPlaybackModeUseCase
     @Inject lateinit var getFavoriteSongIdsUseCase: GetFavoriteSongIdsUseCase
 
     private val _currentMediaId = MutableStateFlow("")
@@ -75,6 +78,8 @@ class MusicService : MediaLibraryService() {
             .build().apply { player.addListener(PlayerListener()) }
 
         setMediaNotificationProvider(musicNotificationProvider)
+
+        startPlaybackModeSync()
         startFavoriteSync()
     }
 
@@ -89,6 +94,30 @@ class MusicService : MediaLibraryService() {
         }
         musicSessionCallback.cancelCoroutineScope()
         musicNotificationProvider.cancelCoroutineScope()
+    }
+
+    private fun startPlaybackModeSync() = coroutineScope.launch {
+        getPlaybackModeUseCase().collectLatest { playbackMode ->
+            mediaLibrarySession.player.run {
+                when (playbackMode) {
+                    PlaybackModeModel.REPEAT -> {
+                        shuffleModeEnabled = false
+                        repeatMode = Player.REPEAT_MODE_ALL
+                    }
+
+                    PlaybackModeModel.REPEAT_ONE -> {
+                        repeatMode = Player.REPEAT_MODE_ONE
+                    }
+
+                    PlaybackModeModel.SHUFFLE -> {
+                        repeatMode = Player.REPEAT_MODE_ALL
+                        shuffleModeEnabled = true
+                    }
+                }
+            }
+            musicSessionCallback.setPlaybackModeAction(playbackMode)
+            mediaLibrarySession.setCustomLayout(musicSessionCallback.customLayout)
+        }
     }
 
     private fun startFavoriteSync() = coroutineScope.launch {
