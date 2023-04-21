@@ -65,19 +65,25 @@ internal fun MiniPlayerMediaButtons(
             animationSpec = spring(),
             label = "CrossfadeAnimation"
         ) { targetIsPlaying ->
-            if (targetIsPlaying) {
-                MediaButton(
-                    iconResource = MusicmaxIcons.Pause.resourceId,
-                    contentDescriptionResource = mediaCommonR.string.pause,
-                    onClick = onPauseClick
-                )
+            val iconResource = if (targetIsPlaying) {
+                MusicmaxIcons.Play.resourceId
             } else {
-                MediaButton(
-                    iconResource = MusicmaxIcons.Play.resourceId,
-                    contentDescriptionResource = mediaCommonR.string.play,
-                    onClick = onPlayClick
-                )
+                MusicmaxIcons.Pause.resourceId
             }
+
+            val contentDescriptionResource = if (targetIsPlaying) {
+                mediaCommonR.string.play
+            } else {
+                mediaCommonR.string.pause
+            }
+
+            val onClick = if (targetIsPlaying) onPlayClick else onPauseClick
+
+            MediaButton(
+                iconResource = iconResource,
+                contentDescriptionResource = contentDescriptionResource,
+                onClick = onClick
+            )
         }
 
         MediaButton(
