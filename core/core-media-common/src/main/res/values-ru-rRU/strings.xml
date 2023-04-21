@@ -22,4 +22,6 @@
     <string name="play">Воспроизвести</string>
     <string name="pause">Приостановить</string>
     <string name="skip_next">Перейти к следующему</string>
+    <string name="favorite_add">Add to favorites</string>
+    <string name="favorite_remove">Remove from favorites</string>
 </resources>
