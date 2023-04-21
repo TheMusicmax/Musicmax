@@ -26,35 +26,38 @@ import androidx.media3.session.SessionCommand
 import com.maximillianleonov.musicmax.core.common.dispatcher.Dispatcher
 import com.maximillianleonov.musicmax.core.common.dispatcher.MusicmaxDispatchers.MAIN
 import com.maximillianleonov.musicmax.core.designsystem.icon.MusicmaxIcons
+import com.maximillianleonov.musicmax.core.domain.usecase.ToggleFavoriteSongUseCase
+import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.FAVORITE
+import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.FAVORITE_OFF
+import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.FAVORITE_ON
 import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.REPEAT
 import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.REPEAT_ONE
 import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.REPEAT_SHUFFLE
 import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.SHUFFLE
-import com.maximillianleonov.musicmax.core.media.service.util.Constants.UNHANDLED_STATE_ERROR_MESSAGE
-import com.maximillianleonov.musicmax.core.media.service.util.Constants.UNKNOWN_CUSTOM_ACTION_ERROR_MESSAGE
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import com.maximillianleonov.musicmax.core.media.common.R as mediaCommonR
 
 class MusicActionHandler @Inject constructor(
     @Dispatcher(MAIN) mainDispatcher: CoroutineDispatcher,
-    @ApplicationContext private val context: Context
+    @ApplicationContext private val context: Context,
+    private val toggleFavoriteSongUseCase: ToggleFavoriteSongUseCase
 ) {
     private val coroutineScope = CoroutineScope(mainDispatcher + SupervisorJob())
 
-    private val customLayoutMap = mutableMapOf<String, CommandButton>()
-    val customLayout: List<CommandButton> get() = customLayoutMap.values.toList()
     val customCommands = getAvailableCustomCommands()
-
-    init {
-        loadCustomLayout()
+    private val customLayoutMap = mutableMapOf<String, CommandButton>().apply {
+        this[REPEAT_SHUFFLE] = customCommands.getValue(REPEAT)
+        this[FAVORITE] = customCommands.getValue(FAVORITE_OFF)
     }
+    val customLayout: List<CommandButton> get() = customLayoutMap.values.toList()
 
-    fun onCustomCommand(mediaSession: MediaSession, customCommand: SessionCommand) =
+    fun onCustomCommand(mediaSession: MediaSession, customCommand: SessionCommand) {
         when (customCommand.customAction) {
             REPEAT, REPEAT_ONE, SHUFFLE -> {
                 handleRepeatShuffleCommand(
@@ -63,38 +66,56 @@ class MusicActionHandler @Inject constructor(
                 )
             }
 
-            else -> error("$UNKNOWN_CUSTOM_ACTION_ERROR_MESSAGE ${customCommand.customAction}")
+            FAVORITE_ON, FAVORITE_OFF -> {
+                handleFavoriteCommand(
+                    action = customCommand.customAction,
+                    player = mediaSession.player
+                )
+            }
         }
+    }
+
+    fun setFavoriteCommand(action: String) =
+        customLayoutMap.set(FAVORITE, customCommands.getValue(action))
 
     fun cancelCoroutineScope() = coroutineScope.cancel()
 
-    private fun handleRepeatShuffleCommand(action: String, player: Player) = when (action) {
-        REPEAT -> {
-            player.repeatMode = Player.REPEAT_MODE_ONE
-            setRepeatShuffleCommand(REPEAT_ONE)
-        }
+    private fun handleRepeatShuffleCommand(action: String, player: Player) {
+        when (action) {
+            REPEAT -> {
+                player.repeatMode = Player.REPEAT_MODE_ONE
+                setRepeatShuffleCommand(REPEAT_ONE)
+            }
 
-        REPEAT_ONE -> {
-            player.repeatMode = Player.REPEAT_MODE_ALL
-            player.shuffleModeEnabled = true
-            setRepeatShuffleCommand(SHUFFLE)
-        }
+            REPEAT_ONE -> {
+                player.repeatMode = Player.REPEAT_MODE_ALL
+                player.shuffleModeEnabled = true
+                setRepeatShuffleCommand(SHUFFLE)
+            }
 
-        SHUFFLE -> {
-            player.shuffleModeEnabled = false
-            player.repeatMode = Player.REPEAT_MODE_ALL
-            setRepeatShuffleCommand(REPEAT)
+            SHUFFLE -> {
+                player.shuffleModeEnabled = false
+                player.repeatMode = Player.REPEAT_MODE_ALL
+                setRepeatShuffleCommand(REPEAT)
+            }
         }
+    }
 
-        else -> error(UNHANDLED_STATE_ERROR_MESSAGE)
+    private fun handleFavoriteCommand(action: String, player: Player) {
+        val id = player.currentMediaItem?.mediaId ?: return
+        when (action) {
+            FAVORITE_ON -> {
+                coroutineScope.launch { toggleFavoriteSongUseCase(id = id, isFavorite = false) }
+            }
+
+            FAVORITE_OFF -> {
+                coroutineScope.launch { toggleFavoriteSongUseCase(id = id, isFavorite = true) }
+            }
+        }
     }
 
     private fun setRepeatShuffleCommand(action: String) =
         customLayoutMap.set(REPEAT_SHUFFLE, customCommands.getValue(action))
-
-    private fun loadCustomLayout() = customLayoutMap.run {
-        this[REPEAT_SHUFFLE] = customCommands.getValue(REPEAT)
-    }
 
     private fun getAvailableCustomCommands() = mapOf(
         REPEAT to buildCustomCommand(
@@ -111,6 +132,16 @@ class MusicActionHandler @Inject constructor(
             action = SHUFFLE,
             displayName = context.getString(mediaCommonR.string.shuffle),
             iconResource = MusicmaxIcons.Shuffle.resourceId
+        ),
+        FAVORITE_ON to buildCustomCommand(
+            action = FAVORITE_ON,
+            displayName = context.getString(mediaCommonR.string.favorite_remove),
+            iconResource = MusicmaxIcons.FavoriteDrawable.resourceId
+        ),
+        FAVORITE_OFF to buildCustomCommand(
+            action = FAVORITE_OFF,
+            displayName = context.getString(mediaCommonR.string.favorite_add),
+            iconResource = MusicmaxIcons.FavoriteBorderDrawable.resourceId
         )
     )
 }
