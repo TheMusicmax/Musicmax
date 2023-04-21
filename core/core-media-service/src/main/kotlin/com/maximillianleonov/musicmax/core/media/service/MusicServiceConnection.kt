@@ -38,7 +38,6 @@ import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_P
 import com.maximillianleonov.musicmax.core.media.service.common.MusicState
 import com.maximillianleonov.musicmax.core.media.service.mapper.asMediaItem
 import com.maximillianleonov.musicmax.core.media.service.mapper.asSong
-import com.maximillianleonov.musicmax.core.media.service.util.Constants.POSITION_UPDATE_INTERVAL_MS
 import com.maximillianleonov.musicmax.core.media.service.util.asPlaybackState
 import com.maximillianleonov.musicmax.core.media.service.util.orDefaultTimestamp
 import com.maximillianleonov.musicmax.core.model.Song
@@ -58,6 +57,7 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.time.Duration.Companion.milliseconds
 
 @Suppress("LongParameterList")
 @Singleton
@@ -80,7 +80,7 @@ class MusicServiceConnection @Inject constructor(
         while (currentCoroutineContext().isActive) {
             val currentPosition = mediaBrowser?.currentPosition ?: DEFAULT_POSITION_MS
             emit(currentPosition)
-            delay(POSITION_UPDATE_INTERVAL_MS)
+            delay(1.milliseconds)
         }
     }
 
