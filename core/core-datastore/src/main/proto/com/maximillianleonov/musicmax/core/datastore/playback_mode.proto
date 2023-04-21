@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+option java_package = "com.maximillianleonov.musicmax.core.datastore";
+option java_multiple_files = true;
+
+enum PlaybackModeProto {
+    PLAYBACK_MODE_REPEAT = 0;
+    PLAYBACK_MODE_REPEAT_ONE = 1;
+    PLAYBACK_MODE_SHUFFLE = 2;
+}
