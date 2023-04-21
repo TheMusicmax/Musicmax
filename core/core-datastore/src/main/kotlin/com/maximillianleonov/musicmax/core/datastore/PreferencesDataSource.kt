@@ -17,6 +17,9 @@
 package com.maximillianleonov.musicmax.core.datastore
 
 import androidx.datastore.core.DataStore
+import com.maximillianleonov.musicmax.core.datastore.mapper.asPlaybackMode
+import com.maximillianleonov.musicmax.core.datastore.mapper.asPlaybackModeProto
+import com.maximillianleonov.musicmax.core.model.PlaybackMode
 import com.maximillianleonov.musicmax.core.model.UserData
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -28,6 +31,7 @@ class PreferencesDataSource @Inject constructor(
         UserData(
             playingQueueIds = preferences.playingQueueIdsList,
             playingQueueIndex = preferences.playingQueueIndex,
+            playbackMode = preferences.playbackMode.asPlaybackMode(),
             favoriteSongs = preferences.favoriteSongIdsMap.keys
         )
     }
@@ -47,6 +51,14 @@ class PreferencesDataSource @Inject constructor(
         userPreferences.updateData {
             it.copy {
                 this.playingQueueIndex = playingQueueIndex
+            }
+        }
+    }
+
+    suspend fun setPlaybackMode(playbackMode: PlaybackMode) {
+        userPreferences.updateData {
+            it.copy {
+                this.playbackMode = playbackMode.asPlaybackModeProto()
             }
         }
     }
