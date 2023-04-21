@@ -22,4 +22,6 @@
     <string name="play">Грати</string>
     <string name="pause">Пауза</string>
     <string name="skip_next">Перейти до наступного</string>
+    <string name="favorite_add">Add to favorites</string>
+    <string name="favorite_remove">Remove from favorites</string>
 </resources>
