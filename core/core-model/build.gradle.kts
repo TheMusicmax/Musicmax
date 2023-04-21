@@ -21,5 +21,5 @@ plugins {
 android.namespace = "com.maximillianleonov.musicmax.core.model"
 
 dependencies {
-    implementation(libs.androidx.media3.common)
+    implementation(project(":core:core-media-common"))
 }

@@ -35,11 +35,11 @@ import com.maximillianleonov.musicmax.core.domain.usecase.SetPlayingQueueIdsUseC
 import com.maximillianleonov.musicmax.core.domain.usecase.SetPlayingQueueIndexUseCase
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_INDEX
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_POSITION_MS
-import com.maximillianleonov.musicmax.core.media.service.common.MusicState
 import com.maximillianleonov.musicmax.core.media.service.mapper.asMediaItem
 import com.maximillianleonov.musicmax.core.media.service.mapper.asSong
 import com.maximillianleonov.musicmax.core.media.service.util.asPlaybackState
 import com.maximillianleonov.musicmax.core.media.service.util.orDefaultTimestamp
+import com.maximillianleonov.musicmax.core.model.MusicState
 import com.maximillianleonov.musicmax.core.model.Song
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher

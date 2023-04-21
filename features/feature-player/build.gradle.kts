@@ -21,7 +21,6 @@ plugins {
 android.namespace = "com.maximillianleonov.musicmax.feature.player"
 
 dependencies {
-    implementation(project(":core:core-media-common"))
     implementation(project(":core:core-media-service"))
 
     implementation(libs.coil.compose)

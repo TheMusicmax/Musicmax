@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.core.media.service.common
+package com.maximillianleonov.musicmax.core.model
 
 enum class PlaybackState { IDLE, BUFFERING, READY, ENDED }

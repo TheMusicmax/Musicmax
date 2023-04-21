@@ -19,7 +19,7 @@ package com.maximillianleonov.musicmax.core.media.service.util
 import androidx.media3.common.C
 import androidx.media3.common.Player
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_DURATION_MS
-import com.maximillianleonov.musicmax.core.media.service.common.PlaybackState
+import com.maximillianleonov.musicmax.core.model.PlaybackState
 
 internal fun Int.asPlaybackState() = when (this) {
     Player.STATE_IDLE -> PlaybackState.IDLE

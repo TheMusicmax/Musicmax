@@ -29,7 +29,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
-import com.maximillianleonov.musicmax.core.media.service.common.PlaybackState
+import com.maximillianleonov.musicmax.core.model.PlaybackState
 import com.maximillianleonov.musicmax.feature.player.util.asFormattedString
 import com.maximillianleonov.musicmax.feature.player.util.convertToProgress
 

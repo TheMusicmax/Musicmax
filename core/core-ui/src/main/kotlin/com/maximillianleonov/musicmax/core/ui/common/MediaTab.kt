@@ -17,11 +17,10 @@
 package com.maximillianleonov.musicmax.core.ui.common
 
 import androidx.annotation.StringRes
-import com.maximillianleonov.musicmax.core.model.MediaType
 import com.maximillianleonov.musicmax.core.ui.R
 
-internal enum class MediaTab(val mediaType: MediaType, @StringRes val titleResource: Int) {
-    Songs(mediaType = MediaType.Song, titleResource = R.string.songs),
-    Artists(mediaType = MediaType.Artist, titleResource = R.string.artists),
-    Albums(mediaType = MediaType.Album, titleResource = R.string.albums)
+internal enum class MediaTab(@StringRes val titleResource: Int) {
+    Songs(titleResource = R.string.songs),
+    Artists(titleResource = R.string.artists),
+    Albums(titleResource = R.string.albums)
 }

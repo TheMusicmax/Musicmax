@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Maximillian Leonov
+ * Copyright 2023 Maximillian Leonov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.core.media.service.common
+package com.maximillianleonov.musicmax.core.model
 
 import android.net.Uri
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_ALBUM_ID
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_ARTIST_ID
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_DURATION_MS
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_MEDIA_ID
-import com.maximillianleonov.musicmax.core.model.Song
 
 data class MusicState(
     val currentSong: Song = Song(

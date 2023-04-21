@@ -22,10 +22,10 @@ plugins {
 android.namespace = "com.maximillianleonov.musicmax.core.ui"
 
 dependencies {
+    implementation(project(":core:core-media-common"))
     api(project(":core:core-designsystem"))
     api(project(":core:core-model"))
     api(project(":core:core-domain"))
-    implementation(project(":core:core-media-common"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.play.services.ads)
