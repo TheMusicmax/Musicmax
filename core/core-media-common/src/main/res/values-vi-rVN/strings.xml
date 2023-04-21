@@ -22,4 +22,6 @@
     <string name="play">Chơi</string>
     <string name="pause">Tạm dừng</string>
     <string name="skip_next">Bỏ qua để tiếp theo</string>
+    <string name="favorite_add">Add to favorites</string>
+    <string name="favorite_remove">Remove from favorites</string>
 </resources>
