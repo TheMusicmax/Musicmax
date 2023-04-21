@@ -15,14 +15,14 @@
      limitations under the License.
 -->
 <resources>
-    <string name="songs">Songs</string>
-    <string name="artists">Artists</string>
-    <string name="albums">Albums</string>
+    <string name="songs">Şarkılar</string>
+    <string name="artists">Sanatçılar</string>
+    <string name="albums">Albümler</string>
     <plurals name="number_of_songs">
-        <item quantity="one">%d song</item>
-        <item quantity="other">%d songs</item>
+        <item quantity="one">%d şarkı</item>
+        <item quantity="other">%d şarkı</item>
     </plurals>
-    <string name="no_songs">No songs.</string>
-    <string name="no_artists">No artists.</string>
-    <string name="no_albums">No albums.</string>
+    <string name="no_songs">Şarkı yok.</string>
+    <string name="no_artists">Sanatçı yok.</string>
+    <string name="no_albums">Albüm yok.</string>
 </resources>
