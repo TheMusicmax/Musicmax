@@ -22,4 +22,6 @@
     <string name="play">Přehrát</string>
     <string name="pause">Pauza</string>
     <string name="skip_next">Přeskočit na další</string>
+    <string name="favorite_add">Add to favorites</string>
+    <string name="favorite_remove">Remove from favorites</string>
 </resources>
