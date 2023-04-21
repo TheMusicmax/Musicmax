@@ -19,5 +19,6 @@ package com.maximillianleonov.musicmax.core.model
 data class UserData(
     val playingQueueIds: List<String>,
     val playingQueueIndex: Int,
+    val playbackMode: PlaybackMode,
     val favoriteSongs: Set<String>
 )
