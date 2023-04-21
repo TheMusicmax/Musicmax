@@ -31,6 +31,7 @@ import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -53,17 +54,20 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.maximillianleonov.musicmax.core.designsystem.component.FavoriteButton
 import com.maximillianleonov.musicmax.core.designsystem.icon.MusicmaxIcons
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 import com.maximillianleonov.musicmax.core.media.common.R
 
 @Composable
 internal fun PlayerMediaButtons(
-    playWhenReady: Boolean,
+    isPlaying: Boolean,
+    isFavorite: Boolean,
     onSkipPreviousClick: () -> Unit,
     onPlayClick: () -> Unit,
     onPauseClick: () -> Unit,
     onSkipNextClick: () -> Unit,
+    onToggleFavorite: (isFavorite: Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -71,15 +75,19 @@ internal fun PlayerMediaButtons(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
+        @Suppress("ForbiddenComment")
+        // TODO: Repeat shuffle button here.
+        Spacer(modifier = Modifier)
+
         MediaButton(
             iconResource = MusicmaxIcons.SkipPrevious.resourceId,
             contentDescriptionResource = R.string.skip_previous,
             onClick = onSkipPreviousClick
         )
 
-        Crossfade(targetState = playWhenReady, animationSpec = spring()) { targetPlayWhenReady ->
+        Crossfade(targetState = isPlaying, animationSpec = spring()) { targetIsPlaying ->
             PlayPauseMediaButton(
-                playWhenReady = targetPlayWhenReady,
+                isPlaying = targetIsPlaying,
                 playIconResource = MusicmaxIcons.Play.resourceId,
                 playContentDescriptionResource = R.string.play,
                 onPlayClick = onPlayClick,
@@ -93,6 +101,16 @@ internal fun PlayerMediaButtons(
             iconResource = MusicmaxIcons.SkipNext.resourceId,
             contentDescriptionResource = R.string.skip_next,
             onClick = onSkipNextClick
+        )
+
+        FavoriteButton(
+            iconModifier = Modifier.size(MediaButtonIconSize),
+            isFavorite = isFavorite,
+            onToggleFavorite = onToggleFavorite,
+            colors = IconButtonDefaults.iconToggleButtonColors(
+                contentColor = MediaButtonIconColor,
+                checkedContentColor = MediaButtonIconColor
+            )
         )
     }
 }
@@ -132,7 +150,7 @@ private fun MediaButton(
 
 @Composable
 private fun PlayPauseMediaButton(
-    playWhenReady: Boolean,
+    isPlaying: Boolean,
     @DrawableRes playIconResource: Int,
     @StringRes playContentDescriptionResource: Int,
     onPlayClick: () -> Unit,
@@ -162,7 +180,7 @@ private fun PlayPauseMediaButton(
             .clickable(
                 interactionSource = interactionSource,
                 indication = indication,
-                onClick = if (playWhenReady) onPauseClick else onPlayClick
+                onClick = if (isPlaying) onPlayClick else onPauseClick
             )
     ) {
         Icon(
@@ -175,14 +193,10 @@ private fun PlayPauseMediaButton(
                 .padding(MaterialTheme.spacing.medium)
                 .size(MediaButtonIconSize),
             painter = painterResource(
-                id = if (playWhenReady) pauseIconResource else playIconResource
+                id = if (isPlaying) playIconResource else pauseIconResource
             ),
             contentDescription = stringResource(
-                id = if (playWhenReady) {
-                    pauseContentDescriptionResource
-                } else {
-                    playContentDescriptionResource
-                }
+                id = if (isPlaying) playContentDescriptionResource else pauseContentDescriptionResource
             ),
             tint = color
         )

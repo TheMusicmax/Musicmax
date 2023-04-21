@@ -37,16 +37,19 @@ internal fun PlayerRoute(
 ) {
     val musicState by viewModel.musicState.collectAsStateWithLifecycle()
     val currentPosition by viewModel.currentPosition.collectAsStateWithLifecycle()
+    val isFavorite by viewModel.isFavorite.collectAsStateWithLifecycle()
 
     PlayerScreen(
         modifier = modifier,
         musicState = musicState,
         currentPosition = currentPosition,
+        isFavorite = isFavorite,
         onSkipTo = viewModel::skipTo,
         onMediaButtonSkipPreviousClick = viewModel::skipPrevious,
         onMediaButtonPlayClick = viewModel::play,
         onMediaButtonPauseClick = viewModel::pause,
-        onMediaButtonSkipNextClick = viewModel::skipNext
+        onMediaButtonSkipNextClick = viewModel::skipNext,
+        onMediaButtonFavoriteClick = viewModel::onToggleFavorite
     )
 
     DisposableEffect(onSetSystemBarsLightIcons, onResetSystemBarsIcons) {
@@ -59,11 +62,13 @@ internal fun PlayerRoute(
 private fun PlayerScreen(
     musicState: MusicState,
     currentPosition: Long,
+    isFavorite: Boolean,
     onSkipTo: (Float) -> Unit,
     onMediaButtonSkipPreviousClick: () -> Unit,
     onMediaButtonPlayClick: () -> Unit,
     onMediaButtonPauseClick: () -> Unit,
     onMediaButtonSkipNextClick: () -> Unit,
+    onMediaButtonFavoriteClick: (isFavorite: Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     PlayerBackdropArtworkOverlay(
@@ -83,11 +88,13 @@ private fun PlayerScreen(
         )
 
         PlayerMediaButtons(
-            playWhenReady = musicState.playWhenReady,
+            isPlaying = !musicState.playWhenReady,
+            isFavorite = isFavorite,
             onSkipPreviousClick = onMediaButtonSkipPreviousClick,
             onPlayClick = onMediaButtonPlayClick,
             onPauseClick = onMediaButtonPauseClick,
-            onSkipNextClick = onMediaButtonSkipNextClick
+            onSkipNextClick = onMediaButtonSkipNextClick,
+            onToggleFavorite = onMediaButtonFavoriteClick
         )
     }
 }
