@@ -22,4 +22,6 @@
     <string name="play">Játék</string>
     <string name="pause">Szünet</string>
     <string name="skip_next">Ugrás a következőre</string>
+    <string name="favorite_add">Add to favorites</string>
+    <string name="favorite_remove">Remove from favorites</string>
 </resources>
