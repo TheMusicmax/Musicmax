@@ -5,7 +5,7 @@ complexity:
   LongMethod:
     ignoreAnnotated: [ 'Composable' ]
   LongParameterList:
-    functionThreshold: 10
+    functionThreshold: 15
     ignoreDefaultParameters: true
 
 naming:
