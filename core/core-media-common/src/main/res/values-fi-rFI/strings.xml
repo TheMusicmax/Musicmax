@@ -22,4 +22,6 @@
     <string name="play">Toista</string>
     <string name="pause">Tauota</string>
     <string name="skip_next">Siirry seuraavaan</string>
+    <string name="favorite_add">Add to favorites</string>
+    <string name="favorite_remove">Remove from favorites</string>
 </resources>
