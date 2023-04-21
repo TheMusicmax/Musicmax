@@ -22,4 +22,6 @@
     <string name="play">Joacă</string>
     <string name="pause">Pauză</string>
     <string name="skip_next">Treci la următorul</string>
+    <string name="favorite_add">Add to favorites</string>
+    <string name="favorite_remove">Remove from favorites</string>
 </resources>
