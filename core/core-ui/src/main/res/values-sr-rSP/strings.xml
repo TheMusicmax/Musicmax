@@ -26,6 +26,4 @@
     <string name="no_songs">Нема песама.</string>
     <string name="no_artists">Нема уметника.</string>
     <string name="no_albums">Нема албума.</string>
-    <string name="favorite_add">Add to favorites</string>
-    <string name="favorite_remove">Remove from favorites</string>
 </resources>

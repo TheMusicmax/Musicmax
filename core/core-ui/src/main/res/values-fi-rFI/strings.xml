@@ -25,6 +25,4 @@
     <string name="no_songs">Ei kappaleita.</string>
     <string name="no_artists">Ei artisteja.</string>
     <string name="no_albums">Ei albumeita.</string>
-    <string name="favorite_add">Add to favorites</string>
-    <string name="favorite_remove">Remove from favorites</string>
 </resources>

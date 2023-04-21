@@ -25,6 +25,4 @@
     <string name="no_songs">Nenhuma música.</string>
     <string name="no_artists">Nenhum artista.</string>
     <string name="no_albums">Nenhum álbum.</string>
-    <string name="favorite_add">Add to favorites</string>
-    <string name="favorite_remove">Remove from favorites</string>
 </resources>

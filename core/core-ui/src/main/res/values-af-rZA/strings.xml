@@ -25,6 +25,4 @@
     <string name="no_songs">Geen liedjies nie.</string>
     <string name="no_artists">Kunstenaars nie.</string>
     <string name="no_albums">Album nie.</string>
-    <string name="favorite_add">Add to favorites</string>
-    <string name="favorite_remove">Remove from favorites</string>
 </resources>

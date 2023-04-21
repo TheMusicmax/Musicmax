@@ -27,6 +27,4 @@
     <string name="no_songs">Żadnych piosenek.</string>
     <string name="no_artists">Nie ma artystów.</string>
     <string name="no_albums">Brak albumów.</string>
-    <string name="favorite_add">Add to favorites</string>
-    <string name="favorite_remove">Remove from favorites</string>
 </resources>

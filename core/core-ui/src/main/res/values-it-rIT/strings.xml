@@ -25,6 +25,4 @@
     <string name="no_songs">No songs.</string>
     <string name="no_artists">No artists.</string>
     <string name="no_albums">Nessun album.</string>
-    <string name="favorite_add">Add to favorites</string>
-    <string name="favorite_remove">Remove from favorites</string>
 </resources>

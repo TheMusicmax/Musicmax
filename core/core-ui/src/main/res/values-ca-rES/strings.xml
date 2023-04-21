@@ -25,6 +25,4 @@
     <string name="no_songs">Sense cançons.</string>
     <string name="no_artists">Sense artistes.</string>
     <string name="no_albums">Sense àlbums.</string>
-    <string name="favorite_add">Add to favorites</string>
-    <string name="favorite_remove">Remove from favorites</string>
 </resources>

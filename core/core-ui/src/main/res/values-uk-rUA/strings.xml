@@ -27,6 +27,4 @@
     <string name="no_songs">Немає пісень.</string>
     <string name="no_artists">Немає художників.</string>
     <string name="no_albums">Немає альбомів.</string>
-    <string name="favorite_add">Add to favorites</string>
-    <string name="favorite_remove">Remove from favorites</string>
 </resources>
