@@ -19,21 +19,22 @@ package com.maximillianleonov.musicmax.core.media.service
 import android.content.Context
 import android.os.Bundle
 import androidx.annotation.DrawableRes
-import androidx.media3.common.Player
 import androidx.media3.session.CommandButton
 import androidx.media3.session.MediaSession
 import androidx.media3.session.SessionCommand
 import com.maximillianleonov.musicmax.core.common.dispatcher.Dispatcher
 import com.maximillianleonov.musicmax.core.common.dispatcher.MusicmaxDispatchers.MAIN
 import com.maximillianleonov.musicmax.core.designsystem.icon.MusicmaxIcons
+import com.maximillianleonov.musicmax.core.domain.model.PlaybackModeModel
+import com.maximillianleonov.musicmax.core.domain.usecase.SetPlaybackModeUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.ToggleFavoriteSongUseCase
 import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.FAVORITE
 import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.FAVORITE_OFF
 import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.FAVORITE_ON
-import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.REPEAT
-import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.REPEAT_ONE
-import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.REPEAT_SHUFFLE
-import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.SHUFFLE
+import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.PLAYBACK_MODE
+import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.PLAYBACK_MODE_REPEAT
+import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.PLAYBACK_MODE_REPEAT_ONE
+import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.PLAYBACK_MODE_SHUFFLE
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -46,90 +47,67 @@ import com.maximillianleonov.musicmax.core.media.common.R as mediaCommonR
 class MusicActionHandler @Inject constructor(
     @Dispatcher(MAIN) mainDispatcher: CoroutineDispatcher,
     @ApplicationContext private val context: Context,
+    private val setPlaybackModeUseCase: SetPlaybackModeUseCase,
     private val toggleFavoriteSongUseCase: ToggleFavoriteSongUseCase
 ) {
     private val coroutineScope = CoroutineScope(mainDispatcher + SupervisorJob())
 
     val customCommands = getAvailableCustomCommands()
     private val customLayoutMap = mutableMapOf<String, CommandButton>().apply {
-        this[REPEAT_SHUFFLE] = customCommands.getValue(REPEAT)
+        this[PLAYBACK_MODE] = customCommands.getValue(PLAYBACK_MODE_REPEAT)
         this[FAVORITE] = customCommands.getValue(FAVORITE_OFF)
     }
     val customLayout: List<CommandButton> get() = customLayoutMap.values.toList()
 
     fun onCustomCommand(mediaSession: MediaSession, customCommand: SessionCommand) {
         when (customCommand.customAction) {
-            REPEAT, REPEAT_ONE, SHUFFLE -> {
-                handleRepeatShuffleCommand(
-                    action = customCommand.customAction,
-                    player = mediaSession.player
-                )
+            PLAYBACK_MODE_REPEAT, PLAYBACK_MODE_REPEAT_ONE, PLAYBACK_MODE_SHUFFLE -> {
+                handleRepeatShuffleCommand(action = customCommand.customAction)
             }
 
             FAVORITE_ON, FAVORITE_OFF -> {
-                handleFavoriteCommand(
-                    action = customCommand.customAction,
-                    player = mediaSession.player
-                )
+                val id = mediaSession.player.currentMediaItem?.mediaId ?: return
+                handleFavoriteCommand(action = customCommand.customAction, id = id)
             }
         }
     }
+
+    fun setRepeatShuffleCommand(action: String) =
+        customLayoutMap.set(PLAYBACK_MODE, customCommands.getValue(action))
 
     fun setFavoriteCommand(action: String) =
         customLayoutMap.set(FAVORITE, customCommands.getValue(action))
 
     fun cancelCoroutineScope() = coroutineScope.cancel()
 
-    private fun handleRepeatShuffleCommand(action: String, player: Player) {
+    private fun handleRepeatShuffleCommand(action: String) = coroutineScope.launch {
         when (action) {
-            REPEAT -> {
-                player.repeatMode = Player.REPEAT_MODE_ONE
-                setRepeatShuffleCommand(REPEAT_ONE)
-            }
-
-            REPEAT_ONE -> {
-                player.repeatMode = Player.REPEAT_MODE_ALL
-                player.shuffleModeEnabled = true
-                setRepeatShuffleCommand(SHUFFLE)
-            }
-
-            SHUFFLE -> {
-                player.shuffleModeEnabled = false
-                player.repeatMode = Player.REPEAT_MODE_ALL
-                setRepeatShuffleCommand(REPEAT)
-            }
+            PLAYBACK_MODE_REPEAT -> setPlaybackModeUseCase(PlaybackModeModel.REPEAT_ONE)
+            PLAYBACK_MODE_REPEAT_ONE -> setPlaybackModeUseCase(PlaybackModeModel.SHUFFLE)
+            PLAYBACK_MODE_SHUFFLE -> setPlaybackModeUseCase(PlaybackModeModel.REPEAT)
         }
     }
 
-    private fun handleFavoriteCommand(action: String, player: Player) {
-        val id = player.currentMediaItem?.mediaId ?: return
+    private fun handleFavoriteCommand(action: String, id: String) = coroutineScope.launch {
         when (action) {
-            FAVORITE_ON -> {
-                coroutineScope.launch { toggleFavoriteSongUseCase(id = id, isFavorite = false) }
-            }
-
-            FAVORITE_OFF -> {
-                coroutineScope.launch { toggleFavoriteSongUseCase(id = id, isFavorite = true) }
-            }
+            FAVORITE_ON -> toggleFavoriteSongUseCase(id = id, isFavorite = false)
+            FAVORITE_OFF -> toggleFavoriteSongUseCase(id = id, isFavorite = true)
         }
     }
-
-    private fun setRepeatShuffleCommand(action: String) =
-        customLayoutMap.set(REPEAT_SHUFFLE, customCommands.getValue(action))
 
     private fun getAvailableCustomCommands() = mapOf(
-        REPEAT to buildCustomCommand(
-            action = REPEAT,
+        PLAYBACK_MODE_REPEAT to buildCustomCommand(
+            action = PLAYBACK_MODE_REPEAT,
             displayName = context.getString(mediaCommonR.string.repeat),
             iconResource = MusicmaxIcons.Repeat.resourceId
         ),
-        REPEAT_ONE to buildCustomCommand(
-            action = REPEAT_ONE,
+        PLAYBACK_MODE_REPEAT_ONE to buildCustomCommand(
+            action = PLAYBACK_MODE_REPEAT_ONE,
             displayName = context.getString(mediaCommonR.string.repeat_one),
             iconResource = MusicmaxIcons.RepeatOne.resourceId
         ),
-        SHUFFLE to buildCustomCommand(
-            action = SHUFFLE,
+        PLAYBACK_MODE_SHUFFLE to buildCustomCommand(
+            action = PLAYBACK_MODE_SHUFFLE,
             displayName = context.getString(mediaCommonR.string.shuffle),
             iconResource = MusicmaxIcons.Shuffle.resourceId
         ),

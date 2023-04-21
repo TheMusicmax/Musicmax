@@ -27,8 +27,12 @@ import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
 import com.maximillianleonov.musicmax.core.common.dispatcher.Dispatcher
 import com.maximillianleonov.musicmax.core.common.dispatcher.MusicmaxDispatchers.MAIN
+import com.maximillianleonov.musicmax.core.domain.model.PlaybackModeModel
 import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.FAVORITE_OFF
 import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.FAVORITE_ON
+import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.PLAYBACK_MODE_REPEAT
+import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.PLAYBACK_MODE_REPEAT_ONE
+import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.PLAYBACK_MODE_SHUFFLE
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
@@ -41,6 +45,15 @@ class MusicSessionCallback @Inject constructor(
 ) : MediaLibrarySession.Callback {
     private val coroutineScope = CoroutineScope(mainDispatcher + SupervisorJob())
     val customLayout: List<CommandButton> get() = musicActionHandler.customLayout
+
+    fun setPlaybackModeAction(playbackMode: PlaybackModeModel) {
+        val actionsMap = mapOf(
+            PlaybackModeModel.REPEAT to PLAYBACK_MODE_REPEAT,
+            PlaybackModeModel.REPEAT_ONE to PLAYBACK_MODE_REPEAT_ONE,
+            PlaybackModeModel.SHUFFLE to PLAYBACK_MODE_SHUFFLE
+        )
+        musicActionHandler.setRepeatShuffleCommand(actionsMap.getValue(playbackMode))
+    }
 
     fun toggleFavoriteAction(isFavorite: Boolean) =
         musicActionHandler.setFavoriteCommand(if (isFavorite) FAVORITE_ON else FAVORITE_OFF)

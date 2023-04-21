@@ -17,10 +17,10 @@
 package com.maximillianleonov.musicmax.core.media.notification.common
 
 object MusicCommands {
-    const val REPEAT_SHUFFLE = "repeat_shuffle"
-    const val REPEAT = "repeat"
-    const val REPEAT_ONE = "repeat_one"
-    const val SHUFFLE = "shuffle"
+    const val PLAYBACK_MODE = "playback_mode"
+    const val PLAYBACK_MODE_REPEAT = "playback_mode_repeat"
+    const val PLAYBACK_MODE_REPEAT_ONE = "playback_mode_repeat_one"
+    const val PLAYBACK_MODE_SHUFFLE = "playback_mode_shuffle"
 
     const val FAVORITE = "favorite"
     const val FAVORITE_ON = "favorite_on"
