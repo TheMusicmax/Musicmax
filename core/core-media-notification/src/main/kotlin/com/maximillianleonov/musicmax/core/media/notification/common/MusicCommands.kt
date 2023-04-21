@@ -21,4 +21,8 @@ object MusicCommands {
     const val REPEAT = "repeat"
     const val REPEAT_ONE = "repeat_one"
     const val SHUFFLE = "shuffle"
+
+    const val FAVORITE = "favorite"
+    const val FAVORITE_ON = "favorite_on"
+    const val FAVORITE_OFF = "favorite_off"
 }
