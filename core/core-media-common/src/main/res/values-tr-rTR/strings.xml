@@ -22,4 +22,6 @@
     <string name="play">Oynat</string>
     <string name="pause">Duraklat</string>
     <string name="skip_next">Sonrakine atla</string>
+    <string name="favorite_add">Add to favorites</string>
+    <string name="favorite_remove">Remove from favorites</string>
 </resources>
