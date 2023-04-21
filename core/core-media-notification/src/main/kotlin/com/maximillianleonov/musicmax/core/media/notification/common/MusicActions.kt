@@ -63,4 +63,10 @@ internal object MusicActions {
         titleResource = mediaCommonR.string.skip_next,
         command = Player.COMMAND_SEEK_TO_NEXT
     ).asNotificationAction(context, mediaSession, actionFactory)
+
+    internal fun getFavoriteAction(
+        mediaSession: MediaSession,
+        customLayout: ImmutableList<CommandButton>,
+        actionFactory: MediaNotification.ActionFactory
+    ) = actionFactory.createCustomActionFromCustomCommandButton(mediaSession, customLayout.last())
 }
