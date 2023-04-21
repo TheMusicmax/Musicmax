@@ -117,7 +117,8 @@ class MusicNotificationProvider @Inject constructor(
         MusicActions.getRepeatShuffleAction(mediaSession, customLayout, actionFactory),
         MusicActions.getSkipPreviousAction(context, mediaSession, actionFactory),
         MusicActions.getPlayPauseAction(context, mediaSession, actionFactory, playWhenReady),
-        MusicActions.getSkipNextAction(context, mediaSession, actionFactory)
+        MusicActions.getSkipNextAction(context, mediaSession, actionFactory),
+        MusicActions.getFavoriteAction(mediaSession, customLayout, actionFactory)
     )
 
     private fun setupArtwork(
