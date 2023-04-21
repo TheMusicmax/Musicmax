@@ -36,6 +36,8 @@ object MusicmaxIcons {
     val Search = ImageVectorIcon(Icons.Rounded.Search)
     val Favorite = ImageVectorIcon(Icons.Rounded.Favorite)
     val FavoriteBorder = ImageVectorIcon(Icons.Rounded.FavoriteBorder)
+    val FavoriteDrawable = DrawableResourceIcon(R.drawable.ic_favorite)
+    val FavoriteBorderDrawable = DrawableResourceIcon(R.drawable.ic_favorite_border)
     val Settings = ImageVectorIcon(Icons.Rounded.Settings)
     val ArrowBack = ImageVectorIcon(Icons.Rounded.ArrowBack)
     val Clear = ImageVectorIcon(Icons.Rounded.Clear)
