@@ -19,19 +19,44 @@ package com.maximillianleonov.musicmax.core.media.service
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C.AUDIO_CONTENT_TYPE_MUSIC
 import androidx.media3.common.C.USAGE_MEDIA
+import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.session.MediaLibraryService
 import androidx.media3.session.MediaSession
+import com.maximillianleonov.musicmax.core.common.dispatcher.Dispatcher
+import com.maximillianleonov.musicmax.core.common.dispatcher.MusicmaxDispatchers.MAIN
+import com.maximillianleonov.musicmax.core.domain.usecase.GetFavoriteSongIdsUseCase
 import com.maximillianleonov.musicmax.core.media.notification.MusicNotificationProvider
+import com.maximillianleonov.musicmax.core.media.service.util.unsafeLazy
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MusicService : MediaLibraryService() {
-    private var mediaLibrarySession: MediaLibrarySession? = null
+    private var _mediaLibrarySession: MediaLibrarySession? = null
+    private val mediaLibrarySession get() = checkNotNull(_mediaLibrarySession)
 
     @Inject lateinit var musicSessionCallback: MusicSessionCallback
     @Inject lateinit var musicNotificationProvider: MusicNotificationProvider
+    @Inject lateinit var getFavoriteSongIdsUseCase: GetFavoriteSongIdsUseCase
+
+    private val _currentMediaId = MutableStateFlow("")
+    private val currentMediaId = _currentMediaId.asStateFlow()
+
+    @Inject
+    @Dispatcher(MAIN)
+    lateinit var mainDispatcher: CoroutineDispatcher
+    private val coroutineScope by unsafeLazy { CoroutineScope(mainDispatcher + SupervisorJob()) }
 
     override fun onCreate() {
         super.onCreate()
@@ -46,22 +71,39 @@ class MusicService : MediaLibraryService() {
             .setHandleAudioBecomingNoisy(true)
             .build()
 
-        mediaLibrarySession =
-            MediaLibrarySession.Builder(this, player, musicSessionCallback).build()
+        _mediaLibrarySession = MediaLibrarySession.Builder(this, player, musicSessionCallback)
+            .build().apply { player.addListener(PlayerListener()) }
 
         setMediaNotificationProvider(musicNotificationProvider)
+        startFavoriteSync()
     }
 
     override fun onGetSession(controllerInfo: MediaSession.ControllerInfo) = mediaLibrarySession
 
     override fun onDestroy() {
         super.onDestroy()
-        mediaLibrarySession?.run {
+        mediaLibrarySession.run {
             player.release()
             release()
-            mediaLibrarySession = null
+            _mediaLibrarySession = null
         }
         musicSessionCallback.cancelCoroutineScope()
         musicNotificationProvider.cancelCoroutineScope()
+    }
+
+    private fun startFavoriteSync() = coroutineScope.launch {
+        combine(currentMediaId, getFavoriteSongIdsUseCase()) { currentMediaId, favoriteSongIds ->
+            currentMediaId in favoriteSongIds
+        }.collectLatest { isCurrentMediaIdFavorite ->
+            musicSessionCallback.toggleFavoriteAction(isFavorite = isCurrentMediaIdFavorite)
+            mediaLibrarySession.setCustomLayout(musicSessionCallback.customLayout)
+        }
+    }
+
+    private inner class PlayerListener : Player.Listener {
+        override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) {
+            if (mediaItem == null) return
+            _currentMediaId.update { mediaItem.mediaId }
+        }
     }
 }
