@@ -31,7 +31,6 @@ import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -58,11 +57,14 @@ import com.maximillianleonov.musicmax.core.designsystem.component.FavoriteButton
 import com.maximillianleonov.musicmax.core.designsystem.icon.MusicmaxIcons
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 import com.maximillianleonov.musicmax.core.media.common.R
+import com.maximillianleonov.musicmax.core.model.PlaybackMode
 
 @Composable
 internal fun PlayerMediaButtons(
     isPlaying: Boolean,
+    playbackMode: PlaybackMode,
     isFavorite: Boolean,
+    onPlaybackModeClick: () -> Unit,
     onSkipPreviousClick: () -> Unit,
     onPlayClick: () -> Unit,
     onPauseClick: () -> Unit,
@@ -75,9 +77,7 @@ internal fun PlayerMediaButtons(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
-        @Suppress("ForbiddenComment")
-        // TODO: Repeat shuffle button here.
-        Spacer(modifier = Modifier)
+        PlaybackModeMediaButton(playbackMode = playbackMode, onClick = onPlaybackModeClick)
 
         MediaButton(
             iconResource = MusicmaxIcons.SkipPrevious.resourceId,
@@ -201,6 +201,32 @@ private fun PlayPauseMediaButton(
             tint = color
         )
     }
+}
+
+@Composable
+private fun PlaybackModeMediaButton(
+    playbackMode: PlaybackMode,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val iconResource = when (playbackMode) {
+        PlaybackMode.REPEAT -> MusicmaxIcons.Repeat
+        PlaybackMode.REPEAT_ONE -> MusicmaxIcons.RepeatOne
+        PlaybackMode.SHUFFLE -> MusicmaxIcons.Shuffle
+    }.resourceId
+
+    val contentDescriptionResource = when (playbackMode) {
+        PlaybackMode.REPEAT -> R.string.repeat
+        PlaybackMode.REPEAT_ONE -> R.string.repeat_one
+        PlaybackMode.SHUFFLE -> R.string.shuffle
+    }
+
+    MediaButton(
+        modifier = modifier,
+        iconResource = iconResource,
+        contentDescriptionResource = contentDescriptionResource,
+        onClick = onClick
+    )
 }
 
 private const val MediaButtonPressedScale = 0.85f

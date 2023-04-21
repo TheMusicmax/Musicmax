@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.maximillianleonov.musicmax.core.model.MusicState
+import com.maximillianleonov.musicmax.core.model.PlaybackMode
 import com.maximillianleonov.musicmax.feature.player.component.PlayerBackdropArtworkOverlay
 import com.maximillianleonov.musicmax.feature.player.component.PlayerMediaButtons
 import com.maximillianleonov.musicmax.feature.player.component.PlayerTimeSlider
@@ -37,14 +38,17 @@ internal fun PlayerRoute(
 ) {
     val musicState by viewModel.musicState.collectAsStateWithLifecycle()
     val currentPosition by viewModel.currentPosition.collectAsStateWithLifecycle()
+    val playbackMode by viewModel.playbackMode.collectAsStateWithLifecycle()
     val isFavorite by viewModel.isFavorite.collectAsStateWithLifecycle()
 
     PlayerScreen(
         modifier = modifier,
         musicState = musicState,
         currentPosition = currentPosition,
+        playbackMode = playbackMode,
         isFavorite = isFavorite,
         onSkipTo = viewModel::skipTo,
+        onMediaButtonPlaybackModeClick = viewModel::onTogglePlaybackMode,
         onMediaButtonSkipPreviousClick = viewModel::skipPrevious,
         onMediaButtonPlayClick = viewModel::play,
         onMediaButtonPauseClick = viewModel::pause,
@@ -58,12 +62,15 @@ internal fun PlayerRoute(
     }
 }
 
+@Suppress("LongParameterList")
 @Composable
 private fun PlayerScreen(
     musicState: MusicState,
     currentPosition: Long,
+    playbackMode: PlaybackMode,
     isFavorite: Boolean,
     onSkipTo: (Float) -> Unit,
+    onMediaButtonPlaybackModeClick: () -> Unit,
     onMediaButtonSkipPreviousClick: () -> Unit,
     onMediaButtonPlayClick: () -> Unit,
     onMediaButtonPauseClick: () -> Unit,
@@ -89,7 +96,9 @@ private fun PlayerScreen(
 
         PlayerMediaButtons(
             isPlaying = !musicState.playWhenReady,
+            playbackMode = playbackMode,
             isFavorite = isFavorite,
+            onPlaybackModeClick = onMediaButtonPlaybackModeClick,
             onSkipPreviousClick = onMediaButtonSkipPreviousClick,
             onPlayClick = onMediaButtonPlayClick,
             onPauseClick = onMediaButtonPauseClick,
