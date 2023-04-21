@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Maximillian Leonov
+ * Copyright 2023 Maximillian Leonov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,5 @@
 
 package com.maximillianleonov.musicmax.core.media.service.util
 
-internal object Constants {
-    internal const val POSITION_UPDATE_INTERVAL_MS = 1L
-
-    internal const val UNKNOWN_CUSTOM_ACTION_ERROR_MESSAGE = "Unknown custom action."
-    internal const val UNHANDLED_STATE_ERROR_MESSAGE = "Unhandled state."
-    internal const val INVALID_PLAYBACK_STATE_ERROR_MESSAGE = "Invalid playback state."
-}
+fun <T> unsafeLazy(initializer: () -> T) =
+    lazy(mode = LazyThreadSafetyMode.NONE, initializer = initializer)
