@@ -18,6 +18,7 @@ package com.maximillianleonov.musicmax.core.media.service
 
 import android.os.Bundle
 import androidx.media3.common.MediaItem
+import androidx.media3.session.CommandButton
 import androidx.media3.session.MediaLibraryService.MediaLibrarySession
 import androidx.media3.session.MediaSession
 import androidx.media3.session.SessionCommand
@@ -26,6 +27,8 @@ import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
 import com.maximillianleonov.musicmax.core.common.dispatcher.Dispatcher
 import com.maximillianleonov.musicmax.core.common.dispatcher.MusicmaxDispatchers.MAIN
+import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.FAVORITE_OFF
+import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.FAVORITE_ON
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
@@ -37,6 +40,10 @@ class MusicSessionCallback @Inject constructor(
     private val musicActionHandler: MusicActionHandler
 ) : MediaLibrarySession.Callback {
     private val coroutineScope = CoroutineScope(mainDispatcher + SupervisorJob())
+    val customLayout: List<CommandButton> get() = musicActionHandler.customLayout
+
+    fun toggleFavoriteAction(isFavorite: Boolean) =
+        musicActionHandler.setFavoriteCommand(if (isFavorite) FAVORITE_ON else FAVORITE_OFF)
 
     override fun onAddMediaItems(
         mediaSession: MediaSession,
