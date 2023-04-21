@@ -22,4 +22,6 @@
     <string name="play">Speel</string>
     <string name="pause">Stop tydelik</string>
     <string name="skip_next">Slaan oor na volgende</string>
+    <string name="favorite_add">Add to favorites</string>
+    <string name="favorite_remove">Remove from favorites</string>
 </resources>
