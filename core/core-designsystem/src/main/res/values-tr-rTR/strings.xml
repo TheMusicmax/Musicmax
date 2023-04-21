@@ -15,5 +15,7 @@
      limitations under the License.
 -->
 <resources>
-    <string name="back">Back</string>
+    <string name="back">Geri</string>
+    <string name="favorite_add">Add to favorites</string>
+    <string name="favorite_remove">Remove from favorites</string>
 </resources>
