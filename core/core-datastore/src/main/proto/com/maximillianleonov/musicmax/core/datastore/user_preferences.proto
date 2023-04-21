@@ -1,11 +1,14 @@
 syntax = "proto3";
 
+import "com/maximillianleonov/musicmax/core/datastore/playback_mode.proto";
+
 option java_package = "com.maximillianleonov.musicmax.core.datastore";
 option java_multiple_files = true;
 
 message UserPreferences {
     repeated string playing_queue_ids = 1;
     int32 playing_queue_index = 2;
+    PlaybackModeProto playback_mode = 4;
 
     map<string, bool> favorite_song_ids = 3;
 }
