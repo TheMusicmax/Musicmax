@@ -107,14 +107,14 @@ class MusicmaxAppState(
         navController.navigateToLibrary(
             prefix = prefix,
             libraryType = LibraryType.Artist,
-            libraryId = artistId
+            libraryId = artistId.toString()
         )
 
     fun navigateToAlbum(prefix: String, albumId: Long) =
         navController.navigateToLibrary(
             prefix = prefix,
             libraryType = LibraryType.Album,
-            libraryId = albumId
+            libraryId = albumId.toString()
         )
 
     fun setSystemBarsLightIcons() {

@@ -33,12 +33,12 @@ private const val LibraryIdArg = "library_id"
 private const val LibraryRouteWithArguments = "$LibraryRoute/{$LibraryTypeArg}/{$LibraryIdArg}"
 
 internal fun SavedStateHandle.getLibraryType() = LibraryType[checkNotNull(this[LibraryTypeArg])]
-internal fun SavedStateHandle.getLibraryId(): Long = checkNotNull(this[LibraryIdArg])
+internal fun SavedStateHandle.getLibraryId(): String = checkNotNull(this[LibraryIdArg])
 
 fun NavController.navigateToLibrary(
     prefix: String,
     libraryType: LibraryType,
-    libraryId: Long
+    libraryId: String
 ) = navigate(route = "${prefix}_$LibraryRoute/${libraryType.value}/$libraryId") {
     launchSingleTop = true
 }
@@ -51,7 +51,7 @@ fun NavGraphBuilder.libraryScreen(
     route = "${prefix}_$LibraryRouteWithArguments",
     arguments = listOf(
         navArgument(LibraryTypeArg) { type = NavType.StringType },
-        navArgument(LibraryIdArg) { type = NavType.LongType }
+        navArgument(LibraryIdArg) { type = NavType.StringType }
     )
 ) {
     LibraryRoute(

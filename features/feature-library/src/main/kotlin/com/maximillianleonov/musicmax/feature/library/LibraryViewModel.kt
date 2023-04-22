@@ -70,13 +70,13 @@ internal class LibraryViewModel @Inject constructor(
         val libraryId = savedStateHandle.getLibraryId()
         return when (savedStateHandle.getLibraryType()) {
             LibraryType.Artist -> {
-                getArtistUseCase(artistId = libraryId)
+                getArtistUseCase(artistId = libraryId.toLong())
                     .map(ArtistModel::asArtist)
                     .map(LibraryUiState::ArtistType)
             }
 
             LibraryType.Album -> {
-                getAlbumUseCase(albumId = libraryId)
+                getAlbumUseCase(albumId = libraryId.toLong())
                     .map(AlbumModel::asAlbum)
                     .map(LibraryUiState::AlbumType)
             }
