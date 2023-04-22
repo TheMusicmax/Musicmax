@@ -18,10 +18,12 @@
     <string name="songs">Songs</string>
     <string name="artists">Artists</string>
     <string name="albums">Albums</string>
+    <string name="folders">Folders</string>
     <plurals name="number_of_songs">
         <item quantity="other">%d songs</item>
     </plurals>
     <string name="no_songs">No songs.</string>
     <string name="no_artists">No artists.</string>
     <string name="no_albums">No albums.</string>
+    <string name="no_folders">No folders.</string>
 </resources>
