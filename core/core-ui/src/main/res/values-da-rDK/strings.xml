@@ -18,6 +18,7 @@
     <string name="songs">Sange</string>
     <string name="artists">Kunstnere</string>
     <string name="albums">Albums</string>
+    <string name="folders">Folders</string>
     <plurals name="number_of_songs">
         <item quantity="one">%d sang</item>
         <item quantity="other">%d sange</item>
@@ -25,4 +26,5 @@
     <string name="no_songs">Ingen sange.</string>
     <string name="no_artists">Ingen kunstnere.</string>
     <string name="no_albums">Ingen albums.</string>
+    <string name="no_folders">No folders.</string>
 </resources>
