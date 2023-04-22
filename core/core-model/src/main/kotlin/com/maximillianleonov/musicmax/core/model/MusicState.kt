@@ -32,6 +32,7 @@ data class MusicState(
         title = "",
         artist = "",
         album = "",
+        folder = "",
         isFavorite = false
     ),
     val playbackState: PlaybackState = PlaybackState.IDLE,

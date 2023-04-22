@@ -25,5 +25,6 @@ data class SongModel(
     val title: String,
     val artist: String,
     val album: String,
+    val folder: String,
     val isFavorite: Boolean
 )

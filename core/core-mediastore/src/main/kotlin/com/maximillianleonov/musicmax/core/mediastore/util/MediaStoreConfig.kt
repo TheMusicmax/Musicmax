@@ -33,7 +33,8 @@ internal object MediaStoreConfig {
             MediaStore.Audio.Media.ALBUM_ID,
             MediaStore.Audio.Media.TITLE,
             MediaStore.Audio.Media.ARTIST,
-            MediaStore.Audio.Media.ALBUM
+            MediaStore.Audio.Media.ALBUM,
+            MediaStore.Audio.Media.DATA
         )
     }
 }

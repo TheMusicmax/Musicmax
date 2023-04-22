@@ -29,5 +29,6 @@ fun SongModel.asSong() = Song(
     title = title,
     artist = artist,
     album = album,
+    folder = folder,
     isFavorite = isFavorite
 )

@@ -25,6 +25,7 @@ import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_A
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_MEDIA_ID
 import com.maximillianleonov.musicmax.core.media.service.util.ALBUM_ID
 import com.maximillianleonov.musicmax.core.media.service.util.ARTIST_ID
+import com.maximillianleonov.musicmax.core.media.service.util.FOLDER
 import com.maximillianleonov.musicmax.core.media.service.util.IS_FAVORITE_ID
 import com.maximillianleonov.musicmax.core.media.service.util.buildPlayableMediaItem
 import com.maximillianleonov.musicmax.core.model.Song
@@ -37,6 +38,7 @@ internal fun SongModel.asMediaItem() = buildPlayableMediaItem(
     artworkUri = artworkUri.toUri(),
     title = title,
     artist = artist,
+    folder = folder,
     isFavorite = isFavorite
 )
 
@@ -48,6 +50,7 @@ internal fun Song.asMediaItem() = buildPlayableMediaItem(
     artworkUri = artworkUri,
     title = title,
     artist = artist,
+    folder = folder,
     isFavorite = isFavorite
 )
 
@@ -60,6 +63,7 @@ internal fun MediaItem?.asSong() = Song(
     title = this?.mediaMetadata?.title.orEmpty(),
     artist = this?.mediaMetadata?.artist.orEmpty(),
     album = this?.mediaMetadata?.albumTitle.orEmpty(),
+    folder = this?.mediaMetadata?.extras?.getString(FOLDER).orEmpty(),
     isFavorite = this?.mediaMetadata?.extras?.getBoolean(IS_FAVORITE_ID) == true
 )
 

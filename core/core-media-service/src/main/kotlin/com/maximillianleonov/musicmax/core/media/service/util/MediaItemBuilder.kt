@@ -30,6 +30,7 @@ internal fun buildPlayableMediaItem(
     artworkUri: Uri,
     title: String,
     artist: String,
+    folder: String,
     isFavorite: Boolean
 ) = MediaItem.Builder()
     .setMediaId(mediaId)
@@ -49,6 +50,7 @@ internal fun buildPlayableMediaItem(
                 bundleOf(
                     ARTIST_ID to artistId,
                     ALBUM_ID to albumId,
+                    FOLDER to folder,
                     IS_FAVORITE_ID to isFavorite
                 )
             )
@@ -58,4 +60,5 @@ internal fun buildPlayableMediaItem(
 
 internal const val ARTIST_ID = "artist_id"
 internal const val ALBUM_ID = "album_id"
+internal const val FOLDER = "folder"
 internal const val IS_FAVORITE_ID = "favorite_id"
