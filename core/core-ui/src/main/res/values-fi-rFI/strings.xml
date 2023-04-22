@@ -18,6 +18,7 @@
     <string name="songs">Kappaleet</string>
     <string name="artists">Taiteilijat</string>
     <string name="albums">Albumit</string>
+    <string name="folders">Folders</string>
     <plurals name="number_of_songs">
         <item quantity="one">%d kappale</item>
         <item quantity="other">%d kappaletta</item>
@@ -25,4 +26,5 @@
     <string name="no_songs">Ei kappaleita.</string>
     <string name="no_artists">Ei artisteja.</string>
     <string name="no_albums">Ei albumeita.</string>
+    <string name="no_folders">No folders.</string>
 </resources>
