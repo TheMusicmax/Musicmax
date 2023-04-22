@@ -18,6 +18,7 @@
     <string name="songs">Brani</string>
     <string name="artists">Artisti</string>
     <string name="albums">Album</string>
+    <string name="folders">Folders</string>
     <plurals name="number_of_songs">
         <item quantity="one">%d song</item>
         <item quantity="other">%d songs</item>
@@ -25,4 +26,5 @@
     <string name="no_songs">No songs.</string>
     <string name="no_artists">No artists.</string>
     <string name="no_albums">Nessun album.</string>
+    <string name="no_folders">No folders.</string>
 </resources>
