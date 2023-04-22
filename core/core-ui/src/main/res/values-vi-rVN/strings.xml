@@ -18,10 +18,12 @@
     <string name="songs">Bài hát</string>
     <string name="artists">Nghệ sĩ</string>
     <string name="albums">Album</string>
+    <string name="folders">Folders</string>
     <plurals name="number_of_songs">
         <item quantity="other">%d bài hát</item>
     </plurals>
     <string name="no_songs">Không có bài hát.</string>
     <string name="no_artists">Không nghệ sĩ.</string>
     <string name="no_albums">Không có album.</string>
+    <string name="no_folders">No folders.</string>
 </resources>
