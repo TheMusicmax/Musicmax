@@ -18,6 +18,7 @@
     <string name="songs">Cançons</string>
     <string name="artists">Artistes</string>
     <string name="albums">Àlbums</string>
+    <string name="folders">Folders</string>
     <plurals name="number_of_songs">
         <item quantity="one">%d cançó</item>
         <item quantity="other">%d cançons</item>
@@ -25,4 +26,5 @@
     <string name="no_songs">Sense cançons.</string>
     <string name="no_artists">Sense artistes.</string>
     <string name="no_albums">Sense àlbums.</string>
+    <string name="no_folders">No folders.</string>
 </resources>
