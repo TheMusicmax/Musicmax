@@ -45,8 +45,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MusicService : MediaLibraryService() {
-    private var _mediaLibrarySession: MediaLibrarySession? = null
-    private val mediaLibrarySession get() = checkNotNull(_mediaLibrarySession)
+    private var mediaLibrarySession: MediaLibrarySession? = null
 
     @Inject lateinit var musicSessionCallback: MusicSessionCallback
     @Inject lateinit var musicNotificationProvider: MusicNotificationProvider
@@ -74,7 +73,7 @@ class MusicService : MediaLibraryService() {
             .setHandleAudioBecomingNoisy(true)
             .build()
 
-        _mediaLibrarySession = MediaLibrarySession.Builder(this, player, musicSessionCallback)
+        mediaLibrarySession = MediaLibrarySession.Builder(this, player, musicSessionCallback)
             .build().apply { player.addListener(PlayerListener()) }
 
         setMediaNotificationProvider(musicNotificationProvider)
@@ -87,10 +86,10 @@ class MusicService : MediaLibraryService() {
 
     override fun onDestroy() {
         super.onDestroy()
-        mediaLibrarySession.run {
+        mediaLibrarySession?.run {
             player.release()
             release()
-            _mediaLibrarySession = null
+            mediaLibrarySession = null
         }
         musicSessionCallback.cancelCoroutineScope()
         musicNotificationProvider.cancelCoroutineScope()
@@ -98,7 +97,7 @@ class MusicService : MediaLibraryService() {
 
     private fun startPlaybackModeSync() = coroutineScope.launch {
         getPlaybackModeUseCase().collectLatest { playbackMode ->
-            mediaLibrarySession.player.run {
+            mediaLibrarySession?.player?.run {
                 when (playbackMode) {
                     PlaybackModeModel.REPEAT -> {
                         shuffleModeEnabled = false
@@ -116,7 +115,7 @@ class MusicService : MediaLibraryService() {
                 }
             }
             musicSessionCallback.setPlaybackModeAction(playbackMode)
-            mediaLibrarySession.setCustomLayout(musicSessionCallback.customLayout)
+            mediaLibrarySession?.setCustomLayout(musicSessionCallback.customLayout)
         }
     }
 
@@ -125,7 +124,7 @@ class MusicService : MediaLibraryService() {
             currentMediaId in favoriteSongIds
         }.collectLatest { isCurrentMediaIdFavorite ->
             musicSessionCallback.toggleFavoriteAction(isFavorite = isCurrentMediaIdFavorite)
-            mediaLibrarySession.setCustomLayout(musicSessionCallback.customLayout)
+            mediaLibrarySession?.setCustomLayout(musicSessionCallback.customLayout)
         }
     }
 
