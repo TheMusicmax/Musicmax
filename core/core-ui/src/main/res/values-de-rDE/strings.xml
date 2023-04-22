@@ -18,6 +18,7 @@
     <string name="songs">Lieder</string>
     <string name="artists">Künstler</string>
     <string name="albums">Alben</string>
+    <string name="folders">Folders</string>
     <plurals name="number_of_songs">
         <item quantity="one">%d Lied</item>
         <item quantity="other">%d Lieder</item>
@@ -25,4 +26,5 @@
     <string name="no_songs">Keine Lieder.</string>
     <string name="no_artists">Keine Künstler.</string>
     <string name="no_albums">Keine Alben.</string>
+    <string name="no_folders">No folders.</string>
 </resources>
