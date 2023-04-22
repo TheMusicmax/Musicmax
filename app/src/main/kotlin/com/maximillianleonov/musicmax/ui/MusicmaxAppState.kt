@@ -32,10 +32,10 @@ import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.systemuicontroller.SystemUiController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.maximillianleonov.musicmax.core.permission.rememberMusicmaxPermissionState
-import com.maximillianleonov.musicmax.feature.album.navigation.navigateToAlbum
-import com.maximillianleonov.musicmax.feature.artist.navigation.navigateToArtist
 import com.maximillianleonov.musicmax.feature.favorite.navigation.FavoriteRoute
 import com.maximillianleonov.musicmax.feature.home.navigation.HomeRoute
+import com.maximillianleonov.musicmax.feature.library.model.LibraryType
+import com.maximillianleonov.musicmax.feature.library.navigation.navigateToLibrary
 import com.maximillianleonov.musicmax.feature.player.navigation.navigateToPlayer
 import com.maximillianleonov.musicmax.feature.search.navigation.SearchRoute
 import com.maximillianleonov.musicmax.feature.settings.navigation.SettingsRoute
@@ -102,11 +102,20 @@ class MusicmaxAppState(
         }
 
     fun navigateToPlayer() = navController.navigateToPlayer()
+
     fun navigateToArtist(prefix: String, artistId: Long) =
-        navController.navigateToArtist(prefix, artistId)
+        navController.navigateToLibrary(
+            prefix = prefix,
+            libraryType = LibraryType.Artist,
+            libraryId = artistId
+        )
 
     fun navigateToAlbum(prefix: String, albumId: Long) =
-        navController.navigateToAlbum(prefix, albumId)
+        navController.navigateToLibrary(
+            prefix = prefix,
+            libraryType = LibraryType.Album,
+            libraryId = albumId
+        )
 
     fun setSystemBarsLightIcons() {
         systemUiController.systemBarsDarkContentEnabled = false
