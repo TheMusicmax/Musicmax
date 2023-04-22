@@ -18,6 +18,7 @@
     <string name="songs">Dalok</string>
     <string name="artists">Artisták</string>
     <string name="albums">Albumok</string>
+    <string name="folders">Folders</string>
     <plurals name="number_of_songs">
         <item quantity="one">%d dal</item>
         <item quantity="other">%d dalok</item>
@@ -25,4 +26,5 @@
     <string name="no_songs">Nincsenek dalok.</string>
     <string name="no_artists">Nincsenek művészek.</string>
     <string name="no_albums">Nincsenek albumok.</string>
+    <string name="no_folders">No folders.</string>
 </resources>
