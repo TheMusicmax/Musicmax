@@ -18,6 +18,7 @@
     <string name="songs">Písně</string>
     <string name="artists">Umělci</string>
     <string name="albums">Alba</string>
+    <string name="folders">Folders</string>
     <plurals name="number_of_songs">
         <item quantity="one">%d skladba</item>
         <item quantity="few">%d skladeb</item>
@@ -27,4 +28,5 @@
     <string name="no_songs">Žádné písně.</string>
     <string name="no_artists">Žádní umělci.</string>
     <string name="no_albums">Žádná alba.</string>
+    <string name="no_folders">No folders.</string>
 </resources>
