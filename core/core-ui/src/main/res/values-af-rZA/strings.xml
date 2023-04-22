@@ -18,6 +18,7 @@
     <string name="songs">Liedjies</string>
     <string name="artists">Kunstenaars</string>
     <string name="albums">Albums</string>
+    <string name="folders">Folders</string>
     <plurals name="number_of_songs">
         <item quantity="one">%d liedjie</item>
         <item quantity="other">%d liedjies</item>
@@ -25,4 +26,5 @@
     <string name="no_songs">Geen liedjies nie.</string>
     <string name="no_artists">Kunstenaars nie.</string>
     <string name="no_albums">Album nie.</string>
+    <string name="no_folders">No folders.</string>
 </resources>
