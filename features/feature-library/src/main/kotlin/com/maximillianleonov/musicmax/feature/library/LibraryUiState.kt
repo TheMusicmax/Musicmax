@@ -18,6 +18,7 @@ package com.maximillianleonov.musicmax.feature.library
 
 import com.maximillianleonov.musicmax.core.model.Album
 import com.maximillianleonov.musicmax.core.model.Artist
+import com.maximillianleonov.musicmax.core.model.Folder
 
 internal sealed interface LibraryUiState {
     object Loading : LibraryUiState
@@ -28,5 +29,9 @@ internal sealed interface LibraryUiState {
 
     data class AlbumType(
         val album: Album
+    ) : LibraryUiState
+
+    data class FolderType(
+        val folder: Folder
     ) : LibraryUiState
 }

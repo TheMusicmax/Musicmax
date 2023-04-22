@@ -42,6 +42,7 @@ import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxTabRow
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 import com.maximillianleonov.musicmax.core.model.Album
 import com.maximillianleonov.musicmax.core.model.Artist
+import com.maximillianleonov.musicmax.core.model.Folder
 import com.maximillianleonov.musicmax.core.model.Song
 import com.maximillianleonov.musicmax.core.ui.common.MediaTab
 import kotlinx.coroutines.CoroutineScope
@@ -53,9 +54,11 @@ fun MediaPager(
     songs: List<Song>,
     artists: List<Artist>,
     albums: List<Album>,
+    folders: List<Folder>,
     onSongClick: (Int) -> Unit,
     onArtistClick: (Long) -> Unit,
     onAlbumClick: (Long) -> Unit,
+    onFolderClick: (String) -> Unit,
     onPlayClick: () -> Unit,
     onShuffleClick: () -> Unit,
     onToggleFavorite: (id: String, isFavorite: Boolean) -> Unit,
@@ -116,6 +119,10 @@ fun MediaPager(
 
                 MediaTab.Albums.ordinal -> {
                     Albums(albums = albums, onClick = onAlbumClick)
+                }
+
+                MediaTab.Folders.ordinal -> {
+                    Folders(folders = folders, onClick = onFolderClick)
                 }
             }
         }

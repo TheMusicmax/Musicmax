@@ -47,6 +47,16 @@ internal fun LazyListScope.libraryHeader(
                     onShuffleClick = onShuffleClick
                 )
             }
+
+            is LibraryUiState.FolderType -> {
+                val folder = uiState.folder
+                FolderHeader(
+                    name = folder.name,
+                    numberOfSongs = folder.songs.size,
+                    onPlayClick = onPlayClick,
+                    onShuffleClick = onShuffleClick
+                )
+            }
         }
     }
 }

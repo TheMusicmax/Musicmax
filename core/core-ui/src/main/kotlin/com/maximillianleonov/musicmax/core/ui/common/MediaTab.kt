@@ -22,5 +22,6 @@ import com.maximillianleonov.musicmax.core.ui.R
 internal enum class MediaTab(@StringRes val titleResource: Int) {
     Songs(titleResource = R.string.songs),
     Artists(titleResource = R.string.artists),
-    Albums(titleResource = R.string.albums)
+    Albums(titleResource = R.string.albums),
+    Folders(titleResource = R.string.folders)
 }

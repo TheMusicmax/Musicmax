@@ -23,10 +23,12 @@ internal fun LibraryUiState.getTitleResource() = when (this) {
     LibraryUiState.Loading -> R.string.loading
     is LibraryUiState.ArtistType -> R.string.artist
     is LibraryUiState.AlbumType -> R.string.album
+    is LibraryUiState.FolderType -> R.string.folder
 }
 
 internal fun LibraryUiState.getSongs() = when (this) {
     LibraryUiState.Loading -> emptyList()
     is LibraryUiState.AlbumType -> album.songs
     is LibraryUiState.ArtistType -> artist.songs
+    is LibraryUiState.FolderType -> folder.songs
 }

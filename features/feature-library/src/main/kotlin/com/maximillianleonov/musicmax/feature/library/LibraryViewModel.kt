@@ -21,13 +21,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maximillianleonov.musicmax.core.domain.model.AlbumModel
 import com.maximillianleonov.musicmax.core.domain.model.ArtistModel
+import com.maximillianleonov.musicmax.core.domain.model.FolderModel
 import com.maximillianleonov.musicmax.core.domain.usecase.GetAlbumUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.GetArtistUseCase
+import com.maximillianleonov.musicmax.core.domain.usecase.GetFolderUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.ToggleFavoriteSongUseCase
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants
 import com.maximillianleonov.musicmax.core.media.service.MusicServiceConnection
 import com.maximillianleonov.musicmax.core.ui.mapper.asAlbum
 import com.maximillianleonov.musicmax.core.ui.mapper.asArtist
+import com.maximillianleonov.musicmax.core.ui.mapper.asFolder
 import com.maximillianleonov.musicmax.feature.library.model.LibraryType
 import com.maximillianleonov.musicmax.feature.library.navigation.getLibraryId
 import com.maximillianleonov.musicmax.feature.library.navigation.getLibraryType
@@ -45,13 +48,15 @@ internal class LibraryViewModel @Inject constructor(
     private val musicServiceConnection: MusicServiceConnection,
     getArtistUseCase: GetArtistUseCase,
     getAlbumUseCase: GetAlbumUseCase,
+    getFolderUseCase: GetFolderUseCase,
     savedStateHandle: SavedStateHandle,
     private val toggleFavoriteSongUseCase: ToggleFavoriteSongUseCase
 ) : ViewModel() {
     val uiState = getInitialUiState(
         getArtistUseCase = getArtistUseCase,
         getAlbumUseCase = getAlbumUseCase,
-        savedStateHandle = savedStateHandle
+        savedStateHandle = savedStateHandle,
+        getFolderUseCase = getFolderUseCase
     )
 
     fun play(startIndex: Int = MediaConstants.DEFAULT_INDEX) =
@@ -65,6 +70,7 @@ internal class LibraryViewModel @Inject constructor(
     private fun getInitialUiState(
         getArtistUseCase: GetArtistUseCase,
         getAlbumUseCase: GetAlbumUseCase,
+        getFolderUseCase: GetFolderUseCase,
         savedStateHandle: SavedStateHandle
     ): StateFlow<LibraryUiState> {
         val libraryId = savedStateHandle.getLibraryId()
@@ -79,6 +85,12 @@ internal class LibraryViewModel @Inject constructor(
                 getAlbumUseCase(albumId = libraryId.toLong())
                     .map(AlbumModel::asAlbum)
                     .map(LibraryUiState::AlbumType)
+            }
+
+            LibraryType.Folder -> {
+                getFolderUseCase(name = libraryId)
+                    .map(FolderModel::asFolder)
+                    .map(LibraryUiState::FolderType)
             }
         }.stateIn(
             scope = viewModelScope,
