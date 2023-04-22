@@ -18,6 +18,7 @@
     <string name="songs">Пісні</string>
     <string name="artists">Художники</string>
     <string name="albums">Альбоми</string>
+    <string name="folders">Folders</string>
     <plurals name="number_of_songs">
         <item quantity="one">%d пісня</item>
         <item quantity="few">%d пісень</item>
@@ -27,4 +28,5 @@
     <string name="no_songs">Немає пісень.</string>
     <string name="no_artists">Немає художників.</string>
     <string name="no_albums">Немає альбомів.</string>
+    <string name="no_folders">No folders.</string>
 </resources>
