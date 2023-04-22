@@ -18,6 +18,7 @@ package com.maximillianleonov.musicmax.core.domain.repository
 
 import com.maximillianleonov.musicmax.core.domain.model.AlbumModel
 import com.maximillianleonov.musicmax.core.domain.model.ArtistModel
+import com.maximillianleonov.musicmax.core.domain.model.FolderModel
 import com.maximillianleonov.musicmax.core.domain.model.SongModel
 import kotlinx.coroutines.flow.Flow
 
@@ -25,4 +26,5 @@ interface MediaRepository {
     val songs: Flow<List<SongModel>>
     val artists: Flow<List<ArtistModel>>
     val albums: Flow<List<AlbumModel>>
+    val folders: Flow<List<FolderModel>>
 }
