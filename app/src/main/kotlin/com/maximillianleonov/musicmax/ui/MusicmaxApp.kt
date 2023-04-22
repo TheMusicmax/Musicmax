@@ -103,6 +103,7 @@ private fun MusicmaxAppContent(
                 onNavigateToPlayer = appState::navigateToPlayer,
                 onNavigateToArtist = appState::navigateToArtist,
                 onNavigateToAlbum = appState::navigateToAlbum,
+                onNavigateToFolder = appState::navigateToFolder,
                 onSetSystemBarsLightIcons = appState::setSystemBarsLightIcons,
                 onResetSystemBarsIcons = appState::resetSystemBarsIcons,
                 onBackClick = appState::onBackClick

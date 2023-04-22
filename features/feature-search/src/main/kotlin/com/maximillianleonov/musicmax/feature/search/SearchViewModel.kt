@@ -55,7 +55,8 @@ class SearchViewModel @Inject constructor(
             initialValue = SearchDetails(
                 songs = emptyList(),
                 artists = emptyList(),
-                albums = emptyList()
+                albums = emptyList(),
+                folders = emptyList()
             )
         )
 

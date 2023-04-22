@@ -23,6 +23,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.maximillianleonov.musicmax.core.model.Album
 import com.maximillianleonov.musicmax.core.model.Artist
+import com.maximillianleonov.musicmax.core.model.Folder
 import com.maximillianleonov.musicmax.core.model.Song
 import com.maximillianleonov.musicmax.core.ui.component.MediaPager
 
@@ -31,18 +32,21 @@ internal fun HomeRoute(
     onNavigateToPlayer: () -> Unit,
     onNavigateToArtist: (Long) -> Unit,
     onNavigateToAlbum: (Long) -> Unit,
+    onNavigateToFolder: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val songs by viewModel.songs.collectAsStateWithLifecycle()
     val artists by viewModel.artists.collectAsStateWithLifecycle()
     val albums by viewModel.albums.collectAsStateWithLifecycle()
+    val folders by viewModel.folders.collectAsStateWithLifecycle()
 
     HomeScreen(
         modifier = modifier,
         songs = songs,
         artists = artists,
         albums = albums,
+        folders = folders,
         onSongClick = { startIndex ->
             viewModel.play(startIndex)
             onNavigateToPlayer()
@@ -57,6 +61,7 @@ internal fun HomeRoute(
         },
         onArtistClick = onNavigateToArtist,
         onAlbumClick = onNavigateToAlbum,
+        onFolderClick = onNavigateToFolder,
         onToggleFavorite = viewModel::onToggleFavorite
     )
 }
@@ -66,9 +71,11 @@ private fun HomeScreen(
     songs: List<Song>,
     artists: List<Artist>,
     albums: List<Album>,
+    folders: List<Folder>,
     onSongClick: (Int) -> Unit,
     onArtistClick: (Long) -> Unit,
     onAlbumClick: (Long) -> Unit,
+    onFolderClick: (String) -> Unit,
     onPlayClick: () -> Unit,
     onShuffleClick: () -> Unit,
     onToggleFavorite: (id: String, isFavorite: Boolean) -> Unit,
@@ -79,9 +86,11 @@ private fun HomeScreen(
         songs = songs,
         artists = artists,
         albums = albums,
+        folders = folders,
         onSongClick = onSongClick,
         onArtistClick = onArtistClick,
         onAlbumClick = onAlbumClick,
+        onFolderClick = onFolderClick,
         onPlayClick = onPlayClick,
         onShuffleClick = onShuffleClick,
         onToggleFavorite = onToggleFavorite

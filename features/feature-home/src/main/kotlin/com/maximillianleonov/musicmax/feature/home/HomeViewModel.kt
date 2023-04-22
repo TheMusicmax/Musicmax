@@ -20,15 +20,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maximillianleonov.musicmax.core.domain.model.AlbumModel
 import com.maximillianleonov.musicmax.core.domain.model.ArtistModel
+import com.maximillianleonov.musicmax.core.domain.model.FolderModel
 import com.maximillianleonov.musicmax.core.domain.model.SongModel
 import com.maximillianleonov.musicmax.core.domain.usecase.GetAlbumsUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.GetArtistsUseCase
+import com.maximillianleonov.musicmax.core.domain.usecase.GetFoldersUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.GetSongsUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.ToggleFavoriteSongUseCase
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants
 import com.maximillianleonov.musicmax.core.media.service.MusicServiceConnection
 import com.maximillianleonov.musicmax.core.ui.mapper.asAlbum
 import com.maximillianleonov.musicmax.core.ui.mapper.asArtist
+import com.maximillianleonov.musicmax.core.ui.mapper.asFolder
 import com.maximillianleonov.musicmax.core.ui.mapper.asSong
 import com.maximillianleonov.musicmax.core.ui.mapper.listMap
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -43,6 +46,7 @@ class HomeViewModel @Inject constructor(
     getSongsUseCase: GetSongsUseCase,
     getArtistsUseCase: GetArtistsUseCase,
     getAlbumsUseCase: GetAlbumsUseCase,
+    getFoldersUseCase: GetFoldersUseCase,
     private val toggleFavoriteSongUseCase: ToggleFavoriteSongUseCase
 ) : ViewModel() {
     val songs = getSongsUseCase()
@@ -63,6 +67,14 @@ class HomeViewModel @Inject constructor(
 
     val albums = getAlbumsUseCase()
         .listMap(AlbumModel::asAlbum)
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.Eagerly,
+            initialValue = emptyList()
+        )
+
+    val folders = getFoldersUseCase()
+        .listMap(FolderModel::asFolder)
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.Eagerly,

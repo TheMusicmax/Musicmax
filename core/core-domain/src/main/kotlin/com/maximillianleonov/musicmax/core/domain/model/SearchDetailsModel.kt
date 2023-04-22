@@ -19,5 +19,6 @@ package com.maximillianleonov.musicmax.core.domain.model
 data class SearchDetailsModel(
     val songs: List<SongModel>,
     val artists: List<ArtistModel>,
-    val albums: List<AlbumModel>
+    val albums: List<AlbumModel>,
+    val folders: List<FolderModel>
 )

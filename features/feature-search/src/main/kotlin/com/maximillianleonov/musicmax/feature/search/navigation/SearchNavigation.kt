@@ -28,13 +28,15 @@ fun NavGraphBuilder.searchScreen(
     onNavigateToPlayer: () -> Unit,
     onNavigateToArtist: (Long) -> Unit,
     onNavigateToAlbum: (Long) -> Unit,
+    onNavigateToFolder: (String) -> Unit,
     nestedGraphs: NavGraphBuilder.() -> Unit
 ) = navigation(route = SearchGraphRoute, startDestination = SearchRoute) {
     composable(route = SearchRoute) {
         SearchRoute(
             onNavigateToPlayer = onNavigateToPlayer,
             onNavigateToArtist = onNavigateToArtist,
-            onNavigateToAlbum = onNavigateToAlbum
+            onNavigateToAlbum = onNavigateToAlbum,
+            onNavigateToFolder = onNavigateToFolder
         )
     }
     nestedGraphs()

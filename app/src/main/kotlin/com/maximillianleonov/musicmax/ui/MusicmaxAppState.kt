@@ -103,19 +103,23 @@ class MusicmaxAppState(
 
     fun navigateToPlayer() = navController.navigateToPlayer()
 
-    fun navigateToArtist(prefix: String, artistId: Long) =
-        navController.navigateToLibrary(
-            prefix = prefix,
-            libraryType = LibraryType.Artist,
-            libraryId = artistId.toString()
-        )
+    fun navigateToArtist(prefix: String, artistId: Long) = navController.navigateToLibrary(
+        prefix = prefix,
+        libraryType = LibraryType.Artist,
+        libraryId = artistId.toString()
+    )
 
-    fun navigateToAlbum(prefix: String, albumId: Long) =
-        navController.navigateToLibrary(
-            prefix = prefix,
-            libraryType = LibraryType.Album,
-            libraryId = albumId.toString()
-        )
+    fun navigateToAlbum(prefix: String, albumId: Long) = navController.navigateToLibrary(
+        prefix = prefix,
+        libraryType = LibraryType.Album,
+        libraryId = albumId.toString()
+    )
+
+    fun navigateToFolder(prefix: String, name: String) = navController.navigateToLibrary(
+        prefix = prefix,
+        libraryType = LibraryType.Folder,
+        libraryId = name
+    )
 
     fun setSystemBarsLightIcons() {
         systemUiController.systemBarsDarkContentEnabled = false

@@ -28,8 +28,11 @@ class SearchMediaUseCase @Inject constructor(private val mediaRepository: MediaR
     operator fun invoke(query: String) = combine(
         mediaRepository.songs,
         mediaRepository.artists,
-        mediaRepository.albums
-    ) { songs, artists, albums -> SearchDetailsModel(songs, artists, albums) }
+        mediaRepository.albums,
+        mediaRepository.folders
+    ) { songs, artists, albums, folders ->
+        SearchDetailsModel(songs, artists, albums, folders)
+    }
         .mapLatest { searchDetails ->
             if (query.isBlank()) {
                 return@mapLatest searchDetails.copy(
@@ -44,14 +47,25 @@ class SearchMediaUseCase @Inject constructor(private val mediaRepository: MediaR
                     it.artist.contains(query, ignoreCase = true) ||
                     it.album.contains(query, ignoreCase = true)
             }
+
             val artists = searchDetails.artists.filter {
                 it.name.contains(query, ignoreCase = true)
             }
+
             val albums = searchDetails.albums.filter {
                 it.name.contains(query, ignoreCase = true) ||
                     it.artist.contains(query, ignoreCase = true)
             }
 
-            searchDetails.copy(songs = songs, artists = artists, albums = albums)
+            val folders = searchDetails.folders.filter {
+                it.name.contains(query, ignoreCase = true)
+            }
+
+            searchDetails.copy(
+                songs = songs,
+                artists = artists,
+                albums = albums,
+                folders = folders
+            )
         }
 }

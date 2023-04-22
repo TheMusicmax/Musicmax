@@ -28,13 +28,15 @@ fun NavGraphBuilder.homeScreen(
     onNavigateToPlayer: () -> Unit,
     onNavigateToArtist: (Long) -> Unit,
     onNavigateToAlbum: (Long) -> Unit,
+    onNavigateToFolder: (String) -> Unit,
     nestedGraphs: NavGraphBuilder.() -> Unit
 ) = navigation(route = HomeGraphRoute, startDestination = HomeRoute) {
     composable(route = HomeRoute) {
         HomeRoute(
             onNavigateToPlayer = onNavigateToPlayer,
             onNavigateToArtist = onNavigateToArtist,
-            onNavigateToAlbum = onNavigateToAlbum
+            onNavigateToAlbum = onNavigateToAlbum,
+            onNavigateToFolder = onNavigateToFolder
         )
     }
     nestedGraphs()

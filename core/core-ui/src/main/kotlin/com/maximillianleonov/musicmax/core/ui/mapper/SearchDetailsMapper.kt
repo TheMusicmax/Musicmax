@@ -18,6 +18,7 @@ package com.maximillianleonov.musicmax.core.ui.mapper
 
 import com.maximillianleonov.musicmax.core.domain.model.AlbumModel
 import com.maximillianleonov.musicmax.core.domain.model.ArtistModel
+import com.maximillianleonov.musicmax.core.domain.model.FolderModel
 import com.maximillianleonov.musicmax.core.domain.model.SearchDetailsModel
 import com.maximillianleonov.musicmax.core.domain.model.SongModel
 import com.maximillianleonov.musicmax.core.model.SearchDetails
@@ -25,5 +26,6 @@ import com.maximillianleonov.musicmax.core.model.SearchDetails
 fun SearchDetailsModel.asSearchDetails() = SearchDetails(
     songs = songs.map(SongModel::asSong),
     artists = artists.map(ArtistModel::asArtist),
-    albums = albums.map(AlbumModel::asAlbum)
+    albums = albums.map(AlbumModel::asAlbum),
+    folders = folders.map(FolderModel::asFolder)
 )
