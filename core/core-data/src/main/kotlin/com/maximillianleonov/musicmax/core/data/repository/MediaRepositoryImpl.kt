@@ -21,6 +21,7 @@ import com.maximillianleonov.musicmax.core.data.mapper.listMap
 import com.maximillianleonov.musicmax.core.datastore.PreferencesDataSource
 import com.maximillianleonov.musicmax.core.domain.model.AlbumModel
 import com.maximillianleonov.musicmax.core.domain.model.ArtistModel
+import com.maximillianleonov.musicmax.core.domain.model.FolderModel
 import com.maximillianleonov.musicmax.core.domain.model.SongModel
 import com.maximillianleonov.musicmax.core.domain.repository.MediaRepository
 import com.maximillianleonov.musicmax.core.mediastore.source.MediaStoreDataSource
@@ -45,11 +46,7 @@ class MediaRepositoryImpl @Inject constructor(
     override val artists: Flow<List<ArtistModel>> = songs.map { songs ->
         songs.groupBy(SongModel::artistId).map { (artistId, songs) ->
             val song = songs.first()
-            ArtistModel(
-                id = artistId,
-                name = song.artist,
-                songs = songs
-            )
+            ArtistModel(id = artistId, name = song.artist, songs = songs)
         }
     }
 
@@ -63,6 +60,12 @@ class MediaRepositoryImpl @Inject constructor(
                 artist = song.artist,
                 songs = songs
             )
+        }
+    }
+
+    override val folders: Flow<List<FolderModel>> = songs.map { songs ->
+        songs.groupBy(SongModel::folder).map { (name, songs) ->
+            FolderModel(name = name, songs = songs)
         }
     }
 }
