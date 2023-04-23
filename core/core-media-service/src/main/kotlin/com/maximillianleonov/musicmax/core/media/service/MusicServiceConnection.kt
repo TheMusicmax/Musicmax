@@ -163,11 +163,17 @@ class MusicServiceConnection @Inject constructor(
     }
 
     private suspend fun updatePlayingQueue(startPositionMs: Long = DEFAULT_POSITION_MS) {
-        val ids = getPlayingQueueIdsUseCase().first()
-        val songs = getSongsUseCase().first().filter { it.mediaId in ids }
+        val songs = getSongsUseCase().first()
+        val playingQueueSongs = getPlayingQueueIdsUseCase().first().mapNotNull { playingQueueId ->
+            songs.find { it.mediaId == playingQueueId }
+        }
         val startIndex = getPlayingQueueIndexUseCase().first()
         mediaBrowser?.run {
-            setMediaItems(songs.map(SongModel::asMediaItem), startIndex, startPositionMs)
+            setMediaItems(
+                playingQueueSongs.map(SongModel::asMediaItem),
+                startIndex,
+                startPositionMs
+            )
             prepare()
         }
     }
