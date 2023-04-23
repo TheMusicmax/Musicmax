@@ -5,6 +5,7 @@ android-targetSdk = "33"
 
 kotlin = "1.8.20"
 android-gradle-plugin = "8.0.0"
+desugar-jdk-libs = "2.0.3"
 ksp = "1.8.20-1.0.11"
 spotless = "6.18.0"
 detekt = "1.22.0"
@@ -89,6 +90,8 @@ androidx-test-espresso-core = { module = "androidx.test.espresso:espresso-core",
 androidx-test-uiautomator = { module = "androidx.test.uiautomator:uiautomator", version.ref = "androidx-test-uiautomator" }
 junit = { module = "junit:junit", version.ref = "junit" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+
+desugar-jdk-libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar-jdk-libs" }
 
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
