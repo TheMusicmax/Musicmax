@@ -33,7 +33,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
@@ -44,6 +43,7 @@ import androidx.compose.ui.res.stringResource
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.shouldShowRationale
+import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxOutlinedButton
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 
 @OptIn(
@@ -98,7 +98,7 @@ fun PermissionContent(
 
             Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraMedium))
 
-            OutlinedButton(
+            MusicmaxOutlinedButton(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = permissionState::launchPermissionRequest
             ) {
@@ -108,7 +108,7 @@ fun PermissionContent(
             AnimatedVisibility(
                 visible = isPermissionRequested && !permissionState.status.shouldShowRationale
             ) {
-                OutlinedButton(
+                MusicmaxOutlinedButton(
                     modifier = Modifier
                         .padding(top = MaterialTheme.spacing.smallMedium)
                         .fillMaxWidth(),
