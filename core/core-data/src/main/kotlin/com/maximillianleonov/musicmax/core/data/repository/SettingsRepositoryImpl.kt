@@ -20,6 +20,7 @@ import com.maximillianleonov.musicmax.core.data.util.Constants
 import com.maximillianleonov.musicmax.core.data.util.MusicmaxVersionProvider
 import com.maximillianleonov.musicmax.core.datastore.PreferencesDataSource
 import com.maximillianleonov.musicmax.core.domain.repository.SettingsRepository
+import com.maximillianleonov.musicmax.core.model.DarkThemeConfig
 import com.maximillianleonov.musicmax.core.model.PlaybackMode
 import com.maximillianleonov.musicmax.core.model.UserData
 import kotlinx.coroutines.flow.Flow
@@ -46,4 +47,10 @@ class SettingsRepositoryImpl @Inject constructor(
 
     override suspend fun toggleFavoriteSong(id: String, isFavorite: Boolean) =
         preferencesDataSource.toggleFavoriteSong(id, isFavorite)
+
+    override suspend fun setDynamicColor(useDynamicColor: Boolean) =
+        preferencesDataSource.setDynamicColor(useDynamicColor)
+
+    override suspend fun setDarkThemeConfig(darkThemeConfig: DarkThemeConfig) =
+        preferencesDataSource.setDarkThemeConfig(darkThemeConfig)
 }
