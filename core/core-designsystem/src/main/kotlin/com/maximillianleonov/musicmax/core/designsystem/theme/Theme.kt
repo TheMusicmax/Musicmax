@@ -55,4 +55,4 @@ val MaterialTheme.spacing: Spacing
     get() = LocalSpacing.current
 
 @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.S)
-private fun supportsDynamicTheming() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+fun supportsDynamicTheming() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
