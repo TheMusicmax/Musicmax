@@ -22,8 +22,8 @@ import androidx.media3.common.C.USAGE_MEDIA
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
-import androidx.media3.session.MediaLibraryService
 import androidx.media3.session.MediaSession
+import androidx.media3.session.MediaSessionService
 import com.maximillianleonov.musicmax.core.common.dispatcher.Dispatcher
 import com.maximillianleonov.musicmax.core.common.dispatcher.MusicmaxDispatchers.MAIN
 import com.maximillianleonov.musicmax.core.domain.usecase.GetFavoriteSongIdsUseCase
@@ -44,8 +44,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MusicService : MediaLibraryService() {
-    private var mediaLibrarySession: MediaLibrarySession? = null
+class MusicService : MediaSessionService() {
+    private var mediaSession: MediaSession? = null
 
     @Inject lateinit var musicSessionCallback: MusicSessionCallback
     @Inject lateinit var musicNotificationProvider: MusicNotificationProvider
@@ -73,8 +73,10 @@ class MusicService : MediaLibraryService() {
             .setHandleAudioBecomingNoisy(true)
             .build()
 
-        mediaLibrarySession = MediaLibrarySession.Builder(this, player, musicSessionCallback)
-            .build().apply { player.addListener(PlayerListener()) }
+        mediaSession = MediaSession.Builder(this, player)
+            .setCallback(musicSessionCallback)
+            .build()
+            .apply { player.addListener(PlayerListener()) }
 
         setMediaNotificationProvider(musicNotificationProvider)
 
@@ -82,14 +84,14 @@ class MusicService : MediaLibraryService() {
         startFavoriteSync()
     }
 
-    override fun onGetSession(controllerInfo: MediaSession.ControllerInfo) = mediaLibrarySession
+    override fun onGetSession(controllerInfo: MediaSession.ControllerInfo) = mediaSession
 
     override fun onDestroy() {
-        mediaLibrarySession?.run {
+        mediaSession?.run {
             player.release()
             release()
             clearListener()
-            mediaLibrarySession = null
+            mediaSession = null
         }
         musicSessionCallback.cancelCoroutineScope()
         musicNotificationProvider.cancelCoroutineScope()
@@ -98,7 +100,7 @@ class MusicService : MediaLibraryService() {
 
     private fun startPlaybackModeSync() = coroutineScope.launch {
         getPlaybackModeUseCase().collectLatest { playbackMode ->
-            mediaLibrarySession?.player?.run {
+            mediaSession?.player?.run {
                 when (playbackMode) {
                     PlaybackMode.REPEAT -> {
                         shuffleModeEnabled = false
@@ -116,7 +118,7 @@ class MusicService : MediaLibraryService() {
                 }
             }
             musicSessionCallback.setPlaybackModeAction(playbackMode)
-            mediaLibrarySession?.setCustomLayout(musicSessionCallback.customLayout)
+            mediaSession?.setCustomLayout(musicSessionCallback.customLayout)
         }
     }
 
@@ -125,7 +127,7 @@ class MusicService : MediaLibraryService() {
             currentMediaId in favoriteSongIds
         }.collectLatest { isCurrentMediaIdFavorite ->
             musicSessionCallback.toggleFavoriteAction(isFavorite = isCurrentMediaIdFavorite)
-            mediaLibrarySession?.setCustomLayout(musicSessionCallback.customLayout)
+            mediaSession?.setCustomLayout(musicSessionCallback.customLayout)
         }
     }
 

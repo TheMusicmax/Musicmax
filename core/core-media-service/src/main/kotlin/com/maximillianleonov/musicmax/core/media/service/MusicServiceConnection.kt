@@ -23,7 +23,7 @@ import androidx.media3.common.Player.EVENT_MEDIA_ITEM_TRANSITION
 import androidx.media3.common.Player.EVENT_MEDIA_METADATA_CHANGED
 import androidx.media3.common.Player.EVENT_PLAYBACK_STATE_CHANGED
 import androidx.media3.common.Player.EVENT_PLAY_WHEN_READY_CHANGED
-import androidx.media3.session.MediaBrowser
+import androidx.media3.session.MediaController
 import androidx.media3.session.SessionToken
 import com.maximillianleonov.musicmax.core.common.dispatcher.Dispatcher
 import com.maximillianleonov.musicmax.core.common.dispatcher.MusicmaxDispatchers.MAIN
@@ -68,7 +68,7 @@ class MusicServiceConnection @Inject constructor(
     private val getPlayingQueueIndexUseCase: GetPlayingQueueIndexUseCase,
     private val setPlayingQueueIndexUseCase: SetPlayingQueueIndexUseCase
 ) {
-    private var mediaBrowser: MediaBrowser? = null
+    private var mediaController: MediaController? = null
     private val coroutineScope = CoroutineScope(mainDispatcher + SupervisorJob())
 
     private val _musicState = MutableStateFlow(MusicState())
@@ -76,7 +76,7 @@ class MusicServiceConnection @Inject constructor(
 
     val currentPosition = flow {
         while (currentCoroutineContext().isActive) {
-            val currentPosition = mediaBrowser?.currentPosition ?: DEFAULT_POSITION_MS
+            val currentPosition = mediaController?.currentPosition ?: DEFAULT_POSITION_MS
             emit(currentPosition)
             delay(1.milliseconds)
         }
@@ -84,7 +84,7 @@ class MusicServiceConnection @Inject constructor(
 
     init {
         coroutineScope.launch {
-            mediaBrowser = MediaBrowser.Builder(
+            mediaController = MediaController.Builder(
                 context,
                 SessionToken(context, ComponentName(context, MusicService::class.java))
             ).buildAsync().await().apply { addListener(PlayerListener()) }
@@ -92,20 +92,20 @@ class MusicServiceConnection @Inject constructor(
         }
     }
 
-    fun skipPrevious() = mediaBrowser?.run {
+    fun skipPrevious() = mediaController?.run {
         seekToPrevious()
         play()
     }
 
-    fun play() = mediaBrowser?.play()
-    fun pause() = mediaBrowser?.pause()
+    fun play() = mediaController?.play()
+    fun pause() = mediaController?.pause()
 
-    fun skipNext() = mediaBrowser?.run {
+    fun skipNext() = mediaController?.run {
         seekToNext()
         play()
     }
 
-    fun skipTo(position: Long) = mediaBrowser?.run {
+    fun skipTo(position: Long) = mediaController?.run {
         seekTo(position)
         play()
     }
@@ -115,7 +115,7 @@ class MusicServiceConnection @Inject constructor(
         startIndex: Int = DEFAULT_INDEX,
         startPositionMs: Long = DEFAULT_POSITION_MS
     ) {
-        mediaBrowser?.run {
+        mediaController?.run {
             setMediaItems(songs.map(Song::asMediaItem), startIndex, startPositionMs)
             prepare()
             play()
@@ -167,7 +167,7 @@ class MusicServiceConnection @Inject constructor(
             songs.find { it.mediaId == playingQueueId }
         }
         val startIndex = getPlayingQueueIndexUseCase().first()
-        mediaBrowser?.run {
+        mediaController?.run {
             setMediaItems(playingQueueSongs.map(Song::asMediaItem), startIndex, startPositionMs)
             prepare()
         }
