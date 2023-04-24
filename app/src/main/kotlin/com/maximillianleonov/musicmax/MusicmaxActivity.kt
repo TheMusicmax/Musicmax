@@ -80,7 +80,18 @@ class MusicmaxActivity : ComponentActivity() {
                     useDynamicColor = shouldUseDynamicColor(uiState = uiState),
                     darkTheme = darkTheme,
                 ) {
-                    MusicmaxApp()
+                    MusicmaxApp(
+                        onSetSystemBarsLightIcons = {
+                            if (!darkTheme) {
+                                systemUiController.systemBarsDarkContentEnabled = false
+                            }
+                        },
+                        onResetSystemBarsIcons = {
+                            if (!darkTheme) {
+                                systemUiController.systemBarsDarkContentEnabled = true
+                            }
+                        }
+                    )
                 }
             }
         }

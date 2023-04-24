@@ -41,10 +41,18 @@ import com.maximillianleonov.musicmax.ui.component.MusicmaxBottomBar
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun MusicmaxApp(appState: MusicmaxAppState = rememberMusicmaxAppState()) {
+fun MusicmaxApp(
+    onSetSystemBarsLightIcons: () -> Unit,
+    onResetSystemBarsIcons: () -> Unit,
+    appState: MusicmaxAppState = rememberMusicmaxAppState()
+) {
     when (appState.permissionState.status) {
         PermissionStatus.Granted -> {
-            MusicmaxAppContent(appState = appState)
+            MusicmaxAppContent(
+                appState = appState,
+                onSetSystemBarsLightIcons = onSetSystemBarsLightIcons,
+                onResetSystemBarsIcons = onResetSystemBarsIcons
+            )
         }
 
         is PermissionStatus.Denied -> {
@@ -60,6 +68,8 @@ fun MusicmaxApp(appState: MusicmaxAppState = rememberMusicmaxAppState()) {
 @Composable
 private fun MusicmaxAppContent(
     appState: MusicmaxAppState,
+    onSetSystemBarsLightIcons: () -> Unit,
+    onResetSystemBarsIcons: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -101,8 +111,8 @@ private fun MusicmaxAppContent(
                 onNavigateToArtist = appState::navigateToArtist,
                 onNavigateToAlbum = appState::navigateToAlbum,
                 onNavigateToFolder = appState::navigateToFolder,
-                onSetSystemBarsLightIcons = appState::setSystemBarsLightIcons,
-                onResetSystemBarsIcons = appState::resetSystemBarsIcons,
+                onSetSystemBarsLightIcons = onSetSystemBarsLightIcons,
+                onResetSystemBarsIcons = onResetSystemBarsIcons,
                 onBackClick = appState::onBackClick
             )
             AnimatedVisibility(
