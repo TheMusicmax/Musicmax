@@ -102,4 +102,4 @@ private fun getAdMobConfigMap(file: File, properties: Properties) =
     }
 
 private const val TEST_APP_ID = "ca-app-pub-3940256099942544~3347511713"
-private const val TEST_BANNER_ID = "ca-app-pub-3940256099942544/6300978111"
+private const val TEST_BANNER_ID = ""
