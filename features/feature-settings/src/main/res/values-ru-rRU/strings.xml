@@ -16,14 +16,14 @@
 -->
 <resources>
     <string name="settings">Настройки</string>
-    <string name="appearance">Appearance</string>
-    <string name="use_dynamic_color">Use Dynamic Color</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
-    <string name="dark_mode_preference">Dark mode preference</string>
-    <string name="system_default">System default</string>
-    <string name="light">Light</string>
-    <string name="dark">Dark</string>
+    <string name="appearance">Внешний вид</string>
+    <string name="use_dynamic_color">Использовать динамические цвета</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="dark_mode_preference">Настройки тёмного режима</string>
+    <string name="system_default">По умолчанию системы</string>
+    <string name="light">Светлая</string>
+    <string name="dark">Тёмная</string>
     <string name="about">О приложении</string>
     <string name="source_code_github">Исходный код на GitHub</string>
     <string name="privacy_policy">Политика конфиденциальности</string>
