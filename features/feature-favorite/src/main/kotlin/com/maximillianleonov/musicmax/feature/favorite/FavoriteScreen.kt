@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
+import com.maximillianleonov.musicmax.core.model.MusicState
 import com.maximillianleonov.musicmax.core.model.Song
 import com.maximillianleonov.musicmax.core.ui.component.PlayOutlinedShuffleButtons
 import com.maximillianleonov.musicmax.core.ui.component.Songs
@@ -38,8 +39,10 @@ internal fun FavoriteRoute(
     viewModel: FavoriteViewModel = hiltViewModel()
 ) {
     val songs by viewModel.songs.collectAsStateWithLifecycle()
+    val musicState by viewModel.musicState.collectAsStateWithLifecycle()
     FavoriteScreen(
         modifier = modifier,
+        musicState = musicState,
         songs = songs,
         onSongClick = { startIndex ->
             viewModel.play(startIndex)
@@ -59,6 +62,7 @@ internal fun FavoriteRoute(
 
 @Composable
 private fun FavoriteScreen(
+    musicState: MusicState,
     songs: List<Song>,
     onSongClick: (Int) -> Unit,
     onPlayClick: () -> Unit,
@@ -77,6 +81,7 @@ private fun FavoriteScreen(
 
         Songs(
             songs = songs,
+            currentPlayingSongId = musicState.currentSong.mediaId,
             onClick = onSongClick,
             onToggleFavorite = onToggleFavorite
         )

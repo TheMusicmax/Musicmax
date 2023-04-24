@@ -22,8 +22,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.CardColors
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -55,10 +53,9 @@ internal fun Folders(
 private fun FolderItem(
     folder: Folder,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    colors: CardColors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+    modifier: Modifier = Modifier
 ) {
-    MusicmaxCard(modifier = modifier, onClick = onClick, colors = colors) {
+    MusicmaxCard(modifier = modifier, onClick = onClick) {
         Column(
             modifier = Modifier
                 .padding(MaterialTheme.spacing.small)

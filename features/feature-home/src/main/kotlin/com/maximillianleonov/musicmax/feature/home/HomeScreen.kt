@@ -24,6 +24,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.maximillianleonov.musicmax.core.model.Album
 import com.maximillianleonov.musicmax.core.model.Artist
 import com.maximillianleonov.musicmax.core.model.Folder
+import com.maximillianleonov.musicmax.core.model.MusicState
 import com.maximillianleonov.musicmax.core.model.Song
 import com.maximillianleonov.musicmax.core.ui.component.MediaPager
 
@@ -36,6 +37,7 @@ internal fun HomeRoute(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
+    val musicState by viewModel.musicState.collectAsStateWithLifecycle()
     val songs by viewModel.songs.collectAsStateWithLifecycle()
     val artists by viewModel.artists.collectAsStateWithLifecycle()
     val albums by viewModel.albums.collectAsStateWithLifecycle()
@@ -43,6 +45,7 @@ internal fun HomeRoute(
 
     HomeScreen(
         modifier = modifier,
+        musicState = musicState,
         songs = songs,
         artists = artists,
         albums = albums,
@@ -68,6 +71,7 @@ internal fun HomeRoute(
 
 @Composable
 private fun HomeScreen(
+    musicState: MusicState,
     songs: List<Song>,
     artists: List<Artist>,
     albums: List<Album>,
@@ -84,6 +88,7 @@ private fun HomeScreen(
     MediaPager(
         modifier = modifier,
         songs = songs,
+        currentPlayingSongId = musicState.currentSong.mediaId,
         artists = artists,
         albums = albums,
         folders = folders,

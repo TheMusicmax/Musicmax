@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxScaffold
+import com.maximillianleonov.musicmax.core.model.MusicState
 import com.maximillianleonov.musicmax.core.ui.component.songs
 import com.maximillianleonov.musicmax.feature.library.component.libraryHeader
 import com.maximillianleonov.musicmax.feature.library.util.getSongs
@@ -39,9 +40,11 @@ internal fun LibraryRoute(
     viewModel: LibraryViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val musicState by viewModel.musicState.collectAsStateWithLifecycle()
     LibraryScreen(
         modifier = modifier,
         uiState = uiState,
+        musicState = musicState,
         onBackClick = onBackClick,
         onPlayClick = {
             viewModel.play()
@@ -63,6 +66,7 @@ internal fun LibraryRoute(
 @Composable
 private fun LibraryScreen(
     uiState: LibraryUiState,
+    musicState: MusicState,
     onBackClick: () -> Unit,
     onPlayClick: () -> Unit,
     onShuffleClick: () -> Unit,
@@ -88,6 +92,7 @@ private fun LibraryScreen(
 
             songs(
                 songs = uiState.getSongs(),
+                currentPlayingSongId = musicState.currentSong.mediaId,
                 onClick = onSongClick,
                 onToggleFavorite = onToggleFavorite
             )

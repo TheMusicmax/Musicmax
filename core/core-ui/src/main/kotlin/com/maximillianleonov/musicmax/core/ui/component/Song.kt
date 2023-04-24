@@ -28,6 +28,7 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -45,6 +46,7 @@ import com.maximillianleonov.musicmax.core.ui.util.LocalAdMobConfigProvider
 @Composable
 fun Songs(
     songs: List<Song>,
+    currentPlayingSongId: String,
     onClick: (Int) -> Unit,
     onToggleFavorite: (id: String, isFavorite: Boolean) -> Unit,
     modifier: Modifier = Modifier,
@@ -57,6 +59,7 @@ fun Songs(
             itemsIndexed(songs) { index, song ->
                 SongItem(
                     song = song,
+                    isPlaying = song.mediaId == currentPlayingSongId,
                     onClick = { onClick(index) },
                     onToggleFavorite = { isFavorite -> onToggleFavorite(song.mediaId, isFavorite) }
                 )
@@ -69,6 +72,7 @@ fun Songs(
 
 fun LazyListScope.songs(
     songs: List<Song>,
+    currentPlayingSongId: String,
     onClick: (Int) -> Unit,
     onToggleFavorite: (id: String, isFavorite: Boolean) -> Unit
 ) {
@@ -78,6 +82,7 @@ fun LazyListScope.songs(
         itemsIndexed(songs) { index, song ->
             SongItem(
                 song = song,
+                isPlaying = song.mediaId == currentPlayingSongId,
                 onClick = { onClick(index) },
                 onToggleFavorite = { isFavorite -> onToggleFavorite(song.mediaId, isFavorite) }
             )
@@ -92,12 +97,15 @@ fun LazyListScope.songs(
 @Composable
 private fun SongItem(
     song: Song,
+    isPlaying: Boolean,
     onClick: () -> Unit,
     onToggleFavorite: (isFavorite: Boolean) -> Unit,
     modifier: Modifier = Modifier,
-    colors: CardColors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+    colors: CardColors = CardDefaults.cardColors(
+        containerColor = if (isPlaying) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface
+    ),
 ) {
-    MusicmaxCard(modifier = modifier, onClick = onClick, colors = colors) {
+    MusicmaxCard(modifier = modifier, onClick = onClick, shapeSize = 0.dp, colors = colors) {
         Row(
             modifier = Modifier
                 .padding(MaterialTheme.spacing.small)
@@ -120,20 +128,37 @@ private fun SongItem(
                     SingleLineText(
                         text = song.title,
                         style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onSurface
+                        color = if (isPlaying) {
+                            MaterialTheme.colorScheme.onPrimary
+                        } else {
+                            MaterialTheme.colorScheme.onSurface
+                        }
                     )
                     SingleLineText(
                         text = song.artist,
                         style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        color = if (isPlaying) {
+                            MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.75f)
+                        } else {
+                            MaterialTheme.colorScheme.onSurfaceVariant
+                        }
                     )
                 }
             }
 
+            val favoriteButtonColor = if (isPlaying) {
+                MaterialTheme.colorScheme.onPrimary
+            } else {
+                MaterialTheme.colorScheme.primary
+            }
             FavoriteButton(
                 modifier = Modifier.weight(FavoriteButtonWeight),
                 isFavorite = song.isFavorite,
-                onToggleFavorite = onToggleFavorite
+                onToggleFavorite = onToggleFavorite,
+                colors = IconButtonDefaults.iconToggleButtonColors(
+                    contentColor = favoriteButtonColor,
+                    checkedContentColor = favoriteButtonColor
+                )
             )
         }
     }

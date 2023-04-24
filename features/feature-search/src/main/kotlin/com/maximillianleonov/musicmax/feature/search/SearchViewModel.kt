@@ -43,6 +43,8 @@ class SearchViewModel @Inject constructor(
     private val _query = MutableStateFlow("")
     val query = _query.asStateFlow()
 
+    val musicState = musicServiceConnection.musicState
+
     @OptIn(ExperimentalCoroutinesApi::class)
     val searchDetails = query
         .flatMapLatest { query -> searchMediaUseCase(query.trim()) }

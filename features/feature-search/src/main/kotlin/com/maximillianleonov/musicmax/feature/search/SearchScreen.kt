@@ -28,6 +28,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.maximillianleonov.musicmax.core.model.Album
 import com.maximillianleonov.musicmax.core.model.Artist
 import com.maximillianleonov.musicmax.core.model.Folder
+import com.maximillianleonov.musicmax.core.model.MusicState
 import com.maximillianleonov.musicmax.core.model.Song
 import com.maximillianleonov.musicmax.core.ui.component.MediaPager
 import com.maximillianleonov.musicmax.feature.search.component.SearchTextField
@@ -42,11 +43,13 @@ internal fun SearchRoute(
     viewModel: SearchViewModel = hiltViewModel()
 ) {
     val query by viewModel.query.collectAsStateWithLifecycle()
+    val musicState by viewModel.musicState.collectAsStateWithLifecycle()
     val searchDetails by viewModel.searchDetails.collectAsStateWithLifecycle()
 
     SearchScreen(
         modifier = modifier,
         query = query,
+        musicState = musicState,
         songs = searchDetails.songs,
         artists = searchDetails.artists,
         albums = searchDetails.albums,
@@ -74,6 +77,7 @@ internal fun SearchRoute(
 @Composable
 private fun SearchScreen(
     query: String,
+    musicState: MusicState,
     songs: List<Song>,
     artists: List<Artist>,
     albums: List<Album>,
@@ -97,6 +101,7 @@ private fun SearchScreen(
         ) {
             MediaPager(
                 songs = songs,
+                currentPlayingSongId = musicState.currentSong.mediaId,
                 artists = artists,
                 albums = albums,
                 folders = folders,

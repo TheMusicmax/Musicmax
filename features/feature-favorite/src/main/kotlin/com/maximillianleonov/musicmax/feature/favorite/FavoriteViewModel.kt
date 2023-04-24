@@ -46,6 +46,8 @@ class FavoriteViewModel @Inject constructor(
             initialValue = emptyList()
         )
 
+    val musicState = musicServiceConnection.musicState
+
     fun play(startIndex: Int = MediaConstants.DEFAULT_INDEX) =
         musicServiceConnection.playSongs(songs = songs.value, startIndex = startIndex)
 

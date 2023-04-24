@@ -53,6 +53,8 @@ internal class LibraryViewModel @Inject constructor(
         getFolderByNameUseCase = getFolderByNameUseCase
     )
 
+    val musicState = musicServiceConnection.musicState
+
     fun play(startIndex: Int = MediaConstants.DEFAULT_INDEX) =
         musicServiceConnection.playSongs(songs = uiState.value.getSongs(), startIndex = startIndex)
 

@@ -40,6 +40,8 @@ class HomeViewModel @Inject constructor(
     getFoldersUseCase: GetFoldersUseCase,
     private val toggleFavoriteSongUseCase: ToggleFavoriteSongUseCase
 ) : ViewModel() {
+    val musicState = musicServiceConnection.musicState
+
     val songs = getSongsUseCase().stateIn(
         scope = viewModelScope,
         started = SharingStarted.Eagerly,

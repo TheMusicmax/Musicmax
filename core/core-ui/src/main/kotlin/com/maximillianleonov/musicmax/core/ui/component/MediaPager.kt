@@ -52,6 +52,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun MediaPager(
     songs: List<Song>,
+    currentPlayingSongId: String,
     artists: List<Artist>,
     albums: List<Album>,
     folders: List<Folder>,
@@ -108,6 +109,7 @@ fun MediaPager(
                 MediaTab.Songs.ordinal -> {
                     Songs(
                         songs = songs,
+                        currentPlayingSongId = currentPlayingSongId,
                         onClick = onSongClick,
                         onToggleFavorite = onToggleFavorite
                     )
