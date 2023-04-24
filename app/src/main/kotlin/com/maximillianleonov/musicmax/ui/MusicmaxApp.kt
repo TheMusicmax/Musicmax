@@ -34,7 +34,6 @@ import androidx.compose.ui.Modifier
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
 import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxTopAppBar
-import com.maximillianleonov.musicmax.core.designsystem.theme.MusicmaxTheme
 import com.maximillianleonov.musicmax.core.permission.PermissionContent
 import com.maximillianleonov.musicmax.feature.player.mini.MiniPlayer
 import com.maximillianleonov.musicmax.navigation.MusicmaxNavHost
@@ -43,18 +42,16 @@ import com.maximillianleonov.musicmax.ui.component.MusicmaxBottomBar
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun MusicmaxApp(appState: MusicmaxAppState = rememberMusicmaxAppState()) {
-    MusicmaxTheme {
-        when (appState.permissionState.status) {
-            PermissionStatus.Granted -> {
-                MusicmaxAppContent(appState = appState)
-            }
+    when (appState.permissionState.status) {
+        PermissionStatus.Granted -> {
+            MusicmaxAppContent(appState = appState)
+        }
 
-            is PermissionStatus.Denied -> {
-                PermissionContent(
-                    permissionState = appState.permissionState,
-                    isPermissionRequested = appState.isPermissionRequested
-                )
-            }
+        is PermissionStatus.Denied -> {
+            PermissionContent(
+                permissionState = appState.permissionState,
+                isPermissionRequested = appState.isPermissionRequested
+            )
         }
     }
 }

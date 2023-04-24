@@ -18,7 +18,6 @@ package com.maximillianleonov.musicmax.core.designsystem.theme
 
 import android.os.Build
 import androidx.annotation.ChecksSdkIntAtLeast
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
@@ -29,10 +28,11 @@ import androidx.compose.ui.platform.LocalContext
 
 @Composable
 fun MusicmaxTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    useDynamicColor: Boolean,
+    darkTheme: Boolean,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = if (supportsDynamicTheming()) {
+    val colorScheme = if (useDynamicColor && supportsDynamicTheming()) {
         val context = LocalContext.current
         if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
     } else {
