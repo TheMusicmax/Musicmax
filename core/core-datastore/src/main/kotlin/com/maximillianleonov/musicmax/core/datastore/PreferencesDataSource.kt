@@ -17,8 +17,11 @@
 package com.maximillianleonov.musicmax.core.datastore
 
 import androidx.datastore.core.DataStore
+import com.maximillianleonov.musicmax.core.datastore.mapper.asDarkThemeConfig
+import com.maximillianleonov.musicmax.core.datastore.mapper.asDarkThemeConfigProto
 import com.maximillianleonov.musicmax.core.datastore.mapper.asPlaybackMode
 import com.maximillianleonov.musicmax.core.datastore.mapper.asPlaybackModeProto
+import com.maximillianleonov.musicmax.core.model.DarkThemeConfig
 import com.maximillianleonov.musicmax.core.model.PlaybackMode
 import com.maximillianleonov.musicmax.core.model.UserData
 import kotlinx.coroutines.flow.map
@@ -32,7 +35,9 @@ class PreferencesDataSource @Inject constructor(
             playingQueueIds = preferences.playingQueueIdsList,
             playingQueueIndex = preferences.playingQueueIndex,
             playbackMode = preferences.playbackMode.asPlaybackMode(),
-            favoriteSongs = preferences.favoriteSongIdsMap.keys
+            favoriteSongs = preferences.favoriteSongIdsMap.keys,
+            darkThemeConfig = preferences.darkThemeConfig.asDarkThemeConfig(),
+            useDynamicColor = preferences.useDynamicColor
         )
     }
 
@@ -71,6 +76,22 @@ class PreferencesDataSource @Inject constructor(
                 } else {
                     favoriteSongIds.remove(id)
                 }
+            }
+        }
+    }
+
+    suspend fun setDarkThemeConfig(darkThemeConfig: DarkThemeConfig) {
+        userPreferences.updateData {
+            it.copy {
+                this.darkThemeConfig = darkThemeConfig.asDarkThemeConfigProto()
+            }
+        }
+    }
+
+    suspend fun setDynamicColorPreference(useDynamicColor: Boolean) {
+        userPreferences.updateData {
+            it.copy {
+                this.useDynamicColor = useDynamicColor
             }
         }
     }
