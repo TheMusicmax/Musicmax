@@ -16,6 +16,14 @@
 -->
 <resources>
     <string name="settings">Setări</string>
+    <string name="appearance">Appearance</string>
+    <string name="use_dynamic_color">Use Dynamic Color</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="dark_mode_preference">Dark mode preference</string>
+    <string name="system_default">System default</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
     <string name="about">Despre</string>
     <string name="source_code_github">Codul sursă pe GitHub</string>
     <string name="privacy_policy">Politica de confidenţialitate</string>
