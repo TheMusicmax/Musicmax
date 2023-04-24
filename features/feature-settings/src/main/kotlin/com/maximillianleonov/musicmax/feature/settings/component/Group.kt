@@ -28,6 +28,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxOutlinedBorder
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 
 @Composable
@@ -39,7 +40,8 @@ internal fun Group(
     OutlinedCard(
         modifier = modifier
             .padding(MaterialTheme.spacing.small)
-            .fillMaxWidth()
+            .fillMaxWidth(),
+        border = MusicmaxOutlinedBorder
     ) {
         Column(
             modifier = Modifier.padding(vertical = MaterialTheme.spacing.medium),
