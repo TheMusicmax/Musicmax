@@ -18,7 +18,7 @@
     <string name="songs">Песни</string>
     <string name="artists">Исполнители</string>
     <string name="albums">Альбомы</string>
-    <string name="folders">Folders</string>
+    <string name="folders">Папки</string>
     <plurals name="number_of_songs">
         <item quantity="one">%d песня</item>
         <item quantity="few">%d песни</item>
@@ -28,5 +28,5 @@
     <string name="no_songs">Нет песен.</string>
     <string name="no_artists">Нет исполнителей.</string>
     <string name="no_albums">Нет альбомов.</string>
-    <string name="no_folders">No folders.</string>
+    <string name="no_folders">Нет папок.</string>
 </resources>
