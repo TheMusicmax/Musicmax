@@ -16,6 +16,6 @@
 -->
 <resources>
     <string name="back">Назад</string>
-    <string name="favorite_add">Add to favorites</string>
-    <string name="favorite_remove">Remove from favorites</string>
+    <string name="favorite_add">Добавить в избранное</string>
+    <string name="favorite_remove">Удалить из избранного</string>
 </resources>
