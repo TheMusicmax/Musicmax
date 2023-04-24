@@ -16,11 +16,11 @@
 
 package com.maximillianleonov.musicmax.core.domain.usecase
 
-import com.maximillianleonov.musicmax.core.domain.model.PlaybackModeModel
 import com.maximillianleonov.musicmax.core.domain.repository.SettingsRepository
+import com.maximillianleonov.musicmax.core.model.PlaybackMode
 import javax.inject.Inject
 
 class SetPlaybackModeUseCase @Inject constructor(private val settingsRepository: SettingsRepository) {
-    suspend operator fun invoke(playbackMode: PlaybackModeModel) =
+    suspend operator fun invoke(playbackMode: PlaybackMode) =
         settingsRepository.setPlaybackMode(playbackMode)
 }

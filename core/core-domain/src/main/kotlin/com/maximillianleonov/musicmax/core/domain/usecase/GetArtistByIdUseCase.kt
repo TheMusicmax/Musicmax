@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Maximillian Leonov
+ * Copyright 2023 Maximillian Leonov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.core.ui.mapper
+package com.maximillianleonov.musicmax.core.domain.usecase
 
-import com.maximillianleonov.musicmax.core.domain.model.ArtistModel
-import com.maximillianleonov.musicmax.core.domain.model.SongModel
-import com.maximillianleonov.musicmax.core.model.Artist
+import com.maximillianleonov.musicmax.core.domain.repository.MediaRepository
+import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-fun ArtistModel.asArtist() = Artist(
-    id = id,
-    name = name,
-    songs = songs.map(SongModel::asSong)
-)
+class GetArtistByIdUseCase @Inject constructor(private val mediaRepository: MediaRepository) {
+    operator fun invoke(artistId: Long) =
+        mediaRepository.artists.map { list -> list.first { it.id == artistId } }
+}

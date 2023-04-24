@@ -26,11 +26,11 @@ import androidx.media3.session.MediaLibraryService
 import androidx.media3.session.MediaSession
 import com.maximillianleonov.musicmax.core.common.dispatcher.Dispatcher
 import com.maximillianleonov.musicmax.core.common.dispatcher.MusicmaxDispatchers.MAIN
-import com.maximillianleonov.musicmax.core.domain.model.PlaybackModeModel
 import com.maximillianleonov.musicmax.core.domain.usecase.GetFavoriteSongIdsUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.GetPlaybackModeUseCase
 import com.maximillianleonov.musicmax.core.media.notification.MusicNotificationProvider
 import com.maximillianleonov.musicmax.core.media.service.util.unsafeLazy
+import com.maximillianleonov.musicmax.core.model.PlaybackMode
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -100,16 +100,16 @@ class MusicService : MediaLibraryService() {
         getPlaybackModeUseCase().collectLatest { playbackMode ->
             mediaLibrarySession?.player?.run {
                 when (playbackMode) {
-                    PlaybackModeModel.REPEAT -> {
+                    PlaybackMode.REPEAT -> {
                         shuffleModeEnabled = false
                         repeatMode = Player.REPEAT_MODE_ALL
                     }
 
-                    PlaybackModeModel.REPEAT_ONE -> {
+                    PlaybackMode.REPEAT_ONE -> {
                         repeatMode = Player.REPEAT_MODE_ONE
                     }
 
-                    PlaybackModeModel.SHUFFLE -> {
+                    PlaybackMode.SHUFFLE -> {
                         repeatMode = Player.REPEAT_MODE_ALL
                         shuffleModeEnabled = true
                     }

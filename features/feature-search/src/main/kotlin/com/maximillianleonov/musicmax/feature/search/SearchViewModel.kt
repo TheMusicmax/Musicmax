@@ -18,20 +18,17 @@ package com.maximillianleonov.musicmax.feature.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.maximillianleonov.musicmax.core.domain.model.SearchDetailsModel
 import com.maximillianleonov.musicmax.core.domain.usecase.SearchMediaUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.ToggleFavoriteSongUseCase
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants
 import com.maximillianleonov.musicmax.core.media.service.MusicServiceConnection
 import com.maximillianleonov.musicmax.core.model.SearchDetails
-import com.maximillianleonov.musicmax.core.ui.mapper.asSearchDetails
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -47,8 +44,8 @@ class SearchViewModel @Inject constructor(
     val query = _query.asStateFlow()
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    val searchDetails = query.flatMapLatest { searchMediaUseCase(it.trim()) }
-        .map(SearchDetailsModel::asSearchDetails)
+    val searchDetails = query
+        .flatMapLatest { query -> searchMediaUseCase(query.trim()) }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.Lazily,

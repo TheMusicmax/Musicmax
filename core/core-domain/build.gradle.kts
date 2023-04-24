@@ -15,11 +15,14 @@
  */
 
 plugins {
-    alias(libs.plugins.kotlin.jvm)
+    id("musicmax.android.library")
 }
+
+android.namespace = "com.maximillianleonov.musicmax.core.domain"
 
 dependencies {
     api(project(":core:core-common"))
+    implementation(project(":core:core-model"))
 
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.javax.inject)

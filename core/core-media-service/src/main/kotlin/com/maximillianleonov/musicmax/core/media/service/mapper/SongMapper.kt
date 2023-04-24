@@ -17,9 +17,7 @@
 package com.maximillianleonov.musicmax.core.media.service.mapper
 
 import android.net.Uri
-import androidx.core.net.toUri
 import androidx.media3.common.MediaItem
-import com.maximillianleonov.musicmax.core.domain.model.SongModel
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_ALBUM_ID
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_ARTIST_ID
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_MEDIA_ID
@@ -29,18 +27,6 @@ import com.maximillianleonov.musicmax.core.media.service.util.FOLDER
 import com.maximillianleonov.musicmax.core.media.service.util.IS_FAVORITE_ID
 import com.maximillianleonov.musicmax.core.media.service.util.buildPlayableMediaItem
 import com.maximillianleonov.musicmax.core.model.Song
-
-internal fun SongModel.asMediaItem() = buildPlayableMediaItem(
-    mediaId = mediaId,
-    artistId = artistId,
-    albumId = albumId,
-    mediaUri = mediaUri.toUri(),
-    artworkUri = artworkUri.toUri(),
-    title = title,
-    artist = artist,
-    folder = folder,
-    isFavorite = isFavorite
-)
 
 internal fun Song.asMediaItem() = buildPlayableMediaItem(
     mediaId = mediaId,

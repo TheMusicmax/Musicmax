@@ -25,7 +25,6 @@ import androidx.media3.session.SessionCommand
 import com.maximillianleonov.musicmax.core.common.dispatcher.Dispatcher
 import com.maximillianleonov.musicmax.core.common.dispatcher.MusicmaxDispatchers.MAIN
 import com.maximillianleonov.musicmax.core.designsystem.icon.MusicmaxIcons
-import com.maximillianleonov.musicmax.core.domain.model.PlaybackModeModel
 import com.maximillianleonov.musicmax.core.domain.usecase.SetPlaybackModeUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.ToggleFavoriteSongUseCase
 import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.FAVORITE
@@ -35,6 +34,7 @@ import com.maximillianleonov.musicmax.core.media.notification.common.MusicComman
 import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.PLAYBACK_MODE_REPEAT
 import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.PLAYBACK_MODE_REPEAT_ONE
 import com.maximillianleonov.musicmax.core.media.notification.common.MusicCommands.PLAYBACK_MODE_SHUFFLE
+import com.maximillianleonov.musicmax.core.model.PlaybackMode
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -82,9 +82,9 @@ class MusicActionHandler @Inject constructor(
 
     private fun handleRepeatShuffleCommand(action: String) = coroutineScope.launch {
         when (action) {
-            PLAYBACK_MODE_REPEAT -> setPlaybackModeUseCase(PlaybackModeModel.REPEAT_ONE)
-            PLAYBACK_MODE_REPEAT_ONE -> setPlaybackModeUseCase(PlaybackModeModel.SHUFFLE)
-            PLAYBACK_MODE_SHUFFLE -> setPlaybackModeUseCase(PlaybackModeModel.REPEAT)
+            PLAYBACK_MODE_REPEAT -> setPlaybackModeUseCase(PlaybackMode.REPEAT_ONE)
+            PLAYBACK_MODE_REPEAT_ONE -> setPlaybackModeUseCase(PlaybackMode.SHUFFLE)
+            PLAYBACK_MODE_SHUFFLE -> setPlaybackModeUseCase(PlaybackMode.REPEAT)
         }
     }
 

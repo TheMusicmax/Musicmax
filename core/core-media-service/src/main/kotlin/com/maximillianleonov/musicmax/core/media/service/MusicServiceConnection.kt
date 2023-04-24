@@ -27,7 +27,6 @@ import androidx.media3.session.MediaBrowser
 import androidx.media3.session.SessionToken
 import com.maximillianleonov.musicmax.core.common.dispatcher.Dispatcher
 import com.maximillianleonov.musicmax.core.common.dispatcher.MusicmaxDispatchers.MAIN
-import com.maximillianleonov.musicmax.core.domain.model.SongModel
 import com.maximillianleonov.musicmax.core.domain.usecase.GetPlayingQueueIdsUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.GetPlayingQueueIndexUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.GetSongsUseCase
@@ -169,11 +168,7 @@ class MusicServiceConnection @Inject constructor(
         }
         val startIndex = getPlayingQueueIndexUseCase().first()
         mediaBrowser?.run {
-            setMediaItems(
-                playingQueueSongs.map(SongModel::asMediaItem),
-                startIndex,
-                startPositionMs
-            )
+            setMediaItems(playingQueueSongs.map(Song::asMediaItem), startIndex, startPositionMs)
             prepare()
         }
     }

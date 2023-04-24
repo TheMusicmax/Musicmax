@@ -16,35 +16,20 @@
 
 package com.maximillianleonov.musicmax.core.data.repository
 
-import com.maximillianleonov.musicmax.core.data.mapper.asPlaybackMode
-import com.maximillianleonov.musicmax.core.data.mapper.asPlaybackModeModel
 import com.maximillianleonov.musicmax.core.data.util.Constants
 import com.maximillianleonov.musicmax.core.data.util.MusicmaxVersionProvider
 import com.maximillianleonov.musicmax.core.datastore.PreferencesDataSource
-import com.maximillianleonov.musicmax.core.domain.model.PlaybackModeModel
 import com.maximillianleonov.musicmax.core.domain.repository.SettingsRepository
 import com.maximillianleonov.musicmax.core.model.PlaybackMode
+import com.maximillianleonov.musicmax.core.model.UserData
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class SettingsRepositoryImpl @Inject constructor(
     private val preferencesDataSource: PreferencesDataSource,
     versionProvider: MusicmaxVersionProvider
 ) : SettingsRepository {
-    override val playingQueueIds: Flow<List<String>> =
-        preferencesDataSource.userData.map { it.playingQueueIds }
-
-    override val playingQueueIndex: Flow<Int> =
-        preferencesDataSource.userData.map { it.playingQueueIndex }
-
-    override val playbackMode: Flow<PlaybackModeModel> =
-        preferencesDataSource.userData
-            .map { it.playbackMode }
-            .map(PlaybackMode::asPlaybackModeModel)
-
-    override val favoriteSongs: Flow<Set<String>> =
-        preferencesDataSource.userData.map { it.favoriteSongs }
+    override val userData: Flow<UserData> = preferencesDataSource.userData
 
     override val repoUrl = Constants.Urls.MUSICMAX_REPO_URL
     override val privacyPolicyUrl = Constants.Urls.PRIVACY_POLICY_URL
@@ -56,8 +41,8 @@ class SettingsRepositoryImpl @Inject constructor(
     override suspend fun setPlayingQueueIndex(playingQueueIndex: Int) =
         preferencesDataSource.setPlayingQueueIndex(playingQueueIndex)
 
-    override suspend fun setPlaybackMode(playbackMode: PlaybackModeModel) =
-        preferencesDataSource.setPlaybackMode(playbackMode.asPlaybackMode())
+    override suspend fun setPlaybackMode(playbackMode: PlaybackMode) =
+        preferencesDataSource.setPlaybackMode(playbackMode)
 
     override suspend fun toggleFavoriteSong(id: String, isFavorite: Boolean) =
         preferencesDataSource.toggleFavoriteSong(id, isFavorite)

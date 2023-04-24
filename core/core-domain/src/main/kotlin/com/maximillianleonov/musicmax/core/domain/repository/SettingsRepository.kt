@@ -16,14 +16,12 @@
 
 package com.maximillianleonov.musicmax.core.domain.repository
 
-import com.maximillianleonov.musicmax.core.domain.model.PlaybackModeModel
+import com.maximillianleonov.musicmax.core.model.PlaybackMode
+import com.maximillianleonov.musicmax.core.model.UserData
 import kotlinx.coroutines.flow.Flow
 
 interface SettingsRepository {
-    val playingQueueIds: Flow<List<String>>
-    val playingQueueIndex: Flow<Int>
-    val playbackMode: Flow<PlaybackModeModel>
-    val favoriteSongs: Flow<Set<String>>
+    val userData: Flow<UserData>
 
     val repoUrl: String
     val privacyPolicyUrl: String
@@ -31,6 +29,6 @@ interface SettingsRepository {
 
     suspend fun setPlayingQueueIds(playingQueueIds: List<String>)
     suspend fun setPlayingQueueIndex(playingQueueIndex: Int)
-    suspend fun setPlaybackMode(playbackMode: PlaybackModeModel)
+    suspend fun setPlaybackMode(playbackMode: PlaybackMode)
     suspend fun toggleFavoriteSong(id: String, isFavorite: Boolean)
 }

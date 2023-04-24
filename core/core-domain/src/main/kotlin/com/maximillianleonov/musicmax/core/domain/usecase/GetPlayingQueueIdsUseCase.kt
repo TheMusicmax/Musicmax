@@ -17,8 +17,9 @@
 package com.maximillianleonov.musicmax.core.domain.usecase
 
 import com.maximillianleonov.musicmax.core.domain.repository.SettingsRepository
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class GetPlayingQueueIdsUseCase @Inject constructor(private val settingsRepository: SettingsRepository) {
-    operator fun invoke() = settingsRepository.playingQueueIds
+    operator fun invoke() = settingsRepository.userData.map { it.playingQueueIds }
 }

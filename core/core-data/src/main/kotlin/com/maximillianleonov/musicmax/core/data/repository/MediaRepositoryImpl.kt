@@ -16,15 +16,12 @@
 
 package com.maximillianleonov.musicmax.core.data.repository
 
-import com.maximillianleonov.musicmax.core.data.mapper.asSongModel
-import com.maximillianleonov.musicmax.core.data.mapper.listMap
 import com.maximillianleonov.musicmax.core.datastore.PreferencesDataSource
-import com.maximillianleonov.musicmax.core.domain.model.AlbumModel
-import com.maximillianleonov.musicmax.core.domain.model.ArtistModel
-import com.maximillianleonov.musicmax.core.domain.model.FolderModel
-import com.maximillianleonov.musicmax.core.domain.model.SongModel
 import com.maximillianleonov.musicmax.core.domain.repository.MediaRepository
 import com.maximillianleonov.musicmax.core.mediastore.source.MediaStoreDataSource
+import com.maximillianleonov.musicmax.core.model.Album
+import com.maximillianleonov.musicmax.core.model.Artist
+import com.maximillianleonov.musicmax.core.model.Folder
 import com.maximillianleonov.musicmax.core.model.Song
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -37,23 +34,22 @@ class MediaRepositoryImpl @Inject constructor(
     preferencesDataSource: PreferencesDataSource
 ) : MediaRepository {
     @OptIn(ExperimentalCoroutinesApi::class)
-    override val songs: Flow<List<SongModel>> =
+    override val songs: Flow<List<Song>> =
         preferencesDataSource.userData
             .map { it.favoriteSongs }
             .flatMapLatest(mediaStoreDataSource::getSongs)
-            .listMap(Song::asSongModel)
 
-    override val artists: Flow<List<ArtistModel>> = songs.map { songs ->
-        songs.groupBy(SongModel::artistId).map { (artistId, songs) ->
+    override val artists: Flow<List<Artist>> = songs.map { songs ->
+        songs.groupBy(Song::artistId).map { (artistId, songs) ->
             val song = songs.first()
-            ArtistModel(id = artistId, name = song.artist, songs = songs)
+            Artist(id = artistId, name = song.artist, songs = songs)
         }
     }
 
-    override val albums: Flow<List<AlbumModel>> = songs.map { songs ->
-        songs.groupBy(SongModel::albumId).map { (albumId, songs) ->
+    override val albums: Flow<List<Album>> = songs.map { songs ->
+        songs.groupBy(Song::albumId).map { (albumId, songs) ->
             val song = songs.first()
-            AlbumModel(
+            Album(
                 id = albumId,
                 artworkUri = song.artworkUri,
                 name = song.album,
@@ -63,9 +59,9 @@ class MediaRepositoryImpl @Inject constructor(
         }
     }
 
-    override val folders: Flow<List<FolderModel>> = songs.map { songs ->
-        songs.groupBy(SongModel::folder).map { (name, songs) ->
-            FolderModel(name = name, songs = songs)
+    override val folders: Flow<List<Folder>> = songs.map { songs ->
+        songs.groupBy(Song::folder).map { (name, songs) ->
+            Folder(name = name, songs = songs)
         }
     }
 }

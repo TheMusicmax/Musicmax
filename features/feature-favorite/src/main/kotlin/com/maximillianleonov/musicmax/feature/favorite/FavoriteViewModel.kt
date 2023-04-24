@@ -18,13 +18,10 @@ package com.maximillianleonov.musicmax.feature.favorite
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.maximillianleonov.musicmax.core.domain.model.SongModel
 import com.maximillianleonov.musicmax.core.domain.usecase.GetSongsUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.ToggleFavoriteSongUseCase
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants
 import com.maximillianleonov.musicmax.core.media.service.MusicServiceConnection
-import com.maximillianleonov.musicmax.core.ui.mapper.asSong
-import com.maximillianleonov.musicmax.core.ui.mapper.listMap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asFlow
@@ -43,7 +40,6 @@ class FavoriteViewModel @Inject constructor(
 ) : ViewModel() {
     val songs = getSongsUseCase()
         .map { songs -> songs.asFlow().filter { it.isFavorite }.toList() }
-        .listMap(SongModel::asSong)
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.Eagerly,

@@ -18,7 +18,6 @@ package com.maximillianleonov.musicmax.feature.player
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.maximillianleonov.musicmax.core.domain.model.PlaybackModeModel
 import com.maximillianleonov.musicmax.core.domain.usecase.GetFavoriteSongIdsUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.GetPlaybackModeUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.SetPlaybackModeUseCase
@@ -26,13 +25,10 @@ import com.maximillianleonov.musicmax.core.domain.usecase.ToggleFavoriteSongUseC
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_POSITION_MS
 import com.maximillianleonov.musicmax.core.media.service.MusicServiceConnection
 import com.maximillianleonov.musicmax.core.model.PlaybackMode
-import com.maximillianleonov.musicmax.core.ui.mapper.asPlaybackMode
-import com.maximillianleonov.musicmax.core.ui.mapper.asPlaybackModeModel
 import com.maximillianleonov.musicmax.feature.player.util.convertToPosition
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -51,13 +47,11 @@ class PlayerViewModel @Inject constructor(
         started = SharingStarted.Lazily,
         initialValue = DEFAULT_POSITION_MS
     )
-    val playbackMode = getPlaybackModeUseCase()
-        .map(PlaybackModeModel::asPlaybackMode)
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.Lazily,
-            initialValue = PlaybackMode.REPEAT
-        )
+    val playbackMode = getPlaybackModeUseCase().stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.Lazily,
+        initialValue = PlaybackMode.REPEAT
+    )
     val isFavorite = combine(
         musicState,
         getFavoriteSongIdsUseCase()
@@ -82,7 +76,7 @@ class PlayerViewModel @Inject constructor(
             PlaybackMode.REPEAT_ONE -> PlaybackMode.SHUFFLE
             PlaybackMode.SHUFFLE -> PlaybackMode.REPEAT
         }
-        setPlaybackModeUseCase(playbackMode = newPlaybackMode.asPlaybackModeModel())
+        setPlaybackModeUseCase(playbackMode = newPlaybackMode)
     }
 
     fun onToggleFavorite(isFavorite: Boolean) = viewModelScope.launch {

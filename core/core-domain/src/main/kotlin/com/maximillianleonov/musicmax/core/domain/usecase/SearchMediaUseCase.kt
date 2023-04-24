@@ -16,8 +16,8 @@
 
 package com.maximillianleonov.musicmax.core.domain.usecase
 
-import com.maximillianleonov.musicmax.core.domain.model.SearchDetailsModel
 import com.maximillianleonov.musicmax.core.domain.repository.MediaRepository
+import com.maximillianleonov.musicmax.core.model.SearchDetails
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.mapLatest
@@ -31,7 +31,7 @@ class SearchMediaUseCase @Inject constructor(private val mediaRepository: MediaR
         mediaRepository.albums,
         mediaRepository.folders
     ) { songs, artists, albums, folders ->
-        SearchDetailsModel(songs, artists, albums, folders)
+        SearchDetails(songs, artists, albums, folders)
     }
         .mapLatest { searchDetails ->
             if (query.isBlank()) {

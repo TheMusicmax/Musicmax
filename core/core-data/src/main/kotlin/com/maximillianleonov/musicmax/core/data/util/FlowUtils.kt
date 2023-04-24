@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.core.domain.usecase
+package com.maximillianleonov.musicmax.core.data.util
 
-import com.maximillianleonov.musicmax.core.domain.repository.MediaRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
+import kotlinx.coroutines.flow.toList
 
-class GetFolderUseCase @Inject constructor(private val mediaRepository: MediaRepository) {
-    operator fun invoke(name: String) =
-        mediaRepository.folders.map { list -> list.first { it.name == name } }
-}
+internal fun <T, R> Flow<List<T>>.listMap(transform: (T) -> R) =
+    map { it.asFlow().map(transform).toList() }
