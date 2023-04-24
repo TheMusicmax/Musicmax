@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
@@ -31,8 +32,15 @@ import androidx.compose.ui.res.stringResource
 import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxOutlinedBorder
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 
+internal fun LazyListScope.group(
+    @StringRes titleResource: Int,
+    content: @Composable ColumnScope.() -> Unit
+) = item {
+    Group(titleResource = titleResource, content = content)
+}
+
 @Composable
-internal fun Group(
+private fun Group(
     @StringRes titleResource: Int,
     modifier: Modifier = Modifier,
     content: @Composable ColumnScope.() -> Unit
