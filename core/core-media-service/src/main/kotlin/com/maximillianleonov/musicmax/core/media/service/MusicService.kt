@@ -16,6 +16,10 @@
 
 package com.maximillianleonov.musicmax.core.media.service
 
+import android.app.PendingIntent
+import android.app.TaskStackBuilder
+import android.content.Intent
+import android.os.Build
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C.AUDIO_CONTENT_TYPE_MUSIC
 import androidx.media3.common.C.USAGE_MEDIA
@@ -73,8 +77,16 @@ class MusicService : MediaSessionService() {
             .setHandleAudioBecomingNoisy(true)
             .build()
 
+        val sessionActivityPendingIntent = TaskStackBuilder.create(this).run {
+            addNextIntent(Intent(this@MusicService, Class.forName(MUSICMAX_ACTIVITY_PACKAGE_NAME)))
+            val immutableFlag =
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0
+            getPendingIntent(0, immutableFlag or PendingIntent.FLAG_UPDATE_CURRENT)
+        }
+
         mediaSession = MediaSession.Builder(this, player)
             .setCallback(musicSessionCallback)
+            .setSessionActivity(sessionActivityPendingIntent)
             .build()
             .apply { player.addListener(PlayerListener()) }
 
@@ -138,3 +150,5 @@ class MusicService : MediaSessionService() {
         }
     }
 }
+
+private const val MUSICMAX_ACTIVITY_PACKAGE_NAME = "com.maximillianleonov.musicmax.MusicmaxActivity"
