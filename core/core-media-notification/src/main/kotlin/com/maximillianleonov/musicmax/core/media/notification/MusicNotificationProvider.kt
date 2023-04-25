@@ -54,24 +54,25 @@ class MusicNotificationProvider @Inject constructor(
     private val coroutineScope = CoroutineScope(mainDispatcher + SupervisorJob())
 
     override fun createNotification(
-        session: MediaSession,
+        mediaSession: MediaSession,
         customLayout: ImmutableList<CommandButton>,
         actionFactory: MediaNotification.ActionFactory,
         onNotificationChangedCallback: MediaNotification.Provider.Callback
     ): MediaNotification {
         ensureNotificationChannel()
 
-        val player = session.player
+        val player = mediaSession.player
         val metadata = player.mediaMetadata
 
         val builder = NotificationCompat.Builder(context, MusicNotificationChannelId)
             .setContentTitle(metadata.title)
             .setContentText(metadata.artist)
             .setSmallIcon(MusicmaxIcons.Music.resourceId)
-            .setStyle(MediaStyle(session))
+            .setStyle(MediaStyle(mediaSession))
+            .setContentIntent(mediaSession.sessionActivity)
 
         getNotificationActions(
-            mediaSession = session,
+            mediaSession = mediaSession,
             customLayout = customLayout,
             actionFactory = actionFactory,
             playWhenReady = player.playWhenReady
