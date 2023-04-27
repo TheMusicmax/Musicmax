@@ -16,26 +16,21 @@
 
 package com.maximillianleonov.musicmax.feature.library
 
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.consumeWindowInsets
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxScaffold
 import com.maximillianleonov.musicmax.core.model.MusicState
 import com.maximillianleonov.musicmax.core.ui.component.songs
 import com.maximillianleonov.musicmax.feature.library.component.libraryHeader
 import com.maximillianleonov.musicmax.feature.library.util.getSongs
-import com.maximillianleonov.musicmax.feature.library.util.getTitleResource
 
 @Composable
 internal fun LibraryRoute(
     onNavigateToPlayer: () -> Unit,
-    onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: LibraryViewModel = hiltViewModel()
 ) {
@@ -45,7 +40,6 @@ internal fun LibraryRoute(
         modifier = modifier,
         uiState = uiState,
         musicState = musicState,
-        onBackClick = onBackClick,
         onPlayClick = {
             viewModel.play()
             onNavigateToPlayer()
@@ -62,40 +56,28 @@ internal fun LibraryRoute(
     )
 }
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun LibraryScreen(
     uiState: LibraryUiState,
     musicState: MusicState,
-    onBackClick: () -> Unit,
     onPlayClick: () -> Unit,
     onShuffleClick: () -> Unit,
     onSongClick: (Int) -> Unit,
     onToggleFavorite: (id: String, isFavorite: Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    MusicmaxScaffold(
-        modifier = modifier,
-        titleResource = uiState.getTitleResource(),
-        onBackClick = onBackClick
-    ) { innerPadding ->
-        LazyColumn(
-            modifier = Modifier
-                .padding(innerPadding)
-                .consumeWindowInsets(innerPadding)
-        ) {
-            libraryHeader(
-                uiState = uiState,
-                onPlayClick = onPlayClick,
-                onShuffleClick = onShuffleClick
-            )
+    LazyColumn(modifier = modifier.fillMaxSize()) {
+        libraryHeader(
+            uiState = uiState,
+            onPlayClick = onPlayClick,
+            onShuffleClick = onShuffleClick
+        )
 
-            songs(
-                songs = uiState.getSongs(),
-                currentPlayingSongId = musicState.currentSong.mediaId,
-                onClick = onSongClick,
-                onToggleFavorite = onToggleFavorite
-            )
-        }
+        songs(
+            songs = uiState.getSongs(),
+            currentPlayingSongId = musicState.currentSong.mediaId,
+            onClick = onSongClick,
+            onToggleFavorite = onToggleFavorite
+        )
     }
 }

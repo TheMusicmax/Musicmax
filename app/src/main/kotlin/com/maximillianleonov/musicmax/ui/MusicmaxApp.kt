@@ -76,11 +76,15 @@ private fun MusicmaxAppContent(
         modifier = modifier,
         topBar = {
             AnimatedVisibility(
-                visible = appState.shouldShowTopAppBar,
+                visible = appState.isTopLevelDestination,
                 enter = TopAppBarEnterTransition,
                 exit = TopAppBarExitTransition
             ) {
-                MusicmaxTopAppBar(titleResource = appState.currentTopLevelDestination.titleResource)
+                MusicmaxTopAppBar(
+                    titleResource = appState.getTitleResource(),
+                    shouldShowBackButton = appState.shouldShowBackButton,
+                    onBackClick = appState::onBackClick
+                )
             }
         },
         bottomBar = {
@@ -112,8 +116,7 @@ private fun MusicmaxAppContent(
                 onNavigateToAlbum = appState::navigateToAlbum,
                 onNavigateToFolder = appState::navigateToFolder,
                 onSetSystemBarsLightIcons = onSetSystemBarsLightIcons,
-                onResetSystemBarsIcons = onResetSystemBarsIcons,
-                onBackClick = appState::onBackClick
+                onResetSystemBarsIcons = onResetSystemBarsIcons
             )
             AnimatedVisibility(
                 visible = appState.isTopLevelDestination,

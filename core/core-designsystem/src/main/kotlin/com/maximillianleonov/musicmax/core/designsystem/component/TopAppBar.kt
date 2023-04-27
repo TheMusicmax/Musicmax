@@ -17,6 +17,11 @@
 package com.maximillianleonov.musicmax.core.designsystem.component
 
 import androidx.annotation.StringRes
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandHorizontally
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -33,8 +38,18 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun MusicmaxTopAppBar(
     @StringRes titleResource: Int,
+    shouldShowBackButton: Boolean,
+    onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
-    navigationIcon: @Composable () -> Unit = {},
+    navigationIcon: @Composable () -> Unit = {
+        AnimatedVisibility(
+            visible = shouldShowBackButton,
+            enter = BackButtonEnterTransition,
+            exit = BackButtonExitTransition
+        ) {
+            MusicmaxBackButton(onClick = onBackClick)
+        }
+    },
     colors: TopAppBarColors = TopAppBarDefaults.centerAlignedTopAppBarColors(
         containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(TopAppBarElevation)
     )
@@ -48,3 +63,6 @@ fun MusicmaxTopAppBar(
 }
 
 private val TopAppBarElevation = 3.dp
+
+private val BackButtonEnterTransition = fadeIn() + expandHorizontally()
+private val BackButtonExitTransition = shrinkHorizontally() + fadeOut()

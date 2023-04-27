@@ -16,14 +16,16 @@
 
 package com.maximillianleonov.musicmax.feature.library.util
 
+import androidx.annotation.StringRes
 import com.maximillianleonov.musicmax.feature.library.LibraryUiState
 import com.maximillianleonov.musicmax.feature.library.R
+import com.maximillianleonov.musicmax.feature.library.model.LibraryType
 
-internal fun LibraryUiState.getTitleResource() = when (this) {
-    LibraryUiState.Loading -> R.string.loading
-    is LibraryUiState.ArtistType -> R.string.artist
-    is LibraryUiState.AlbumType -> R.string.album
-    is LibraryUiState.FolderType -> R.string.folder
+@StringRes
+fun LibraryType.getTitleResource() = when (this) {
+    LibraryType.Artist -> R.string.artist
+    LibraryType.Album -> R.string.album
+    LibraryType.Folder -> R.string.folder
 }
 
 internal fun LibraryUiState.getSongs() = when (this) {

@@ -17,6 +17,7 @@
 package com.maximillianleonov.musicmax.feature.library.navigation
 
 import androidx.lifecycle.SavedStateHandle
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
@@ -30,7 +31,10 @@ private const val LibraryRoute = "library_route"
 private const val LibraryTypeArg = "library_type"
 private const val LibraryIdArg = "library_id"
 
-private const val LibraryRouteWithArguments = "$LibraryRoute/{$LibraryTypeArg}/{$LibraryIdArg}"
+const val LibraryRouteWithArguments = "$LibraryRoute/{$LibraryTypeArg}/{$LibraryIdArg}"
+
+fun NavBackStackEntry.getLibraryType() =
+    LibraryType[checkNotNull(arguments?.getString(LibraryTypeArg))]
 
 internal fun SavedStateHandle.getLibraryType() = LibraryType[checkNotNull(this[LibraryTypeArg])]
 internal fun SavedStateHandle.getLibraryId(): String = checkNotNull(this[LibraryIdArg])
@@ -45,8 +49,7 @@ fun NavController.navigateToLibrary(
 
 fun NavGraphBuilder.libraryScreen(
     prefix: String,
-    onNavigateToPlayer: () -> Unit,
-    onBackClick: () -> Unit
+    onNavigateToPlayer: () -> Unit
 ) = composable(
     route = "${prefix}_$LibraryRouteWithArguments",
     arguments = listOf(
@@ -54,8 +57,5 @@ fun NavGraphBuilder.libraryScreen(
         navArgument(LibraryIdArg) { type = NavType.StringType }
     )
 ) {
-    LibraryRoute(
-        onNavigateToPlayer = onNavigateToPlayer,
-        onBackClick = onBackClick
-    )
+    LibraryRoute(onNavigateToPlayer = onNavigateToPlayer)
 }

@@ -16,6 +16,7 @@
 
 package com.maximillianleonov.musicmax.ui
 
+import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
@@ -33,12 +34,19 @@ import com.maximillianleonov.musicmax.core.permission.rememberMusicmaxPermission
 import com.maximillianleonov.musicmax.feature.favorite.navigation.FavoriteRoute
 import com.maximillianleonov.musicmax.feature.home.navigation.HomeRoute
 import com.maximillianleonov.musicmax.feature.library.model.LibraryType
+import com.maximillianleonov.musicmax.feature.library.navigation.LibraryRouteWithArguments
+import com.maximillianleonov.musicmax.feature.library.navigation.getLibraryType
 import com.maximillianleonov.musicmax.feature.library.navigation.navigateToLibrary
+import com.maximillianleonov.musicmax.feature.library.util.getTitleResource
 import com.maximillianleonov.musicmax.feature.player.navigation.navigateToPlayer
 import com.maximillianleonov.musicmax.feature.search.navigation.SearchRoute
 import com.maximillianleonov.musicmax.feature.settings.navigation.SettingsRoute
 import com.maximillianleonov.musicmax.navigation.TopLevelDestination
 import com.maximillianleonov.musicmax.navigation.util.contains
+import com.maximillianleonov.musicmax.feature.favorite.R as favoriteR
+import com.maximillianleonov.musicmax.feature.home.R as homeR
+import com.maximillianleonov.musicmax.feature.search.R as searchR
+import com.maximillianleonov.musicmax.feature.settings.R as settingsR
 
 @Composable
 fun rememberMusicmaxAppState(
@@ -57,7 +65,7 @@ class MusicmaxAppState(
     val currentDestination: NavDestination?
         @Composable get() = navController.currentBackStackEntryAsState().value?.destination
 
-    val currentTopLevelDestination: TopLevelDestination
+    private val currentTopLevelDestination: TopLevelDestination
         @Composable get() {
             topLevelDestinations.firstOrNull { it.route in currentDestination }
                 ?.let { _currentTopLevelDestination = it }
@@ -67,14 +75,13 @@ class MusicmaxAppState(
     val isTopLevelDestination: Boolean
         @Composable get() = currentTopLevelDestination.route in currentDestination
 
-    val shouldShowTopAppBar: Boolean
-        @Composable get() = currentDestination?.route in shouldShowTopAppBarDestinations
+    val shouldShowBackButton: Boolean
+        @Composable get() = currentDestination != null && topLevelRoutes.none { it in currentDestination }
 
     val topLevelDestinations = TopLevelDestination.values()
 
     private var _currentTopLevelDestination by mutableStateOf(startDestination)
-    private val shouldShowTopAppBarDestinations =
-        listOf(HomeRoute, SearchRoute, FavoriteRoute, SettingsRoute)
+    private val topLevelRoutes = listOf(HomeRoute, SearchRoute, FavoriteRoute, SettingsRoute)
 
     val permissionState: PermissionState
         @Composable get() = rememberMusicmaxPermissionState { isPermissionRequested = true }
@@ -116,6 +123,21 @@ class MusicmaxAppState(
         libraryType = LibraryType.Folder,
         libraryId = name
     )
+
+    @Suppress("TopLevelComposableFunctions")
+    @StringRes
+    @Composable
+    fun getTitleResource(): Int {
+        val currentBackStackEntry = navController.currentBackStackEntryAsState().value
+        return when (currentBackStackEntry?.destination?.route) {
+            HomeRoute -> homeR.string.home
+            SearchRoute -> searchR.string.search
+            FavoriteRoute -> favoriteR.string.favorite
+            SettingsRoute -> settingsR.string.settings
+            LibraryRouteWithArguments -> currentBackStackEntry.getLibraryType().getTitleResource()
+            else -> currentTopLevelDestination.titleResource
+        }
+    }
 
     fun onBackClick() = navController.popBackStack()
 }

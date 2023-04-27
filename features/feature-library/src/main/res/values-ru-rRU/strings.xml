@@ -15,7 +15,6 @@
      limitations under the License.
 -->
 <resources>
-    <string name="loading">Загрузка</string>
     <string name="artist">Исполнитель</string>
     <string name="album">Альбом</string>
     <string name="folder">Папка</string>

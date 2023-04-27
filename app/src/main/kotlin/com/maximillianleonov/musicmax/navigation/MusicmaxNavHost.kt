@@ -39,7 +39,6 @@ fun MusicmaxNavHost(
     onNavigateToFolder: (prefix: String, name: String) -> Unit,
     onSetSystemBarsLightIcons: () -> Unit,
     onResetSystemBarsIcons: () -> Unit,
-    onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     NavHost(
@@ -53,11 +52,7 @@ fun MusicmaxNavHost(
             onNavigateToAlbum = { albumId -> onNavigateToAlbum(HomeGraphRoute, albumId) },
             onNavigateToFolder = { name -> onNavigateToFolder(HomeGraphRoute, name) }
         ) {
-            libraryScreen(
-                prefix = HomeGraphRoute,
-                onNavigateToPlayer = onNavigateToPlayer,
-                onBackClick = onBackClick
-            )
+            libraryScreen(prefix = HomeGraphRoute, onNavigateToPlayer = onNavigateToPlayer)
         }
         searchScreen(
             onNavigateToPlayer = onNavigateToPlayer,
@@ -65,11 +60,7 @@ fun MusicmaxNavHost(
             onNavigateToAlbum = { albumId -> onNavigateToAlbum(SearchGraphRoute, albumId) },
             onNavigateToFolder = { name -> onNavigateToFolder(SearchGraphRoute, name) }
         ) {
-            libraryScreen(
-                prefix = SearchGraphRoute,
-                onNavigateToPlayer = onNavigateToPlayer,
-                onBackClick = onBackClick
-            )
+            libraryScreen(prefix = SearchGraphRoute, onNavigateToPlayer = onNavigateToPlayer)
         }
         favoriteScreen(onNavigateToPlayer = onNavigateToPlayer)
         settingsScreen()
