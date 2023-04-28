@@ -22,4 +22,5 @@ android.namespace = "com.maximillianleonov.musicmax.core.model"
 
 dependencies {
     implementation(project(":core:core-media-common"))
+    api(libs.kotlinx.datetime)
 }
