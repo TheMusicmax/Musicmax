@@ -21,6 +21,9 @@ import androidx.core.os.bundleOf
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaItem.RequestMetadata
 import androidx.media3.common.MediaMetadata
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
 
 internal fun buildPlayableMediaItem(
     mediaId: String,
@@ -31,6 +34,8 @@ internal fun buildPlayableMediaItem(
     title: String,
     artist: String,
     folder: String,
+    duration: Long,
+    date: LocalDateTime,
     isFavorite: Boolean
 ) = MediaItem.Builder()
     .setMediaId(mediaId)
@@ -51,6 +56,8 @@ internal fun buildPlayableMediaItem(
                     ARTIST_ID to artistId,
                     ALBUM_ID to albumId,
                     FOLDER to folder,
+                    DURATION to duration,
+                    DATE to date.toInstant(TimeZone.currentSystemDefault()).epochSeconds,
                     IS_FAVORITE_ID to isFavorite
                 )
             )
@@ -61,4 +68,6 @@ internal fun buildPlayableMediaItem(
 internal const val ARTIST_ID = "artist_id"
 internal const val ALBUM_ID = "album_id"
 internal const val FOLDER = "folder"
+internal const val DURATION = "duration"
+internal const val DATE = "date"
 internal const val IS_FAVORITE_ID = "favorite_id"

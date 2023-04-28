@@ -20,13 +20,19 @@ import android.net.Uri
 import androidx.media3.common.MediaItem
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_ALBUM_ID
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_ARTIST_ID
+import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_DURATION_MS
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_MEDIA_ID
 import com.maximillianleonov.musicmax.core.media.service.util.ALBUM_ID
 import com.maximillianleonov.musicmax.core.media.service.util.ARTIST_ID
+import com.maximillianleonov.musicmax.core.media.service.util.DATE
+import com.maximillianleonov.musicmax.core.media.service.util.DURATION
 import com.maximillianleonov.musicmax.core.media.service.util.FOLDER
 import com.maximillianleonov.musicmax.core.media.service.util.IS_FAVORITE_ID
 import com.maximillianleonov.musicmax.core.media.service.util.buildPlayableMediaItem
 import com.maximillianleonov.musicmax.core.model.Song
+import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 
 internal fun Song.asMediaItem() = buildPlayableMediaItem(
     mediaId = mediaId,
@@ -37,6 +43,8 @@ internal fun Song.asMediaItem() = buildPlayableMediaItem(
     title = title,
     artist = artist,
     folder = folder,
+    duration = duration,
+    date = date,
     isFavorite = isFavorite
 )
 
@@ -50,8 +58,14 @@ internal fun MediaItem?.asSong() = Song(
     artist = this?.mediaMetadata?.artist.orEmpty(),
     album = this?.mediaMetadata?.albumTitle.orEmpty(),
     folder = this?.mediaMetadata?.extras?.getString(FOLDER).orEmpty(),
+    duration = this?.mediaMetadata?.extras?.getLong(DURATION) ?: DEFAULT_DURATION_MS,
+    date = this?.mediaMetadata?.extras?.getLong(DATE).orEmpty().asLocalDateTime(),
     isFavorite = this?.mediaMetadata?.extras?.getBoolean(IS_FAVORITE_ID) == true
 )
 
 private fun Uri?.orEmpty() = this ?: Uri.EMPTY
 private fun CharSequence?.orEmpty() = (this ?: "").toString()
+private fun Long?.orEmpty() = this ?: 0L
+
+private fun Long.asLocalDateTime() =
+    Instant.fromEpochSeconds(this).toLocalDateTime(TimeZone.currentSystemDefault())

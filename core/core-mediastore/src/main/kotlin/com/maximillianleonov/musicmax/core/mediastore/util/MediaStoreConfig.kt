@@ -34,6 +34,8 @@ internal object MediaStoreConfig {
             MediaStore.Audio.Media.TITLE,
             MediaStore.Audio.Media.ARTIST,
             MediaStore.Audio.Media.ALBUM,
+            MediaStore.Audio.Media.DATE_ADDED,
+            MediaStore.Audio.Media.DURATION,
             MediaStore.Audio.Media.DATA
         )
     }

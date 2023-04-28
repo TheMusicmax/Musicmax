@@ -22,6 +22,7 @@ import android.provider.MediaStore
 import com.maximillianleonov.musicmax.core.mediastore.util.MediaStoreConfig
 import com.maximillianleonov.musicmax.core.mediastore.util.asArtworkUri
 import com.maximillianleonov.musicmax.core.mediastore.util.asFolder
+import com.maximillianleonov.musicmax.core.mediastore.util.asLocalDateTime
 import com.maximillianleonov.musicmax.core.mediastore.util.getLong
 import com.maximillianleonov.musicmax.core.mediastore.util.getString
 import com.maximillianleonov.musicmax.core.mediastore.util.liteQuery
@@ -46,6 +47,8 @@ class MediaStoreDataSource @Inject constructor(private val contentResolver: Cont
                         val title = cursor.getString(MediaStore.Audio.Media.TITLE)
                         val artist = cursor.getString(MediaStore.Audio.Media.ARTIST)
                         val album = cursor.getString(MediaStore.Audio.Media.ALBUM)
+                        val duration = cursor.getLong(MediaStore.Audio.Media.DURATION)
+                        val date = cursor.getLong(MediaStore.Audio.Media.DATE_ADDED)
 
                         val mediaId = id.toString()
                         val mediaUri = ContentUris.withAppendedId(
@@ -65,6 +68,8 @@ class MediaStoreDataSource @Inject constructor(private val contentResolver: Cont
                             artist = artist,
                             album = album,
                             folder = folder,
+                            duration = duration,
+                            date = date.asLocalDateTime(),
                             isFavorite = mediaId in favoriteSongs
                         ).let(::add)
                     }

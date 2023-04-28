@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Maximillian Leonov
+ * Copyright 2023 Maximillian Leonov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,22 +14,11 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.core.model
+package com.maximillianleonov.musicmax.core.mediastore.util
 
-import android.net.Uri
-import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 
-data class Song(
-    val mediaId: String,
-    val artistId: Long,
-    val albumId: Long,
-    val mediaUri: Uri,
-    val artworkUri: Uri,
-    val title: String,
-    val artist: String,
-    val album: String,
-    val folder: String,
-    val duration: Long,
-    val date: LocalDateTime,
-    val isFavorite: Boolean
-)
+internal fun Long.asLocalDateTime() =
+    Instant.fromEpochSeconds(this).toLocalDateTime(TimeZone.currentSystemDefault())
