@@ -22,6 +22,8 @@ import com.maximillianleonov.musicmax.core.datastore.PreferencesDataSource
 import com.maximillianleonov.musicmax.core.domain.repository.SettingsRepository
 import com.maximillianleonov.musicmax.core.model.DarkThemeConfig
 import com.maximillianleonov.musicmax.core.model.PlaybackMode
+import com.maximillianleonov.musicmax.core.model.SortBy
+import com.maximillianleonov.musicmax.core.model.SortOrder
 import com.maximillianleonov.musicmax.core.model.UserData
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -44,6 +46,11 @@ class SettingsRepositoryImpl @Inject constructor(
 
     override suspend fun setPlaybackMode(playbackMode: PlaybackMode) =
         preferencesDataSource.setPlaybackMode(playbackMode)
+
+    override suspend fun setSortOrder(sortOrder: SortOrder) =
+        preferencesDataSource.setSortOrder(sortOrder)
+
+    override suspend fun setSortBy(sortBy: SortBy) = preferencesDataSource.setSortBy(sortBy)
 
     override suspend fun toggleFavoriteSong(id: String, isFavorite: Boolean) =
         preferencesDataSource.toggleFavoriteSong(id, isFavorite)
