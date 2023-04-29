@@ -30,14 +30,14 @@
     <string name="no_albums">Нет альбомов.</string>
     <string name="no_folders">Нет папок.</string>
     <string name="sort">Сортировка</string>
-    <string name="sort_order">Sort order</string>
+    <string name="sort_order">Порядок сортировки</string>
     <string name="ascending">Возрастание</string>
     <string name="descending">Убывание</string>
-    <string name="sort_by">Sort by</string>
+    <string name="sort_by">Сортировка по</string>
     <string name="title">Название</string>
     <string name="artist">Исполнитель</string>
     <string name="album">Альбом</string>
     <string name="duration">Продолжительность</string>
     <string name="date">Дата</string>
-    <string name="close">Close</string>
+    <string name="close">Закрыть</string>
 </resources>
