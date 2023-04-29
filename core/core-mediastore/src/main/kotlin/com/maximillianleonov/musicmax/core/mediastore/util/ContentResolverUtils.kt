@@ -36,9 +36,9 @@ internal fun ContentResolver.observe(uri: Uri) = callbackFlow {
 internal fun ContentResolver.liteQuery(
     collection: Uri,
     projection: Array<String>,
-    selection: String? = null,
-    selectionArgs: Array<String>? = null,
-    sortOrder: String? = null
+    selection: String,
+    sortOrder: String,
+    selectionArgs: Array<String>? = null
 ) = query(
     collection,
     projection,
