@@ -81,7 +81,7 @@ private fun PlayerFrontArtworkImage(
     modifier: Modifier = Modifier,
     shape: Shape = CardDefaults.shape,
     colors: CardColors = CardDefaults.cardColors(containerColor = Color.Transparent),
-    contentScale: ContentScale = ContentScale.Fit
+    contentScale: ContentScale = ContentScale.Crop
 ) {
     MusicmaxArtworkImage(
         modifier = modifier
