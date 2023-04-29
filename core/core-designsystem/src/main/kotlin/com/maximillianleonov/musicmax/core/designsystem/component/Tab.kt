@@ -18,9 +18,9 @@ package com.maximillianleonov.musicmax.core.designsystem.component
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabPosition
-import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.surfaceColorAtElevation
@@ -44,7 +44,7 @@ fun MusicmaxTabRow(
     divider: @Composable () -> Unit = {},
     tabs: @Composable () -> Unit
 ) {
-    TabRow(
+    ScrollableTabRow(
         selectedTabIndex = selectedTabIndex,
         modifier = modifier,
         containerColor = containerColor,

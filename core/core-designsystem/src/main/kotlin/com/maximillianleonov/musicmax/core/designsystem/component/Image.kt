@@ -37,7 +37,7 @@ fun MusicmaxImage(
     colors: CardColors = CardDefaults.cardColors(),
     loading: @Composable (SubcomposeAsyncImageScope.(AsyncImagePainter.State.Loading) -> Unit)? = null,
     error: @Composable (SubcomposeAsyncImageScope.(AsyncImagePainter.State.Error) -> Unit)? = null,
-    contentScale: ContentScale = ContentScale.Fit
+    contentScale: ContentScale = ContentScale.Crop
 ) {
     Card(modifier = modifier, shape = shape, colors = colors) {
         SubcomposeAsyncImage(

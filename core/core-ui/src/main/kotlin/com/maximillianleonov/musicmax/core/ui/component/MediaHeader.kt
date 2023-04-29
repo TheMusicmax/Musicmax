@@ -18,8 +18,13 @@ package com.maximillianleonov.musicmax.core.ui.component
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
+import androidx.compose.animation.with
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -28,17 +33,18 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.ButtonColors
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonColors
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButtonColors
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
@@ -55,6 +61,7 @@ import androidx.compose.ui.unit.dp
 import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxButton
 import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxOutlinedButton
 import com.maximillianleonov.musicmax.core.designsystem.component.RadioButtonText
+import com.maximillianleonov.musicmax.core.designsystem.component.SingleLineText
 import com.maximillianleonov.musicmax.core.designsystem.icon.MusicmaxIcons
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 import com.maximillianleonov.musicmax.core.model.SortBy
@@ -76,7 +83,7 @@ fun MediaHeader(
 
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.extraSmall)
+        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -100,7 +107,7 @@ fun MediaHeader(
             SortButton(
                 isSortSectionShown = shouldShowSortSection,
                 onClick = { shouldShowSortSection = !shouldShowSortSection },
-                colors = ButtonDefaults.textButtonColors(contentColor = MediaHeaderContentColor)
+                colors = IconButtonDefaults.iconButtonColors(contentColor = MediaHeaderContentColor)
             )
         }
 
@@ -187,7 +194,7 @@ private fun PlayShuffleButton(
             contentDescription = stringResource(id = textResource)
         )
         Spacer(modifier = Modifier.width(MaterialTheme.spacing.extraSmall))
-        Text(text = stringResource(id = textResource))
+        SingleLineText(text = stringResource(id = textResource))
     }
 }
 
@@ -205,30 +212,42 @@ private fun OutlinedPlayShuffleButton(
             contentDescription = stringResource(id = textResource)
         )
         Spacer(modifier = Modifier.width(MaterialTheme.spacing.extraSmall))
-        Text(text = stringResource(id = textResource))
+        SingleLineText(text = stringResource(id = textResource))
     }
 }
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 private fun SortButton(
     isSortSectionShown: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    colors: ButtonColors = ButtonDefaults.textButtonColors()
+    colors: IconButtonColors = IconButtonDefaults.iconButtonColors(contentColor = MaterialTheme.colorScheme.primary)
 ) {
     val rotateValue by animateFloatAsState(
         targetValue = if (isSortSectionShown) SortRotateValue else 0f,
         label = "RotateAnimation"
     )
 
-    TextButton(modifier = modifier, onClick = onClick, colors = colors) {
-        Text(text = stringResource(id = R.string.sort))
-        Spacer(modifier = Modifier.width(MaterialTheme.spacing.extraSmall))
-        Icon(
+    IconButton(modifier = modifier, onClick = onClick, colors = colors) {
+        AnimatedContent(
             modifier = Modifier.rotate(rotateValue),
-            painter = painterResource(id = MusicmaxIcons.Sort.resourceId),
-            contentDescription = stringResource(id = R.string.sort)
-        )
+            targetState = isSortSectionShown,
+            transitionSpec = { scaleIn() with scaleOut() },
+            label = "SortIconAnimation"
+        ) { targetIsSortSectionShown ->
+            if (targetIsSortSectionShown) {
+                Icon(
+                    imageVector = MusicmaxIcons.Close.imageVector,
+                    contentDescription = stringResource(id = R.string.close)
+                )
+            } else {
+                Icon(
+                    painter = painterResource(id = MusicmaxIcons.Sort.resourceId),
+                    contentDescription = stringResource(id = R.string.sort)
+                )
+            }
+        }
     }
 }
 
@@ -244,7 +263,8 @@ private fun SortSection(
 ) {
     Column(modifier = modifier) {
         Text(
-            text = stringResource(id = R.string.order),
+            modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small),
+            text = stringResource(id = R.string.sort_order),
             style = MaterialTheme.typography.titleMedium
         )
 
@@ -268,7 +288,8 @@ private fun SortSection(
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraSmall))
 
         Text(
-            text = stringResource(id = R.string.by),
+            modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small),
+            text = stringResource(id = R.string.sort_by),
             style = MaterialTheme.typography.titleMedium
         )
 

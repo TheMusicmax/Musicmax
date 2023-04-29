@@ -20,6 +20,7 @@ import androidx.annotation.DrawableRes
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Clear
+import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.FavoriteBorder
 import androidx.compose.material.icons.rounded.Home
@@ -41,6 +42,7 @@ object MusicmaxIcons {
     val Settings = ImageVectorIcon(Icons.Rounded.Settings)
     val ArrowBack = ImageVectorIcon(Icons.Rounded.ArrowBack)
     val Clear = ImageVectorIcon(Icons.Rounded.Clear)
+    val Close = ImageVectorIcon(Icons.Rounded.Close)
     val Music = DrawableResourceIcon(R.drawable.ic_music)
     val Repeat = DrawableResourceIcon(R.drawable.ic_repeat)
     val RepeatOne = DrawableResourceIcon(R.drawable.ic_repeat_one)

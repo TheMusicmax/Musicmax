@@ -28,10 +28,10 @@
     <string name="no_albums">Nessun album.</string>
     <string name="no_folders">No folders.</string>
     <string name="sort">Sort</string>
-    <string name="order">Order</string>
+    <string name="sort_order">Order</string>
     <string name="ascending">Ascending</string>
     <string name="descending">Descending</string>
-    <string name="by">By</string>
+    <string name="sort_by">By</string>
     <string name="title">Title</string>
     <string name="artist">Artist</string>
     <string name="album">Album</string>

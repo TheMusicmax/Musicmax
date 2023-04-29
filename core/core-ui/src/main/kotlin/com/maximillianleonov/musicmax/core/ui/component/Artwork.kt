@@ -54,7 +54,7 @@ fun MusicmaxArtworkImage(
             )
         }
     },
-    contentScale: ContentScale = ContentScale.Fit
+    contentScale: ContentScale = ContentScale.Crop
 ) {
     MusicmaxImage(
         modifier = modifier,

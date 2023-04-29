@@ -27,7 +27,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonColors
 import androidx.compose.material3.RadioButtonDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -54,6 +53,6 @@ fun RadioButtonText(
     ) {
         RadioButton(selected = isSelected, onClick = null, colors = colors)
         Spacer(modifier = Modifier.width(MaterialTheme.spacing.small))
-        Text(text = stringResource(id = textRes))
+        SingleLineText(text = stringResource(id = textRes))
     }
 }

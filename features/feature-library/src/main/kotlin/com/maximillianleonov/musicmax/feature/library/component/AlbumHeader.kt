@@ -24,13 +24,13 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxOverlay
+import com.maximillianleonov.musicmax.core.designsystem.component.SingleLineText
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 import com.maximillianleonov.musicmax.core.model.SortBy
 import com.maximillianleonov.musicmax.core.model.SortOrder
@@ -69,12 +69,12 @@ internal fun AlbumHeader(
                 .align(Alignment.BottomStart)
                 .padding(MaterialTheme.spacing.small)
         ) {
-            Text(
+            SingleLineText(
                 text = name,
                 style = MaterialTheme.typography.headlineMedium,
                 color = ContentColor
             )
-            Text(
+            SingleLineText(
                 text = artist,
                 style = MaterialTheme.typography.headlineSmall,
                 color = SecondColor
