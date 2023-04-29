@@ -16,6 +16,7 @@
 
 package com.maximillianleonov.musicmax.core.ui.component
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -34,6 +35,7 @@ import com.maximillianleonov.musicmax.core.ui.R
 import com.maximillianleonov.musicmax.core.ui.util.AdMobConfigProvider
 import com.maximillianleonov.musicmax.core.ui.util.LocalAdMobConfigProvider
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun Artists(
     artists: List<Artist>,
@@ -45,8 +47,12 @@ internal fun Artists(
         LazyColumn(modifier = modifier.fillMaxSize()) {
             item { BannerAd(adUnitId = adMobConfigProvider.artistsBannerUnitId) }
 
-            items(artists) { artist ->
-                ArtistItem(artist = artist, onClick = { onClick(artist.id) })
+            items(items = artists, key = Artist::id) { artist ->
+                ArtistItem(
+                    modifier = Modifier.animateItemPlacement(),
+                    artist = artist,
+                    onClick = { onClick(artist.id) }
+                )
             }
         }
     } else {

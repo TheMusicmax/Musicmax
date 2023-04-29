@@ -16,6 +16,7 @@
 
 package com.maximillianleonov.musicmax.core.ui.component
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -32,6 +33,7 @@ import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 import com.maximillianleonov.musicmax.core.model.Folder
 import com.maximillianleonov.musicmax.core.ui.R
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun Folders(
     folders: List<Folder>,
@@ -40,8 +42,12 @@ internal fun Folders(
 ) {
     if (folders.isNotEmpty()) {
         LazyColumn(modifier = modifier.fillMaxSize()) {
-            items(folders) { folder ->
-                FolderItem(folder = folder, onClick = { onClick(folder.name) })
+            items(items = folders, key = Folder::name) { folder ->
+                FolderItem(
+                    modifier = Modifier.animateItemPlacement(),
+                    folder = folder,
+                    onClick = { onClick(folder.name) }
+                )
             }
         }
     } else {

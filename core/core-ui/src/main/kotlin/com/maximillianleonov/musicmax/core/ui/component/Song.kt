@@ -16,6 +16,7 @@
 
 package com.maximillianleonov.musicmax.core.ui.component
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -43,6 +44,7 @@ import com.maximillianleonov.musicmax.core.ui.R
 import com.maximillianleonov.musicmax.core.ui.util.AdMobConfigProvider
 import com.maximillianleonov.musicmax.core.ui.util.LocalAdMobConfigProvider
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun Songs(
     songs: List<Song>,
@@ -56,8 +58,9 @@ fun Songs(
         LazyColumn(modifier = modifier.fillMaxSize()) {
             item { BannerAd(adUnitId = adMobConfigProvider.songsBannerUnitId) }
 
-            itemsIndexed(songs) { index, song ->
+            itemsIndexed(items = songs, key = { _, song -> song.mediaId }) { index, song ->
                 SongItem(
+                    modifier = Modifier.animateItemPlacement(),
                     song = song,
                     isPlaying = song.mediaId == currentPlayingSongId,
                     onClick = { onClick(index) },
@@ -70,6 +73,7 @@ fun Songs(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 fun LazyListScope.songs(
     songs: List<Song>,
     currentPlayingSongId: String,
@@ -79,8 +83,9 @@ fun LazyListScope.songs(
     if (songs.isNotEmpty()) {
         item { BannerAd(adUnitId = LocalAdMobConfigProvider.current.songsBannerUnitId) }
 
-        itemsIndexed(songs) { index, song ->
+        itemsIndexed(items = songs, key = { _, song -> song.mediaId }) { index, song ->
             SongItem(
+                modifier = Modifier.animateItemPlacement(),
                 song = song,
                 isPlaying = song.mediaId == currentPlayingSongId,
                 onClick = { onClick(index) },

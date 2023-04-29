@@ -16,6 +16,7 @@
 
 package com.maximillianleonov.musicmax.core.ui.component
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
@@ -34,6 +35,7 @@ import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 import com.maximillianleonov.musicmax.core.model.Album
 import com.maximillianleonov.musicmax.core.ui.R
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun Albums(
     albums: List<Album>,
@@ -45,8 +47,12 @@ internal fun Albums(
             modifier = modifier.fillMaxSize(),
             columns = GridCells.Fixed(count = ColumnsCount)
         ) {
-            items(albums) { album ->
-                AlbumItem(album = album, onClick = { onClick(album.id) })
+            items(items = albums, key = Album::id) { album ->
+                AlbumItem(
+                    modifier = Modifier.animateItemPlacement(),
+                    album = album,
+                    onClick = { onClick(album.id) }
+                )
             }
         }
     } else {
