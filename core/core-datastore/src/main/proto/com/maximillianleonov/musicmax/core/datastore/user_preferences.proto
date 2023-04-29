@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+import "com/maximillianleonov/musicmax/core/datastore/sort_order.proto";
+import "com/maximillianleonov/musicmax/core/datastore/sort_by.proto";
 import "com/maximillianleonov/musicmax/core/datastore/dark_theme_config.proto";
 import "com/maximillianleonov/musicmax/core/datastore/playback_mode.proto";
 
@@ -10,11 +12,13 @@ message UserPreferences {
     repeated string playing_queue_ids = 1;
     int32 playing_queue_index = 2;
     PlaybackModeProto playback_mode = 4;
+    SortOrderProto sort_order = 7;
+    SortByProto sort_by = 8;
 
     map<string, bool> favorite_song_ids = 3;
 
     DarkThemeConfigProto dark_theme_config = 5;
     bool use_dynamic_color = 6;
 
-    // Next available ID: 7.
+    // Next available ID: 9.
 }
