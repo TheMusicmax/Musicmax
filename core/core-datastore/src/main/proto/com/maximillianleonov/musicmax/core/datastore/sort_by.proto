@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+option java_package = "com.maximillianleonov.musicmax.core.datastore";
+option java_multiple_files = true;
+
+enum SortByProto {
+    SORT_BY_UNSPECIFIED = 0;
+    SORT_BY_TITLE = 1;
+    SORT_BY_ARTIST = 2;
+    SORT_BY_ALBUM = 3;
+    SORT_BY_DURATION = 4;
+    SORT_BY_DATE = 5;
+}
