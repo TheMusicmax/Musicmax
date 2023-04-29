@@ -26,4 +26,14 @@
     <string name="no_artists">No artists.</string>
     <string name="no_albums">No albums.</string>
     <string name="no_folders">No folders.</string>
+    <string name="sort">Sort</string>
+    <string name="order">Order</string>
+    <string name="ascending">Ascending</string>
+    <string name="descending">Descending</string>
+    <string name="by">By</string>
+    <string name="title">Title</string>
+    <string name="artist">Artist</string>
+    <string name="album">Album</string>
+    <string name="duration">Duration</string>
+    <string name="date">Date</string>
 </resources>
