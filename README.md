@@ -11,7 +11,7 @@ or get the apk from the [Releases section](https://github.com/MaximillianLeonov/
 # Preview
 
 <img src="docs/images/screenshot-1-home.png" width="25%"><img src="docs/images/screenshot-2-player.png" width="25%"><img src="docs/images/screenshot-3-artist.png" width="25%"><img src="docs/images/screenshot-4-album.png" width="25%">
-<img src="docs/images/screenshot-5-home.png" width="25%"><img src="docs/images/screenshot-6-search.png" width="25%"><img src="docs/images/screenshot-7-notification.png" width="25%"><img src="docs/images/screenshot-8-settings.png" width="25%">
+<img src="docs/images/screenshot-5-folder.png" width="25%"><img src="docs/images/screenshot-6-search.png" width="25%"><img src="docs/images/screenshot-7-favorite.png" width="25%"><img src="docs/images/screenshot-8-lock-screen.png" width="25%">
 
 # Development Environment
 
