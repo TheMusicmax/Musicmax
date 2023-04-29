@@ -14,32 +14,24 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.feature.library
+package com.maximillianleonov.musicmax.feature.home
 
 import com.maximillianleonov.musicmax.core.model.Album
 import com.maximillianleonov.musicmax.core.model.Artist
 import com.maximillianleonov.musicmax.core.model.Folder
+import com.maximillianleonov.musicmax.core.model.Song
 import com.maximillianleonov.musicmax.core.model.SortBy
 import com.maximillianleonov.musicmax.core.model.SortOrder
 
-internal sealed interface LibraryUiState {
-    object Loading : LibraryUiState
+sealed interface HomeUiState {
+    object Loading : HomeUiState
 
-    data class ArtistType(
-        val artist: Artist,
+    data class Success(
+        val songs: List<Song>,
+        val artists: List<Artist>,
+        val albums: List<Album>,
+        val folders: List<Folder>,
         val sortOrder: SortOrder,
         val sortBy: SortBy
-    ) : LibraryUiState
-
-    data class AlbumType(
-        val album: Album,
-        val sortOrder: SortOrder,
-        val sortBy: SortBy
-    ) : LibraryUiState
-
-    data class FolderType(
-        val folder: Folder,
-        val sortOrder: SortOrder,
-        val sortBy: SortBy
-    ) : LibraryUiState
+    ) : HomeUiState
 }

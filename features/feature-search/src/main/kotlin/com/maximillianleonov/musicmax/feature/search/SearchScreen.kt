@@ -25,11 +25,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.maximillianleonov.musicmax.core.model.Album
-import com.maximillianleonov.musicmax.core.model.Artist
-import com.maximillianleonov.musicmax.core.model.Folder
 import com.maximillianleonov.musicmax.core.model.MusicState
-import com.maximillianleonov.musicmax.core.model.Song
+import com.maximillianleonov.musicmax.core.model.SortBy
+import com.maximillianleonov.musicmax.core.model.SortOrder
 import com.maximillianleonov.musicmax.core.ui.component.MediaPager
 import com.maximillianleonov.musicmax.feature.search.component.SearchTextField
 
@@ -42,47 +40,47 @@ internal fun SearchRoute(
     modifier: Modifier = Modifier,
     viewModel: SearchViewModel = hiltViewModel()
 ) {
-    val query by viewModel.query.collectAsStateWithLifecycle()
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
     val musicState by viewModel.musicState.collectAsStateWithLifecycle()
-    val searchDetails by viewModel.searchDetails.collectAsStateWithLifecycle()
 
-    SearchScreen(
-        modifier = modifier,
-        query = query,
-        musicState = musicState,
-        songs = searchDetails.songs,
-        artists = searchDetails.artists,
-        albums = searchDetails.albums,
-        folders = searchDetails.folders,
-        onQueryChange = viewModel::changeQuery,
-        onSongClick = { startIndex ->
-            viewModel.play(startIndex)
-            onNavigateToPlayer()
-        },
-        onArtistClick = onNavigateToArtist,
-        onAlbumClick = onNavigateToAlbum,
-        onFolderClick = onNavigateToFolder,
-        onPlayClick = {
-            viewModel.play()
-            onNavigateToPlayer()
-        },
-        onShuffleClick = {
-            viewModel.shuffle()
-            onNavigateToPlayer()
-        },
-        onToggleFavorite = viewModel::onToggleFavorite
-    )
+    when (val uiState = state) {
+        SearchUiState.Loading -> Unit
+        is SearchUiState.Success -> {
+            SearchScreen(
+                modifier = modifier,
+                uiState = uiState,
+                musicState = musicState,
+                onQueryChange = viewModel::changeQuery,
+                onChangeSortOrder = viewModel::onChangeSortOrder,
+                onChangeSortBy = viewModel::onChangeSortBy,
+                onSongClick = { startIndex ->
+                    viewModel.play(startIndex)
+                    onNavigateToPlayer()
+                },
+                onArtistClick = onNavigateToArtist,
+                onAlbumClick = onNavigateToAlbum,
+                onFolderClick = onNavigateToFolder,
+                onPlayClick = {
+                    viewModel.play()
+                    onNavigateToPlayer()
+                },
+                onShuffleClick = {
+                    viewModel.shuffle()
+                    onNavigateToPlayer()
+                },
+                onToggleFavorite = viewModel::onToggleFavorite
+            )
+        }
+    }
 }
 
 @Composable
 private fun SearchScreen(
-    query: String,
+    uiState: SearchUiState.Success,
     musicState: MusicState,
-    songs: List<Song>,
-    artists: List<Artist>,
-    albums: List<Album>,
-    folders: List<Folder>,
     onQueryChange: (String) -> Unit,
+    onChangeSortOrder: (SortOrder) -> Unit,
+    onChangeSortBy: (SortBy) -> Unit,
     onSongClick: (Int) -> Unit,
     onArtistClick: (Long) -> Unit,
     onAlbumClick: (Long) -> Unit,
@@ -93,18 +91,22 @@ private fun SearchScreen(
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
-        SearchTextField(query = query, onQueryChange = onQueryChange)
+        SearchTextField(query = uiState.query, onQueryChange = onQueryChange)
         AnimatedVisibility(
-            visible = query.isNotBlank(),
+            visible = uiState.query.isNotBlank(),
             enter = MediaPagerEnterTransition,
             exit = MediaPagerExitTransition
         ) {
             MediaPager(
-                songs = songs,
+                songs = uiState.searchDetails.songs,
                 currentPlayingSongId = musicState.currentSong.mediaId,
-                artists = artists,
-                albums = albums,
-                folders = folders,
+                artists = uiState.searchDetails.artists,
+                albums = uiState.searchDetails.albums,
+                folders = uiState.searchDetails.folders,
+                sortOrder = uiState.sortOrder,
+                sortBy = uiState.sortBy,
+                onChangeSortOrder = onChangeSortOrder,
+                onChangeSortBy = onChangeSortBy,
                 onSongClick = onSongClick,
                 onArtistClick = onArtistClick,
                 onAlbumClick = onAlbumClick,

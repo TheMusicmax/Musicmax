@@ -32,6 +32,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxOverlay
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
+import com.maximillianleonov.musicmax.core.model.SortBy
+import com.maximillianleonov.musicmax.core.model.SortOrder
 import com.maximillianleonov.musicmax.core.ui.component.MediaHeader
 import com.maximillianleonov.musicmax.core.ui.component.MusicmaxArtworkImage
 
@@ -40,6 +42,10 @@ internal fun AlbumHeader(
     name: String,
     artist: String,
     artworkUri: Uri,
+    sortOrder: SortOrder,
+    sortBy: SortBy,
+    onChangeSortOrder: (SortOrder) -> Unit,
+    onChangeSortBy: (SortBy) -> Unit,
     onPlayClick: () -> Unit,
     onShuffleClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -74,7 +80,14 @@ internal fun AlbumHeader(
                 color = SecondColor
             )
             Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraSmall))
-            MediaHeader(onPlayClick = onPlayClick, onShuffleClick = onShuffleClick)
+            MediaHeader(
+                sortOrder = sortOrder,
+                sortBy = sortBy,
+                onChangeSortOrder = onChangeSortOrder,
+                onChangeSortBy = onChangeSortBy,
+                onPlayClick = onPlayClick,
+                onShuffleClick = onShuffleClick
+            )
         }
     }
 }

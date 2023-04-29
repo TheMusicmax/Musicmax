@@ -30,6 +30,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.unit.dp
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
+import com.maximillianleonov.musicmax.core.model.SortBy
+import com.maximillianleonov.musicmax.core.model.SortOrder
 import com.maximillianleonov.musicmax.core.ui.component.OutlinedMediaHeader
 import com.maximillianleonov.musicmax.core.ui.R as uiR
 
@@ -37,6 +39,10 @@ import com.maximillianleonov.musicmax.core.ui.R as uiR
 internal fun FolderHeader(
     name: String,
     numberOfSongs: Int,
+    sortOrder: SortOrder,
+    sortBy: SortBy,
+    onChangeSortOrder: (SortOrder) -> Unit,
+    onChangeSortBy: (SortBy) -> Unit,
     onPlayClick: () -> Unit,
     onShuffleClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -62,7 +68,14 @@ internal fun FolderHeader(
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraSmall))
-        OutlinedMediaHeader(onPlayClick = onPlayClick, onShuffleClick = onShuffleClick)
+        OutlinedMediaHeader(
+            sortOrder = sortOrder,
+            sortBy = sortBy,
+            onChangeSortOrder = onChangeSortOrder,
+            onChangeSortBy = onChangeSortBy,
+            onPlayClick = onPlayClick,
+            onShuffleClick = onShuffleClick
+        )
     }
 }
 

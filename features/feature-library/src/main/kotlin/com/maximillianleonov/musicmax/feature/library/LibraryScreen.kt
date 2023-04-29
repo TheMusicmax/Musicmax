@@ -24,6 +24,8 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.maximillianleonov.musicmax.core.model.MusicState
+import com.maximillianleonov.musicmax.core.model.SortBy
+import com.maximillianleonov.musicmax.core.model.SortOrder
 import com.maximillianleonov.musicmax.core.ui.component.songs
 import com.maximillianleonov.musicmax.feature.library.component.libraryHeader
 import com.maximillianleonov.musicmax.feature.library.util.getSongs
@@ -36,10 +38,13 @@ internal fun LibraryRoute(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val musicState by viewModel.musicState.collectAsStateWithLifecycle()
+
     LibraryScreen(
         modifier = modifier,
         uiState = uiState,
         musicState = musicState,
+        onChangeSortOrder = viewModel::onChangeSortOrder,
+        onChangeSortBy = viewModel::onChangeSortBy,
         onPlayClick = {
             viewModel.play()
             onNavigateToPlayer()
@@ -60,6 +65,8 @@ internal fun LibraryRoute(
 private fun LibraryScreen(
     uiState: LibraryUiState,
     musicState: MusicState,
+    onChangeSortOrder: (SortOrder) -> Unit,
+    onChangeSortBy: (SortBy) -> Unit,
     onPlayClick: () -> Unit,
     onShuffleClick: () -> Unit,
     onSongClick: (Int) -> Unit,
@@ -69,6 +76,8 @@ private fun LibraryScreen(
     LazyColumn(modifier = modifier.fillMaxSize()) {
         libraryHeader(
             uiState = uiState,
+            onChangeSortOrder = onChangeSortOrder,
+            onChangeSortBy = onChangeSortBy,
             onPlayClick = onPlayClick,
             onShuffleClick = onShuffleClick
         )

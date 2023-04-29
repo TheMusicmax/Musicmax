@@ -14,32 +14,18 @@
  * limitations under the License.
  */
 
-package com.maximillianleonov.musicmax.feature.library
+package com.maximillianleonov.musicmax.feature.favorite
 
-import com.maximillianleonov.musicmax.core.model.Album
-import com.maximillianleonov.musicmax.core.model.Artist
-import com.maximillianleonov.musicmax.core.model.Folder
+import com.maximillianleonov.musicmax.core.model.Song
 import com.maximillianleonov.musicmax.core.model.SortBy
 import com.maximillianleonov.musicmax.core.model.SortOrder
 
-internal sealed interface LibraryUiState {
-    object Loading : LibraryUiState
+sealed interface FavoriteUiState {
+    object Loading : FavoriteUiState
 
-    data class ArtistType(
-        val artist: Artist,
+    data class Success(
+        val songs: List<Song>,
         val sortOrder: SortOrder,
         val sortBy: SortBy
-    ) : LibraryUiState
-
-    data class AlbumType(
-        val album: Album,
-        val sortOrder: SortOrder,
-        val sortBy: SortBy
-    ) : LibraryUiState
-
-    data class FolderType(
-        val folder: Folder,
-        val sortOrder: SortOrder,
-        val sortBy: SortBy
-    ) : LibraryUiState
+    ) : FavoriteUiState
 }

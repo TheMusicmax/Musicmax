@@ -17,10 +17,14 @@
 package com.maximillianleonov.musicmax.feature.library.component
 
 import androidx.compose.foundation.lazy.LazyListScope
+import com.maximillianleonov.musicmax.core.model.SortBy
+import com.maximillianleonov.musicmax.core.model.SortOrder
 import com.maximillianleonov.musicmax.feature.library.LibraryUiState
 
 internal fun LazyListScope.libraryHeader(
     uiState: LibraryUiState,
+    onChangeSortOrder: (SortOrder) -> Unit,
+    onChangeSortBy: (SortBy) -> Unit,
     onPlayClick: () -> Unit,
     onShuffleClick: () -> Unit,
 ) {
@@ -32,6 +36,10 @@ internal fun LazyListScope.libraryHeader(
                 ArtistHeader(
                     name = artist.name,
                     numberOfSongs = artist.songs.size,
+                    sortOrder = uiState.sortOrder,
+                    sortBy = uiState.sortBy,
+                    onChangeSortOrder = onChangeSortOrder,
+                    onChangeSortBy = onChangeSortBy,
                     onPlayClick = onPlayClick,
                     onShuffleClick = onShuffleClick
                 )
@@ -43,6 +51,10 @@ internal fun LazyListScope.libraryHeader(
                     name = album.name,
                     artist = album.artist,
                     artworkUri = album.artworkUri,
+                    sortOrder = uiState.sortOrder,
+                    sortBy = uiState.sortBy,
+                    onChangeSortOrder = onChangeSortOrder,
+                    onChangeSortBy = onChangeSortBy,
                     onPlayClick = onPlayClick,
                     onShuffleClick = onShuffleClick
                 )
@@ -53,6 +65,10 @@ internal fun LazyListScope.libraryHeader(
                 FolderHeader(
                     name = folder.name,
                     numberOfSongs = folder.songs.size,
+                    sortOrder = uiState.sortOrder,
+                    sortBy = uiState.sortBy,
+                    onChangeSortOrder = onChangeSortOrder,
+                    onChangeSortBy = onChangeSortBy,
                     onPlayClick = onPlayClick,
                     onShuffleClick = onShuffleClick
                 )

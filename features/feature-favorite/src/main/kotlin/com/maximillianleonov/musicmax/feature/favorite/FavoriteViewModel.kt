@@ -19,12 +19,18 @@ package com.maximillianleonov.musicmax.feature.favorite
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maximillianleonov.musicmax.core.domain.usecase.GetSongsUseCase
+import com.maximillianleonov.musicmax.core.domain.usecase.GetUserDataUseCase
+import com.maximillianleonov.musicmax.core.domain.usecase.SetSortByUseCase
+import com.maximillianleonov.musicmax.core.domain.usecase.SetSortOrderUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.ToggleFavoriteSongUseCase
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants
 import com.maximillianleonov.musicmax.core.media.service.MusicServiceConnection
+import com.maximillianleonov.musicmax.core.model.SortBy
+import com.maximillianleonov.musicmax.core.model.SortOrder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -36,9 +42,12 @@ import javax.inject.Inject
 class FavoriteViewModel @Inject constructor(
     private val musicServiceConnection: MusicServiceConnection,
     getSongsUseCase: GetSongsUseCase,
+    getUserDataUseCase: GetUserDataUseCase,
+    private val setSortOrderUseCase: SetSortOrderUseCase,
+    private val setSortByUseCase: SetSortByUseCase,
     private val toggleFavoriteSongUseCase: ToggleFavoriteSongUseCase
 ) : ViewModel() {
-    val songs = getSongsUseCase()
+    private val songs = getSongsUseCase()
         .map { songs -> songs.asFlow().filter { it.isFavorite }.toList() }
         .stateIn(
             scope = viewModelScope,
@@ -46,7 +55,24 @@ class FavoriteViewModel @Inject constructor(
             initialValue = emptyList()
         )
 
+    val uiState = combine(songs, getUserDataUseCase()) { songs, userData ->
+        FavoriteUiState.Success(
+            songs = songs,
+            sortOrder = userData.sortOrder,
+            sortBy = userData.sortBy
+        )
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.Eagerly,
+        initialValue = FavoriteUiState.Loading
+    )
+
     val musicState = musicServiceConnection.musicState
+
+    fun onChangeSortOrder(sortOrder: SortOrder) =
+        viewModelScope.launch { setSortOrderUseCase(sortOrder) }
+
+    fun onChangeSortBy(sortBy: SortBy) = viewModelScope.launch { setSortByUseCase(sortBy) }
 
     fun play(startIndex: Int = MediaConstants.DEFAULT_INDEX) =
         musicServiceConnection.playSongs(songs = songs.value, startIndex = startIndex)

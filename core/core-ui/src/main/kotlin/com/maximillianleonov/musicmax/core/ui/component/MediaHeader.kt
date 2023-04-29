@@ -18,76 +18,158 @@ package com.maximillianleonov.musicmax.core.ui.component
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RadioButtonColors
+import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxButton
 import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxOutlinedButton
+import com.maximillianleonov.musicmax.core.designsystem.component.RadioButtonText
 import com.maximillianleonov.musicmax.core.designsystem.icon.MusicmaxIcons
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
-import com.maximillianleonov.musicmax.core.media.common.R
+import com.maximillianleonov.musicmax.core.model.SortBy
+import com.maximillianleonov.musicmax.core.model.SortOrder
+import com.maximillianleonov.musicmax.core.ui.R
+import com.maximillianleonov.musicmax.core.media.common.R as mediaCommonR
 
 @Composable
 fun MediaHeader(
+    sortOrder: SortOrder,
+    sortBy: SortBy,
+    onChangeSortOrder: (SortOrder) -> Unit,
+    onChangeSortBy: (SortBy) -> Unit,
     onPlayClick: () -> Unit,
     onShuffleClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+    var shouldShowSortSection by remember { mutableStateOf(false) }
+
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.extraSmall)
     ) {
-        PlayShuffleButton(
-            modifier = Modifier.weight(1f),
-            iconResource = MusicmaxIcons.Play.resourceId,
-            textResource = R.string.play,
-            onClick = onPlayClick
-        )
-        PlayShuffleButton(
-            modifier = Modifier.weight(1f),
-            iconResource = MusicmaxIcons.Shuffle.resourceId,
-            textResource = R.string.shuffle,
-            onClick = onShuffleClick
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+        ) {
+            PlayShuffleButton(
+                modifier = Modifier.weight(1f),
+                iconResource = MusicmaxIcons.Play.resourceId,
+                textResource = mediaCommonR.string.play,
+                onClick = onPlayClick
+            )
+
+            PlayShuffleButton(
+                modifier = Modifier.weight(1f),
+                iconResource = MusicmaxIcons.Shuffle.resourceId,
+                textResource = mediaCommonR.string.shuffle,
+                onClick = onShuffleClick
+            )
+
+            SortButton(
+                isSortSectionShown = shouldShowSortSection,
+                onClick = { shouldShowSortSection = !shouldShowSortSection },
+                colors = ButtonDefaults.textButtonColors(contentColor = MediaHeaderContentColor)
+            )
+        }
+
+        CompositionLocalProvider(LocalContentColor provides MediaHeaderContentColor) {
+            AnimatedVisibility(visible = shouldShowSortSection) {
+                SortSection(
+                    sortOrder = sortOrder,
+                    sortBy = sortBy,
+                    onChangeSortOrder = onChangeSortOrder,
+                    onChangeSortBy = onChangeSortBy,
+                    radioButtonColors = RadioButtonDefaults.colors(
+                        selectedColor = MediaHeaderContentColor,
+                        unselectedColor = MediaHeaderContentColor.copy(alpha = 0.75f)
+                    )
+                )
+            }
+        }
     }
 }
 
 @Composable
 fun OutlinedMediaHeader(
+    sortOrder: SortOrder,
+    sortBy: SortBy,
+    onChangeSortOrder: (SortOrder) -> Unit,
+    onChangeSortBy: (SortBy) -> Unit,
     onPlayClick: () -> Unit,
     onShuffleClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+    var shouldShowSortSection by remember { mutableStateOf(false) }
+
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.extraSmall)
     ) {
-        PlayShuffleButton(
-            modifier = Modifier.weight(1f),
-            iconResource = MusicmaxIcons.Play.resourceId,
-            textResource = R.string.play,
-            onClick = onPlayClick
-        )
-        OutlinedPlayShuffleButton(
-            modifier = Modifier.weight(1f),
-            iconResource = MusicmaxIcons.Shuffle.resourceId,
-            textResource = R.string.shuffle,
-            onClick = onShuffleClick
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+        ) {
+            PlayShuffleButton(
+                modifier = Modifier.weight(1f),
+                iconResource = MusicmaxIcons.Play.resourceId,
+                textResource = mediaCommonR.string.play,
+                onClick = onPlayClick
+            )
+
+            OutlinedPlayShuffleButton(
+                modifier = Modifier.weight(1f),
+                iconResource = MusicmaxIcons.Shuffle.resourceId,
+                textResource = mediaCommonR.string.shuffle,
+                onClick = onShuffleClick
+            )
+
+            SortButton(
+                isSortSectionShown = shouldShowSortSection,
+                onClick = { shouldShowSortSection = !shouldShowSortSection }
+            )
+        }
+
+        AnimatedVisibility(visible = shouldShowSortSection) {
+            SortSection(
+                sortOrder = sortOrder,
+                sortBy = sortBy,
+                onChangeSortOrder = onChangeSortOrder,
+                onChangeSortBy = onChangeSortBy
+            )
+        }
     }
 }
 
@@ -127,4 +209,92 @@ private fun OutlinedPlayShuffleButton(
     }
 }
 
+@Composable
+private fun SortButton(
+    isSortSectionShown: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    colors: ButtonColors = ButtonDefaults.textButtonColors()
+) {
+    val rotateValue by animateFloatAsState(
+        targetValue = if (isSortSectionShown) SortRotateValue else 0f,
+        label = "RotateAnimation"
+    )
+
+    TextButton(modifier = modifier, onClick = onClick, colors = colors) {
+        Text(text = stringResource(id = R.string.sort))
+        Spacer(modifier = Modifier.width(MaterialTheme.spacing.extraSmall))
+        Icon(
+            modifier = Modifier.rotate(rotateValue),
+            painter = painterResource(id = MusicmaxIcons.Sort.resourceId),
+            contentDescription = stringResource(id = R.string.sort)
+        )
+    }
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun SortSection(
+    sortOrder: SortOrder,
+    sortBy: SortBy,
+    onChangeSortOrder: (SortOrder) -> Unit,
+    onChangeSortBy: (SortBy) -> Unit,
+    modifier: Modifier = Modifier,
+    radioButtonColors: RadioButtonColors = RadioButtonDefaults.colors()
+) {
+    Column(modifier = modifier) {
+        Text(
+            text = stringResource(id = R.string.order),
+            style = MaterialTheme.typography.titleMedium
+        )
+
+        Row {
+            RadioButtonText(
+                modifier = Modifier.weight(1f),
+                textRes = R.string.ascending,
+                isSelected = sortOrder == SortOrder.ASCENDING,
+                onClick = { onChangeSortOrder(SortOrder.ASCENDING) },
+                colors = radioButtonColors
+            )
+            RadioButtonText(
+                modifier = Modifier.weight(1f),
+                textRes = R.string.descending,
+                isSelected = sortOrder == SortOrder.DESCENDING,
+                onClick = { onChangeSortOrder(SortOrder.DESCENDING) },
+                colors = radioButtonColors
+            )
+        }
+
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraSmall))
+
+        Text(
+            text = stringResource(id = R.string.by),
+            style = MaterialTheme.typography.titleMedium
+        )
+
+        FlowRow(maxItemsInEachRow = 2) {
+            SortBy.values().forEach { sortByItem ->
+                RadioButtonText(
+                    modifier = Modifier.weight(1f),
+                    textRes = sortByStringResourcesMap.getValue(sortByItem),
+                    isSelected = sortBy == sortByItem,
+                    onClick = { onChangeSortBy(sortByItem) },
+                    colors = radioButtonColors
+                )
+            }
+        }
+    }
+}
+
+private val sortByStringResourcesMap = mapOf(
+    SortBy.TITLE to R.string.title,
+    SortBy.ARTIST to R.string.artist,
+    SortBy.ALBUM to R.string.album,
+    SortBy.DURATION to R.string.duration,
+    SortBy.DATE to R.string.date
+)
+
 private val IconSize = 20.dp
+private val MediaHeaderContentColor = Color.White
+
+private const val SortRotateValue = 180f

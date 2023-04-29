@@ -22,11 +22,17 @@ import com.maximillianleonov.musicmax.core.domain.usecase.GetAlbumsUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.GetArtistsUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.GetFoldersUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.GetSongsUseCase
+import com.maximillianleonov.musicmax.core.domain.usecase.GetUserDataUseCase
+import com.maximillianleonov.musicmax.core.domain.usecase.SetSortByUseCase
+import com.maximillianleonov.musicmax.core.domain.usecase.SetSortOrderUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.ToggleFavoriteSongUseCase
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants
 import com.maximillianleonov.musicmax.core.media.service.MusicServiceConnection
+import com.maximillianleonov.musicmax.core.model.SortBy
+import com.maximillianleonov.musicmax.core.model.SortOrder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -38,33 +44,44 @@ class HomeViewModel @Inject constructor(
     getArtistsUseCase: GetArtistsUseCase,
     getAlbumsUseCase: GetAlbumsUseCase,
     getFoldersUseCase: GetFoldersUseCase,
+    getUserDataUseCase: GetUserDataUseCase,
+    private val setSortOrderUseCase: SetSortOrderUseCase,
+    private val setSortByUseCase: SetSortByUseCase,
     private val toggleFavoriteSongUseCase: ToggleFavoriteSongUseCase
 ) : ViewModel() {
+    private val songs = getSongsUseCase().stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.Eagerly,
+        initialValue = emptyList()
+    )
+
+    val uiState = combine(
+        songs,
+        getArtistsUseCase(),
+        getAlbumsUseCase(),
+        getFoldersUseCase(),
+        getUserDataUseCase()
+    ) { songs, artists, albums, folders, userData ->
+        HomeUiState.Success(
+            songs = songs,
+            artists = artists,
+            albums = albums,
+            folders = folders,
+            sortOrder = userData.sortOrder,
+            sortBy = userData.sortBy
+        )
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.Eagerly,
+        initialValue = HomeUiState.Loading
+    )
+
     val musicState = musicServiceConnection.musicState
 
-    val songs = getSongsUseCase().stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.Eagerly,
-        initialValue = emptyList()
-    )
+    fun onChangeSortOrder(sortOrder: SortOrder) =
+        viewModelScope.launch { setSortOrderUseCase(sortOrder) }
 
-    val artists = getArtistsUseCase().stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.Eagerly,
-        initialValue = emptyList()
-    )
-
-    val albums = getAlbumsUseCase().stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.Eagerly,
-        initialValue = emptyList()
-    )
-
-    val folders = getFoldersUseCase().stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.Eagerly,
-        initialValue = emptyList()
-    )
+    fun onChangeSortBy(sortBy: SortBy) = viewModelScope.launch { setSortByUseCase(sortBy) }
 
     fun play(startIndex: Int = MediaConstants.DEFAULT_INDEX) =
         musicServiceConnection.playSongs(songs = songs.value, startIndex = startIndex)

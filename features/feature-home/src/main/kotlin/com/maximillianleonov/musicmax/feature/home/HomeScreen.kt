@@ -21,11 +21,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.maximillianleonov.musicmax.core.model.Album
-import com.maximillianleonov.musicmax.core.model.Artist
-import com.maximillianleonov.musicmax.core.model.Folder
 import com.maximillianleonov.musicmax.core.model.MusicState
-import com.maximillianleonov.musicmax.core.model.Song
+import com.maximillianleonov.musicmax.core.model.SortBy
+import com.maximillianleonov.musicmax.core.model.SortOrder
 import com.maximillianleonov.musicmax.core.ui.component.MediaPager
 
 @Composable
@@ -37,45 +35,45 @@ internal fun HomeRoute(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
     val musicState by viewModel.musicState.collectAsStateWithLifecycle()
-    val songs by viewModel.songs.collectAsStateWithLifecycle()
-    val artists by viewModel.artists.collectAsStateWithLifecycle()
-    val albums by viewModel.albums.collectAsStateWithLifecycle()
-    val folders by viewModel.folders.collectAsStateWithLifecycle()
 
-    HomeScreen(
-        modifier = modifier,
-        musicState = musicState,
-        songs = songs,
-        artists = artists,
-        albums = albums,
-        folders = folders,
-        onSongClick = { startIndex ->
-            viewModel.play(startIndex)
-            onNavigateToPlayer()
-        },
-        onPlayClick = {
-            viewModel.play()
-            onNavigateToPlayer()
-        },
-        onShuffleClick = {
-            viewModel.shuffle()
-            onNavigateToPlayer()
-        },
-        onArtistClick = onNavigateToArtist,
-        onAlbumClick = onNavigateToAlbum,
-        onFolderClick = onNavigateToFolder,
-        onToggleFavorite = viewModel::onToggleFavorite
-    )
+    when (val uiState = state) {
+        HomeUiState.Loading -> Unit
+        is HomeUiState.Success -> {
+            HomeScreen(
+                modifier = modifier,
+                uiState = uiState,
+                musicState = musicState,
+                onChangeSortOrder = viewModel::onChangeSortOrder,
+                onChangeSortBy = viewModel::onChangeSortBy,
+                onSongClick = { startIndex ->
+                    viewModel.play(startIndex)
+                    onNavigateToPlayer()
+                },
+                onPlayClick = {
+                    viewModel.play()
+                    onNavigateToPlayer()
+                },
+                onShuffleClick = {
+                    viewModel.shuffle()
+                    onNavigateToPlayer()
+                },
+                onArtistClick = onNavigateToArtist,
+                onAlbumClick = onNavigateToAlbum,
+                onFolderClick = onNavigateToFolder,
+                onToggleFavorite = viewModel::onToggleFavorite
+            )
+        }
+    }
 }
 
 @Composable
 private fun HomeScreen(
+    uiState: HomeUiState.Success,
     musicState: MusicState,
-    songs: List<Song>,
-    artists: List<Artist>,
-    albums: List<Album>,
-    folders: List<Folder>,
+    onChangeSortOrder: (SortOrder) -> Unit,
+    onChangeSortBy: (SortBy) -> Unit,
     onSongClick: (Int) -> Unit,
     onArtistClick: (Long) -> Unit,
     onAlbumClick: (Long) -> Unit,
@@ -87,11 +85,15 @@ private fun HomeScreen(
 ) {
     MediaPager(
         modifier = modifier,
-        songs = songs,
+        songs = uiState.songs,
         currentPlayingSongId = musicState.currentSong.mediaId,
-        artists = artists,
-        albums = albums,
-        folders = folders,
+        artists = uiState.artists,
+        albums = uiState.albums,
+        folders = uiState.folders,
+        sortOrder = uiState.sortOrder,
+        sortBy = uiState.sortBy,
+        onChangeSortOrder = onChangeSortOrder,
+        onChangeSortBy = onChangeSortBy,
         onSongClick = onSongClick,
         onArtistClick = onArtistClick,
         onAlbumClick = onAlbumClick,

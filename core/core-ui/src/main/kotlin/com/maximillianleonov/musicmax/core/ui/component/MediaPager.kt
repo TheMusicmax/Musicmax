@@ -44,10 +44,13 @@ import com.maximillianleonov.musicmax.core.model.Album
 import com.maximillianleonov.musicmax.core.model.Artist
 import com.maximillianleonov.musicmax.core.model.Folder
 import com.maximillianleonov.musicmax.core.model.Song
+import com.maximillianleonov.musicmax.core.model.SortBy
+import com.maximillianleonov.musicmax.core.model.SortOrder
 import com.maximillianleonov.musicmax.core.ui.common.MediaTab
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
+@Suppress("LongParameterList")
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MediaPager(
@@ -56,6 +59,10 @@ fun MediaPager(
     artists: List<Artist>,
     albums: List<Album>,
     folders: List<Folder>,
+    sortOrder: SortOrder,
+    sortBy: SortBy,
+    onChangeSortOrder: (SortOrder) -> Unit,
+    onChangeSortBy: (SortBy) -> Unit,
     onSongClick: (Int) -> Unit,
     onArtistClick: (Long) -> Unit,
     onAlbumClick: (Long) -> Unit,
@@ -94,6 +101,10 @@ fun MediaPager(
         AnimatedVisibility(visible = songs.isNotEmpty()) {
             OutlinedMediaHeader(
                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small),
+                sortOrder = sortOrder,
+                sortBy = sortBy,
+                onChangeSortOrder = onChangeSortOrder,
+                onChangeSortBy = onChangeSortBy,
                 onPlayClick = onPlayClick,
                 onShuffleClick = onShuffleClick
             )

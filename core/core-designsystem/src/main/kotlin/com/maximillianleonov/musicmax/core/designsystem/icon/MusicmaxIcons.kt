@@ -49,6 +49,7 @@ object MusicmaxIcons {
     val Play = DrawableResourceIcon(R.drawable.ic_play)
     val Pause = DrawableResourceIcon(R.drawable.ic_pause)
     val SkipNext = DrawableResourceIcon(R.drawable.ic_skip_next)
+    val Sort = DrawableResourceIcon(R.drawable.ic_sort)
     val Palette = DrawableResourceIcon(R.drawable.ic_palette)
     val DarkMode = DrawableResourceIcon(R.drawable.ic_dark_mode)
     val GitHub = DrawableResourceIcon(R.drawable.ic_github)

@@ -28,7 +28,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 import com.maximillianleonov.musicmax.core.model.MusicState
-import com.maximillianleonov.musicmax.core.model.Song
+import com.maximillianleonov.musicmax.core.model.SortBy
+import com.maximillianleonov.musicmax.core.model.SortOrder
 import com.maximillianleonov.musicmax.core.ui.component.OutlinedMediaHeader
 import com.maximillianleonov.musicmax.core.ui.component.Songs
 
@@ -38,32 +39,42 @@ internal fun FavoriteRoute(
     modifier: Modifier = Modifier,
     viewModel: FavoriteViewModel = hiltViewModel()
 ) {
-    val songs by viewModel.songs.collectAsStateWithLifecycle()
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
     val musicState by viewModel.musicState.collectAsStateWithLifecycle()
-    FavoriteScreen(
-        modifier = modifier,
-        musicState = musicState,
-        songs = songs,
-        onSongClick = { startIndex ->
-            viewModel.play(startIndex)
-            onNavigateToPlayer()
-        },
-        onPlayClick = {
-            viewModel.play()
-            onNavigateToPlayer()
-        },
-        onShuffleClick = {
-            viewModel.shuffle()
-            onNavigateToPlayer()
-        },
-        onToggleFavorite = viewModel::onToggleFavorite
-    )
+
+    when (val uiState = state) {
+        FavoriteUiState.Loading -> Unit
+        is FavoriteUiState.Success -> {
+            FavoriteScreen(
+                modifier = modifier,
+                uiState = uiState,
+                musicState = musicState,
+                onChangeSortOrder = viewModel::onChangeSortOrder,
+                onChangeSortBy = viewModel::onChangeSortBy,
+                onSongClick = { startIndex ->
+                    viewModel.play(startIndex)
+                    onNavigateToPlayer()
+                },
+                onPlayClick = {
+                    viewModel.play()
+                    onNavigateToPlayer()
+                },
+                onShuffleClick = {
+                    viewModel.shuffle()
+                    onNavigateToPlayer()
+                },
+                onToggleFavorite = viewModel::onToggleFavorite
+            )
+        }
+    }
 }
 
 @Composable
 private fun FavoriteScreen(
+    uiState: FavoriteUiState.Success,
     musicState: MusicState,
-    songs: List<Song>,
+    onChangeSortOrder: (SortOrder) -> Unit,
+    onChangeSortBy: (SortBy) -> Unit,
     onSongClick: (Int) -> Unit,
     onPlayClick: () -> Unit,
     onShuffleClick: () -> Unit,
@@ -71,16 +82,20 @@ private fun FavoriteScreen(
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.fillMaxSize()) {
-        AnimatedVisibility(visible = songs.isNotEmpty()) {
+        AnimatedVisibility(visible = uiState.songs.isNotEmpty()) {
             OutlinedMediaHeader(
                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small),
+                sortOrder = uiState.sortOrder,
+                sortBy = uiState.sortBy,
+                onChangeSortOrder = onChangeSortOrder,
+                onChangeSortBy = onChangeSortBy,
                 onPlayClick = onPlayClick,
                 onShuffleClick = onShuffleClick
             )
         }
 
         Songs(
-            songs = songs,
+            songs = uiState.songs,
             currentPlayingSongId = musicState.currentSong.mediaId,
             onClick = onSongClick,
             onToggleFavorite = onToggleFavorite
