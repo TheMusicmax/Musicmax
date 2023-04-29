@@ -30,7 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.unit.dp
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
-import com.maximillianleonov.musicmax.core.ui.component.PlayOutlinedShuffleButtons
+import com.maximillianleonov.musicmax.core.ui.component.OutlinedMediaHeader
 import com.maximillianleonov.musicmax.core.ui.R as uiR
 
 @Composable
@@ -62,7 +62,7 @@ internal fun ArtistHeader(
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraSmall))
-        PlayOutlinedShuffleButtons(onPlayClick = onPlayClick, onShuffleClick = onShuffleClick)
+        OutlinedMediaHeader(onPlayClick = onPlayClick, onShuffleClick = onShuffleClick)
     }
 }
 

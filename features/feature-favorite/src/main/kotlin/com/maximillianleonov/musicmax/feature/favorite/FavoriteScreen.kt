@@ -29,7 +29,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 import com.maximillianleonov.musicmax.core.model.MusicState
 import com.maximillianleonov.musicmax.core.model.Song
-import com.maximillianleonov.musicmax.core.ui.component.PlayOutlinedShuffleButtons
+import com.maximillianleonov.musicmax.core.ui.component.OutlinedMediaHeader
 import com.maximillianleonov.musicmax.core.ui.component.Songs
 
 @Composable
@@ -72,7 +72,7 @@ private fun FavoriteScreen(
 ) {
     Column(modifier = modifier.fillMaxSize()) {
         AnimatedVisibility(visible = songs.isNotEmpty()) {
-            PlayOutlinedShuffleButtons(
+            OutlinedMediaHeader(
                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small),
                 onPlayClick = onPlayClick,
                 onShuffleClick = onShuffleClick

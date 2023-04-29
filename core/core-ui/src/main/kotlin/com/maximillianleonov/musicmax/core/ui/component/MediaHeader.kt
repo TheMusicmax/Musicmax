@@ -40,7 +40,7 @@ import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 import com.maximillianleonov.musicmax.core.media.common.R
 
 @Composable
-fun PlayShuffleButtons(
+fun MediaHeader(
     onPlayClick: () -> Unit,
     onShuffleClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -66,7 +66,7 @@ fun PlayShuffleButtons(
 }
 
 @Composable
-fun PlayOutlinedShuffleButtons(
+fun OutlinedMediaHeader(
     onPlayClick: () -> Unit,
     onShuffleClick: () -> Unit,
     modifier: Modifier = Modifier

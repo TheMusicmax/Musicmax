@@ -32,8 +32,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxOverlay
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
+import com.maximillianleonov.musicmax.core.ui.component.MediaHeader
 import com.maximillianleonov.musicmax.core.ui.component.MusicmaxArtworkImage
-import com.maximillianleonov.musicmax.core.ui.component.PlayShuffleButtons
 
 @Composable
 internal fun AlbumHeader(
@@ -74,7 +74,7 @@ internal fun AlbumHeader(
                 color = SecondColor
             )
             Spacer(modifier = Modifier.height(MaterialTheme.spacing.extraSmall))
-            PlayShuffleButtons(onPlayClick = onPlayClick, onShuffleClick = onShuffleClick)
+            MediaHeader(onPlayClick = onPlayClick, onShuffleClick = onShuffleClick)
         }
     }
 }

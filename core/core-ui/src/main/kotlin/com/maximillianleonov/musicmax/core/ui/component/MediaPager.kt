@@ -92,7 +92,7 @@ fun MediaPager(
         }
 
         AnimatedVisibility(visible = songs.isNotEmpty()) {
-            PlayOutlinedShuffleButtons(
+            OutlinedMediaHeader(
                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small),
                 onPlayClick = onPlayClick,
                 onShuffleClick = onShuffleClick
