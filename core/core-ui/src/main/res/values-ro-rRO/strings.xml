@@ -29,13 +29,14 @@
     <string name="no_albums">Niciun album.</string>
     <string name="no_folders">No folders.</string>
     <string name="sort">Sort</string>
-    <string name="sort_order">Order</string>
+    <string name="sort_order">Sort order</string>
     <string name="ascending">Ascending</string>
     <string name="descending">Descending</string>
-    <string name="sort_by">By</string>
+    <string name="sort_by">Sort by</string>
     <string name="title">Title</string>
     <string name="artist">Artist</string>
     <string name="album">Album</string>
     <string name="duration">Duration</string>
     <string name="date">Date</string>
+    <string name="close">Close</string>
 </resources>
