@@ -53,6 +53,6 @@ fun RadioButtonText(
     ) {
         RadioButton(selected = isSelected, onClick = null, colors = colors)
         Spacer(modifier = Modifier.width(MaterialTheme.spacing.small))
-        SingleLineText(text = stringResource(id = textRes))
+        SingleLineText(text = stringResource(id = textRes), shouldUseMarquee = true)
     }
 }

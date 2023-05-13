@@ -132,6 +132,7 @@ private fun SongItem(
                 Column {
                     SingleLineText(
                         text = song.title,
+                        shouldUseMarquee = isPlaying,
                         style = MaterialTheme.typography.bodyLarge,
                         color = if (isPlaying) {
                             MaterialTheme.colorScheme.onPrimary
@@ -141,6 +142,7 @@ private fun SongItem(
                     )
                     SingleLineText(
                         text = song.artist,
+                        shouldUseMarquee = isPlaying,
                         style = MaterialTheme.typography.bodyMedium,
                         color = if (isPlaying) {
                             MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.75f)

@@ -23,12 +23,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.unit.dp
+import com.maximillianleonov.musicmax.core.designsystem.component.SingleLineText
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 import com.maximillianleonov.musicmax.core.model.SortBy
 import com.maximillianleonov.musicmax.core.model.SortOrder
@@ -53,17 +53,19 @@ internal fun ArtistHeader(
             .padding(MaterialTheme.spacing.small)
             .fillMaxWidth()
     ) {
-        Text(
+        SingleLineText(
             text = name,
+            shouldUseMarquee = true,
             style = MaterialTheme.typography.headlineMedium,
             color = MaterialTheme.colorScheme.onSurface
         )
-        Text(
+        SingleLineText(
             text = pluralStringResource(
                 id = uiR.plurals.number_of_songs,
                 count = numberOfSongs,
                 numberOfSongs
             ),
+            shouldUseMarquee = true,
             style = MaterialTheme.typography.headlineSmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )

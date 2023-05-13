@@ -194,7 +194,7 @@ private fun PlayShuffleButton(
             contentDescription = stringResource(id = textResource)
         )
         Spacer(modifier = Modifier.width(MaterialTheme.spacing.extraSmall))
-        SingleLineText(text = stringResource(id = textResource))
+        SingleLineText(text = stringResource(id = textResource), shouldUseMarquee = true)
     }
 }
 
@@ -212,7 +212,7 @@ private fun OutlinedPlayShuffleButton(
             contentDescription = stringResource(id = textResource)
         )
         Spacer(modifier = Modifier.width(MaterialTheme.spacing.extraSmall))
-        SingleLineText(text = stringResource(id = textResource))
+        SingleLineText(text = stringResource(id = textResource), shouldUseMarquee = true)
     }
 }
 

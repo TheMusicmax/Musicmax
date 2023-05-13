@@ -30,11 +30,13 @@ internal fun PlayerTitleArtist(title: String, artist: String, modifier: Modifier
     Column(modifier = modifier.padding(horizontal = MaterialTheme.spacing.medium)) {
         SingleLineText(
             text = title,
+            shouldUseMarquee = true,
             style = MaterialTheme.typography.titleLarge,
             color = TitleColor
         )
         SingleLineText(
             text = artist,
+            shouldUseMarquee = true,
             style = MaterialTheme.typography.titleMedium,
             color = ArtistColor
         )

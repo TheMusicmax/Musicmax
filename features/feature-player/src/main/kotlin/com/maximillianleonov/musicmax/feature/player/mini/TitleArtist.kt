@@ -27,11 +27,13 @@ internal fun MiniPlayerTitleArtist(title: String, artist: String, modifier: Modi
     Column(modifier = modifier) {
         SingleLineText(
             text = title,
+            shouldUseMarquee = true,
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurface
         )
         SingleLineText(
             text = artist,
+            shouldUseMarquee = true,
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )

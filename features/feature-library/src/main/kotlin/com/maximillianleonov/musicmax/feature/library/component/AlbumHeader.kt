@@ -71,11 +71,13 @@ internal fun AlbumHeader(
         ) {
             SingleLineText(
                 text = name,
+                shouldUseMarquee = true,
                 style = MaterialTheme.typography.headlineMedium,
                 color = ContentColor
             )
             SingleLineText(
                 text = artist,
+                shouldUseMarquee = true,
                 style = MaterialTheme.typography.headlineSmall,
                 color = SecondColor
             )

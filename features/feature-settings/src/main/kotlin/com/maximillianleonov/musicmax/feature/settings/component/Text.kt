@@ -27,7 +27,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -59,13 +58,14 @@ internal fun UrlText(
         IconBox(icon = icon, contentDescriptionResource = textResource)
 
         Column {
-            Text(
+            SingleLineText(
                 text = stringResource(id = textResource),
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurface
             )
             SingleLineText(
                 text = url.toString(),
+                shouldUseMarquee = true,
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -93,13 +93,15 @@ internal fun InfoText(
         IconBox(icon = icon, contentDescriptionResource = textResource)
 
         Column {
-            Text(
+            SingleLineText(
                 text = stringResource(id = textResource),
+                shouldUseMarquee = true,
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurface
             )
-            Text(
+            SingleLineText(
                 text = info,
+                shouldUseMarquee = true,
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

@@ -25,11 +25,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxOutlinedBorder
+import com.maximillianleonov.musicmax.core.designsystem.component.SingleLineText
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 
 internal fun LazyListScope.group(
@@ -55,9 +55,10 @@ private fun Group(
             modifier = Modifier.padding(vertical = MaterialTheme.spacing.medium),
             verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
         ) {
-            Text(
+            SingleLineText(
                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium),
                 text = stringResource(id = titleResource),
+                shouldUseMarquee = true,
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.primary
             )

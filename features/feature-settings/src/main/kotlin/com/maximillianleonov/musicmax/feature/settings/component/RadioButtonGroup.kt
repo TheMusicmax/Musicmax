@@ -24,11 +24,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import com.maximillianleonov.musicmax.core.designsystem.component.SingleLineText
 import com.maximillianleonov.musicmax.core.designsystem.icon.Icon
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 
@@ -47,8 +47,9 @@ internal fun RadioButtonGroup(
         ) {
             IconBox(icon = icon, contentDescriptionResource = titleRes)
 
-            Text(
+            SingleLineText(
                 text = stringResource(id = titleRes),
+                shouldUseMarquee = true,
                 style = MaterialTheme.typography.titleMedium
             )
         }
