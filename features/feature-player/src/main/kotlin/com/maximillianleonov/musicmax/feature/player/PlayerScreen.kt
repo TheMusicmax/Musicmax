@@ -89,6 +89,7 @@ private fun PlayerScreen(
         modifier = modifier,
         playingQueueSongs = playingQueueSongs,
         currentSongIndex = musicState.currentSongIndex,
+        currentMediaId = musicState.currentMediaId,
         onSkipToIndex = onSkipToIndex
     ) {
         PlayerTitleArtist(

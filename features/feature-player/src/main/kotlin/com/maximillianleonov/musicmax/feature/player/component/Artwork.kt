@@ -58,6 +58,7 @@ import kotlin.math.absoluteValue
 internal fun PlayerBackdropArtworkOverlay(
     playingQueueSongs: List<Song>,
     currentSongIndex: Int,
+    currentMediaId: String,
     onSkipToIndex: (Int) -> Unit,
     modifier: Modifier = Modifier,
     content: @Composable ColumnScope.() -> Unit
@@ -65,13 +66,22 @@ internal fun PlayerBackdropArtworkOverlay(
     val pagerState = rememberPagerState(initialPage = currentSongIndex)
     val currentSong = playingQueueSongs.getOrNull(currentSongIndex)
 
-    LaunchedEffect(currentSongIndex) {
+    LaunchedEffect(currentSong, currentMediaId, currentSongIndex) {
+        if (currentSong?.mediaId != currentMediaId) return@LaunchedEffect
+
         if (currentSongIndex != pagerState.currentPage) {
             pagerState.animateScrollToPage(page = currentSongIndex)
         }
     }
 
-    LaunchedEffect(pagerState.currentPage, pagerState.isScrollInProgress) {
+    LaunchedEffect(
+        currentSong,
+        currentMediaId,
+        pagerState.currentPage,
+        pagerState.isScrollInProgress
+    ) {
+        if (currentSong?.mediaId != currentMediaId) return@LaunchedEffect
+
         val currentPage = pagerState.currentPage
         if (currentSongIndex != currentPage && !pagerState.isScrollInProgress) {
             onSkipToIndex(currentPage)

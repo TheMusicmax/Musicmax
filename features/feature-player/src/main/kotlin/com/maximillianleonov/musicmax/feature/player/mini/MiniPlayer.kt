@@ -48,11 +48,13 @@ fun MiniPlayer(
     val musicState by viewModel.musicState.collectAsStateWithLifecycle()
     val playingQueueSongs by viewModel.playingQueueSongs.collectAsStateWithLifecycle()
     val currentPosition by viewModel.currentPosition.collectAsStateWithLifecycle()
+    val currentSong = playingQueueSongs.getOrNull(musicState.currentSongIndex)
+        ?.takeIf { it.mediaId == musicState.currentMediaId }
 
     MiniPlayer(
         modifier = modifier,
         musicState = musicState,
-        currentSong = playingQueueSongs.getOrNull(musicState.currentSongIndex),
+        currentSong = currentSong,
         currentPosition = currentPosition,
         onMediaButtonSkipPreviousClick = viewModel::skipPrevious,
         onMediaButtonPlayClick = viewModel::play,
