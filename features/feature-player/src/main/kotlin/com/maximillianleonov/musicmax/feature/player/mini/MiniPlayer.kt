@@ -16,6 +16,7 @@
 
 package com.maximillianleonov.musicmax.feature.player.mini
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,10 +24,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
@@ -65,7 +69,18 @@ private fun MiniPlayer(
     onNavigateToPlayer: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier.clickable(onClick = onNavigateToPlayer)) {
+    Column(
+        modifier = modifier
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        MaterialTheme.colorScheme.surfaceColorAtElevation(MiniPlayerStartElevation),
+                        MaterialTheme.colorScheme.surfaceColorAtElevation(MiniPlayerEndElevation)
+                    )
+                )
+            )
+            .clickable(onClick = onNavigateToPlayer)
+    ) {
         Row(
             modifier = Modifier
                 .padding(MaterialTheme.spacing.extraSmall)
@@ -102,3 +117,6 @@ private fun MiniPlayer(
         )
     }
 }
+
+private val MiniPlayerStartElevation = 1.dp
+private val MiniPlayerEndElevation = 3.dp
