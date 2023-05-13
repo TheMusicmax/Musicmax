@@ -49,7 +49,7 @@ internal fun buildPlayableMediaItem(
             .setArtworkUri(artworkUri)
             .setTitle(title)
             .setArtist(artist)
-            .setFolderType(MediaMetadata.FOLDER_TYPE_NONE)
+            .setIsBrowsable(false)
             .setIsPlayable(true)
             .setExtras(
                 bundleOf(
