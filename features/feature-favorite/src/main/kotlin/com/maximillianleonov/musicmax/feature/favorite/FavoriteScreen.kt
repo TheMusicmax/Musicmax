@@ -96,7 +96,7 @@ private fun FavoriteScreen(
 
         Songs(
             songs = uiState.songs,
-            currentPlayingSongId = musicState.currentSong.mediaId,
+            currentPlayingSongId = musicState.currentMediaId,
             onClick = onSongClick,
             onToggleFavorite = onToggleFavorite
         )

@@ -59,6 +59,7 @@ androidx-compose-ui = { module = "androidx.compose.ui:ui" }
 androidx-compose-material3 = { module = "androidx.compose.material3:material3" }
 androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+androidx-compose-ui-util = { module = "androidx.compose.ui:ui-util" }
 androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
 
@@ -132,7 +133,8 @@ play-services-ads = { module = "com.google.android.gms:play-services-ads", versi
 androidx-compose = [
     "androidx-compose-ui",
     "androidx-compose-material3",
-    "androidx-compose-ui-tooling-preview"
+    "androidx-compose-ui-tooling-preview",
+    "androidx-compose-ui-util"
 ]
 androidx-room = ["androidx-room-runtime", "androidx-room-ktx"]
 androidx-media3 = ["androidx-media3-session", "androidx-media3-exoplayer"]

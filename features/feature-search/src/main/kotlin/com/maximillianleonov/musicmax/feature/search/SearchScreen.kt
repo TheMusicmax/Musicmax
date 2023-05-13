@@ -99,7 +99,7 @@ private fun SearchScreen(
         ) {
             MediaPager(
                 songs = uiState.searchDetails.songs,
-                currentPlayingSongId = musicState.currentSong.mediaId,
+                currentPlayingSongId = musicState.currentMediaId,
                 artists = uiState.searchDetails.artists,
                 albums = uiState.searchDetails.albums,
                 folders = uiState.searchDetails.folders,

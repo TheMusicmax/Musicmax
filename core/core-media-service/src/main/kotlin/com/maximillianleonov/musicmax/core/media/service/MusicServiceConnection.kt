@@ -35,7 +35,6 @@ import com.maximillianleonov.musicmax.core.domain.usecase.SetPlayingQueueIndexUs
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_INDEX
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_POSITION_MS
 import com.maximillianleonov.musicmax.core.media.service.mapper.asMediaItem
-import com.maximillianleonov.musicmax.core.media.service.mapper.asSong
 import com.maximillianleonov.musicmax.core.media.service.util.asPlaybackState
 import com.maximillianleonov.musicmax.core.media.service.util.orDefaultTimestamp
 import com.maximillianleonov.musicmax.core.model.MusicState
@@ -58,6 +57,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.time.Duration.Companion.milliseconds
 
+@Suppress("TooManyFunctions")
 @Singleton
 class MusicServiceConnection @Inject constructor(
     @ApplicationContext context: Context,
@@ -110,6 +110,11 @@ class MusicServiceConnection @Inject constructor(
         play()
     }
 
+    fun skipToIndex(index: Int, position: Long = DEFAULT_POSITION_MS) = mediaController?.run {
+        seekTo(index, position)
+        play()
+    }
+
     fun playSongs(
         songs: List<Song>,
         startIndex: Int = DEFAULT_INDEX,
@@ -153,7 +158,7 @@ class MusicServiceConnection @Inject constructor(
     private fun updateMusicState(player: Player) = with(player) {
         _musicState.update {
             it.copy(
-                currentSong = currentMediaItem.asSong(),
+                currentMediaId = currentMediaItem?.mediaId.orEmpty(),
                 playbackState = playbackState.asPlaybackState(),
                 playWhenReady = playWhenReady,
                 duration = duration.orDefaultTimestamp()
@@ -173,7 +178,9 @@ class MusicServiceConnection @Inject constructor(
         }
     }
 
-    private fun updatePlayingQueueIndex(player: Player) = coroutineScope.launch {
-        setPlayingQueueIndexUseCase(player.currentMediaItemIndex)
+    private fun updatePlayingQueueIndex(player: Player) {
+        val index = player.currentMediaItemIndex
+        _musicState.update { it.copy(currentSongIndex = index) }
+        coroutineScope.launch { setPlayingQueueIndexUseCase(index) }
     }
 }

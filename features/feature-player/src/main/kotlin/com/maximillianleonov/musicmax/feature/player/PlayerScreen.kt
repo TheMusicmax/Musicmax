@@ -24,6 +24,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.maximillianleonov.musicmax.core.model.MusicState
 import com.maximillianleonov.musicmax.core.model.PlaybackMode
+import com.maximillianleonov.musicmax.core.model.Song
 import com.maximillianleonov.musicmax.feature.player.component.PlayerBackdropArtworkOverlay
 import com.maximillianleonov.musicmax.feature.player.component.PlayerMediaButtons
 import com.maximillianleonov.musicmax.feature.player.component.PlayerTimeSlider
@@ -37,6 +38,7 @@ internal fun PlayerRoute(
     viewModel: PlayerViewModel = hiltViewModel()
 ) {
     val musicState by viewModel.musicState.collectAsStateWithLifecycle()
+    val playingQueueSongs by viewModel.playingQueueSongs.collectAsStateWithLifecycle()
     val currentPosition by viewModel.currentPosition.collectAsStateWithLifecycle()
     val playbackMode by viewModel.playbackMode.collectAsStateWithLifecycle()
     val isFavorite by viewModel.isFavorite.collectAsStateWithLifecycle()
@@ -44,10 +46,13 @@ internal fun PlayerRoute(
     PlayerScreen(
         modifier = modifier,
         musicState = musicState,
+        currentSong = playingQueueSongs.getOrNull(musicState.currentSongIndex),
+        playingQueueSongs = playingQueueSongs,
         currentPosition = currentPosition,
         playbackMode = playbackMode,
         isFavorite = isFavorite,
         onSkipTo = viewModel::skipTo,
+        onSkipToIndex = viewModel::skipToIndex,
         onMediaButtonPlaybackModeClick = viewModel::onTogglePlaybackMode,
         onMediaButtonSkipPreviousClick = viewModel::skipPrevious,
         onMediaButtonPlayClick = viewModel::play,
@@ -65,10 +70,13 @@ internal fun PlayerRoute(
 @Composable
 private fun PlayerScreen(
     musicState: MusicState,
+    currentSong: Song?,
+    playingQueueSongs: List<Song>,
     currentPosition: Long,
     playbackMode: PlaybackMode,
     isFavorite: Boolean,
     onSkipTo: (Float) -> Unit,
+    onSkipToIndex: (Int) -> Unit,
     onMediaButtonPlaybackModeClick: () -> Unit,
     onMediaButtonSkipPreviousClick: () -> Unit,
     onMediaButtonPlayClick: () -> Unit,
@@ -79,12 +87,13 @@ private fun PlayerScreen(
 ) {
     PlayerBackdropArtworkOverlay(
         modifier = modifier,
-        artworkUri = musicState.currentSong.artworkUri,
-        contentDescription = musicState.currentSong.title
+        playingQueueSongs = playingQueueSongs,
+        currentSongIndex = musicState.currentSongIndex,
+        onSkipToIndex = onSkipToIndex
     ) {
         PlayerTitleArtist(
-            title = musicState.currentSong.title,
-            artist = musicState.currentSong.artist
+            title = currentSong?.title.orEmpty(),
+            artist = currentSong?.artist.orEmpty()
         )
 
         PlayerTimeSlider(

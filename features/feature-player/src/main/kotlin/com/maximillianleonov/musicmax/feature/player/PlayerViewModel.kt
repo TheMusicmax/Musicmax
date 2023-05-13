@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maximillianleonov.musicmax.core.domain.usecase.GetFavoriteSongIdsUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.GetPlaybackModeUseCase
+import com.maximillianleonov.musicmax.core.domain.usecase.GetPlayingQueueSongsUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.SetPlaybackModeUseCase
 import com.maximillianleonov.musicmax.core.domain.usecase.ToggleFavoriteSongUseCase
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_POSITION_MS
@@ -36,30 +37,40 @@ import javax.inject.Inject
 @HiltViewModel
 class PlayerViewModel @Inject constructor(
     private val musicServiceConnection: MusicServiceConnection,
+    getPlayingQueueSongsUseCase: GetPlayingQueueSongsUseCase,
     getPlaybackModeUseCase: GetPlaybackModeUseCase,
     getFavoriteSongIdsUseCase: GetFavoriteSongIdsUseCase,
     private val setPlaybackModeUseCase: SetPlaybackModeUseCase,
     private val toggleFavoriteSongUseCase: ToggleFavoriteSongUseCase
 ) : ViewModel() {
     val musicState = musicServiceConnection.musicState
+
+    val playingQueueSongs = getPlayingQueueSongsUseCase().stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.Eagerly,
+        initialValue = emptyList()
+    )
+
     val currentPosition = musicServiceConnection.currentPosition.stateIn(
         scope = viewModelScope,
-        started = SharingStarted.Lazily,
+        started = SharingStarted.Eagerly,
         initialValue = DEFAULT_POSITION_MS
     )
+
     val playbackMode = getPlaybackModeUseCase().stateIn(
         scope = viewModelScope,
-        started = SharingStarted.Lazily,
+        started = SharingStarted.Eagerly,
         initialValue = PlaybackMode.REPEAT
     )
+
     val isFavorite = combine(
         musicState,
         getFavoriteSongIdsUseCase()
     ) { musicState, favoriteSongIds ->
-        musicState.currentSong.mediaId in favoriteSongIds
+        musicState.currentMediaId in favoriteSongIds
     }.stateIn(
         scope = viewModelScope,
-        started = SharingStarted.Lazily,
+        started = SharingStarted.Eagerly,
         initialValue = false
     )
 
@@ -67,8 +78,11 @@ class PlayerViewModel @Inject constructor(
     fun play() = musicServiceConnection.play()
     fun pause() = musicServiceConnection.pause()
     fun skipNext() = musicServiceConnection.skipNext()
+
     fun skipTo(position: Float) =
         musicServiceConnection.skipTo(convertToPosition(position, musicState.value.duration))
+
+    fun skipToIndex(index: Int) = musicServiceConnection.skipToIndex(index)
 
     fun onTogglePlaybackMode() = viewModelScope.launch {
         val newPlaybackMode = when (playbackMode.value) {
@@ -81,7 +95,7 @@ class PlayerViewModel @Inject constructor(
 
     fun onToggleFavorite(isFavorite: Boolean) = viewModelScope.launch {
         toggleFavoriteSongUseCase(
-            id = musicState.value.currentSong.mediaId,
+            id = musicState.value.currentMediaId,
             isFavorite = isFavorite
         )
     }

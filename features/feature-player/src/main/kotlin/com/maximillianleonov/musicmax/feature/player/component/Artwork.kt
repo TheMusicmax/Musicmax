@@ -17,47 +17,86 @@
 package com.maximillianleonov.musicmax.feature.player.component
 
 import android.net.Uri
+import androidx.compose.animation.Crossfade
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.util.lerp
 import coil.request.ImageRequest
 import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxImage
 import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxOverlay
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
+import com.maximillianleonov.musicmax.core.model.Song
 import com.maximillianleonov.musicmax.core.ui.component.MusicmaxArtworkImage
 import com.maximillianleonov.musicmax.feature.player.util.BlurTransformation
+import kotlin.math.absoluteValue
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun PlayerBackdropArtworkOverlay(
-    artworkUri: Uri,
-    contentDescription: String?,
+    playingQueueSongs: List<Song>,
+    currentSongIndex: Int,
+    onSkipToIndex: (Int) -> Unit,
     modifier: Modifier = Modifier,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    Box(modifier = modifier.fillMaxSize()) {
-        Box {
-            PlayerBackdropArtworkImage(
-                artworkUri = artworkUri,
-                contentDescription = contentDescription
-            )
-            MusicmaxOverlay(
-                color = MaterialTheme.colorScheme.scrim,
-                alpha = BackdropArtworkOverlayAlpha
-            )
+    val pagerState = rememberPagerState(initialPage = currentSongIndex)
+    val currentSong = playingQueueSongs.getOrNull(currentSongIndex)
+
+    LaunchedEffect(currentSongIndex) {
+        if (currentSongIndex != pagerState.currentPage) {
+            pagerState.animateScrollToPage(page = currentSongIndex)
+        }
+    }
+
+    LaunchedEffect(pagerState.currentPage, pagerState.isScrollInProgress) {
+        val currentPage = pagerState.currentPage
+        if (currentSongIndex != currentPage && !pagerState.isScrollInProgress) {
+            onSkipToIndex(currentPage)
+        }
+    }
+
+    Box(
+        modifier = modifier
+            .background(color = MaterialTheme.colorScheme.scrim)
+            .fillMaxSize()
+    ) {
+        Crossfade(
+            targetState = currentSong?.artworkUri.orEmpty(),
+            label = "BackdropArtworkImageAnimation"
+        ) { artworkUri ->
+            Box {
+                PlayerBackdropArtworkImage(
+                    artworkUri = artworkUri,
+                    contentDescription = currentSong?.title
+                )
+                MusicmaxOverlay(
+                    color = MaterialTheme.colorScheme.scrim,
+                    alpha = BackdropArtworkOverlayAlpha
+                )
+            }
         }
         Column(
             modifier = Modifier
@@ -65,10 +104,35 @@ internal fun PlayerBackdropArtworkOverlay(
                 .fillMaxSize(),
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
-            PlayerFrontArtworkImage(
-                artworkUri = artworkUri,
-                contentDescription = contentDescription
-            )
+            HorizontalPager(
+                state = pagerState,
+                pageCount = playingQueueSongs.size.coerceAtLeast(1),
+                contentPadding = PaddingValues(horizontal = MaterialTheme.spacing.extraLarge)
+            ) { page ->
+                PlayerFrontArtworkImage(
+                    modifier = Modifier
+                        .graphicsLayer {
+                            val pageOffset = pagerState.calculatePageOffset(page)
+
+                            lerp(
+                                start = 0.85f,
+                                stop = 1f,
+                                fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                            ).also { scale ->
+                                scaleX = scale
+                                scaleY = scale
+                            }
+
+                            alpha = lerp(
+                                start = 0.5f,
+                                stop = 1f,
+                                fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                            )
+                        },
+                    artworkUri = playingQueueSongs.getOrNull(page)?.artworkUri.orEmpty(),
+                    contentDescription = currentSong?.title
+                )
+            }
             content()
         }
     }
@@ -84,9 +148,7 @@ private fun PlayerFrontArtworkImage(
     contentScale: ContentScale = ContentScale.Crop
 ) {
     MusicmaxArtworkImage(
-        modifier = modifier
-            .padding(horizontal = MaterialTheme.spacing.large)
-            .aspectRatio(1f),
+        modifier = modifier.aspectRatio(1f),
         artworkUri = artworkUri,
         contentDescription = contentDescription,
         shape = shape,
@@ -116,5 +178,11 @@ private fun PlayerBackdropArtworkImage(
         contentScale = contentScale
     )
 }
+
+@OptIn(ExperimentalFoundationApi::class)
+private fun PagerState.calculatePageOffset(page: Int) =
+    ((currentPage - page) + currentPageOffsetFraction).absoluteValue
+
+private fun Uri?.orEmpty() = this ?: Uri.EMPTY
 
 private const val BackdropArtworkOverlayAlpha = 0.2f

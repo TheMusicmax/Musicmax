@@ -16,31 +16,14 @@
 
 package com.maximillianleonov.musicmax.core.model
 
-import android.net.Uri
-import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_ALBUM_ID
-import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_ARTIST_ID
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_DURATION_MS
+import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_INDEX
 import com.maximillianleonov.musicmax.core.media.common.MediaConstants.DEFAULT_MEDIA_ID
-import kotlinx.datetime.toKotlinLocalDateTime
 
 data class MusicState(
-    val currentSong: Song = EmptySong,
+    val currentMediaId: String = DEFAULT_MEDIA_ID,
+    val currentSongIndex: Int = DEFAULT_INDEX,
     val playbackState: PlaybackState = PlaybackState.IDLE,
     val playWhenReady: Boolean = false,
     val duration: Long = DEFAULT_DURATION_MS
-)
-
-private val EmptySong = Song(
-    mediaId = DEFAULT_MEDIA_ID,
-    artistId = DEFAULT_ARTIST_ID,
-    albumId = DEFAULT_ALBUM_ID,
-    mediaUri = Uri.EMPTY,
-    artworkUri = Uri.EMPTY,
-    title = "",
-    artist = "",
-    album = "",
-    folder = "",
-    duration = 0L,
-    date = java.time.LocalDateTime.MIN.toKotlinLocalDateTime(),
-    isFavorite = false
 )

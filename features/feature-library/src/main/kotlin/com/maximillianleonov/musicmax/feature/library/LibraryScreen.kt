@@ -84,7 +84,7 @@ private fun LibraryScreen(
 
         songs(
             songs = uiState.getSongs(),
-            currentPlayingSongId = musicState.currentSong.mediaId,
+            currentPlayingSongId = musicState.currentMediaId,
             onClick = onSongClick,
             onToggleFavorite = onToggleFavorite
         )

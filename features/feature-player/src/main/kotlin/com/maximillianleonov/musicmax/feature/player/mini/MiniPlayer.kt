@@ -16,6 +16,7 @@
 
 package com.maximillianleonov.musicmax.feature.player.mini
 
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -35,6 +36,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 import com.maximillianleonov.musicmax.core.model.MusicState
+import com.maximillianleonov.musicmax.core.model.Song
 import com.maximillianleonov.musicmax.feature.player.PlayerViewModel
 
 @Composable
@@ -44,11 +46,13 @@ fun MiniPlayer(
     viewModel: PlayerViewModel = hiltViewModel()
 ) {
     val musicState by viewModel.musicState.collectAsStateWithLifecycle()
+    val playingQueueSongs by viewModel.playingQueueSongs.collectAsStateWithLifecycle()
     val currentPosition by viewModel.currentPosition.collectAsStateWithLifecycle()
 
     MiniPlayer(
         modifier = modifier,
         musicState = musicState,
+        currentSong = playingQueueSongs.getOrNull(musicState.currentSongIndex),
         currentPosition = currentPosition,
         onMediaButtonSkipPreviousClick = viewModel::skipPrevious,
         onMediaButtonPlayClick = viewModel::play,
@@ -61,6 +65,7 @@ fun MiniPlayer(
 @Composable
 private fun MiniPlayer(
     musicState: MusicState,
+    currentSong: Song?,
     currentPosition: Long,
     onMediaButtonSkipPreviousClick: () -> Unit,
     onMediaButtonPlayClick: () -> Unit,
@@ -94,12 +99,12 @@ private fun MiniPlayer(
                 horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
             ) {
                 MiniPlayerArtworkImage(
-                    artworkUri = musicState.currentSong.artworkUri,
-                    contentDescription = musicState.currentSong.title
+                    artworkUri = currentSong?.artworkUri.orEmpty(),
+                    contentDescription = currentSong?.title
                 )
                 MiniPlayerTitleArtist(
-                    title = musicState.currentSong.title,
-                    artist = musicState.currentSong.artist
+                    title = currentSong?.title.orEmpty(),
+                    artist = currentSong?.artist.orEmpty()
                 )
             }
             MiniPlayerMediaButtons(
@@ -117,6 +122,8 @@ private fun MiniPlayer(
         )
     }
 }
+
+private fun Uri?.orEmpty() = this ?: Uri.EMPTY
 
 private val MiniPlayerStartElevation = 1.dp
 private val MiniPlayerEndElevation = 3.dp

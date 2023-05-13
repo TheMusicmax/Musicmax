@@ -86,7 +86,7 @@ private fun HomeScreen(
     MediaPager(
         modifier = modifier,
         songs = uiState.songs,
-        currentPlayingSongId = musicState.currentSong.mediaId,
+        currentPlayingSongId = musicState.currentMediaId,
         artists = uiState.artists,
         albums = uiState.albums,
         folders = uiState.folders,
