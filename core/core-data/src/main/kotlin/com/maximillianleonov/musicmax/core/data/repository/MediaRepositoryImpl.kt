@@ -40,7 +40,8 @@ class MediaRepositoryImpl @Inject constructor(
                 mediaStoreDataSource.getSongs(
                     sortOrder = userData.sortOrder,
                     sortBy = userData.sortBy,
-                    favoriteSongs = userData.favoriteSongs
+                    favoriteSongs = userData.favoriteSongs,
+                    excludedFolders = excludedFolders
                 )
             }
 
@@ -69,4 +70,6 @@ class MediaRepositoryImpl @Inject constructor(
             Folder(name = name, songs = songs)
         }
     }
+
+    private val excludedFolders = listOf("Whatsapp Audio")
 }

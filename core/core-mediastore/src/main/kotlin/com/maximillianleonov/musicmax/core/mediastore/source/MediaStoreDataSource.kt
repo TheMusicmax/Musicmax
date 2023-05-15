@@ -26,7 +26,6 @@ import com.maximillianleonov.musicmax.core.mediastore.util.asLocalDateTime
 import com.maximillianleonov.musicmax.core.mediastore.util.buildMediaStoreSortOrder
 import com.maximillianleonov.musicmax.core.mediastore.util.getLong
 import com.maximillianleonov.musicmax.core.mediastore.util.getString
-import com.maximillianleonov.musicmax.core.mediastore.util.liteQuery
 import com.maximillianleonov.musicmax.core.mediastore.util.observe
 import com.maximillianleonov.musicmax.core.model.Song
 import com.maximillianleonov.musicmax.core.model.SortBy
@@ -38,14 +37,21 @@ class MediaStoreDataSource @Inject constructor(private val contentResolver: Cont
     fun getSongs(
         sortOrder: SortOrder,
         sortBy: SortBy,
-        favoriteSongs: Set<String>
+        favoriteSongs: Set<String>,
+        excludedFolders: List<String>
     ) = contentResolver.observe(uri = MediaStoreConfig.Song.Collection).map {
         buildList {
-            contentResolver.liteQuery(
-                collection = MediaStoreConfig.Song.Collection,
-                projection = MediaStoreConfig.Song.Projection,
-                selection = "${MediaStore.Audio.Media.IS_MUSIC} != 0",
-                sortOrder = buildMediaStoreSortOrder(sortOrder, sortBy)
+            contentResolver.query(
+                MediaStoreConfig.Song.Collection,
+                MediaStoreConfig.Song.Projection,
+                buildString {
+                    append("${MediaStore.Audio.Media.IS_MUSIC} != 0")
+                    repeat(excludedFolders.size) {
+                        append(" AND ${MediaStore.Audio.Media.DATA} NOT LIKE ?")
+                    }
+                },
+                excludedFolders.map { "%$it%" }.toTypedArray(),
+                buildMediaStoreSortOrder(sortOrder, sortBy)
             )?.use { cursor ->
                 while (cursor.moveToNext()) {
                     val id = cursor.getLong(MediaStore.Audio.Media._ID)
