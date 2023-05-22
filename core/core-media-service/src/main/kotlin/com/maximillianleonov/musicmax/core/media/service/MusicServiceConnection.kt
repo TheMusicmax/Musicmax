@@ -168,13 +168,22 @@ class MusicServiceConnection @Inject constructor(
 
     private suspend fun updatePlayingQueue(startPositionMs: Long = DEFAULT_POSITION_MS) {
         val songs = getSongsUseCase().first()
+        if (songs.isEmpty()) return
+
         val playingQueueSongs = getPlayingQueueIdsUseCase().first().mapNotNull { playingQueueId ->
             songs.find { it.mediaId == playingQueueId }
         }
+        if (playingQueueSongs.isEmpty()) return
+
         val startIndex = getPlayingQueueIndexUseCase().first()
-        mediaController?.run {
-            setMediaItems(playingQueueSongs.map(Song::asMediaItem), startIndex, startPositionMs)
-            prepare()
+        if (startIndex < playingQueueSongs.size) {
+            mediaController?.run {
+                setMediaItems(playingQueueSongs.map(Song::asMediaItem), startIndex, startPositionMs)
+                prepare()
+            }
+        } else {
+            setPlayingQueueIdsUseCase(playingQueueIds = emptyList())
+            setPlayingQueueIndexUseCase(index = 0)
         }
     }
 
