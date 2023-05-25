@@ -28,8 +28,8 @@ class DetektConventionPlugin : Plugin<Project> {
 
         extensions.configure<DetektExtension> {
             toolVersion = libs.versions.detekt.get()
-            source = files(rootDir)
-            config = files("$rootDir/config/detekt/detekt.yml")
+            source.setFrom(files(rootDir))
+            config.setFrom(files("$rootDir/config/detekt/detekt.yml"))
             buildUponDefaultConfig = true
             parallel = true
         }
