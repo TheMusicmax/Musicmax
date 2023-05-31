@@ -15,7 +15,7 @@
      limitations under the License.
 -->
 <resources>
-    <string name="artist">Artist</string>
-    <string name="album">Album</string>
-    <string name="folder">Folder</string>
+    <string name="artist">Artista</string>
+    <string name="album">Álbum</string>
+    <string name="folder">Carpeta</string>
 </resources>
