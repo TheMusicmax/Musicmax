@@ -17,11 +17,11 @@
 <resources>
     <string name="repeat">Repetir</string>
     <string name="repeat_one">Repetir uno</string>
-    <string name="shuffle">Barajar</string>
-    <string name="skip_previous">Volver al anterior</string>
-    <string name="play">Play</string>
-    <string name="pause">Pause</string>
-    <string name="skip_next">Skip to next</string>
-    <string name="favorite_add">Add to favorites</string>
-    <string name="favorite_remove">Remove from favorites</string>
+    <string name="shuffle">Aleatorio</string>
+    <string name="skip_previous">Anterior</string>
+    <string name="play">Reproducir</string>
+    <string name="pause">Pausa</string>
+    <string name="skip_next">Siguiente</string>
+    <string name="favorite_add">Añadir a favoritos</string>
+    <string name="favorite_remove">Quitar de favoritos</string>
 </resources>
