@@ -15,27 +15,27 @@
      limitations under the License.
 -->
 <resources>
-    <string name="songs">Songs</string>
-    <string name="artists">Artists</string>
-    <string name="albums">Albums</string>
-    <string name="folders">Folders</string>
+    <string name="songs">Canciones</string>
+    <string name="artists">Artistas</string>
+    <string name="albums">Álbumes</string>
+    <string name="folders">Carpetas</string>
     <plurals name="number_of_songs">
-        <item quantity="one">%d song</item>
-        <item quantity="other">%d songs</item>
+        <item quantity="one">%d Canción</item>
+        <item quantity="other">%d canciones</item>
     </plurals>
-    <string name="no_songs">No songs.</string>
-    <string name="no_artists">No artists.</string>
-    <string name="no_albums">No albums.</string>
-    <string name="no_folders">No folders.</string>
-    <string name="sort">Sort</string>
-    <string name="sort_order">Sort order</string>
-    <string name="ascending">Ascending</string>
-    <string name="descending">Descending</string>
-    <string name="sort_by">Sort by</string>
-    <string name="title">Title</string>
-    <string name="artist">Artist</string>
-    <string name="album">Album</string>
-    <string name="duration">Duration</string>
-    <string name="date">Date</string>
-    <string name="close">Close</string>
+    <string name="no_songs">No hay canciones.</string>
+    <string name="no_artists">No hay artistas.</string>
+    <string name="no_albums">No hay álbumes.</string>
+    <string name="no_folders">No hay carpetas.</string>
+    <string name="sort">Ordenar</string>
+    <string name="sort_order">Ordenar de forma</string>
+    <string name="ascending">Ascendente</string>
+    <string name="descending">Descendente</string>
+    <string name="sort_by">Ordenar por</string>
+    <string name="title">Título</string>
+    <string name="artist">Artista</string>
+    <string name="album">Álbum</string>
+    <string name="duration">Duración</string>
+    <string name="date">Fecha</string>
+    <string name="close">Cerrar</string>
 </resources>
