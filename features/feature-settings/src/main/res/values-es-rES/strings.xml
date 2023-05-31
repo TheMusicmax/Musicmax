@@ -15,17 +15,17 @@
      limitations under the License.
 -->
 <resources>
-    <string name="settings">Settings</string>
-    <string name="appearance">Appearance</string>
-    <string name="use_dynamic_color">Use Dynamic Color</string>
-    <string name="yes">Yes</string>
+    <string name="settings">Configuraciones</string>
+    <string name="appearance">Aspecto</string>
+    <string name="use_dynamic_color">Usar color dinámico</string>
+    <string name="yes">Sí</string>
     <string name="no">No</string>
-    <string name="dark_mode_preference">Dark mode preference</string>
-    <string name="system_default">System default</string>
-    <string name="light">Light</string>
-    <string name="dark">Dark</string>
-    <string name="about">About</string>
-    <string name="source_code_github">Source code on GitHub</string>
-    <string name="privacy_policy">Privacy policy</string>
-    <string name="version">Version</string>
+    <string name="dark_mode_preference">Preferencia del modo oscuro</string>
+    <string name="system_default">Predeterminado del sistema</string>
+    <string name="light">Claro</string>
+    <string name="dark">Oscuro</string>
+    <string name="about">Acerca de</string>
+    <string name="source_code_github">Código fuente en GitHub</string>
+    <string name="privacy_policy">Política de privacidad</string>
+    <string name="version">Versión</string>
 </resources>
