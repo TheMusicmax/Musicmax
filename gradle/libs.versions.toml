@@ -48,7 +48,6 @@ renderscript-intrinsics-replacement-toolkit = "0.8-beta"
 firebase = "32.1.1"
 firebase-crashlytics-gradle-plugin = "2.9.6"
 google-services-gradle-plugin = "4.3.15"
-play-services-ads = "22.1.0"
 
 [libraries]
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
@@ -131,7 +130,6 @@ detekt-gradle-plugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plu
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase" }
 firebase-analytics-ktx = { module = "com.google.firebase:firebase-analytics-ktx" }
 firebase-crashlytics-ktx = { module = "com.google.firebase:firebase-crashlytics-ktx" }
-play-services-ads = { module = "com.google.android.gms:play-services-ads", version.ref = "play-services-ads" }
 
 [bundles]
 androidx-compose = [

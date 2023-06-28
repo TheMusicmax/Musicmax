@@ -28,5 +28,4 @@ dependencies {
     api(project(":core:core-domain"))
 
     implementation(libs.androidx.core.ktx)
-    implementation(libs.play.services.ads)
 }

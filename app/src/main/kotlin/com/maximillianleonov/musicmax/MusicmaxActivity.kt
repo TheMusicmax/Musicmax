@@ -36,7 +36,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.google.android.gms.ads.MobileAds
 import com.maximillianleonov.musicmax.MusicmaxUiState.Loading
 import com.maximillianleonov.musicmax.core.designsystem.theme.MusicmaxTheme
 import com.maximillianleonov.musicmax.core.model.DarkThemeConfig
@@ -52,7 +51,6 @@ class MusicmaxActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
-        MobileAds.initialize(this)
 
         var uiState: MusicmaxUiState by mutableStateOf(Loading)
 
