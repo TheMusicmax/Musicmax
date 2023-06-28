@@ -41,6 +41,7 @@ class DetektConventionPlugin : Plugin<Project> {
         }
 
         tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+            exclude("**/build/**")
             exclude("config/**")
         }
     }
