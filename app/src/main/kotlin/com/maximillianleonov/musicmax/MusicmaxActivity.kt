@@ -40,18 +40,13 @@ import com.google.android.gms.ads.MobileAds
 import com.maximillianleonov.musicmax.MusicmaxUiState.Loading
 import com.maximillianleonov.musicmax.core.designsystem.theme.MusicmaxTheme
 import com.maximillianleonov.musicmax.core.model.DarkThemeConfig
-import com.maximillianleonov.musicmax.core.ui.util.AdMobConfigProvider
-import com.maximillianleonov.musicmax.core.ui.util.ProvideAdMobConfigProvider
 import com.maximillianleonov.musicmax.ui.MusicmaxApp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MusicmaxActivity : ComponentActivity() {
-    @Inject lateinit var adMobConfigProvider: AdMobConfigProvider
-
     private val viewModel: MusicmaxViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,28 +74,26 @@ class MusicmaxActivity : ComponentActivity() {
                 systemUiController.systemBarsDarkContentEnabled = !darkTheme
             }
 
-            ProvideAdMobConfigProvider(adMobConfigProvider = adMobConfigProvider) {
-                MusicmaxTheme(
-                    useDynamicColor = shouldUseDynamicColor(uiState = uiState),
-                    darkTheme = darkTheme,
+            MusicmaxTheme(
+                useDynamicColor = shouldUseDynamicColor(uiState = uiState),
+                darkTheme = darkTheme,
+            ) {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
                 ) {
-                    Surface(
-                        modifier = Modifier.fillMaxSize(),
-                        color = MaterialTheme.colorScheme.background
-                    ) {
-                        MusicmaxApp(
-                            onSetSystemBarsLightIcons = {
-                                if (!darkTheme) {
-                                    systemUiController.systemBarsDarkContentEnabled = false
-                                }
-                            },
-                            onResetSystemBarsIcons = {
-                                if (!darkTheme) {
-                                    systemUiController.systemBarsDarkContentEnabled = true
-                                }
+                    MusicmaxApp(
+                        onSetSystemBarsLightIcons = {
+                            if (!darkTheme) {
+                                systemUiController.systemBarsDarkContentEnabled = false
                             }
-                        )
-                    }
+                        },
+                        onResetSystemBarsIcons = {
+                            if (!darkTheme) {
+                                systemUiController.systemBarsDarkContentEnabled = true
+                            }
+                        }
+                    )
                 }
             }
         }

@@ -41,8 +41,6 @@ import com.maximillianleonov.musicmax.core.designsystem.component.SingleLineText
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 import com.maximillianleonov.musicmax.core.model.Song
 import com.maximillianleonov.musicmax.core.ui.R
-import com.maximillianleonov.musicmax.core.ui.util.AdMobConfigProvider
-import com.maximillianleonov.musicmax.core.ui.util.LocalAdMobConfigProvider
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -51,13 +49,10 @@ fun Songs(
     currentPlayingSongId: String,
     onClick: (Int) -> Unit,
     onToggleFavorite: (id: String, isFavorite: Boolean) -> Unit,
-    modifier: Modifier = Modifier,
-    adMobConfigProvider: AdMobConfigProvider = LocalAdMobConfigProvider.current
+    modifier: Modifier = Modifier
 ) {
     if (songs.isNotEmpty()) {
         LazyColumn(modifier = modifier.fillMaxSize()) {
-            item { BannerAd(adUnitId = adMobConfigProvider.songsBannerUnitId) }
-
             itemsIndexed(items = songs, key = { _, song -> song.mediaId }) { index, song ->
                 SongItem(
                     modifier = Modifier.animateItemPlacement(),
@@ -81,8 +76,6 @@ fun LazyListScope.songs(
     onToggleFavorite: (id: String, isFavorite: Boolean) -> Unit
 ) {
     if (songs.isNotEmpty()) {
-        item { BannerAd(adUnitId = LocalAdMobConfigProvider.current.songsBannerUnitId) }
-
         itemsIndexed(items = songs, key = { _, song -> song.mediaId }) { index, song ->
             SongItem(
                 modifier = Modifier.animateItemPlacement(),

@@ -42,10 +42,6 @@
         <meta-data
             android:name="firebase_crashlytics_collection_enabled"
             android:value="${firebase_crashlytics_collection_enabled}" />
-
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="${admob_app_id}" />
     </application>
 
 </manifest>

@@ -32,21 +32,16 @@ import com.maximillianleonov.musicmax.core.designsystem.component.SingleLineText
 import com.maximillianleonov.musicmax.core.designsystem.theme.spacing
 import com.maximillianleonov.musicmax.core.model.Artist
 import com.maximillianleonov.musicmax.core.ui.R
-import com.maximillianleonov.musicmax.core.ui.util.AdMobConfigProvider
-import com.maximillianleonov.musicmax.core.ui.util.LocalAdMobConfigProvider
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun Artists(
     artists: List<Artist>,
     onClick: (Long) -> Unit,
-    modifier: Modifier = Modifier,
-    adMobConfigProvider: AdMobConfigProvider = LocalAdMobConfigProvider.current
+    modifier: Modifier = Modifier
 ) {
     if (artists.isNotEmpty()) {
         LazyColumn(modifier = modifier.fillMaxSize()) {
-            item { BannerAd(adUnitId = adMobConfigProvider.artistsBannerUnitId) }
-
             items(items = artists, key = Artist::id) { artist ->
                 ArtistItem(
                     modifier = Modifier.animateItemPlacement(),
