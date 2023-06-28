@@ -21,11 +21,15 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.Lifecycle
@@ -80,18 +84,23 @@ class MusicmaxActivity : ComponentActivity() {
                     useDynamicColor = shouldUseDynamicColor(uiState = uiState),
                     darkTheme = darkTheme,
                 ) {
-                    MusicmaxApp(
-                        onSetSystemBarsLightIcons = {
-                            if (!darkTheme) {
-                                systemUiController.systemBarsDarkContentEnabled = false
+                    Surface(
+                        modifier = Modifier.fillMaxSize(),
+                        color = MaterialTheme.colorScheme.background
+                    ) {
+                        MusicmaxApp(
+                            onSetSystemBarsLightIcons = {
+                                if (!darkTheme) {
+                                    systemUiController.systemBarsDarkContentEnabled = false
+                                }
+                            },
+                            onResetSystemBarsIcons = {
+                                if (!darkTheme) {
+                                    systemUiController.systemBarsDarkContentEnabled = true
+                                }
                             }
-                        },
-                        onResetSystemBarsIcons = {
-                            if (!darkTheme) {
-                                systemUiController.systemBarsDarkContentEnabled = true
-                            }
-                        }
-                    )
+                        )
+                    }
                 }
             }
         }

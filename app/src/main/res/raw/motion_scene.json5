@@ -1,0 +1,71 @@
+{
+    ConstraintSets: {
+        start: {
+            topBar: {
+                top: ["parent", "top"],
+                start: ["parent", "start"],
+                end: ["parent", "end"]
+            },
+            content: {
+                width: "spread",
+                height: "spread",
+                top: ["topBar", "bottom"],
+                start: ["parent", "start"],
+                end: ["parent", "end"],
+                bottom: ["miniPlayer", "top"]
+            },
+            miniPlayer: {
+                top: ["content", "bottom"],
+                start: ["parent", "start"],
+                end: ["parent", "end"],
+                bottom: ["bottomBar", "top"]
+            },
+            fullPlayer: {
+                top: ["bottomBar", "top"],
+                start: ["parent", "start"],
+                end: ["parent", "end"],
+                alpha: 0.65
+            },
+            bottomBar: {
+                top: ["miniPlayer", "bottom"],
+                start: ["parent", "start"],
+                end: ["parent", "end"],
+                bottom: ["parent", "bottom"]
+            }
+        },
+        end: {
+            topBar: {
+                start: ["parent", "start"],
+                end: ["parent", "end"],
+                bottom: ["parent", "top"]
+            },
+            content: {
+                width: "spread",
+                height: "spread",
+                top: ["topBar", "bottom"],
+                start: ["parent", "start"],
+                end: ["parent", "end"],
+                bottom: ["bottomBar", "top"],
+                alpha: 0.65
+            },
+            miniPlayer: {
+                top: ["fullPlayer", "top"],
+                start: ["parent", "start"],
+                end: ["parent", "end"],
+                alpha: 0
+            },
+            fullPlayer: {
+                top: ["content", "top"],
+                start: ["parent", "start"],
+                end: ["parent", "end"],
+                bottom: ["content", "bottom"],
+                alpha: 1
+            },
+            bottomBar: {
+                top: ["parent", "bottom"],
+                start: ["parent", "start"],
+                end: ["parent", "end"]
+            }
+        }
+    }
+}

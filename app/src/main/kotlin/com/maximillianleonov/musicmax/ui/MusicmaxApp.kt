@@ -16,30 +16,34 @@
 
 package com.maximillianleonov.musicmax.ui
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.shrinkVertically
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.consumeWindowInsets
-import androidx.compose.foundation.layout.padding
+import android.content.Context
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.FractionalThreshold
+import androidx.compose.material.SwipeableState
+import androidx.compose.material.swipeable
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.constraintlayout.compose.ExperimentalMotionApi
+import androidx.constraintlayout.compose.MotionLayout
+import androidx.constraintlayout.compose.MotionScene
+import androidx.constraintlayout.compose.layoutId
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
+import com.maximillianleonov.musicmax.R
 import com.maximillianleonov.musicmax.core.designsystem.component.MusicmaxTopAppBar
 import com.maximillianleonov.musicmax.core.permission.PermissionContent
+import com.maximillianleonov.musicmax.feature.player.FullPlayer
 import com.maximillianleonov.musicmax.feature.player.mini.MiniPlayer
 import com.maximillianleonov.musicmax.navigation.MusicmaxNavHost
 import com.maximillianleonov.musicmax.ui.component.MusicmaxBottomBar
 
-@OptIn(ExperimentalPermissionsApi::class)
+@OptIn(ExperimentalPermissionsApi::class, ExperimentalMaterialApi::class)
 @Composable
 fun MusicmaxApp(
     onSetSystemBarsLightIcons: () -> Unit,
@@ -64,78 +68,92 @@ fun MusicmaxApp(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@OptIn(
+    ExperimentalMaterial3Api::class,
+    ExperimentalMotionApi::class,
+    ExperimentalMaterialApi::class
+)
 @Composable
 private fun MusicmaxAppContent(
     appState: MusicmaxAppState,
     onSetSystemBarsLightIcons: () -> Unit,
     onResetSystemBarsIcons: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    context: Context = LocalContext.current
 ) {
-    Scaffold(
-        modifier = modifier,
-        topBar = {
-            AnimatedVisibility(
-                visible = appState.isTopLevelDestination,
-                enter = TopAppBarEnterTransition,
-                exit = TopAppBarExitTransition
-            ) {
-                MusicmaxTopAppBar(
-                    titleResource = appState.getTitleResource(),
-                    shouldShowBackButton = appState.shouldShowBackButton,
-                    onBackClick = appState::onBackClick
-                )
-            }
-        },
-        bottomBar = {
-            AnimatedVisibility(
-                visible = appState.isTopLevelDestination,
-                enter = BottomBarEnterTransition,
-                exit = BottomBarExitTransition
-            ) {
-                MusicmaxBottomBar(
-                    destinations = appState.topLevelDestinations,
-                    currentDestination = appState.currentDestination,
-                    onNavigateToDestination = appState::navigateToTopLevelDestination
-                )
-            }
-        },
-        contentWindowInsets = ScaffoldWindowInsets
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .padding(innerPadding)
-                .consumeWindowInsets(innerPadding)
-        ) {
+    val motionSceneContent = remember {
+        context.resources
+            .openRawResource(R.raw.motion_scene)
+            .readBytes()
+            .decodeToString()
+    }
+
+    MotionLayout(
+        modifier = modifier.fillMaxSize(),
+        motionScene = MotionScene(content = motionSceneContent),
+        progress = appState.motionProgress
+    ) {
+        Box(modifier = Modifier.layoutId("topBar")) {
+            MusicmaxTopAppBar(
+                titleResource = appState.getTitleResource(),
+                shouldShowBackButton = appState.shouldShowBackButton,
+                onBackClick = appState::onBackClick
+            )
+        }
+
+        Box(modifier = Modifier.layoutId("content")) {
             MusicmaxNavHost(
-                modifier = Modifier.weight(1f),
                 navController = appState.navController,
                 startDestination = appState.startDestination.route,
-                onNavigateToPlayer = appState::navigateToPlayer,
+                onNavigateToPlayer = appState::openPlayer,
                 onNavigateToArtist = appState::navigateToArtist,
                 onNavigateToAlbum = appState::navigateToAlbum,
-                onNavigateToFolder = appState::navigateToFolder,
-                onSetSystemBarsLightIcons = onSetSystemBarsLightIcons,
-                onResetSystemBarsIcons = onResetSystemBarsIcons
+                onNavigateToFolder = appState::navigateToFolder
             )
-            AnimatedVisibility(
-                visible = appState.isTopLevelDestination,
-                enter = MiniPlayerEnterTransition,
-                exit = MiniPlayerExitTransition
-            ) {
-                MiniPlayer(onNavigateToPlayer = appState::navigateToPlayer)
-            }
+        }
+
+        Box(modifier = Modifier.layoutId("miniPlayer")) {
+            MiniPlayer(
+                modifier = Modifier.playerSwipe(
+                    swipeableState = appState.swipeableState,
+                    anchors = appState.anchors
+                ),
+                onNavigateToPlayer = appState::openPlayer
+            )
+        }
+
+        Box(modifier = Modifier.layoutId("fullPlayer")) {
+            FullPlayer(
+                modifier = Modifier.playerSwipe(
+                    swipeableState = appState.swipeableState,
+                    anchors = appState.anchors
+                ),
+                isPlayerOpened = appState.isPlayerOpened,
+                onSetSystemBarsLightIcons = onSetSystemBarsLightIcons,
+                onResetSystemBarsIcons = onResetSystemBarsIcons,
+                onBackClick = appState::closePlayer
+            )
+        }
+
+        Box(modifier = Modifier.layoutId("bottomBar")) {
+            MusicmaxBottomBar(
+                destinations = appState.topLevelDestinations,
+                currentDestination = appState.currentDestination,
+                onNavigateToDestination = appState::navigateToTopLevelDestination
+            )
         }
     }
 }
 
-private val ScaffoldWindowInsets = WindowInsets(left = 0, top = 0, right = 0, bottom = 0)
+@OptIn(ExperimentalMaterialApi::class)
+private fun Modifier.playerSwipe(
+    swipeableState: SwipeableState<Int>,
+    anchors: Map<Float, Int>
+) = swipeable(
+    state = swipeableState,
+    anchors = anchors,
+    orientation = Orientation.Vertical,
+    thresholds = { _, _ -> FractionalThreshold(SwipeFraction) }
+)
 
-private val TopAppBarEnterTransition = fadeIn() + expandVertically(expandFrom = Alignment.Bottom)
-private val TopAppBarExitTransition = shrinkVertically(shrinkTowards = Alignment.Bottom) + fadeOut()
-
-private val BottomBarEnterTransition = fadeIn() + expandVertically(expandFrom = Alignment.Top)
-private val BottomBarExitTransition = shrinkVertically(shrinkTowards = Alignment.Top) + fadeOut()
-
-private val MiniPlayerEnterTransition get() = BottomBarEnterTransition
-private val MiniPlayerExitTransition get() = BottomBarExitTransition
+private const val SwipeFraction = 0.3f

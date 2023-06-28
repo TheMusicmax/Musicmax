@@ -16,8 +16,9 @@
 
 package com.maximillianleonov.musicmax.feature.player
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -31,9 +32,11 @@ import com.maximillianleonov.musicmax.feature.player.component.PlayerTimeSlider
 import com.maximillianleonov.musicmax.feature.player.component.PlayerTitleArtist
 
 @Composable
-internal fun PlayerRoute(
+fun FullPlayer(
+    isPlayerOpened: Boolean,
     onSetSystemBarsLightIcons: () -> Unit,
     onResetSystemBarsIcons: () -> Unit,
+    onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: PlayerViewModel = hiltViewModel()
 ) {
@@ -43,7 +46,7 @@ internal fun PlayerRoute(
     val playbackMode by viewModel.playbackMode.collectAsStateWithLifecycle()
     val isFavorite by viewModel.isFavorite.collectAsStateWithLifecycle()
 
-    PlayerScreen(
+    FullPlayer(
         modifier = modifier,
         musicState = musicState,
         currentSong = playingQueueSongs.getOrNull(musicState.currentSongIndex),
@@ -61,14 +64,15 @@ internal fun PlayerRoute(
         onMediaButtonFavoriteClick = viewModel::onToggleFavorite
     )
 
-    DisposableEffect(onSetSystemBarsLightIcons, onResetSystemBarsIcons) {
-        onSetSystemBarsLightIcons()
-        onDispose(onResetSystemBarsIcons)
+    LaunchedEffect(isPlayerOpened, onSetSystemBarsLightIcons, onResetSystemBarsIcons) {
+        if (isPlayerOpened) onSetSystemBarsLightIcons() else onResetSystemBarsIcons()
     }
+
+    BackHandler(enabled = isPlayerOpened, onBack = onBackClick)
 }
 
 @Composable
-private fun PlayerScreen(
+private fun FullPlayer(
     musicState: MusicState,
     currentSong: Song?,
     playingQueueSongs: List<Song>,

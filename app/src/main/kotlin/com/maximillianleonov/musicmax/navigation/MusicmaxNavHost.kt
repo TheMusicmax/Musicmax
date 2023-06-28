@@ -24,7 +24,6 @@ import com.maximillianleonov.musicmax.feature.favorite.navigation.favoriteScreen
 import com.maximillianleonov.musicmax.feature.home.navigation.HomeGraphRoute
 import com.maximillianleonov.musicmax.feature.home.navigation.homeScreen
 import com.maximillianleonov.musicmax.feature.library.navigation.libraryScreen
-import com.maximillianleonov.musicmax.feature.player.navigation.playerScreen
 import com.maximillianleonov.musicmax.feature.search.navigation.SearchGraphRoute
 import com.maximillianleonov.musicmax.feature.search.navigation.searchScreen
 import com.maximillianleonov.musicmax.feature.settings.navigation.settingsScreen
@@ -37,8 +36,6 @@ fun MusicmaxNavHost(
     onNavigateToArtist: (prefix: String, artistId: Long) -> Unit,
     onNavigateToAlbum: (prefix: String, albumId: Long) -> Unit,
     onNavigateToFolder: (prefix: String, name: String) -> Unit,
-    onSetSystemBarsLightIcons: () -> Unit,
-    onResetSystemBarsIcons: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     NavHost(
@@ -64,9 +61,5 @@ fun MusicmaxNavHost(
         }
         favoriteScreen(onNavigateToPlayer = onNavigateToPlayer)
         settingsScreen()
-        playerScreen(
-            onSetSystemBarsLightIcons = onSetSystemBarsLightIcons,
-            onResetSystemBarsIcons = onResetSystemBarsIcons
-        )
     }
 }

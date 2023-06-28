@@ -61,6 +61,8 @@ dependencies {
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.profileinstaller)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.constraintlayout.compose)
     implementation(libs.accompanist.systemuicontroller)
 
     implementation(platform(libs.firebase.bom))
