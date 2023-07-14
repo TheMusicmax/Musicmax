@@ -38,7 +38,7 @@ protobuf-plugin = "0.9.3"
 kotlinx-coroutines = "1.7.2"
 kotlinx-datetime = "0.4.0"
 
-dagger = "2.46.1"
+dagger = "2.47"
 javax-inject = "1"
 
 accompanist = "0.30.1"
