@@ -9,7 +9,7 @@ desugar-jdk-libs = "2.0.3"
 ksp = "1.8.22-1.0.11"
 spotless = "6.19.0"
 detekt = "1.23.0"
-kode-detekt-rules-compose = "1.2.2"
+kode-detekt-rules-compose = "1.3.0"
 twitter-compose-rules = "0.0.26"
 
 androidx-compose-bom = "2023.06.01"
