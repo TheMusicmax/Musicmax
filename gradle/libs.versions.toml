@@ -47,7 +47,7 @@ renderscript-intrinsics-replacement-toolkit = "0.8-beta"
 
 firebase = "32.2.3"
 firebase-crashlytics-gradle-plugin = "2.9.9"
-google-services-gradle-plugin = "4.3.15"
+google-services-gradle-plugin = "4.4.0"
 
 [libraries]
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
