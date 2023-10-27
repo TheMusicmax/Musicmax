@@ -1,7 +1,7 @@
 [versions]
-android-compileSdk = "33"
+android-compileSdk = "34"
 android-minSdk = "21"
-android-targetSdk = "33"
+android-targetSdk = "34"
 
 kotlin = "1.8.22"
 android-gradle-plugin = "8.0.2"
