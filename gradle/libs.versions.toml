@@ -42,7 +42,7 @@ dagger = "2.48.1"
 javax-inject = "1"
 
 accompanist = "0.32.0"
-coil = "2.4.0"
+coil = "2.5.0"
 renderscript-intrinsics-replacement-toolkit = "0.8-beta"
 
 firebase = "32.4.1"
