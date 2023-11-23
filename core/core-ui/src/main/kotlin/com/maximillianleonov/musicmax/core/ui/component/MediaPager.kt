@@ -74,7 +74,7 @@ fun MediaPager(
     coroutineScope: CoroutineScope = rememberCoroutineScope()
 ) {
     val tabs = remember { MediaTab.values() }
-    val pagerState = rememberPagerState()
+    val pagerState = rememberPagerState(pageCount = tabs::size)
     val selectedTabIndex = pagerState.currentPage
 
     Column(modifier = modifier) {
@@ -113,7 +113,6 @@ fun MediaPager(
         HorizontalPager(
             modifier = Modifier.fillMaxSize(),
             state = pagerState,
-            pageCount = tabs.size,
             verticalAlignment = Alignment.Top
         ) { page ->
             when (page) {

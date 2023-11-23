@@ -63,7 +63,10 @@ internal fun PlayerBackdropArtworkOverlay(
     modifier: Modifier = Modifier,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    val pagerState = rememberPagerState(initialPage = currentSongIndex)
+    val pagerState = rememberPagerState(
+        initialPage = currentSongIndex,
+        pageCount = { playingQueueSongs.size.coerceAtLeast(1) }
+    )
     val currentSong = playingQueueSongs.getOrNull(currentSongIndex)
 
     LaunchedEffect(currentSong, currentMediaId, currentSongIndex) {
@@ -116,7 +119,6 @@ internal fun PlayerBackdropArtworkOverlay(
         ) {
             HorizontalPager(
                 state = pagerState,
-                pageCount = playingQueueSongs.size.coerceAtLeast(1),
                 contentPadding = PaddingValues(horizontal = MaterialTheme.spacing.extraLarge)
             ) { page ->
                 PlayerFrontArtworkImage(
