@@ -3,7 +3,7 @@ android-compileSdk = "34"
 android-minSdk = "21"
 android-targetSdk = "34"
 
-kotlin = "1.9.20"
+kotlin = "1.9.21"
 android-gradle-plugin = "8.1.4"
 desugar-jdk-libs = "2.0.4"
 ksp = "1.9.20-1.0.14"
