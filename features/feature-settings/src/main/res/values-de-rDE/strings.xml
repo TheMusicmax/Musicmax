@@ -16,14 +16,14 @@
 -->
 <resources>
     <string name="settings">Einstellungen</string>
-    <string name="appearance">Appearance</string>
-    <string name="use_dynamic_color">Use Dynamic Color</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
-    <string name="dark_mode_preference">Dark mode preference</string>
-    <string name="system_default">System default</string>
-    <string name="light">Light</string>
-    <string name="dark">Dark</string>
+    <string name="appearance">Aussehen</string>
+    <string name="use_dynamic_color">Dynamische Farben verwenden</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
+    <string name="dark_mode_preference">Dunkler Modus Einstellungen</string>
+    <string name="system_default">Systemstandard</string>
+    <string name="light">Hell</string>
+    <string name="dark">Dunkel</string>
     <string name="about">Über</string>
     <string name="source_code_github">Quellcode auf GitHub</string>
     <string name="privacy_policy">Datenschutzerklärung</string>
