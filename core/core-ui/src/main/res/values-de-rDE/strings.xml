@@ -18,7 +18,7 @@
     <string name="songs">Lieder</string>
     <string name="artists">Künstler</string>
     <string name="albums">Alben</string>
-    <string name="folders">Folders</string>
+    <string name="folders">Ordner</string>
     <plurals name="number_of_songs">
         <item quantity="one">%d Lied</item>
         <item quantity="other">%d Lieder</item>
@@ -26,16 +26,16 @@
     <string name="no_songs">Keine Lieder.</string>
     <string name="no_artists">Keine Künstler.</string>
     <string name="no_albums">Keine Alben.</string>
-    <string name="no_folders">No folders.</string>
-    <string name="sort">Sort</string>
-    <string name="sort_order">Sort order</string>
-    <string name="ascending">Ascending</string>
-    <string name="descending">Descending</string>
-    <string name="sort_by">Sort by</string>
-    <string name="title">Title</string>
-    <string name="artist">Artist</string>
+    <string name="no_folders">Keine Ordner.</string>
+    <string name="sort">Sortieren</string>
+    <string name="sort_order">Sortierreihenfolge</string>
+    <string name="ascending">Aufstreigend</string>
+    <string name="descending">Absteigend</string>
+    <string name="sort_by">Sortieren nach</string>
+    <string name="title">Titel</string>
+    <string name="artist">Interpret</string>
     <string name="album">Album</string>
-    <string name="duration">Duration</string>
-    <string name="date">Date</string>
-    <string name="close">Close</string>
+    <string name="duration">Dauer</string>
+    <string name="date">Datum</string>
+    <string name="close">Schließen</string>
 </resources>
