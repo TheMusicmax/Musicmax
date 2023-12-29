@@ -22,6 +22,6 @@
     <string name="play">Wiedergeben</string>
     <string name="pause">Pause</string>
     <string name="skip_next">Zum nächsten springen</string>
-    <string name="favorite_add">Add to favorites</string>
-    <string name="favorite_remove">Remove from favorites</string>
+    <string name="favorite_add">Zu Favoriten hinzufügen</string>
+    <string name="favorite_remove">Aus Favoriten entfernen</string>
 </resources>
