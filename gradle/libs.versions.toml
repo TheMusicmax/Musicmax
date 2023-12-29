@@ -45,7 +45,7 @@ accompanist = "0.32.0"
 coil = "2.5.0"
 renderscript-intrinsics-replacement-toolkit = "0.8-beta"
 
-firebase = "32.6.0"
+firebase = "32.7.0"
 firebase-crashlytics-gradle-plugin = "2.9.9"
 google-services-gradle-plugin = "4.4.0"
 
