@@ -41,7 +41,7 @@ kotlinx-datetime = "0.5.0"
 dagger = "2.51.1"
 javax-inject = "1"
 
-accompanist = "0.32.0"
+accompanist = "0.34.0"
 coil = "2.6.0"
 renderscript-intrinsics-replacement-toolkit = "0.8-beta"
 
