@@ -23,7 +23,7 @@ import org.gradle.kotlin.dsl.dependencies
 /**
  * Configure Compose-specific options.
  */
-internal fun Project.configureAndroidCompose(commonExtension: CommonExtension<*, *, *, *, *>) =
+internal fun Project.configureAndroidCompose(commonExtension: CommonExtension<*, *, *, *, *, *>) =
     with(commonExtension) {
         defaultConfig.vectorDrawables.useSupportLibrary = true
         buildFeatures.compose = true

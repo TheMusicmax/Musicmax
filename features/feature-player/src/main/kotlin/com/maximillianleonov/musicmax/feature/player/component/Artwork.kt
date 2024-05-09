@@ -18,6 +18,12 @@ package com.maximillianleonov.musicmax.feature.player.component
 
 import android.net.Uri
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -36,7 +42,11 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
@@ -96,6 +106,7 @@ internal fun PlayerBackdropArtworkOverlay(
             .background(color = MaterialTheme.colorScheme.scrim)
             .fillMaxSize()
     ) {
+
         Crossfade(
             targetState = currentSong?.artworkUri.orEmpty(),
             label = "BackdropArtworkImageAnimation"
@@ -108,6 +119,50 @@ internal fun PlayerBackdropArtworkOverlay(
                 MusicmaxOverlay(
                     color = MaterialTheme.colorScheme.scrim,
                     alpha = BackdropArtworkOverlayAlpha
+                )
+
+                val colors = remember {
+                    mutableStateListOf(
+                        Color(0xFFE81416),
+                        Color(0xFFFFA500),
+                        Color(0xFFFAEB36),
+                        Color(0xFF79C314),
+                        Color(0xFF487DE7),
+                        Color(0xFF4B369D),
+                        Color(0xFF70369D)
+                    )
+                }
+
+                LaunchedEffect(colors) {
+                    colors.shuffle()
+                }
+
+                val infiniteTransition =
+                    rememberInfiniteTransition(label = "BackdropColorsInfiniteAnimation")
+                val alpha by infiniteTransition.animateFloat(
+                    initialValue = 0f,
+                    targetValue = 0.5f,
+                    animationSpec = infiniteRepeatable(tween(1000), RepeatMode.Reverse), label = ""
+                )
+                val animatedColors = List(colors.size - 1) { index ->
+                    infiniteTransition.animateColor(
+                        initialValue = colors[index].copy(alpha = alpha),
+                        targetValue = colors[index + 1].copy(alpha = alpha),
+                        animationSpec = infiniteRepeatable(
+                            animation = tween(1000),
+                            RepeatMode.Reverse
+                        ),
+                        label = "BackdropColorsAnimation"
+                    ).value
+                }
+
+                Box(
+                    modifier = Modifier
+                        .background(
+                            brush = Brush.verticalGradient(animatedColors),
+                            alpha = BackdropArtworkOverlayAlpha
+                        )
+                        .fillMaxSize()
                 )
             }
         }

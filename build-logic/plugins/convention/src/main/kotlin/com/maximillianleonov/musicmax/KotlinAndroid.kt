@@ -25,7 +25,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 /**
  * Configure base Kotlin with Android options.
  */
-internal fun Project.configureKotlinAndroid(commonExtension: CommonExtension<*, *, *, *, *>) =
+internal fun Project.configureKotlinAndroid(commonExtension: CommonExtension<*, *, *, *, *, *>) =
     with(commonExtension) {
         compileSdk = libs.versions.android.compileSdk.get().toInt()
 
@@ -47,5 +47,5 @@ internal fun Project.configureKotlinAndroid(commonExtension: CommonExtension<*, 
         dependencies.add("coreLibraryDesugaring", libs.desugar.jdk.libs)
     }
 
-private fun CommonExtension<*, *, *, *, *>.kotlinOptions(block: KotlinJvmOptions.() -> Unit) =
+private fun CommonExtension<*, *, *, *, *, *>.kotlinOptions(block: KotlinJvmOptions.() -> Unit) =
     (this as ExtensionAware).extensions.configure("kotlinOptions", block)
