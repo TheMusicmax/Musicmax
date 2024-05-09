@@ -32,7 +32,7 @@ androidx-test-uiautomator = "2.2.0"
 junit = "4.13.2"
 mockk = "1.13.10"
 
-protobuf = "3.25.3"
+protobuf = "4.26.1"
 protobuf-plugin = "0.9.4"
 
 kotlinx-coroutines = "1.7.3"
