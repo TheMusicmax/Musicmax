@@ -46,7 +46,7 @@ coil = "2.5.0"
 renderscript-intrinsics-replacement-toolkit = "0.8-beta"
 
 firebase = "33.0.0"
-firebase-crashlytics-gradle-plugin = "2.9.9"
+firebase-crashlytics-gradle-plugin = "3.0.0"
 google-services-gradle-plugin = "4.4.0"
 
 [libraries]
