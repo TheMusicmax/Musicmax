@@ -35,7 +35,7 @@ mockk = "1.13.10"
 protobuf = "4.26.1"
 protobuf-plugin = "0.9.4"
 
-kotlinx-coroutines = "1.8.0"
+kotlinx-coroutines = "1.8.1"
 kotlinx-datetime = "0.5.0"
 
 dagger = "2.51.1"
